@@ -45,12 +45,76 @@ public class Gestion {
         this.conn.setAutoCommit(false);
         try (Statement st = this.conn.createStatement()) {
             st.executeUpdate(
-                    "create table macchhiinnee (\n"
-                    + "    id integer not null primary key AUTO_INCREMENT,\n"
-                    + "    ref varchar(30) not null,\n"
-                    + "    des Text not null\n"
+                    "create table machine_bof (\n"
+                    + "    id_m integer not null primary key AUTO_INCREMENT,\n"
+                    + "    ref_m varchar(30) not null,\n"
+                    + "    des_m Text\n"
                     + ")\n"
             );
+            st.executeUpdate(
+                    "create table realise_bof (\n"
+                    + "    duree float not null,\n"
+                    + "    id_to integer not null,\n"
+                    + "    id_m integer not null\n"
+                    + ")\n"
+            );
+            st.executeUpdate(
+                    "create table type_operation_bof (\n"
+                    + "    id_to integer not null primary key AUTO_INCREMENT,\n"
+                    + "    des_to Text,\n"
+                    + "    id_o integer not null\n"
+                    + ")\n"
+            );
+            st.executeUpdate(
+                    "create table operation_bof (\n"
+                    + "    id_o integer not null primary key AUTO_INCREMENT,\n"
+                    + "    id_to integer not null,\n"
+                    + "    id_p integer not null\n"
+                    + ")\n"
+            );
+            st.executeUpdate(
+                    "create table produit_bof (\n"
+                    + "    id_p integer not null primary key AUTO_INCREMENT,\n"
+                    + "    ref_m varchar(30) not null,\n"
+                    + "    des_m Text\n"
+                    + ")\n"
+            );
+            st.executeUpdate(
+                    "create table ordre_op_bof (\n"
+                    + "    id_o integer not null,\n"
+                    + "    id_o_pres integer not null\n"
+                    + ")\n"
+            );
+            st.executeUpdate(
+                    "alter table realise_bof \n"
+                    + "    add constraint fk_realise_bof_id_m \n"
+                    + "    foreign key (id_m) references machine_bof(id_m) \n"
+            ); 
+            st.executeUpdate(
+                    "alter table realise_bof \n"
+                    + "    add constraint fk_realise_bof_id_to \n"
+                    + "    foreign key (id_to) references type_operation_bof(id_to) \n"
+            ); 
+            st.executeUpdate(
+                    "alter table type_operation_bof \n"
+                    + "    add constraint fk_type_operation_bof_id_o \n"
+                    + "    foreign key (id_o) references operation_bof(id_o) \n"
+            ); 
+            st.executeUpdate(
+                    "alter table operation_bof \n"
+                    + "    add constraint fk_operation_bof_id_p \n"
+                    + "    foreign key (id_p) references produit_bof(id_p) \n"
+            );  
+            st.executeUpdate(
+                    "alter table ordre_op_bof \n"
+                    + "    add constraint fk_ordre_op_bof_id_o \n"
+                    + "    foreign key (id_o) references operation_bof(id_o) \n"
+            );  
+            st.executeUpdate(
+                    "alter table ordre_op_bof \n"
+                    + "    add constraint fk_ordre_op_bof_id_o_pres \n"
+                    + "    foreign key (id_o_pres) references operation_bof(id_o) \n"
+            );  
             this.conn.commit();
         } catch (SQLException ex) {
             this.conn.rollback();
@@ -69,7 +133,7 @@ public class Gestion {
                 st.executeUpdate("drop table macchhiinnee");
             } catch (SQLException ex) {
             }
-        }
+        }  
     }   
     
     
@@ -97,7 +161,7 @@ public class Gestion {
                     List<machine> users = machine.tousLesMachines(this.conn);
                     System.out.println(users.size() + " utilisateurs : ");
                     for (int k = 0; k < users.size(); k++) {   
-                        System.out.print(users.get(i));
+                        System.out.print(users.get(k));
                     }  
                     //System.out.println(ListUtils.enumerateList(users));
                 } else if (rep == j++) {
