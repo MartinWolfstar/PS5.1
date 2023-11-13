@@ -44,6 +44,14 @@ public class machine {
             pst.setString(2, this.des);
             pst.executeUpdate();
         }
+    } 
+    
+    public void supBDD(Connection con) throws SQLException {
+        try (PreparedStatement pst = con.prepareStatement(
+                "delete from macchhiinnee where id = ?")) {
+            pst.setInt(1, this.id);
+            pst.executeUpdate();
+        }
     }
     
     public static List<machine> tousLesMachines(Connection con) throws SQLException {
