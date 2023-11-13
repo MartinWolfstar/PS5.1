@@ -49,7 +49,7 @@ public class Ajout_machine extends VerticalLayout{
         });
         
         this.HL = new HorizontalLayout();
-        this.add(new H1("Ajout machine"));
+        this.add(new H3("Ajout machine"));
         this.HL.add(this.ref, this.des);
         this.add(this.HL, this.valid);
 

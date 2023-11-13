@@ -4,6 +4,7 @@ import com.vaadin.flow.component.Key;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.html.H3;
+import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
@@ -18,9 +19,11 @@ import java.sql.SQLException;
 public class MainView extends VerticalLayout {
 
     private Grid_machine grid;
+    private HorizontalLayout H1;
    
     public MainView() {
         this.add(new H3("Liste de toute les machines"));
+        H1 = new HorizontalLayout();
         try {
             this.grid = new Grid_machine(machine.tousLesMachines(connectSurServeurM3())); 
             this.add(this.grid);
@@ -30,7 +33,8 @@ public class MainView extends VerticalLayout {
         
         addClassName("liste_machine");
         setSizeFull();
-        this.add(new Ajout_machine());
+        H1.add(new Ajout_machine(),new Supp_machine());
+        this.add(H1);
     }
     
 //    public MainView(){

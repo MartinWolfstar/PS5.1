@@ -4,33 +4,39 @@
  */
 package fr.insa.binder.projets5.mavenproject1.gui;
 
-import com.vaadin.flow.component.ClickEvent;
-import com.vaadin.flow.component.ComponentEventListener;
-import com.vaadin.flow.component.contextmenu.MenuItem;
-import com.vaadin.flow.component.contextmenu.SubMenu;
-import com.vaadin.flow.component.menubar.MenuBar;
+import com.vaadin.flow.component.UI;
+import com.vaadin.flow.component.button.Button;
+import com.vaadin.flow.component.html.H1;
+import com.vaadin.flow.component.html.H3;
+import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
-import java.util.Arrays;
-import java.util.List;
+import com.vaadin.flow.component.textfield.IntegerField;
+import com.vaadin.flow.component.textfield.TextField;
+import static fr.insa.binder.projets5.mavenproject1.Gestion.connectSurServeurM3;
+import fr.insa.binder.projets5.mavenproject1.machine;
+import java.sql.SQLException;
 
-/**
- *
- * @author binde
- */
 public class Supp_machine extends VerticalLayout{
-    private MenuBar menu_bar ;
-    private MenuItem liste;
     
+    private IntegerField id;
+    private Button valid;
     
     public Supp_machine(){
-        this.menu_bar = new MenuBar();
-        this.liste = menu_bar.addItem("Machines");
-        SubMenu liste_sub = this.liste.getSubMenu();
-        List<String> messages = Arrays.asList("Hello", "World!", "How", "Are", "You");
-        for (String x : messages) { 
-            liste_sub.addItem(x);
+        this.id = new IntegerField("id machine");
+        this.valid = new Button ("Supprimer machine");
+        this.valid.addClickListener(e -> {
+            try {
+                machine.supMachine(connectSurServeurM3(),id.getValue());
+                UI.getCurrent().getPage().reload();
+            } catch(SQLException ex) {
+            this.add(new H3("Problème BdD : "));
         }
-        ComponentEventListener<ClickEvent<MenuItem>> listener = e -> selected.setText(e.getSource().getText());
-        this.add(this.menu_bar);
+        });
+        
+
+        this.add(new H3("Supprimer machine"));
+        this.add(this.id,this.valid);
+
     }
 }
+

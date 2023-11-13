@@ -46,10 +46,18 @@ public class machine {
         }
     } 
     
-    public void supBDD(Connection con) throws SQLException {
+    public void supMachine(Connection con) throws SQLException {
         try (PreparedStatement pst = con.prepareStatement(
                 "delete from macchhiinnee where id = ?")) {
             pst.setInt(1, this.id);
+            pst.executeUpdate();
+        }
+    }
+    
+    public static void supMachine(Connection con, int id) throws SQLException {
+        try (PreparedStatement pst = con.prepareStatement(
+                "delete from macchhiinnee where id = ?")) {
+            pst.setInt(1, id);
             pst.executeUpdate();
         }
     }
