@@ -30,7 +30,6 @@ public class Supp_machine extends VerticalLayout{
 //    private IntegerField id;
     private MenuBar menu_bar;
     private MenuItem id;
-    private Button valid;
     
     public Supp_machine(){
 //        this.id = new IntegerField("id machine");

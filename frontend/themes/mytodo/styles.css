@@ -25,6 +25,6 @@ vaadin-Grid {
     background-color: orange;
 }
 .liste_machine {
-    background-image: url("..frontend/images/semoule.svg");
+    background-image: url("..frontend/themes/mytodo.svg");
     background-color: orange;
 }

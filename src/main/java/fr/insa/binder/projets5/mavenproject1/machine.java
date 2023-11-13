@@ -87,10 +87,28 @@ public class machine {
         this.ref = ref;
     }
 
+    public static void setRef(int ref, int id, Connection con) throws SQLException {
+        try (PreparedStatement pst = con.prepareStatement(
+                "update macchhiinnee set ref = ? where id = ?")) {
+            pst.setInt(1, ref);
+            pst.setInt(2, id);            
+            pst.executeUpdate();
+        }
+    }
+    
     public void setDes(String des) {
         this.des = des;
     }
 
+    public static void setDes(String des, int id, Connection con) throws SQLException {
+        try (PreparedStatement pst = con.prepareStatement(
+                "update macchhiinnee set des = ? where id = ?")) {
+            pst.setString(1, des);
+            pst.setInt(2, id);            
+            pst.executeUpdate();
+        }
+    }
+    
     public void setId(int id) {
         this.id = id;
     }

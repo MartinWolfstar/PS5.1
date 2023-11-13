@@ -33,7 +33,7 @@ public class MainView extends VerticalLayout {
         
         addClassName("liste_machine");
         setSizeFull();
-        H1.add(new Ajout_machine(),new Supp_machine());
+        H1.add(new Ajout_machine(),new Supp_machine(), new Modif_machine());
         this.add(H1);
     }
     
