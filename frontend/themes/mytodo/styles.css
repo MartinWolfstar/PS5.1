@@ -9,6 +9,22 @@ color: orange;
 background-color: black;
 
 }
+
+vaadin-menu-bar-button {
+    color:orange;
+    background-color: black;
+}
+
+/*vaadin-MenuItem {
+    color:orange;
+    background-color: black;
+}*/
+
+vaadin-Grid {
+    color:black;
+    background-color: orange;
+}
 .liste_machine {
-    background-image: url("../images/semoule.svg");
+    background-image: url("..frontend/images/semoule.svg");
+    background-color: orange;
 }
