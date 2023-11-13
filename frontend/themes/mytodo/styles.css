@@ -1,0 +1,14 @@
+html {
+  --lumo-primary-color: orange;
+  --material-primary-text-color: orange;
+  --material-background-color: black;
+}
+
+vaadin-button {
+color: orange;
+background-color: black;
+
+}
+.liste_machine {
+    background-image: url("../images/semoule.svg");
+}

@@ -23,6 +23,14 @@ public class Gestion {
         this.conn = conn;
     }
 
+    public Connection getConn() {
+        return conn;
+    }
+
+    public void setConn(Connection conn) {
+        this.conn = conn;
+    }
+    
     public static Connection connectGeneralMySQL(String host,
             int port, String database,
             String user, String pass)

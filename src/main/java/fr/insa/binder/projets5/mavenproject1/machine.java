@@ -61,17 +61,7 @@ public class machine {
         }
         return res;
     }
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+
     @Override
     public String toString() {
         return "Machine{" + "id=" + getId() + ", ref=" + getRef() + ", des=" + getDes() + '}';
