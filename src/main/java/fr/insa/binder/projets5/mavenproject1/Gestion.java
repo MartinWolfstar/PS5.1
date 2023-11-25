@@ -122,7 +122,49 @@ public class Gestion {
                     "alter table ordre_op_bof \n"
                     + "    add constraint fk_ordre_op_bof_id_o_pres \n"
                     + "    foreign key (id_o_pres) references operation_bof(id_o) \n"
-            );  
+            );
+            st.executeUpdate(
+                    "create table role_bof (\n"
+                    + "id integer primary key AUTO_INCREMENT,\n"
+                    + "nom varchar(20),\n"
+                    + "des text \n"
+                    +")");
+            st.executeUpdate(
+                    "create table utilisateur_bof (\n"
+                    + "id integer primary key AUTO_INCREMENT,\n"
+                    + "login varchar(50),\n"
+                    + "password varchar(40),\n"
+                    + "des text, \n"
+                    + "idrole integer\n"
+                    +")");
+            st.executeUpdate(
+                    "alter table utilisateur_bof \n"
+                    + " add constraint fk_utilisateur_bof_idrole \n"
+                    + " foreign key (idrole) references role_bof(id) \n");
+            st.executeUpdate(
+                    "create table operateur_bof (\n"
+                    + "id integer primary key AUTO_INCREMENT,\n"
+                    + "nom varchar(50),\n"
+                    + "prenom varchar(40)\n"
+                    +")");
+            st.executeUpdate(
+                    "create table poste_de_travail_bof (\n"
+                    + "id integer primary key AUTO_INCREMENT,\n"
+                    + "ref text\n"
+                    +")");
+            st.executeUpdate(
+                    "create table habilitation_bof (\n"
+                    + " operateur integer,\n"
+                    + "poste_de_travail integer"
+                    +")");
+            st.executeUpdate(
+                    "alter table habilitation_bof \n"
+                    + "add constraint fk_habilitation_bof_operateur \n"
+                    + "foreign key (operateur) references operateur_bof(id)");
+            st.executeUpdate(
+                    "alter table habilitation_bof \n"
+                    + "add constraint fk_habilitation_bof_poste_de_travail \n"
+                    + "foreign key (poste_de_travail) references poste_de_travail_bof(id)");
             this.conn.commit();
         } catch (SQLException ex) {
             this.conn.rollback();
@@ -137,8 +179,90 @@ public class Gestion {
             // pour être sûr de pouvoir supprimer, il faut d'abord supprimer les liens
             // puis les tables
             // suppression des liens
+
             try {
-                st.executeUpdate("drop table macchhiinnee");
+                st.executeUpdate("alter table habilitation_bof drop constraint fk_habilitation_poste_de_travail");
+            } catch (SQLException ex) {
+            }
+            try {
+                st.executeUpdate("alter table habilitation_bof drop constraint fk_habilitation_operateur");
+            } catch (SQLException ex) {
+            }
+            try {
+                st.executeUpdate("drop table habilitation_bof");
+            } catch (SQLException ex) {
+            }
+            try {
+                st.executeUpdate("drop table poste_de_travail_bof");
+            } catch (SQLException ex) {
+            }
+            try {
+                st.executeUpdate("drop table operateur_bof");
+            } catch (SQLException ex) {
+            }
+            
+            try {
+                st.executeUpdate("alter table utilisateur_bof drop constraint fk_utilisateur_bof_idrole");
+            } catch (SQLException ex) {
+            }
+            try {
+                st.executeUpdate("drop table utilisateur_bof");
+            } catch (SQLException ex) {
+            }
+            try {
+                st.executeUpdate("drop table role_bof");
+            } catch (SQLException ex) {
+            }
+            try {
+                st.executeUpdate("alter table ordre_op_bof drop constraint fk_ordre_op_bof_id_o_pres");
+            } catch (SQLException ex) {
+            }
+            try {
+               st.executeUpdate("alter table ordre_op_bof drop constraint fk_ordre_op_bof_id_o");
+            } catch (SQLException ex) {
+            }
+            try {
+               st.executeUpdate("alter table operation_bof drop constraint fk_operation_bof_id_p");
+            } catch (SQLException ex) {
+            }
+            try {
+               st.executeUpdate("alter table type_operation_bof drop constraint fk_type_operation_bof_id_o");
+            } catch (SQLException ex) {
+            }
+            try {
+               st.executeUpdate("alter table ordre_op_bof drop constraint fk_type_operation_bof_id_o");
+            } catch (SQLException ex) {
+            }
+            try {
+               st.executeUpdate("alter table realise_bof drop constraint fk_realise_bof_id_to");
+            } catch (SQLException ex) {
+            }
+            try {
+               st.executeUpdate("alter table realise_bof drop constraint fk_realise_bof_id_m");
+            } catch (SQLException ex) {
+            }
+            try {
+                st.executeUpdate("drop table ordre_op_bof");
+            } catch (SQLException ex) {
+            }
+            try {
+                st.executeUpdate("drop table produit_bof");
+            } catch (SQLException ex) {
+            }
+            try {
+                st.executeUpdate("drop table operation_bof");
+            } catch (SQLException ex) {
+            }
+            try {
+                st.executeUpdate("drop table type_operation_bof");
+            } catch (SQLException ex) {
+            }
+            try {
+                st.executeUpdate("drop table realise_bof");
+            } catch (SQLException ex) {
+            }
+            try {
+                st.executeUpdate("drop table machine_bof");
             } catch (SQLException ex) {
             }
         }  
