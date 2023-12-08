@@ -48,6 +48,8 @@ public class Gestion {
                 "m3_abinder01", "m3_abinder01",
                 "c7b7bc39");
     }
+    // Bonjour
+    // Bonjour
     
     public void creeSchema() throws SQLException {
         this.conn.setAutoCommit(false);
@@ -169,38 +171,37 @@ public class Gestion {
                     "create table etat_bof (\n"
                     + " id_type_etat integer not null primary key AUTO_INCREMENT,\n"
                     + " debut float not null,\n"
-                    + " fin float not null,\n"
+                    + " fin float not null\n"
                     +")");
             st.executeUpdate(
                     "create table type_etat_bof (\n"
                     + " id_type integer not null primary key AUTO_INCREMENT,\n"
-                    + " des text,\n"
+                    + " des text\n"
                     +")");
             st.executeUpdate(
-                    "create client_bof (\n"
+                    "create table client_bof (\n"
                     + " id_client integer not null primary key AUTO_INCREMENT,\n"
                     + "nom_client varchar(50),\n"
-                    + "prenom_client varchar(40),\n"
+                    + "prenom_client varchar(40)\n"
                     +")");
             st.executeUpdate(
                     "create table commande_bof (\n"
                     + "id_commande integer primary key AUTO_INCREMENT,\n"
                     + "nom_commande varchar(50),\n"
-                    + "des_commande text, \n"
+                    + "des_commande text \n"
                     +")");
             st.executeUpdate(
                     "create table type_machine_bof (\n"
                     + "id_type_machine integer primary key AUTO_INCREMENT,\n"
-                    + "des text,\n"
+                    + "des text\n"
                     +")");
             st.executeUpdate(
                     "create table exemplaire_bof (\n"
                     + "id integer primary key AUTO_INCREMENT,\n"
-                    +")");
-            st.executeUpdate(
-                    "create table macchhiinnee (\n"
-                    + "id integer primary key AUTO_INCREMENT,\n"
-                    +")");
+                    + "des text\n"
+                    +")\n"
+            );
+            
             this.conn.commit();
         } catch (SQLException ex) {
             this.conn.rollback();
@@ -301,6 +302,59 @@ public class Gestion {
                 st.executeUpdate("drop table machine_bof");
             } catch (SQLException ex) {
             }
+            try {
+                st.executeUpdate("drop table Operation");
+            } catch (SQLException ex) {
+            }
+            try {
+                st.executeUpdate("drop table machine");
+            } catch (SQLException ex) {
+            }
+            try {
+                st.executeUpdate("drop table habilitation_bof");
+            } catch (SQLException ex) {
+            }
+            try {
+                st.executeUpdate("drop table ordreoperation");
+            } catch (SQLException ex) {
+            }
+            try {
+                st.executeUpdate("drop table produit");
+            } catch (SQLException ex) {
+            }
+            try {
+                st.executeUpdate("drop table realisation");
+            } catch (SQLException ex) {
+            }
+            try {
+                st.executeUpdate("drop table typeoperation");
+            } catch (SQLException ex) {
+            }
+            try {
+                st.executeUpdate("drop table exemplaire_bof");
+            } catch (SQLException ex) {
+            }
+            try {
+                st.executeUpdate("drop table type_machine_bof");
+            } catch (SQLException ex) {
+            }
+            try {
+                st.executeUpdate("drop table commande_bof");
+            } catch (SQLException ex) {
+            }
+            try {
+                st.executeUpdate("drop table client_bof");
+            } catch (SQLException ex) {
+            }
+            try {
+                st.executeUpdate("drop table etat_bof");
+            } catch (SQLException ex) {
+            }
+            try {
+                st.executeUpdate("drop table type_etat_bof");
+            } catch (SQLException ex) {
+            }
+            
         }  
     }   
     
@@ -340,7 +394,7 @@ public class Gestion {
                     this.afficheUtilisateurAvecPattern();*/
                 }
             } catch (SQLException ex) {
-                System.out.println(ExceptionsUtils.messageEtPremiersAppelsDansPackage(ex, "fr.insa.binder.lol", 5));
+                System.out.println(ExceptionsUtils.messageEtPremiersAppelsDansPackage(ex, "fr.insa", 5));
             }
         }
     }

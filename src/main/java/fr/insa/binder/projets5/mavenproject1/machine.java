@@ -39,7 +39,7 @@ public class machine {
     
     public void saveInDBV1(Connection con) throws SQLException {
         try (PreparedStatement pst = con.prepareStatement(
-                "insert into macchhiinnee (ref,des) values (?,?)")) {
+                "insert into machine_bof (ref,des) values (?,?)")) {
             pst.setInt(1, this.ref);
             pst.setString(2, this.des);
             pst.executeUpdate();
@@ -48,7 +48,7 @@ public class machine {
     
     public void supMachine(Connection con) throws SQLException {
         try (PreparedStatement pst = con.prepareStatement(
-                "delete from macchhiinnee where id = ?")) {
+                "delete from machine_bof where id = ?")) {
             pst.setInt(1, this.id);
             pst.executeUpdate();
         }
@@ -56,7 +56,7 @@ public class machine {
     
     public static void supMachine(Connection con, int id) throws SQLException {
         try (PreparedStatement pst = con.prepareStatement(
-                "delete from macchhiinnee where id = ?")) {
+                "delete from machine_bof where id = ?")) {
             pst.setInt(1, id);
             pst.executeUpdate();
         }
@@ -65,7 +65,7 @@ public class machine {
     public static List<machine> tousLesMachines(Connection con) throws SQLException {
         List<machine> res = new ArrayList<>();
         try (PreparedStatement pst = con.prepareStatement(
-                "select id,des,ref from macchhiinnee")) {
+                "select id,des,ref from machine_bof")) {
             try (ResultSet rs = pst.executeQuery()) {
                 while (rs.next()) {
                     int id = rs.getInt("id");
@@ -89,7 +89,7 @@ public class machine {
 
     public static void setRef(int ref, int id, Connection con) throws SQLException {
         try (PreparedStatement pst = con.prepareStatement(
-                "update macchhiinnee set ref = ? where id = ?")) {
+                "update machine_bof set ref = ? where id = ?")) {
             pst.setInt(1, ref);
             pst.setInt(2, id);            
             pst.executeUpdate();
@@ -102,7 +102,7 @@ public class machine {
 
     public static void setDes(String des, int id, Connection con) throws SQLException {
         try (PreparedStatement pst = con.prepareStatement(
-                "update macchhiinnee set des = ? where id = ?")) {
+                "update machine_bof set des = ? where id = ?")) {
             pst.setString(1, des);
             pst.setInt(2, id);            
             pst.executeUpdate();
