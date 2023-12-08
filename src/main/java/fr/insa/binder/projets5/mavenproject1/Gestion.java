@@ -56,74 +56,75 @@ public class Gestion {
         try (Statement st = this.conn.createStatement()) {
             st.executeUpdate(
                     "create table machine_bof (\n"
-                    + "    id_m integer not null primary key AUTO_INCREMENT,\n"
-                    + "    ref_m varchar(30) not null,\n"
-                    + "    des_m Text\n"
+                    + "    id_machine integer not null primary key AUTO_INCREMENT,\n"
+                    + "    ref_machine varchar(30) not null,\n"
+                    + "    des_machine Text,\n"
+                    + " id_poste_de_travail integer not null\n"
                     + ")\n"
             );
             st.executeUpdate(
                     "create table realise_bof (\n"
                     + "    duree float not null,\n"
-                    + "    id_to integer not null,\n"
-                    + "    id_m integer not null\n"
+                    + "    id_type_operation integer not null,\n"
+                    + "    id_machine integer not null\n"
                     + ")\n"
             );
             st.executeUpdate(
                     "create table type_operation_bof (\n"
-                    + "    id_to integer not null primary key AUTO_INCREMENT,\n"
-                    + "    des_to Text,\n"
-                    + "    id_o integer not null\n"
+                    + "    id_type_operation integer not null primary key AUTO_INCREMENT,\n"
+                    + "    des_type_operation Text,\n"
+                    + "    id_operation integer not null\n"
                     + ")\n"
             );
             st.executeUpdate(
                     "create table operation_bof (\n"
-                    + "    id_o integer not null primary key AUTO_INCREMENT,\n"
-                    + "    id_to integer not null,\n"
-                    + "    id_p integer not null\n"
+                    + "    id_operation integer not null primary key AUTO_INCREMENT,\n"
+                    + "    id_type_operation integer not null,\n"
+                    + "    id_produit integer not null\n"
                     + ")\n"
             );
             st.executeUpdate(
                     "create table produit_bof (\n"
-                    + "    id_p integer not null primary key AUTO_INCREMENT,\n"
-                    + "    ref_m varchar(30) not null,\n"
-                    + "    des_m Text\n"
+                    + "    id_produit integer not null primary key AUTO_INCREMENT,\n"
+                    + "    ref_machine varchar(30) not null,\n"
+                    + "    des_machine Text\n"
                     + ")\n"
             );
             st.executeUpdate(
                     "create table ordre_op_bof (\n"
-                    + "    id_o integer not null,\n"
-                    + "    id_o_pres integer not null\n"
+                    + "    id_operation integer not null,\n"
+                    + "    id_operation_pres integer not null\n"
                     + ")\n"
             );
             st.executeUpdate(
                     "alter table realise_bof \n"
-                    + "    add constraint fk_realise_bof_id_m \n"
-                    + "    foreign key (id_m) references machine_bof(id_m) \n"
+                    + "    add constraint fk_realise_bof_id_machine \n"
+                    + "    foreign key (id_machine) references machine_bof(id_machine) \n"
             ); 
             st.executeUpdate(
                     "alter table realise_bof \n"
-                    + "    add constraint fk_realise_bof_id_to \n"
-                    + "    foreign key (id_to) references type_operation_bof(id_to) \n"
+                    + "    add constraint fk_realise_bof_id_type_operation \n"
+                    + "    foreign key (id_type_operation) references type_operation_bof(id_type_operation) \n"
             ); 
             st.executeUpdate(
                     "alter table type_operation_bof \n"
-                    + "    add constraint fk_type_operation_bof_id_o \n"
-                    + "    foreign key (id_o) references operation_bof(id_o) \n"
+                    + "    add constraint fk_type_operation_bof_id_operation \n"
+                    + "    foreign key (id_operation) references operation_bof(id_operation) \n"
             ); 
             st.executeUpdate(
                     "alter table operation_bof \n"
-                    + "    add constraint fk_operation_bof_id_p \n"
-                    + "    foreign key (id_p) references produit_bof(id_p) \n"
+                    + "    add constraint fk_operation_bof_id_produit \n"
+                    + "    foreign key (id_produit) references produit_bof(id_produit) \n"
             );  
             st.executeUpdate(
                     "alter table ordre_op_bof \n"
-                    + "    add constraint fk_ordre_op_bof_id_o \n"
-                    + "    foreign key (id_o) references operation_bof(id_o) \n"
+                    + "    add constraint fk_ordre_op_bof_id_operation \n"
+                    + "    foreign key (id_operation) references operation_bof(id_operation) \n"
             );  
             st.executeUpdate(
                     "alter table ordre_op_bof \n"
-                    + "    add constraint fk_ordre_op_bof_id_o_pres \n"
-                    + "    foreign key (id_o_pres) references operation_bof(id_o) \n"
+                    + "    add constraint fk_ordre_op_bof_id_operation_pres \n"
+                    + "    foreign key (id_operation_pres) references operation_bof(id_operation) \n"
             );
             st.executeUpdate(
                     "create table role_bof (\n"
@@ -145,14 +146,14 @@ public class Gestion {
                     + " foreign key (idrole) references role_bof(id) \n");
             st.executeUpdate(
                     "create table operateur_bof (\n"
-                    + "id integer primary key AUTO_INCREMENT,\n"
-                    + "nom varchar(50),\n"
-                    + "prenom varchar(40)\n"
+                    + "id_operateur integer primary key AUTO_INCREMENT,\n"
+                    + "nom_operateur varchar(50),\n"
+                    + "prenom_operateur varchar(40)\n"
                     +")");
             st.executeUpdate(
                     "create table poste_de_travail_bof (\n"
-                    + "id integer primary key AUTO_INCREMENT,\n"
-                    + "ref text\n"
+                    + "id_poste_de_travail integer not null primary key AUTO_INCREMENT,\n"
+                    + "ref_poste_de_travail text\n"
                     +")");
             st.executeUpdate(
                     "create table habilitation_bof (\n"
@@ -162,21 +163,22 @@ public class Gestion {
             st.executeUpdate(
                     "alter table habilitation_bof \n"
                     + "add constraint fk_habilitation_bof_operateur \n"
-                    + "foreign key (operateur) references operateur_bof(id)");
+                    + "foreign key (operateur) references operateur_bof(id_operateur)");
             st.executeUpdate(
                     "alter table habilitation_bof \n"
                     + "add constraint fk_habilitation_bof_poste_de_travail \n"
-                    + "foreign key (poste_de_travail) references poste_de_travail_bof(id)");
+                    + "foreign key (poste_de_travail) references poste_de_travail_bof(id_poste_de_travail)");
             st.executeUpdate(
                     "create table etat_bof (\n"
-                    + " id_type_etat integer not null primary key AUTO_INCREMENT,\n"
+                    + " id_etat integer not null primary key AUTO_INCREMENT,\n"
+                    + " id_type_etat integer not null,\n"
                     + " debut float not null,\n"
                     + " fin float not null\n"
                     +")");
             st.executeUpdate(
                     "create table type_etat_bof (\n"
-                    + " id_type integer not null primary key AUTO_INCREMENT,\n"
-                    + " des text\n"
+                    + " id_type_etat integer not null primary key AUTO_INCREMENT,\n"
+                    + " des_type_etat text\n"
                     +")");
             st.executeUpdate(
                     "create table client_bof (\n"
@@ -193,14 +195,101 @@ public class Gestion {
             st.executeUpdate(
                     "create table type_machine_bof (\n"
                     + "id_type_machine integer primary key AUTO_INCREMENT,\n"
-                    + "des text\n"
+                    + "des_type_machine text\n"
                     +")");
             st.executeUpdate(
                     "create table exemplaire_bof (\n"
-                    + "id integer primary key AUTO_INCREMENT,\n"
-                    + "des text\n"
+                    + "id_exemplaire integer primary key AUTO_INCREMENT,\n"
+                    + "des_exemplaire text,\n"
+                    + "id_produit integer not null"
                     +")\n"
             );
+            st.executeUpdate(
+                    "create table operations_effectuees_bof (\n"
+                    + "id_operation integer not null,\n"
+                    + "id_num_serie integer not null,\n"
+                    + "id_machine integer not null \n"
+                    +")\n"
+            );
+            st.executeUpdate(
+                    "create table operations__poste_de_travail_bof (\n"
+                    + "id_operateur integer not null,\n"
+                    + "id_poste_de_travail integer not null \n"
+                    +")\n"
+            );
+            st.executeUpdate(
+                    "create table operateur__etat_bof (\n"
+                    + "id_operateur integer not null,\n"
+                    + "id_etat integer not null \n"
+                    +")\n"
+            );
+            st.executeUpdate(
+                    "create table machine__etat_bof (\n"
+                    + "id_machine integer not null,\n"
+                    + "id_etat integer not null \n"
+                    +")\n"
+            );
+            st.executeUpdate(
+                    "create table type_machine__type_operation_bof (\n"
+                    + "id_type_machine integer not null,\n"
+                    + "id_type_operation integer not null \n"
+                    +")\n"
+            );
+            st.executeUpdate(
+                    "create table precede_bof (\n"
+                    + "operation_1 integer,\n"
+                    + "operation_2 integer \n"
+                    +")\n"
+            );
+            st.executeUpdate(
+                    "alter table precede_bof \n"
+                    + "add constraint fk_precede_bof_operation_1 \n"
+                    + "foreign key (operation_1) references operation_bof(id_operation)");
+            st.executeUpdate(
+                    "alter table precede_bof \n"
+                    + "add constraint fk_precede_bof_operation_2 \n"
+                    + "foreign key (operation_2) references operation_bof(id_operation)");
+            st.executeUpdate(
+                    "alter table operations__poste_de_travail_bof \n"
+                    + "add constraint fk_operations__poste_de_travail_bof_id_operateur \n"
+                    + "foreign key (id_operateur) references operateur_bof(id_operateur)");
+            st.executeUpdate(
+                    "alter table operations__poste_de_travail_bof \n"
+                    + "add constraint fk_operations__poste_de_travail_bof_id_poste_de_travail \n"
+                    + "foreign key (id_poste_de_travail) references poste_de_travail_bof(id_poste_de_travail)");
+            st.executeUpdate(
+                    "alter table operateur__etat_bof \n"
+                    + "add constraint fk_operateur__etat_bof_id_operateur \n"
+                    + "foreign key (id_operateur) references operateur_bof(id_operateur)");
+            st.executeUpdate(
+                    "alter table operateur__etat_bof \n"
+                    + "add constraint fk_operateur__etat_bof_id_etat \n"
+                    + "foreign key (id_etat) references etat_bof(id_etat)");
+            st.executeUpdate(
+                    "alter table machine__etat_bof \n"
+                    + "add constraint fk_machine__etat_bof_id_etat \n"
+                    + "foreign key (id_etat) references etat_bof(id_etat)");
+            st.executeUpdate(
+                    "alter table machine__etat_bof \n"
+                    + "add constraint fk_machine__etat_bof_id_machine \n"
+                    + "foreign key (id_machine) references machine_bof(id_machine)");
+            st.executeUpdate(
+                    "alter table etat_bof \n"
+                    + "add constraint fk_etat_bof_id_type_etat \n"
+                    + "foreign key (id_type_etat) references type_etat_bof(id_type_etat)");
+            st.executeUpdate(
+                    "alter table machine_bof \n"
+                    + "add constraint fk_machine_bof_id_poste_de_travail \n"
+                    + "foreign key (id_poste_de_travail) references poste_de_travail_bof(id_poste_de_travail)");         
+            st.executeUpdate(
+                    "alter table type_machine__type_operation_bof \n"
+                    + "add constraint fk_type_machine__type_operation_bof_id_type_machine \n"
+                    + "foreign key (id_type_machine) references type_machine_bof(id_type_machine)");         
+            st.executeUpdate(
+                    "alter table type_machine__type_operation_bof \n"
+                    + "add constraint fk_type_machine__type_operation_bof_id_type_operation \n"
+                    + "foreign key (id_type_operation) references type_operation_bof(id_type_operation)");         
+            
             
             this.conn.commit();
         } catch (SQLException ex) {
@@ -216,7 +305,58 @@ public class Gestion {
             // pour être sûr de pouvoir supprimer, il faut d'abord supprimer les liens
             // puis les tables
             // suppression des liens
-
+            try {
+                st.executeUpdate("alter table type_machine__type_operation_bof drop constraint fk_type_machine__type_operation_bof_id_type_operation");
+            } catch (SQLException ex) {
+            }
+            try {
+                st.executeUpdate("alter table type_machine__type_operation_bof drop constraint fk_type_machine__type_operation_bof_id_type_machine");
+            } catch (SQLException ex) {
+            }
+            try {
+                st.executeUpdate("alter table machine_bof drop constraint fk_machine_bof_id_poste_de_travail");
+            } catch (SQLException ex) {
+            }
+            try {
+                st.executeUpdate("alter table etat_bof drop constraint fk_etat_bof_id_type_etat");
+            } catch (SQLException ex) {
+            }
+            try {
+                st.executeUpdate("alter table machine__etat_bof drop constraint fk_machine__etat_bof_id_machine");
+            } catch (SQLException ex) {
+            }
+            try {
+                st.executeUpdate("alter table machine__etat_bof drop constraint fk_machine__etat_bof_id_etat");
+            } catch (SQLException ex) {
+            }
+            try {
+                st.executeUpdate("alter table operateur__etat_bof drop constraint fk_operateur__etat_bof_id_etat");
+            } catch (SQLException ex) {
+            }
+            try {
+                st.executeUpdate("alter table operateur__etat_bof drop constraint fk_operateur__etat_bof_id_operateur");
+            } catch (SQLException ex) {
+            }
+            try {
+                st.executeUpdate("alter table operations__poste_de_travail_bof drop constraint fk_operations__poste_de_travail_bof_id_operateur");
+            } catch (SQLException ex) {
+            }
+            try {
+                st.executeUpdate("alter table operations__poste_de_travail_bof drop constraint fk_operations__poste_de_travail_bof_id_poste_de_travail");
+            } catch (SQLException ex) {
+            }
+            try {
+                st.executeUpdate("alter table precede_bof drop constraint fk_precede_operation_1");
+            } catch (SQLException ex) {
+            }
+            try {
+                st.executeUpdate("alter table precede_bof drop constraint fk_precede_operation_2");
+            } catch (SQLException ex) {
+            }
+            try {
+                st.executeUpdate("drop table precede_bof");
+            } catch (SQLException ex) {
+            }
             try {
                 st.executeUpdate("alter table habilitation_bof drop constraint fk_habilitation_poste_de_travail");
             } catch (SQLException ex) {
@@ -251,31 +391,31 @@ public class Gestion {
             } catch (SQLException ex) {
             }
             try {
-                st.executeUpdate("alter table ordre_op_bof drop constraint fk_ordre_op_bof_id_o_pres");
+                st.executeUpdate("alter table ordre_op_bof drop constraint fk_ordre_op_bof_id_operation_pres");
             } catch (SQLException ex) {
             }
             try {
-               st.executeUpdate("alter table ordre_op_bof drop constraint fk_ordre_op_bof_id_o");
+               st.executeUpdate("alter table ordre_op_bof drop constraint fk_ordre_op_bof_id_operation");
             } catch (SQLException ex) {
             }
             try {
-               st.executeUpdate("alter table operation_bof drop constraint fk_operation_bof_id_p");
+               st.executeUpdate("alter table operation_bof drop constraint fk_operation_bof_id_produit");
             } catch (SQLException ex) {
             }
             try {
-               st.executeUpdate("alter table type_operation_bof drop constraint fk_type_operation_bof_id_o");
+               st.executeUpdate("alter table type_operation_bof drop constraint fk_type_operation_bof_id_operation");
             } catch (SQLException ex) {
             }
             try {
-               st.executeUpdate("alter table ordre_op_bof drop constraint fk_type_operation_bof_id_o");
+               st.executeUpdate("alter table ordre_op_bof drop constraint fk_type_operation_bof_id_operation");
             } catch (SQLException ex) {
             }
             try {
-               st.executeUpdate("alter table realise_bof drop constraint fk_realise_bof_id_to");
+               st.executeUpdate("alter table realise_bof drop constraint fk_realise_bof_id_type_operation");
             } catch (SQLException ex) {
             }
             try {
-               st.executeUpdate("alter table realise_bof drop constraint fk_realise_bof_id_m");
+               st.executeUpdate("alter table realise_bof drop constraint fk_realise_bof_id_machine");
             } catch (SQLException ex) {
             }
             try {
@@ -352,6 +492,30 @@ public class Gestion {
             }
             try {
                 st.executeUpdate("drop table type_etat_bof");
+            } catch (SQLException ex) {
+            }
+            try {
+                st.executeUpdate("drop table operations_effectuees_bof");
+            } catch (SQLException ex) {
+            }
+            try {
+                st.executeUpdate("drop table operations__poste_de_travail_bof");
+            } catch (SQLException ex) {
+            }
+            try {
+                st.executeUpdate("drop table operateur__etat_bof");
+            } catch (SQLException ex) {
+            }
+            try {
+                st.executeUpdate("drop table machine__etat_bof");
+            } catch (SQLException ex) {
+            }
+            try {
+                st.executeUpdate("drop table type_machine__type_operation_bof");
+            } catch (SQLException ex) {
+            }
+            try {
+                st.executeUpdate("drop table operation_operation_bof");
             } catch (SQLException ex) {
             }
             
