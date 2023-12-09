@@ -17,7 +17,7 @@ public class Grid_machine extends Grid<machine>{
     public Grid_machine(List<machine> list_machine) {
         this.setItems(list_machine);
         this.addColumn(machine::getRef).setHeader("Reference");
-        this.addColumn(machine::getDes).setHeader("Descriptio,");
+        this.addColumn(machine::getDes).setHeader("Description");
         this.addColumn(machine::getId).setHeader("Identifiant");        
     }
 }
