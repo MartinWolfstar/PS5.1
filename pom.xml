@@ -86,6 +86,24 @@
             <artifactId>vaadin-testbench-junit5</artifactId>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>org.vaadin.hezamu</groupId>
+            <artifactId>canvas</artifactId>
+            <version>2.3.0</version>
+            <type>jar</type>
+        </dependency>
+        <dependency>
+            <groupId>com.vaadin</groupId>
+            <artifactId>flow-server</artifactId>
+            <version>24.2.2</version>
+            <type>jar</type>
+        </dependency>
+        <dependency>
+            <groupId>com.vaadin.addon</groupId>
+            <artifactId>vaadin-charts-compatibility</artifactId>
+            <version>4.0.0-alpha1</version>
+            <type>jar</type>
+        </dependency>
     </dependencies>
 
     <build>

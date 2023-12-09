@@ -17,7 +17,7 @@ import java.util.List;
  */
 public class Client {
     
-    private int id;
+    /*private int id;
     private String nom_client;
     private String mdp;
     private int id_com;
@@ -125,6 +125,6 @@ public class Client {
 
     public int getId() {
         return id;
-    }
+    }*/
     
 }

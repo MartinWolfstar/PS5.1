@@ -22,7 +22,7 @@ public class MainView extends VerticalLayout {
     private HorizontalLayout H1;
    
     public MainView() {
-        this.add(new H3("Liste de toute les machines"));
+        this.add(new H3("Liste de toutes les machines"));
         H1 = new HorizontalLayout();
         try {
             this.grid = new Grid_machine(machine.tousLesMachines(connectSurServeurM3())); 
