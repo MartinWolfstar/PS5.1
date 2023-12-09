@@ -59,7 +59,8 @@ public class Gestion {
                     + "    id_machine integer not null primary key AUTO_INCREMENT,\n"
                     + "    ref_machine varchar(30) not null,\n"
                     + "    des_machine Text,\n"
-                    + " id_poste_de_travail integer not null\n"
+                    + " id_poste_de_travail integer not null,\n"
+                    + " id_type_machine integer not null \n"
                     + ")\n"
             );
             st.executeUpdate(
@@ -72,8 +73,7 @@ public class Gestion {
             st.executeUpdate(
                     "create table type_operation_bof (\n"
                     + "    id_type_operation integer not null primary key AUTO_INCREMENT,\n"
-                    + "    des_type_operation Text,\n"
-                    + "    id_operation integer not null\n"
+                    + "    des_type_operation Text \n"
                     + ")\n"
             );
             st.executeUpdate(
@@ -86,14 +86,9 @@ public class Gestion {
             st.executeUpdate(
                     "create table produit_bof (\n"
                     + "    id_produit integer not null primary key AUTO_INCREMENT,\n"
-                    + "    ref_machine varchar(30) not null,\n"
-                    + "    des_machine Text\n"
-                    + ")\n"
-            );
-            st.executeUpdate(
-                    "create table ordre_op_bof (\n"
-                    + "    id_operation integer not null,\n"
-                    + "    id_operation_pres integer not null\n"
+                    + "    ref_produit varchar(30) not null,\n"
+                    + "    des_produit Text,\n"
+                    + "    id_commande integer not null \n"
                     + ")\n"
             );
             st.executeUpdate(
@@ -107,9 +102,9 @@ public class Gestion {
                     + "    foreign key (id_type_operation) references type_operation_bof(id_type_operation) \n"
             ); 
             st.executeUpdate(
-                    "alter table type_operation_bof \n"
-                    + "    add constraint fk_type_operation_bof_id_operation \n"
-                    + "    foreign key (id_operation) references operation_bof(id_operation) \n"
+                    "alter table operation_bof \n"
+                    + "    add constraint fk_operation_bof_id_type_operation \n"
+                    + "    foreign key (id_type_operation) references type_operation_bof(id_type_operation) \n"
             ); 
             st.executeUpdate(
                     "alter table operation_bof \n"
@@ -117,57 +112,18 @@ public class Gestion {
                     + "    foreign key (id_produit) references produit_bof(id_produit) \n"
             );  
             st.executeUpdate(
-                    "alter table ordre_op_bof \n"
-                    + "    add constraint fk_ordre_op_bof_id_operation \n"
-                    + "    foreign key (id_operation) references operation_bof(id_operation) \n"
-            );  
-            st.executeUpdate(
-                    "alter table ordre_op_bof \n"
-                    + "    add constraint fk_ordre_op_bof_id_operation_pres \n"
-                    + "    foreign key (id_operation_pres) references operation_bof(id_operation) \n"
-            );
-            st.executeUpdate(
-                    "create table role_bof (\n"
-                    + "id integer primary key AUTO_INCREMENT,\n"
-                    + "nom varchar(20),\n"
-                    + "des text \n"
-                    +")");
-            st.executeUpdate(
-                    "create table utilisateur_bof (\n"
-                    + "id integer primary key AUTO_INCREMENT,\n"
-                    + "login varchar(50),\n"
-                    + "password varchar(40),\n"
-                    + "des text, \n"
-                    + "idrole integer\n"
-                    +")");
-            st.executeUpdate(
-                    "alter table utilisateur_bof \n"
-                    + " add constraint fk_utilisateur_bof_idrole \n"
-                    + " foreign key (idrole) references role_bof(id) \n");
-            st.executeUpdate(
                     "create table operateur_bof (\n"
                     + "id_operateur integer primary key AUTO_INCREMENT,\n"
                     + "nom_operateur varchar(50),\n"
-                    + "prenom_operateur varchar(40)\n"
+                    + "prenom_operateur varchar(40),\n"
+                    + "login_client varchar(50),\n"
+                    + "password_client varchar(40)\n"
                     +")");
             st.executeUpdate(
                     "create table poste_de_travail_bof (\n"
                     + "id_poste_de_travail integer not null primary key AUTO_INCREMENT,\n"
                     + "ref_poste_de_travail text\n"
                     +")");
-            st.executeUpdate(
-                    "create table habilitation_bof (\n"
-                    + " operateur integer,\n"
-                    + "poste_de_travail integer"
-                    +")");
-            st.executeUpdate(
-                    "alter table habilitation_bof \n"
-                    + "add constraint fk_habilitation_bof_operateur \n"
-                    + "foreign key (operateur) references operateur_bof(id_operateur)");
-            st.executeUpdate(
-                    "alter table habilitation_bof \n"
-                    + "add constraint fk_habilitation_bof_poste_de_travail \n"
-                    + "foreign key (poste_de_travail) references poste_de_travail_bof(id_poste_de_travail)");
             st.executeUpdate(
                     "create table etat_bof (\n"
                     + " id_etat integer not null primary key AUTO_INCREMENT,\n"
@@ -184,13 +140,16 @@ public class Gestion {
                     "create table client_bof (\n"
                     + " id_client integer not null primary key AUTO_INCREMENT,\n"
                     + "nom_client varchar(50),\n"
-                    + "prenom_client varchar(40)\n"
+                    + "prenom_client varchar(40),\n"
+                    + "login_client varchar(50),\n"
+                    + "password_client varchar(40)\n"
                     +")");
             st.executeUpdate(
                     "create table commande_bof (\n"
                     + "id_commande integer primary key AUTO_INCREMENT,\n"
                     + "nom_commande varchar(50),\n"
-                    + "des_commande text \n"
+                    + "des_commande text, \n"
+                    + "id_client integer not null"
                     +")");
             st.executeUpdate(
                     "create table type_machine_bof (\n"
@@ -199,7 +158,7 @@ public class Gestion {
                     +")");
             st.executeUpdate(
                     "create table exemplaire_bof (\n"
-                    + "id_exemplaire integer primary key AUTO_INCREMENT,\n"
+                    + "id_exemplaire integer not null primary key AUTO_INCREMENT,\n"
                     + "des_exemplaire text,\n"
                     + "id_produit integer not null"
                     +")\n"
@@ -207,7 +166,7 @@ public class Gestion {
             st.executeUpdate(
                     "create table operations_effectuees_bof (\n"
                     + "id_operation integer not null,\n"
-                    + "id_num_serie integer not null,\n"
+                    + "id_exemplaire integer not null,\n"
                     + "id_machine integer not null \n"
                     +")\n"
             );
@@ -289,6 +248,35 @@ public class Gestion {
                     "alter table type_machine__type_operation_bof \n"
                     + "add constraint fk_type_machine__type_operation_bof_id_type_operation \n"
                     + "foreign key (id_type_operation) references type_operation_bof(id_type_operation)");         
+            st.executeUpdate(
+                    "alter table commande_bof \n"
+                    + "add constraint fk_commande_bof_id_client \n"
+                    + "foreign key (id_client) references client_bof(id_client)");         
+            st.executeUpdate(
+                    "alter table produit_bof \n"
+                    + "add constraint fk_produit_bof_id_commande \n"
+                    + "foreign key (id_commande) references commande_bof(id_commande)");         
+                   
+            st.executeUpdate(
+                    "alter table exemplaire_bof \n"
+                    + "add constraint fk_exemplaire_bof_id_produit \n"
+                    + "foreign key (id_produit) references produit_bof(id_produit)");         
+            st.executeUpdate(
+                    "alter table operations_effectuees_bof \n"
+                    + "add constraint fk_operations_effectuees_bof_id_machine \n"
+                    + "foreign key (id_machine) references machine_bof(id_machine)");         
+            st.executeUpdate(
+                    "alter table operations_effectuees_bof \n"
+                    + "add constraint fk_operations_effectuees_bof_id_operation \n"
+                    + "foreign key (id_operation) references operation_bof(id_operation)");         
+            st.executeUpdate(
+                    "alter table operations_effectuees_bof \n"
+                    + "add constraint fk_operations_effectuees_bof_id_exemplaire \n"
+                    + "foreign key (id_exemplaire) references exemplaire_bof(id_exemplaire)");         
+            st.executeUpdate(
+                    "alter table machine_bof \n"
+                    + "add constraint fk_machine_bof_id_type_machine \n"
+                    + "foreign key (id_type_machine) references type_machine_bof(id_type_machine)");         
             
             
             this.conn.commit();
@@ -305,6 +293,39 @@ public class Gestion {
             // pour être sûr de pouvoir supprimer, il faut d'abord supprimer les liens
             // puis les tables
             // suppression des liens
+            
+            try {
+                st.executeUpdate("alter table operation_bof drop constraint fk_operation_bof_id_type_operation");
+            } catch (SQLException ex) {
+            }
+            try {
+                st.executeUpdate("alter table machine_bof drop constraint fk_machine_bof_id_type_machine");
+            } catch (SQLException ex) {
+            }
+            try {
+                st.executeUpdate("alter table operations_effectuees_bof drop constraint fk_operations_effectuees_bof_id_exemplaire");
+            } catch (SQLException ex) {
+            }
+            try {
+                st.executeUpdate("alter table operations_effectuees_bof drop constraint fk_operations_effectuees_bof_id_operation");
+            } catch (SQLException ex) {
+            }
+            try {
+                st.executeUpdate("alter table operations_effectuees_bof drop constraint fk_operations_effectuees_bof_id_machine");
+            } catch (SQLException ex) {
+            }
+            try {
+                st.executeUpdate("alter table exemplaire_bof drop constraint fk_exemplaire_bof_id_produit");
+            } catch (SQLException ex) {
+            }
+            try {
+                st.executeUpdate("alter table commande_bof drop constraint fk_commande_bof_id_client");
+            } catch (SQLException ex) {
+            }
+            try {
+                st.executeUpdate("alter table produit_bof drop constraint fk_produit_bof_id_commande");
+            } catch (SQLException ex) {
+            }
             try {
                 st.executeUpdate("alter table type_machine__type_operation_bof drop constraint fk_type_machine__type_operation_bof_id_type_operation");
             } catch (SQLException ex) {

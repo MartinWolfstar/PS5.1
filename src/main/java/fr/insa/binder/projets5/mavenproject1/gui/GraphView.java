@@ -16,7 +16,7 @@ import com.vaadin.flow.router.Route;
  *
  * @author schmi
  */
-@PageTitle("graph")
+@PageTitle("Graph")
 @Route(value = "2", layout = MainLayout.class)
 public class GraphView extends VerticalLayout{
     

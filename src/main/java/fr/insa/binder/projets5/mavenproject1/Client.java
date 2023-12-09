@@ -13,61 +13,67 @@ import java.util.List;
 
 /**
  *
- * @author binde
+ * @author abinder01
  */
-public class typeoperation {
+public class Client {
     
-    private int id_to;   
-    private String des_to;
-
+    /*private int id;
+    private String nom_client;
+    private String mdp;
+    private int id_com;
     
-    public typeoperation(int id_to, String des_to) {
-        this.id_to = id_to;
-        this.des_to = des_to;
+    public Client (int id, String nom_client, String mdp) {
+        this.id = id;
+        this.nom_client = nom_client;
+        this.mdp = mdp;
+        this.id_com = id_com;
     }
     
-    public typeoperation(String des_to) {
-        this(-1, des_to);
+    public Client (String nom_client, String mdp) {
+        this(-1, nom_client, mdp);
     }
     
-    public static typeoperation demande() {
-        String des = ConsoleFdB.entreeString("des : ");
-        return new typeoperation(des);
+    public static Client demande() {
+        String nom_client = ConsoleFdB.entreeString("Nom : ");
+        String mdp = ConsoleFdB.entreeString("mdp : ");
+        return new Client(nom_client, mdp);
     }
     
     public void saveInDBV1(Connection con) throws SQLException {
         try (PreparedStatement pst = con.prepareStatement(
-                "insert into typeoperation (des) values (?)")) {
-            pst.setString(1, this.des_to);
+                "insert into macchhiinnee (ref,des) values (?,?)")) {
+            pst.setInt(1, this.ref);
+            pst.setString(2, this.des);
             pst.executeUpdate();
         }
     } 
     
     public void supMachine(Connection con) throws SQLException {
         try (PreparedStatement pst = con.prepareStatement(
-                "delete from typeoperation where id = ?")) {
-            pst.setInt(1, this.id_to);
+                "delete from macchhiinnee where id = ?")) {
+            pst.setInt(1, this.id);
             pst.executeUpdate();
         }
     }
     
     public static void supMachine(Connection con, int id) throws SQLException {
         try (PreparedStatement pst = con.prepareStatement(
-                "delete from typeoperation where id = ?")) {
+                "delete from macchhiinnee where id = ?")) {
             pst.setInt(1, id);
             pst.executeUpdate();
         }
     }
     
-    public static List<typeoperation> tousLesTO(Connection con) throws SQLException {
-        List<typeoperation> res = new ArrayList<>();
+    public static List<machine> tousLesMachines(Connection con) throws SQLException {
+        List<machine> res = new ArrayList<>();
         try (PreparedStatement pst = con.prepareStatement(
-                "select id,des from typeoperation")) {
+                "select id,des,ref from macchhiinnee")) {
             try (ResultSet rs = pst.executeQuery()) {
                 while (rs.next()) {
                     int id = rs.getInt("id");
                     String des = rs.getString("des");
-                    res.add(new typeoperation(id, des));
+                    int ref = rs.getInt("ref");
+                    res.add(new machine(id, des, ref));
                 }
             }
         }
@@ -76,12 +82,24 @@ public class typeoperation {
 
     @Override
     public String toString() {
-        return "Type operation" + "id=" + getId() + "des=" + getDes() + '}';
+        return "Machine{" + "id=" + getId() + ", ref=" + getRef() + ", des=" + getDes() + '}';
     }
 
+    public void setRef(int ref) {
+        this.ref = ref;
+    }
+
+    public static void setRef(int ref, int id, Connection con) throws SQLException {
+        try (PreparedStatement pst = con.prepareStatement(
+                "update macchhiinnee set ref = ? where id = ?")) {
+            pst.setInt(1, ref);
+            pst.setInt(2, id);            
+            pst.executeUpdate();
+        }
+    }
     
     public void setDes(String des) {
-        this.des_to = des;
+        this.des = des;
     }
 
     public static void setDes(String des, int id, Connection con) throws SQLException {
@@ -94,16 +112,19 @@ public class typeoperation {
     }
     
     public void setId(int id) {
-        this.id_to = id;
+        this.id = id;
+    }
+
+    public int getRef() {
+        return ref;
     }
 
     public String getDes() {
-        return des_to;
+        return des;
     }
 
     public int getId() {
-        return id_to;
-    }
-}
+        return id;
+    }*/
     
-
+}
