@@ -57,6 +57,13 @@ public class MainLayout extends AppLayout{
                 listLink2
         ));
         
+        RouterLink listLink3 = new RouterLink("Plan", technicien_PlanUsine.class);
+        listLink3.setHighlightCondition(HighlightConditions.sameLocation());
+        
+        addToDrawer(new VerticalLayout(
+                listLink3
+        ));
+        
     }
     
     

@@ -7,13 +7,15 @@ package fr.insa.binder.projets5.mavenproject1.gui;
 
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.html.H3;
+import com.vaadin.flow.component.map.events.MouseEventDetails;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import org.vaadin.hezamu.canvas.Canvas;
 
-@PageTitle("Plan de l'usine")
-@Route(value = "", layout = MainLayout.class)
+
+@PageTitle("Plan")
+@Route(value = "3", layout = MainLayout.class)
 public class technicien_PlanUsine extends VerticalLayout {
 
     private Canvas canvas;
@@ -28,10 +30,11 @@ public class technicien_PlanUsine extends VerticalLayout {
         canvas.setHeight("300px"); // Adjust the height as needed
 
         // Numbered row of buttons
-        VerticalLayout buttonRow = createButtonRow();
+        VerticalLayout buttonRow = createButtons();
 
         // Add components to the main layout
-        add(canvas, buttonRow);
+        //add(canvas, buttonRow);
+        add(buttonRow);
 
         // Draw a filled rectangle on the canvas
         canvas.fillRect(10, 10, 20, 20);
@@ -40,22 +43,19 @@ public class technicien_PlanUsine extends VerticalLayout {
         drawGrid();
 
         // Add a mouse move listener to the canvas
-        canvas.addMouseMoveListener(event -> {
+        /*canvas.addMouseMoveListener(event -> {
             MouseEventDetails mouseDetails = event.getDetails();
             System.out.println("Mouse moved at " +
                     mouseDetails.getClientX() + "," +
                     mouseDetails.getClientY());
-        });
+        });*/
     }
 
-    private VerticalLayout createButtonRow() {
+    private VerticalLayout createButtons() {
         VerticalLayout buttonRow = new VerticalLayout();
-
-        // Add numbered buttons to the row
-        for (int i = 1; i <= 5; i++) {
-            buttonRow.add(new Button(String.valueOf(i)));
-        }
-
+        buttonRow.add(new Button("1"));
+        buttonRow.add(new Button("2"));
+        buttonRow.add(new Button("3"));
         return buttonRow;
     }
 
