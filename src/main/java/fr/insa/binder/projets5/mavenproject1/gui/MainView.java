@@ -15,7 +15,7 @@ import java.sql.Connection;
 import java.sql.SQLException;
 
 @PageTitle("main")
-@Route(value = "", layout = MainLayout.class)
+@Route(value = "1", layout = MainLayout.class)
 public class MainView extends VerticalLayout {
 
     private Grid_machine grid;

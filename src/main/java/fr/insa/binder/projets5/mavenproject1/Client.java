@@ -17,31 +17,33 @@ import java.util.List;
  */
 public class Client {
     
-    /*private int id;
+    private int id_client;
     private String nom_client;
-    private String mdp;
-    private int id_com;
+    private String prenom_client;
+    private String login_client;
+    private String password_client;
     
-    public Client (int id, String nom_client, String mdp) {
-        this.id = id;
+    public Client (int id, String nom_client, String prenom, String login, String mdp) {
+        this.id_client = id ;
         this.nom_client = nom_client;
-        this.mdp = mdp;
-        this.id_com = id_com;
+        this.prenom_client = prenom_client;
+        this.login_client = login;
+        this.password_client = mdp;
     }
     
-    public Client (String nom_client, String mdp) {
-        this(-1, nom_client, mdp);
+    public Client (String nom_client,  String prenom, String login, String mdp) {
+        this(-1, nom_client, prenom, login, mdp);
     }
     
-    public static Client demande() {
-        String nom_client = ConsoleFdB.entreeString("Nom : ");
-        String mdp = ConsoleFdB.entreeString("mdp : ");
-        return new Client(nom_client, mdp);
-    }
+//    public static Client demande() {
+//        String nom_client = ConsoleFdB.entreeString("Nom : ");
+//        String mdp = ConsoleFdB.entreeString("mdp : ");
+//        return new Client(nom_client, mdp);
+//    }
     
     public void saveInDBV1(Connection con) throws SQLException {
         try (PreparedStatement pst = con.prepareStatement(
-                "insert into macchhiinnee (ref,des) values (?,?)")) {
+                "insert into client_bof (ref,des) values (?,?)")) {
             pst.setInt(1, this.ref);
             pst.setString(2, this.des);
             pst.executeUpdate();
@@ -125,6 +127,6 @@ public class Client {
 
     public int getId() {
         return id;
-    }*/
+    }
     
 }
