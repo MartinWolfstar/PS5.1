@@ -37,7 +37,7 @@ public class typeoperation {
     
     public void saveInDBV1(Connection con) throws SQLException {
         try (PreparedStatement pst = con.prepareStatement(
-                "insert into typeoperation (des) values (?)")) {
+                "insert into typeoperation (des_type_operation) values (?)")) {
             pst.setString(1, this.des_to);
             pst.executeUpdate();
         }
@@ -45,7 +45,7 @@ public class typeoperation {
     
     public void supMachine(Connection con) throws SQLException {
         try (PreparedStatement pst = con.prepareStatement(
-                "delete from typeoperation where id = ?")) {
+                "delete from typeoperation where id_type_operation = ?")) {
             pst.setInt(1, this.id_to);
             pst.executeUpdate();
         }
@@ -53,7 +53,7 @@ public class typeoperation {
     
     public static void supMachine(Connection con, int id) throws SQLException {
         try (PreparedStatement pst = con.prepareStatement(
-                "delete from typeoperation where id = ?")) {
+                "delete from typeoperation where id_type_operation = ?")) {
             pst.setInt(1, id);
             pst.executeUpdate();
         }
@@ -62,11 +62,11 @@ public class typeoperation {
     public static List<typeoperation> tousLesTO(Connection con) throws SQLException {
         List<typeoperation> res = new ArrayList<>();
         try (PreparedStatement pst = con.prepareStatement(
-                "select id,des from typeoperation")) {
+                "select id_type_operation,des_type_operation from typeoperation")) {
             try (ResultSet rs = pst.executeQuery()) {
                 while (rs.next()) {
-                    int id = rs.getInt("id");
-                    String des = rs.getString("des");
+                    int id = rs.getInt("id_type_operation");
+                    String des = rs.getString("des_type_operation");
                     res.add(new typeoperation(id, des));
                 }
             }
@@ -86,7 +86,7 @@ public class typeoperation {
 
     public static void setDes(String des, int id, Connection con) throws SQLException {
         try (PreparedStatement pst = con.prepareStatement(
-                "update macchhiinnee set des = ? where id = ?")) {
+                "update machine_bof set des_type_operation = ? where id_type_operation = ?")) {
             pst.setString(1, des);
             pst.setInt(2, id);            
             pst.executeUpdate();

@@ -39,7 +39,7 @@ public class produit {
     
     public void saveInDBV1(Connection con) throws SQLException {
         try (PreparedStatement pst = con.prepareStatement(
-                "insert into macchhiinnee (ref_p,des_p) values (?,?)")) {
+                "insert into machine_bof (ref_produit,des_produit) values (?,?)")) {
             pst.setInt(1, this.ref_p);
             pst.setString(2, this.des_p);
             pst.executeUpdate();
@@ -48,7 +48,7 @@ public class produit {
     
     public void supMachine(Connection con) throws SQLException {
         try (PreparedStatement pst = con.prepareStatement(
-                "delete from macchhiinnee where id_p = ?")) {
+                "delete from machine_bof where id_produit = ?")) {
             pst.setInt(1, this.id_p);
             pst.executeUpdate();
         }
@@ -56,7 +56,7 @@ public class produit {
     
     public static void supMachine(Connection con, int id_p) throws SQLException {
         try (PreparedStatement pst = con.prepareStatement(
-                "delete from macchhiinnee where id_p = ?")) {
+                "delete from machine_bof where id_produit = ?")) {
             pst.setInt(1, id_p);
             pst.executeUpdate();
         }
@@ -65,12 +65,12 @@ public class produit {
     public static List<produit> tousLesMachines(Connection con) throws SQLException {
         List<produit> res = new ArrayList<>();
         try (PreparedStatement pst = con.prepareStatement(
-                "select id_p,des_p,ref_p from macchhiinnee")) {
+                "select id_produit,des_produit,ref_produit from machine_bof")) {
             try (ResultSet rs = pst.executeQuery()) {
                 while (rs.next()) {
-                    int id_p = rs.getInt("id_p");
-                    String des_p = rs.getString("des_p");
-                    int ref_p = rs.getInt("ref_p");
+                    int id_p = rs.getInt("id_produit");
+                    String des_p = rs.getString("des_produit");
+                    int ref_p = rs.getInt("ref_produit");
                     res.add(new produit(id_p, des_p, ref_p));
                 }
             }
@@ -89,7 +89,7 @@ public class produit {
 
     public static void setRef(int ref_p, int id_p, Connection con) throws SQLException {
         try (PreparedStatement pst = con.prepareStatement(
-                "update macchhiinnee set ref_p = ? where id_p = ?")) {
+                "update machine_bof set ref_produit = ? where id_produit = ?")) {
             pst.setInt(1, ref_p);
             pst.setInt(2, id_p);            
             pst.executeUpdate();
@@ -102,7 +102,7 @@ public class produit {
 
     public static void setDes(String des_p, int id_p, Connection con) throws SQLException {
         try (PreparedStatement pst = con.prepareStatement(
-                "update macchhiinnee set des_p = ? where id_p = ?")) {
+                "update machine_bof set des_produit = ? where id_produit = ?")) {
             pst.setString(1, des_p);
             pst.setInt(2, id_p);            
             pst.executeUpdate();

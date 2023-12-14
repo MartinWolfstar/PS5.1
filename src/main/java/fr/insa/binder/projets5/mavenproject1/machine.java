@@ -16,11 +16,24 @@ import java.util.List;
  * @author abinder01
  */
 public class machine {
-    
+    private int id;
     private int ref;
     private String des;
-    private int id;
+    private int id_poste_de_travail;
+    private int id_type_machine;
+
+    private machine(int id, int ref, String des, int id_poste_de_travail, int id_type_machine) {
+        this.id = id;
+        this.ref = ref;
+        this.des = des;
+        this.id_poste_de_travail = id_poste_de_travail;
+        this.id_type_machine = id_type_machine;
+    }
+
     
+    public machine(int ref, String des, int id_poste_de_travail, int id_type_machine) {
+       this(-1, ref, des, id_poste_de_travail, id_type_machine);
+    }
     public machine(int id, String des, int ref) {
         this.id = id;
         this.ref = ref;
@@ -39,16 +52,18 @@ public class machine {
     
     public void saveInDBV1(Connection con) throws SQLException {
         try (PreparedStatement pst = con.prepareStatement(
-                "insert into machine_bof (ref,des) values (?,?)")) {
+                "insert into machine_bof (ref_machine,des_machine,id_poste_de_travail,id_type_machine) values (?,?,?,?)")) {
             pst.setInt(1, this.ref);
             pst.setString(2, this.des);
+            pst.setInt(3, this.id_poste_de_travail);
+            pst.setInt(4, this.id_type_machine);
             pst.executeUpdate();
         }
     } 
     
     public void supMachine(Connection con) throws SQLException {
         try (PreparedStatement pst = con.prepareStatement(
-                "delete from machine_bof where id = ?")) {
+                "delete from machine_bof where id_machine = ?")) {
             pst.setInt(1, this.id);
             pst.executeUpdate();
         }
@@ -56,7 +71,7 @@ public class machine {
     
     public static void supMachine(Connection con, int id) throws SQLException {
         try (PreparedStatement pst = con.prepareStatement(
-                "delete from machine_bof where id = ?")) {
+                "delete from machine_bof where id_machine = ?")) {
             pst.setInt(1, id);
             pst.executeUpdate();
         }
@@ -65,12 +80,12 @@ public class machine {
     public static List<machine> tousLesMachines(Connection con) throws SQLException {
         List<machine> res = new ArrayList<>();
         try (PreparedStatement pst = con.prepareStatement(
-                "select id,des,ref from machine_bof")) {
+                "select id_machine,des_machine,ref_machine from machine_bof")) {
             try (ResultSet rs = pst.executeQuery()) {
                 while (rs.next()) {
-                    int id = rs.getInt("id");
-                    String des = rs.getString("des");
-                    int ref = rs.getInt("ref");
+                    int id = rs.getInt("id_machine");
+                    String des = rs.getString("des_machine");
+                    int ref = rs.getInt("ref_machine");
                     res.add(new machine(id, des, ref));
                 }
             }
@@ -80,7 +95,7 @@ public class machine {
 
     @Override
     public String toString() {
-        return "Machine{" + "id=" + getId() + ", ref=" + getRef() + ", des=" + getDes() + '}';
+        return "machine{" + "id=" + id + ", ref=" + ref + ", des=" + des + ", id_poste_de_travail=" + id_poste_de_travail + ", id_type_machine=" + id_type_machine + '}';
     }
 
     public void setRef(int ref) {
@@ -89,7 +104,7 @@ public class machine {
 
     public static void setRef(int ref, int id, Connection con) throws SQLException {
         try (PreparedStatement pst = con.prepareStatement(
-                "update machine_bof set ref = ? where id = ?")) {
+                "update machine_bof set ref_machine = ? where id_machine = ?")) {
             pst.setInt(1, ref);
             pst.setInt(2, id);            
             pst.executeUpdate();
@@ -102,7 +117,7 @@ public class machine {
 
     public static void setDes(String des, int id, Connection con) throws SQLException {
         try (PreparedStatement pst = con.prepareStatement(
-                "update machine_bof set des = ? where id = ?")) {
+                "update machine_bof set des_machine = ? where id_machine = ?")) {
             pst.setString(1, des);
             pst.setInt(2, id);            
             pst.executeUpdate();
@@ -124,4 +139,13 @@ public class machine {
     public int getId() {
         return id;
     }
+
+    public int getId_poste_de_travail() {
+        return id_poste_de_travail;
+    }
+
+    public int getId_type_machine() {
+        return id_type_machine;
+    }
+    
 }

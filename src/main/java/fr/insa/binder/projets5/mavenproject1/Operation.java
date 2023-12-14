@@ -32,14 +32,14 @@ public class Operation {
     }
     
     public static Operation demande() {
-        int id_p = ConsoleFdB.entreeInt("id_p : ");
-        int id_to = ConsoleFdB.entreeInt("id_to : ");
+        int id_p = ConsoleFdB.entreeInt("id_produit : ");
+        int id_to = ConsoleFdB.entreeInt("id_type_operation : ");
         return new Operation(id_to, id_p);
     }
     
     public void saveInDBV1(Connection con) throws SQLException {
         try (PreparedStatement pst = con.prepareStatement(
-                "insert into macchhiinnee (id_p,id_to) values (?,?)")) {
+                "insert into machine_bof (id_produit,id_type_operation) values (?,?)")) {
             pst.setInt(1, this.id_p);
             pst.setInt(2, this.id_to);
             pst.executeUpdate();
@@ -48,7 +48,7 @@ public class Operation {
     
     public void supOperation(Connection con) throws SQLException {
         try (PreparedStatement pst = con.prepareStatement(
-                "delete from macchhiinnee where id_o = ?")) {
+                "delete from machine_bof where id_operation = ?")) {
             pst.setInt(1, this.id_o);
             pst.executeUpdate();
         }
@@ -56,7 +56,7 @@ public class Operation {
     
     public static void supOperation(Connection con, int id_o) throws SQLException {
         try (PreparedStatement pst = con.prepareStatement(
-                "delete from macchhiinnee where id_o = ?")) {
+                "delete from machine_bof where id_operation = ?")) {
             pst.setInt(1, id_o);
             pst.executeUpdate();
         }
@@ -65,12 +65,12 @@ public class Operation {
     public static List<Operation> tousLesOperations(Connection con) throws SQLException {
         List<Operation> res = new ArrayList<>();
         try (PreparedStatement pst = con.prepareStatement(
-                "select id_o,id_to,id_p from macchhiinnee")) {
+                "select id_operation,id_type_operation,id_produit from machine_bof")) {
             try (ResultSet rs = pst.executeQuery()) {
                 while (rs.next()) {
-                    int id_o = rs.getInt("id_o");
-                    int id_to = rs.getInt("id_to");
-                    int id_p = rs.getInt("id_p");
+                    int id_o = rs.getInt("id_operation");
+                    int id_to = rs.getInt("id_type_operation");
+                    int id_p = rs.getInt("id_produit");
                     res.add(new Operation(id_o, id_to, id_p));
                 }
             }
@@ -89,7 +89,7 @@ public class Operation {
 
     public static void setRef(int id_p, int id_o, Connection con) throws SQLException {
         try (PreparedStatement pst = con.prepareStatement(
-                "update macchhiinnee set id_p = ? where id_o = ?")) {
+                "update machine_bof set id_produit = ? where id_operation = ?")) {
             pst.setInt(1, id_p);
             pst.setInt(2, id_o);            
             pst.executeUpdate();
@@ -102,7 +102,7 @@ public class Operation {
 
     public static void setDes(int id_to, int id_o, Connection con) throws SQLException {
         try (PreparedStatement pst = con.prepareStatement(
-                "update macchhiinnee set id_to = ? where id_o = ?")) {
+                "update machine_bof set id_type_operation = ? where id_operation = ?")) {
             pst.setInt(1, id_to);
             pst.setInt(2, id_o);            
             pst.executeUpdate();
