@@ -1,5 +1,9 @@
 package fr.insa.binder.projets5.mavenproject1.gui;
 
+import fr.insa.binder.projets5.mavenproject1.gui.technicien.Supp_machine;
+import fr.insa.binder.projets5.mavenproject1.gui.technicien.Grid_machine;
+import fr.insa.binder.projets5.mavenproject1.gui.technicien.Modif_machine;
+import fr.insa.binder.projets5.mavenproject1.gui.technicien.Ajout_machine;
 import com.vaadin.flow.component.Key;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.grid.Grid;
