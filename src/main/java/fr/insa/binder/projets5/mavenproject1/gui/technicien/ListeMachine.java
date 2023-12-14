@@ -1,9 +1,6 @@
-package fr.insa.binder.projets5.mavenproject1.gui;
+package fr.insa.binder.projets5.mavenproject1.gui.technicien;
 
-import fr.insa.binder.projets5.mavenproject1.gui.technicien.Supp_machine;
-import fr.insa.binder.projets5.mavenproject1.gui.technicien.Grid_machine;
-import fr.insa.binder.projets5.mavenproject1.gui.technicien.Modif_machine;
-import fr.insa.binder.projets5.mavenproject1.gui.technicien.Ajout_machine;
+import fr.insa.binder.projets5.mavenproject1.gui.*;
 import com.vaadin.flow.component.Key;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.grid.Grid;
@@ -18,14 +15,14 @@ import fr.insa.binder.projets5.mavenproject1.machine;
 import java.sql.Connection;
 import java.sql.SQLException;
 
-@PageTitle("main")
-@Route(value = "1", layout = MainLayout.class)
-public class MainView extends VerticalLayout {
+@PageTitle("ListeMachine")
+@Route(value = "21", layout = BarreGaucheTechnicien.class)
+public class ListeMachine extends VerticalLayout {
 
     private Grid_machine grid;
     private HorizontalLayout H1;
    
-    public MainView() {
+    public ListeMachine() {
         this.add(new H3("Liste de toutes les machines"));
         H1 = new HorizontalLayout();
         try {

@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package fr.insa.binder.projets5.mavenproject1.gui;
+package fr.insa.binder.projets5.mavenproject1.gui.technicien;
 
 
 import com.vaadin.flow.component.button.Button;
@@ -15,7 +15,7 @@ import org.vaadin.hezamu.canvas.Canvas;
 
 
 @PageTitle("Plan")
-@Route(value = "3", layout = MainLayout.class)
+@Route(value = "22", layout = BarreGaucheTechnicien.class)
 public class technicien_PlanUsine extends VerticalLayout {
 
     private Canvas canvas;
@@ -40,7 +40,7 @@ public class technicien_PlanUsine extends VerticalLayout {
         canvas.fillRect(10, 10, 20, 20);
 
         // Draw grid on the canvas
-        drawGrid();
+        //drawGrid();
 
         // Add a mouse move listener to the canvas
         /*canvas.addMouseMoveListener(event -> {
@@ -59,26 +59,26 @@ public class technicien_PlanUsine extends VerticalLayout {
         return buttonRow;
     }
 
-    private void drawGrid() {
-        int gridSize = 20; // Adjust the grid size as needed
-
-        // Set the stroke style for the grid lines
-        canvas.setStrokeStyle("#000000"); // Black color
-
-        // Draw vertical grid lines
-        for (int x = 0; x <= canvas.getWidth(); x += gridSize) {
-            canvas.beginPath();
-            canvas.moveTo(x, 0);
-            canvas.lineTo(x, canvas.getHeight());
-            canvas.stroke();
-        }
-
-        // Draw horizontal grid lines
-        for (int y = 0; y <= canvas.getHeight(); y += gridSize) {
-            canvas.beginPath();
-            canvas.moveTo(0, y);
-            canvas.lineTo(canvas.getWidth(), y);
-            canvas.stroke();
-        }
-    }
+//    private void drawGrid() {
+//        int gridSize = 20; // Adjust the grid size as needed
+//
+//        // Set the stroke style for the grid lines
+//        canvas.setStrokeStyle("#000000"); // Black color
+//
+//        // Draw vertical grid lines
+//        for (int x = 0; x <= canvas.getWidth(); x += gridSize) {
+//            canvas.beginPath();
+//            canvas.moveTo(x, 0);
+//            canvas.lineTo(x, canvas.getHeight());
+//            canvas.stroke();
+//        }
+//
+//        // Draw horizontal grid lines
+//        for (int y = 0; y <= canvas.getHeight(); y += gridSize) {
+//            canvas.beginPath();
+//            canvas.moveTo(0, y);
+//            canvas.lineTo(canvas.getWidth(), y);
+//            canvas.stroke();
+//        }
+//    }
 }
