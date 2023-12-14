@@ -4,6 +4,8 @@
  */
 package fr.insa.binder.projets5.mavenproject1.gui.client;
 
+import fr.insa.binder.projets5.mavenproject1.gui.technicien.Grid_machine;
+import com.vaadin.base.devserver.editor.Editor;
 import fr.insa.binder.projets5.mavenproject1.gui.*;
 import com.vaadin.flow.component.Key;
 import com.vaadin.flow.component.button.Button;
@@ -41,18 +43,21 @@ public class CommandeClient extends VerticalLayout{
         
         addClassName("liste_machine");
         setSizeFull();
-        facture = new Button("Say hello");
-        //ALD = new AppLayoutDrawer();
-
         
+
+
+
+
+
+
+
+        facture = new Button("facture");
         facture.addClickListener(e -> {
             Notification.show("facture ");
         });
         facture.addClickShortcut(Key.ENTER);
-
         setMargin(true);
         //setHorizontalComponentAlignment(FlexComponent.Alignment.END, name, sayHello);
-
         add(facture);
     }
 }
