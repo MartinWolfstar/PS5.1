@@ -14,7 +14,7 @@ import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.Route;
 import static fr.insa.binder.projets5.mavenproject1.Gestion.connectSurServeurM3;
-import fr.insa.binder.projets5.mavenproject1.Session;
+//import fr.insa.binder.projets5.mavenproject1.Session;
 import fr.insa.binder.projets5.mavenproject1.machine;
 import java.sql.SQLException;
 
