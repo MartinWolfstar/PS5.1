@@ -116,12 +116,12 @@ public class Gestion {
                     + "id_operateur integer primary key AUTO_INCREMENT,\n"
                     + "nom_operateur varchar(50),\n"
                     + "prenom_operateur varchar(40),\n"
-                    + "login_client varchar(50),\n"
-                    + "password_client varchar(40)\n"
+                    + "login_operateur varchar(50),\n"
+                    + "password_operateur varchar(40)\n"
                     +")");
             st.executeUpdate(
                     "create table poste_de_travail_bof (\n"
-                    + "id_poste_de_travail integer not null primary key AUTO_INCREMENT,\n"
+                    + "id_poste_de_travail integer not null primary key,\n"
                     + "ref_poste_de_travail text\n"
                     +")");
             st.executeUpdate(
@@ -153,7 +153,7 @@ public class Gestion {
                     +")");
             st.executeUpdate(
                     "create table type_machine_bof (\n"
-                    + "id_type_machine integer primary key AUTO_INCREMENT,\n"
+                    + "id_type_machine integer primary key,\n"
                     + "des_type_machine text\n"
                     +")");
             st.executeUpdate(
@@ -287,6 +287,24 @@ public class Gestion {
             this.conn.setAutoCommit(true);
         }
     }
+    
+    public static void initialise(Connection conn) throws SQLException{
+        poste_de_travail poste1 = new poste_de_travail(1, "ranger");
+        poste1.save_poste_de_travail(conn);
+        type_machine type_machine1 = new type_machine(1, "tournage");
+        type_machine1.save_type_machine(conn);
+        machine m1 = new machine(333,"tournage", 1, 1);
+        m1.saveInDBV1(conn);
+        operateur Titi = new operateur( "James", "Einstahitiii", "Titi01", "melissa68");
+        Titi.save_operateur(conn);
+        //operateur Toto = new operateur( "Dodo", "Einstahitiii", "Dodo68", "123468");
+        //Toto.save_operateur(conn);
+        type_etat type_etat1 = new type_etat("abscence");
+        type_etat1.save_type_etat(conn);
+        type_operation type_operation1 = new type_operation("dressage");
+        type_operation1.save_type_operation(conn);
+    }
+    
     
     public void deleteSchema() throws SQLException {
         try (Statement st = this.conn.createStatement()) {
@@ -443,7 +461,7 @@ public class Gestion {
                 st.executeUpdate("drop table ordre_op_bof");
             } catch (SQLException ex) {
             }
-            try {
+            try {   
                 st.executeUpdate("drop table produit_bof");
             } catch (SQLException ex) {
             }
@@ -543,7 +561,12 @@ public class Gestion {
         }  
     }   
     
-    
+    public void razBdD(Connection conn) throws SQLException{
+        this.deleteSchema();
+        this.creeSchema();
+        initialise(conn);
+                
+    }
 
     public void menuMachine() {
         int rep = -1;
@@ -553,6 +576,8 @@ public class Gestion {
             System.out.println("================");
             System.out.println((i++) + ") supprimer schéma");
             System.out.println((i++) + ") créer schéma");
+            System.out.println((i++)+ ") initialiser");
+            System.out.println((i++) +") Raz de la BdD = supprimer + creer + initialiser");
             System.out.println((i++) + ") lister les machines");
             System.out.println((i++) + ") ajouter un machine");
             //System.out.println((i++) + ") chercher par pattern");
@@ -564,6 +589,10 @@ public class Gestion {
                     this.deleteSchema();
                 } else if (rep == j++) {
                     this.creeSchema();
+                } else if (rep == j++) {
+                    initialise(conn);
+                } else if (rep == j++) {
+                    razBdD(conn);
                 } else if (rep == j++) {
                     List<machine> users = machine.tousLesMachines(this.conn);
                     System.out.println(users.size() + " utilisateurs : ");
