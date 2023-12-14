@@ -14,7 +14,6 @@ import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.Route;
 import static fr.insa.binder.projets5.mavenproject1.Gestion.connectSurServeurM3;
-import fr.insa.binder.projets5.mavenproject1.Session;
 import fr.insa.binder.projets5.mavenproject1.machine;
 import java.sql.SQLException;
 
@@ -32,21 +31,20 @@ public class premiere_page extends VerticalLayout {
     private Button administrateur; 
     private Button client;
     private HorizontalLayout h; 
-    private Session sessionInfo;
+//    private Session sessionInfo;
 //    private VerticalLayout mainContent;
 
 
     
-    public premiere_page(VuePrincipale main) {
+    public premiere_page(Vue_principale_login main) {
         this.main = main;
         this.titre = new H1("Bienvenue sur notre site");
         this.client = new Button("Client");
         this.administrateur = new Button ("Operateur");
         this.client.addClickListener(e -> {
-           this.main.setMainContent(ccc)
+           this.main.setMainContent(new login_client(main));
         });
         this.administrateur.addClickListener(e -> {
-           this.main.setMainContent(ccc)
         });
         this.h = new HorizontalLayout(this.administrateur, this.client);
         this.add(this.titre, this.h);

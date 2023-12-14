@@ -9,8 +9,12 @@ import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.PasswordField;
 import com.vaadin.flow.component.textfield.TextField;
+import com.vaadin.flow.router.HighlightConditions;
+import com.vaadin.flow.router.RouterLink;
 import com.vaadin.flow.server.VaadinSession;
 import fr.insa.binder.projets5.mavenproject1.Client;
+import static fr.insa.binder.projets5.mavenproject1.Client.login;
+import fr.insa.binder.projets5.mavenproject1.gui.MainView;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.Optional;
@@ -46,13 +50,11 @@ public class login_client extends VerticalLayout {
         String pass = this.vpass.getValue();
         try {
             Connection con = (Connection) VaadinSession.getCurrent().getAttribute("conn");
-            Optional<Integer> user = GestionBdD.login(con, nom, pass);
+            Optional<Integer> user = login(con, nom, pass);
             if(user.isEmpty()) {
                 Notification.show("Utilisateur ou pass invalide");
             } else {
-                this.main.getSessionInfo().setCurUser(user);
-                this.main.setEntete(new EnteteAfterLogin(this.main));
-                this.main.setMainContent(new MainAfterLogin(this.main));
+                VaadinSession.getCurrent().setAttribute("id_client", user.get());
             }
         } catch (SQLException ex) {
             Notification.show("Problème interne : " + ex.getLocalizedMessage());
