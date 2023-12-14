@@ -31,7 +31,7 @@ public class MainLayout extends AppLayout{
     }
 
     private void creatHeader() {
-        H1 logo = new H1("App PS5");
+        H1 logo = new H1("App PS5 test");
         logo.addClassName("logo");
         
         HorizontalLayout header = new HorizontalLayout(new DrawerToggle(), logo);
