@@ -15,6 +15,7 @@ import com.vaadin.flow.server.VaadinSession;
 import fr.insa.binder.projets5.mavenproject1.Client;
 import static fr.insa.binder.projets5.mavenproject1.Client.login;
 import fr.insa.binder.projets5.mavenproject1.gui.MainView;
+import fr.insa.binder.projets5.mavenproject1.gui.client.ProduitClient;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.Optional;
@@ -55,6 +56,8 @@ public class login_client extends VerticalLayout {
                 Notification.show("Utilisateur ou pass invalide");
             } else {
                 VaadinSession.getCurrent().setAttribute("id_client", user.get());
+                RouterLink listLink = new RouterLink("Produit", ProduitClient.class);
+                this.main.add(listLink);
             }
         } catch (SQLException ex) {
             Notification.show("Problème interne : " + ex.getLocalizedMessage());
