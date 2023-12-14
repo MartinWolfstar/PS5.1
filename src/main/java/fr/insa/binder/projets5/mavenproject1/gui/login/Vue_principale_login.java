@@ -7,6 +7,7 @@ package fr.insa.binder.projets5.mavenproject1.gui.login;
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
+import com.vaadin.flow.router.Route;
 import com.vaadin.flow.server.VaadinSession;
 import static fr.insa.binder.projets5.mavenproject1.Gestion.connectSurServeurM3;
 import java.sql.SQLException;
@@ -15,6 +16,8 @@ import java.sql.SQLException;
  *
  * @author binde
  */
+@Route("")
+
 public class Vue_principale_login extends VerticalLayout {
     
 

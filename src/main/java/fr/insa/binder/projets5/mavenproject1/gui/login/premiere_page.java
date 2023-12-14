@@ -22,7 +22,6 @@ import java.sql.SQLException;
  * @author binde
  */
 
-@Route("")
 
 public class premiere_page extends VerticalLayout {
     

@@ -91,9 +91,7 @@ public class Client {
 
     public static Optional<Integer> login(Connection con, String nom, String pass) throws SQLException {
         try (PreparedStatement pst = con.prepareStatement(
-                "select id_client"
-                + " from client_bof "
-                + " where login_client = ? and password_client = ?")) {
+                "select id_client from client_bof where login_client = ? and password_client = ?")) {
 
             pst.setString(1, nom);
             pst.setString(2, pass);
@@ -104,6 +102,23 @@ public class Client {
                 return Optional.empty();
             }
         }
+    }
+    
+    public static List<Integer> condition (Connection con) throws SQLException {
+        List<Integer> liste = new ArrayList<>();
+        try (PreparedStatement pst = con.prepareStatement(
+                "select id_client"
+                + " from client_bof "
+                + " where login_client = ?")) {
+            pst.setString(1, "Aurore");
+            try (ResultSet rs = pst.executeQuery()) {
+                while (rs.next()) {
+                    int id = rs.getInt("id_client");
+                    liste.add(id);
+                }
+            }
+        }
+        return liste;
     }
     
     @Override
@@ -189,11 +204,14 @@ public class Client {
     }
     
     public static void main(String[] args) throws SQLException {
-//        Client client = new Client("Theo", "Aurore", "Aurore", "Aurore");
+        Client client = new Client("Theo", "Aurore", "Aurore", "Aurore");
         try {
             Connection con = connectSurServeurM3();
-            supClient(con, 1);
-            supClient(con, 2);
+            client.saveInDBV(con);
+            List<Client> liset_c = tousLesClients(con);
+            List<Integer> liste = condition(con);
+            System.out.println(liste);
+            System.out.println(liset_c);
 //            client.saveInDBV(connectSurServeurM3());
         }
         catch (SQLException ex) {

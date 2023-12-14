@@ -4,6 +4,7 @@
  */
 package fr.insa.binder.projets5.mavenproject1.gui.login;
 
+import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
@@ -56,8 +57,9 @@ public class login_client extends VerticalLayout {
                 Notification.show("Utilisateur ou pass invalide");
             } else {
                 VaadinSession.getCurrent().setAttribute("id_client", user.get());
-                RouterLink listLink = new RouterLink("Produit", ProduitClient.class);
-                this.main.add(listLink);
+                UI.getCurrent().navigate(ProduitClient.class);
+//                RouterLink listLink = new RouterLink("Produit", ProduitClient.class);
+//                this.main.add(listLink);
             }
         } catch (SQLException ex) {
             Notification.show("Problème interne : " + ex.getLocalizedMessage());
