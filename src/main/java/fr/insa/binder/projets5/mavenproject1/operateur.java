@@ -6,6 +6,7 @@ package fr.insa.binder.projets5.mavenproject1;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /**
@@ -35,13 +36,17 @@ public class operateur {
 
     public void save_operateur(Connection con) throws SQLException {
         try (PreparedStatement pst = con.prepareStatement(
-                "insert into operateur_bof (id_operateur,nom_operateur,prenom_operateur,login_operateur,password_operateur) values (?,?,?,?,?)")) {
-            pst.setInt(1, this.getId_operateur());
-            pst.setString(2, this.getNom_operateur());
-            pst.setString(3, this.getPrenom_operateur());
-            pst.setString(4, this.getLogin_operateur());
-            pst.setString(5, this.getPassword_operateur());
+                "insert into operateur_bof (nom_operateur,prenom_operateur,login_operateur,password_operateur) values (?,?,?,?)",PreparedStatement.RETURN_GENERATED_KEYS)) {
+            pst.setString(1, this.getNom_operateur());
+            pst.setString(2, this.getPrenom_operateur());
+            pst.setString(3, this.getLogin_operateur());
+            pst.setString(4, this.getPassword_operateur());
             pst.executeUpdate();
+            try (ResultSet ids = pst.getGeneratedKeys()) {
+                ids.next();
+                this.id_operateur = ids.getInt(1);
+            }
+
         }
     }
 
