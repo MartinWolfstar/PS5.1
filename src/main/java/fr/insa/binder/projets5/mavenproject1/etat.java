@@ -6,6 +6,7 @@ package fr.insa.binder.projets5.mavenproject1;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 
@@ -14,7 +15,7 @@ import java.sql.Timestamp;
  * @author melan
  */
 public class etat {
-    /*private int id_etat;
+    private int id_etat;
     private int id_type_etat;
     private Timestamp debut;
     private Timestamp fin;
@@ -32,12 +33,15 @@ public class etat {
     
     public void save_etat(Connection con) throws SQLException {
         try (PreparedStatement pst = con.prepareStatement(
-                "insert into etat_bof (id_etat,id_type_etat,debut,fin) values (?,?,?,?)")) {
-            pst.setInt(1, this.id_etat);
-            pst.setInt(2, this.id_type_etat);
-            pst.setTimestamp(3, this.debut);
-            pst.setTimestamp(4, this.fin);
+                "insert into etat_bof (id_type_etat,debut,fin) values (?,?,?)",PreparedStatement.RETURN_GENERATED_KEYS)) {
+            pst.setInt(1, this.id_type_etat);
+            pst.setTimestamp(2, this.debut);
+            pst.setTimestamp(3, this.fin);
             pst.executeUpdate();
+            try (ResultSet ids = pst.getGeneratedKeys()) {
+                ids.next();
+                this.id_type_etat = ids.getInt(1);
+            }
         }
     } 
     
@@ -81,6 +85,6 @@ public class etat {
     public void setFin(Timestamp fin) {
         this.fin = fin;
     }
-    */
+    
     
 }
