@@ -55,6 +55,15 @@ public class Client {
         }
     } 
     
+    public static void creerClient(Connection con) throws SQLException {
+        Client client1 = new Client("Binder", "Aurore", "Aurore", "Aurore");
+        Client client2 = new Client("Schmitt", "Theo", "Theo", "Theo");
+        Client client3 = new Client("Dalibard", "Melanie", "Melanie", "Melanie");
+        client1.saveInDBV(con);
+        client2.saveInDBV(con);
+        client3.saveInDBV(con);
+    }
+    
     public void supClient(Connection con) throws SQLException {
         try (PreparedStatement pst = con.prepareStatement(
                 "delete from client_bof where id = ?")) {
@@ -203,10 +212,29 @@ public class Client {
         return password_client;
     }
     
+    public static String getnom_client(int id, Connection con) throws SQLException{
+        String nom = "Personne";
+        String prenom = "Personne";
+        try (PreparedStatement pst = con.prepareStatement(
+                "select nom_client, prenom_client"
+                + " from client_bof "
+                + " where id_client = ?")) {
+            pst.setInt(1, id);
+            try (ResultSet rs = pst.executeQuery()) {
+                while (rs.next()) {
+                    nom = rs.getString("nom_client");
+                    prenom = rs.getString("prenom_client");
+                }
+            }
+        }
+        return nom + " " + prenom;
+    }
+    
     public static void main(String[] args) throws SQLException {
         Client client = new Client("Theo", "Aurore", "Aurore", "Aurore");
         try {
             Connection con = connectSurServeurM3();
+            creerClient(con);
             client.saveInDBV(con);
             List<Client> liset_c = tousLesClients(con);
             List<Integer> liste = condition(con);
