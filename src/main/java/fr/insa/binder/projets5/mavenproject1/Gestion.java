@@ -116,8 +116,8 @@ public class Gestion {
                     + "id_operateur integer primary key AUTO_INCREMENT,\n"
                     + "nom_operateur varchar(50),\n"
                     + "prenom_operateur varchar(40),\n"
-                    + "login_operateur varchar(50),\n"
-                    + "password_operateur varchar(40)\n"
+                    + "login_operateur varchar(50) not null unique,\n"
+                    + "password_operateur varchar(40) not null\n"
                     +")");
             st.executeUpdate(
                     "create table poste_de_travail_bof (\n"
@@ -141,8 +141,8 @@ public class Gestion {
                     + " id_client integer not null primary key AUTO_INCREMENT,\n"
                     + "nom_client varchar(50),\n"
                     + "prenom_client varchar(40),\n"
-                    + "login_client varchar(50),\n"
-                    + "password_client varchar(40)\n"
+                    + "login_client varchar(50) not null unique,\n"
+                    + "password_client varchar(40) not null\n"
                     +")");
             st.executeUpdate(
                     "create table commande_bof (\n"

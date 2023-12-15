@@ -16,8 +16,10 @@ import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.IntegerField;
 import com.vaadin.flow.component.textfield.NumberField;
 import com.vaadin.flow.component.textfield.TextField;
+import com.vaadin.flow.server.VaadinSession;
 import static fr.insa.binder.projets5.mavenproject1.Gestion.connectSurServeurM3;
 import fr.insa.binder.projets5.mavenproject1.machine;
+import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.List;
@@ -41,7 +43,7 @@ public class Ajout_machine extends VerticalLayout{
         this.valid.addClickListener(e -> {
             this.mach = new machine(this.des.getValue(), this.ref.getValue());
             try {
-                mach.saveInDBV1(connectSurServeurM3());
+                mach.saveInDBV1((Connection) VaadinSession.getCurrent().getAttribute("conn"));
                 UI.getCurrent().getPage().reload();
             } catch(SQLException ex) {
             this.add(new H3("Problème BdD : "));

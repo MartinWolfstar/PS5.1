@@ -15,16 +15,18 @@ import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.server.VaadinSession;
 import fr.insa.binder.projets5.mavenproject1.Client;
 import static fr.insa.binder.projets5.mavenproject1.Client.getnom_client;
+import static fr.insa.binder.projets5.mavenproject1.Client.login;
 import static fr.insa.binder.projets5.mavenproject1.Gestion.connectSurServeurM3;
 import fr.insa.binder.projets5.mavenproject1.gui.client.ProduitClient;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.Optional;
 
 /**
  *
  * @author binde
  */
-public class Inscription_client extends VerticalLayout{
+public  class Inscription_client extends VerticalLayout{
     private TextField nom;
     private Vue_principale_login main;
     private TextField prenom;
@@ -48,11 +50,25 @@ public class Inscription_client extends VerticalLayout{
             try {
                 Connection con = (Connection) VaadinSession.getCurrent().getAttribute("conn");
                 client.saveInDBV(con);
+                Optional<Integer> user = login(con, this.login.getValue(), this.mdp.getValue());
+                VaadinSession.getCurrent().setAttribute("id_client", user.get());
                 UI.getCurrent().navigate(ProduitClient.class);
-            } catch (SQLException ex) {
-//            this.setMainContent(new BdDNonAccessible(this));
+                } catch (SQLException ex) {
+                Notification.show("Problème interne : " + ex.getLocalizedMessage());
         }
-            VaadinSession.getCurrent().setAttribute("id_client", client.getId_client());
+//            try {
+//                Connection con = (Connection) VaadinSession.getCurrent().getAttribute("conn");
+//                Optional<Integer> user = login(con, this.login.getValue(), this.mdp.getValue());
+//                if(user.isEmpty()) {
+//                    Notification.show("Probleme problematique");
+//                } else {
+//                    VaadinSession.getCurrent().setAttribute("id_client", user.get());
+//                    UI.getCurrent().navigate(ProduitClient.class);
+//            }
+//            } catch (SQLException ex) {
+//                Notification.show("Autre Problème stupide");
+//            }
+            
         });
         sauvegarder.addClickShortcut(Key.ENTER);
 

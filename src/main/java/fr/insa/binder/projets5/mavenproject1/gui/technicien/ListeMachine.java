@@ -9,6 +9,7 @@ import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
+import com.vaadin.flow.server.VaadinSession;
 import fr.insa.binder.projets5.mavenproject1.Gestion;
 import static fr.insa.binder.projets5.mavenproject1.Gestion.connectSurServeurM3;
 import fr.insa.binder.projets5.mavenproject1.machine;
@@ -26,7 +27,7 @@ public class ListeMachine extends VerticalLayout {
         this.add(new H3("Liste de toutes les machines"));
         H1 = new HorizontalLayout();
         try {
-            this.grid = new Grid_machine(machine.tousLesMachines(connectSurServeurM3())); 
+            this.grid = new Grid_machine(machine.tousLesMachines((Connection) VaadinSession.getCurrent().getAttribute("conn"))); 
             this.add(this.grid);
         } catch(SQLException ex) {
             this.add(new H3("Problème BdD : "));
