@@ -45,6 +45,9 @@ public class login_client extends VerticalLayout {
         this.vbLogin.addClickListener((event) -> {
             this.doLogin();
         });
+        this.inscription.addClickListener((event) -> {
+            this.main.setMainContent(new Inscription_client(this.main));
+        });
     }
     
     public void doLogin() {
