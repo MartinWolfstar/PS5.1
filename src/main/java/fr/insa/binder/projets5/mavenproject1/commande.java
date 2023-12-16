@@ -51,7 +51,7 @@ public class commande {
         }
     } 
     
-    public void supMachine(Connection con) throws SQLException {
+    public void supCommande(Connection con) throws SQLException {
         try (PreparedStatement pst = con.prepareStatement(
                 "delete from commande_bof where id_commande = ?")) {
             pst.setInt(1, this.id_commande);
@@ -59,7 +59,7 @@ public class commande {
         }
     }
     
-    public static void supMachine(Connection con, int id_commande) throws SQLException {
+    public static void supCommande(Connection con, int id_commande) throws SQLException {
         try (PreparedStatement pst = con.prepareStatement(
                 "delete from commande_bof where id_commande = ?")) {
             pst.setInt(1, id_commande);
@@ -72,6 +72,23 @@ public class commande {
         try (PreparedStatement pst = con.prepareStatement(
                 "select id_commande,nom_commande,des_commande,id_client from commande_bof where id_client=?")) {
             pst.setInt(1, idc);
+            try (ResultSet rs = pst.executeQuery()) {
+                while (rs.next()) {
+                    int id_commande = rs.getInt("id_commande");
+                    String nom_commande = rs.getString("nom_commande");
+                    String des_commande = rs.getString("des_commande");
+                    int id_client = rs.getInt("id_client");
+                    res.add(new commande(id_commande, nom_commande, des_commande, id_client));
+                }
+            }
+        }
+        return res;
+    }
+    
+        public static List<commande> tousLesCommandes(Connection con) throws SQLException {
+        List<commande> res = new ArrayList<>();
+        try (PreparedStatement pst = con.prepareStatement(
+                "select id_commande,nom_commande,des_commande,id_client from commande_bof")) {
             try (ResultSet rs = pst.executeQuery()) {
                 while (rs.next()) {
                     int id_commande = rs.getInt("id_commande");

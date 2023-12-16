@@ -201,6 +201,17 @@ public class Gestion {
                     +")\n"
             );
             st.executeUpdate(
+                    "create table messagerie_bof (\n"
+                    + "id_message integer not null primary key AUTO_INCREMENT,\n"
+                    + "id_operateur integer not null,\n"
+                    + "message text\n"
+                    +")\n"
+            );
+            st.executeUpdate(
+                    "alter table messagerie_bof \n"
+                    + "add constraint fk_messagerie_bof__operateur_bof \n"
+                    + "foreign key (id_operateur) references operateur_bof(id_operateur)");
+            st.executeUpdate(
                     "alter table precede_bof \n"
                     + "add constraint fk_precede_bof_operation_1 \n"
                     + "foreign key (operation_1) references operation_bof(id_operation)");
@@ -416,7 +427,14 @@ public class Gestion {
                 st.executeUpdate("drop table operateur_bof");
             } catch (SQLException ex) {
             }
-            
+            try {
+                st.executeUpdate("alter table messagerie_bof drop constraint fk_messagerie_bof__operateur_bof");
+            } catch (SQLException ex) {
+            }
+            try {
+                st.executeUpdate("drop table messagerie_bof");
+            } catch (SQLException ex) {
+            }
             try {
                 st.executeUpdate("alter table utilisateur_bof drop constraint fk_utilisateur_bof_idrole");
             } catch (SQLException ex) {
