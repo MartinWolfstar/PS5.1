@@ -4,6 +4,9 @@
  */
 package fr.insa.binder.projets5.mavenproject1.gui.technicien;
 
+import fr.insa.binder.projets5.mavenproject1.gui.technicien.technicienPlanUsine.technicien_PlanUsine;
+import fr.insa.binder.projets5.mavenproject1.gui.technicien.technicienMessage.technicienMessagerie;
+import fr.insa.binder.projets5.mavenproject1.gui.technicien.technicienMachine.ListeMachine;
 import fr.insa.binder.projets5.mavenproject1.gui.*;
 import com.vaadin.flow.component.applayout.AppLayout;
 import com.vaadin.flow.component.applayout.DrawerToggle;

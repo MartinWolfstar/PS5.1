@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package fr.insa.binder.projets5.mavenproject1.gui.technicien;
+package fr.insa.binder.projets5.mavenproject1.gui.technicien.technicienPlanUsine;
 
 
 import com.vaadin.flow.component.button.Button;
@@ -11,16 +11,17 @@ import com.vaadin.flow.component.map.events.MouseEventDetails;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
+import fr.insa.binder.projets5.mavenproject1.gui.technicien.BarreGaucheTechnicien;
 import org.vaadin.hezamu.canvas.Canvas;
 
 
-@PageTitle("Plan1")
-@Route(value = "23", layout = BarreGaucheTechnicien.class)
-public class technicien_PlanUsine1 extends VerticalLayout {
+@PageTitle("Plan")
+@Route(value = "22", layout = BarreGaucheTechnicien.class)
+public class technicien_PlanUsine extends VerticalLayout {
 
     private Canvas canvas;
 
-    public technicien_PlanUsine1() {
+    public technicien_PlanUsine() {
         // Title
         add(new H3("Plan de l'usine"));
 

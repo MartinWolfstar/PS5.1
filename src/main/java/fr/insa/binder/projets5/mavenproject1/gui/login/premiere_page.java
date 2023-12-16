@@ -8,7 +8,7 @@ import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.server.VaadinSession;
 import fr.insa.binder.projets5.mavenproject1.gui.client.ProduitClient;
-import fr.insa.binder.projets5.mavenproject1.gui.technicien.ListeMachine;
+import fr.insa.binder.projets5.mavenproject1.gui.technicien.technicienMachine.ListeMachine;
 
 public class premiere_page extends VerticalLayout {
 

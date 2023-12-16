@@ -14,9 +14,9 @@ import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.server.VaadinSession;
 import fr.insa.binder.projets5.mavenproject1.commande;
-import fr.insa.binder.projets5.mavenproject1.gui.technicien.Ajout_machine;
-import fr.insa.binder.projets5.mavenproject1.gui.technicien.Modif_machine;
-import fr.insa.binder.projets5.mavenproject1.gui.technicien.Supp_machine;
+import fr.insa.binder.projets5.mavenproject1.gui.technicien.technicienMachine.Ajout_machine;
+import fr.insa.binder.projets5.mavenproject1.gui.technicien.technicienMachine.Modif_machine;
+import fr.insa.binder.projets5.mavenproject1.gui.technicien.technicienMachine.Supp_machine;
 import java.sql.Connection;
 import java.sql.SQLException;
 

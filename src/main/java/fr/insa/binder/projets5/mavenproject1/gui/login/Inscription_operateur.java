@@ -13,7 +13,7 @@ import com.vaadin.flow.component.textfield.PasswordField;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.server.VaadinSession;
 import fr.insa.binder.projets5.mavenproject1.operateur;
-import fr.insa.binder.projets5.mavenproject1.gui.technicien.ListeMachine;
+import fr.insa.binder.projets5.mavenproject1.gui.technicien.technicienMachine.ListeMachine;
 import static fr.insa.binder.projets5.mavenproject1.operateur.login_o;
 import java.sql.Connection;
 import java.sql.SQLException;

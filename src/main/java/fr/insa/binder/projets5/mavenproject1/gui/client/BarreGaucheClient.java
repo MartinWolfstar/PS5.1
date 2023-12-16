@@ -4,6 +4,7 @@
  */
 package fr.insa.binder.projets5.mavenproject1.gui.client;
 
+import fr.insa.binder.projets5.mavenproject1.gui.zoneTest.MainLayout;
 import fr.insa.binder.projets5.mavenproject1.gui.*;
 import com.vaadin.flow.component.applayout.AppLayout;
 import com.vaadin.flow.component.applayout.DrawerToggle;

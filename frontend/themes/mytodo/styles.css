@@ -28,3 +28,33 @@ vaadin-Grid {
     background-image: url("..frontend/themes/mytodo.svg");
     background-color: orange;
 }
+/* Style du tableau de messages */
+.liste_message {
+    max-height: 300px;
+    overflow-y: auto;
+    padding: 10px;
+    background-color: orange;
+    list-style-type: none;
+    margin: 0;
+}
+
+/* Style de la zone de saisie de message */
+.text-area {
+    width: calc(100% - 20px);
+    margin: 0 10px;
+    margin-bottom: 10px;
+}
+
+/* Style du bouton d'envoi */
+.send-button {
+    background-color: #008CBA;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.send-button:hover {
+    background-color: #005266;
+}

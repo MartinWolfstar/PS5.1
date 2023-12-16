@@ -2,12 +2,11 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package fr.insa.binder.projets5.mavenproject1.gui.technicien;
+package fr.insa.binder.projets5.mavenproject1.gui.technicien.technicienMessage;
 
 import com.vaadin.flow.component.Key;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
-import com.vaadin.flow.component.html.H3;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
@@ -42,6 +41,8 @@ public class Ajout_message extends VerticalLayout{
             Notification.show("Problème BdD : x");
         }
         });
+        message.addClassName("text-area");
+        valid.addClassName("send-button");
         valid.addClickShortcut(Key.ENTER);
         this.HL = new HorizontalLayout();
         this.HL.add(this.message);

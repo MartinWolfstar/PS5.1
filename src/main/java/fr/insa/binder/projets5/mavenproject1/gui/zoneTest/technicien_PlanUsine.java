@@ -2,9 +2,10 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package fr.insa.binder.projets5.mavenproject1.gui;
+package fr.insa.binder.projets5.mavenproject1.gui.zoneTest;
 
 
+import fr.insa.binder.projets5.mavenproject1.gui.zoneTest.MainLayout;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.html.H3;
 import com.vaadin.flow.component.map.events.MouseEventDetails;
@@ -15,7 +16,7 @@ import com.vaadin.flow.router.Route;
 import org.vaadin.hezamu.canvas.Canvas;
 
 
-@PageTitle("Plan")
+@PageTitle("Plannnn")
 @Route(value = "3", layout = MainLayout.class)
 public class technicien_PlanUsine extends VerticalLayout {
 
