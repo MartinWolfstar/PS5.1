@@ -29,7 +29,7 @@ public class premiere_page extends VerticalLayout {
             this.main.setMainContent(new login_client(main));
         });
         this.administrateur.addClickListener(e -> {
-            this.main.setMainContent(new login_client(main));
+            this.main.setMainContent(new login_operateur(main));
         });
 
         this.h = new HorizontalLayout(this.administrateur, this.client);
