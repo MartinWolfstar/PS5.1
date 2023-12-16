@@ -7,23 +7,17 @@ package fr.insa.binder.projets5.mavenproject1.gui.technicien;
 import fr.insa.binder.projets5.mavenproject1.gui.technicien.technicienPlanUsine.technicien_PlanUsine;
 import fr.insa.binder.projets5.mavenproject1.gui.technicien.technicienMessage.technicienMessagerie;
 import fr.insa.binder.projets5.mavenproject1.gui.technicien.technicienMachine.ListeMachine;
-import fr.insa.binder.projets5.mavenproject1.gui.*;
 import com.vaadin.flow.component.applayout.AppLayout;
 import com.vaadin.flow.component.applayout.DrawerToggle;
 import com.vaadin.flow.component.html.H1;
 import com.vaadin.flow.component.orderedlayout.FlexComponent;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
-import com.vaadin.flow.router.HasUrlParameter;
 import com.vaadin.flow.router.HighlightConditions;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
-import com.vaadin.flow.router.RouteParameters;
 import com.vaadin.flow.router.RouterLink;
-import com.vaadin.flow.theme.Theme;
-import fr.insa.binder.projets5.mavenproject1.Gestion;
-import java.sql.Connection;
-import javax.swing.text.html.ListView;
+import fr.insa.binder.projets5.mavenproject1.gui.technicien.technicienProduit.ProduitTechnicien;
 
 /**
  *
@@ -69,6 +63,12 @@ public class BarreGaucheTechnicien extends AppLayout{
         
         addToDrawer(new VerticalLayout(
                 listLink3
+        ));
+        RouterLink listLink4 = new RouterLink("Produit", ProduitTechnicien.class);
+        listLink4.setHighlightCondition(HighlightConditions.sameLocation());
+        
+        addToDrawer(new VerticalLayout(
+                listLink4
         ));
 //        RouterLink listLink3 = new RouterLink("Plan", technicien_PlanUsine.class);
 //        listLink3.setHighlightCondition(HighlightConditions.sameLocation());
