@@ -98,7 +98,7 @@ public class Client {
         return liste;
     }
 
-    public static Optional<Integer> login(Connection con, String nom, String pass) throws SQLException {
+    public static Optional<Integer> login_c(Connection con, String nom, String pass) throws SQLException {
         try (PreparedStatement pst = con.prepareStatement(
                 "select id_client from client_bof where login_client = ? and password_client = ?")) {
 

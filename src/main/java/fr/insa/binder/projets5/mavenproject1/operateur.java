@@ -94,7 +94,7 @@ public class operateur {
         return liste;
     }
 
-    public static Optional<Integer> login(Connection con, String nom, String pass) throws SQLException {
+    public static Optional<Integer> login_o(Connection con, String nom, String pass) throws SQLException {
         try (PreparedStatement pst = con.prepareStatement(
                 "select id_operateur from operateur_bof where login_operateur = ? and password_operateur = ?")) {
 

@@ -11,9 +11,9 @@ import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.PasswordField;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.server.VaadinSession;
-import static fr.insa.binder.projets5.mavenproject1.Client.login;
 import fr.insa.binder.projets5.mavenproject1.gui.client.ProduitClient;
 import fr.insa.binder.projets5.mavenproject1.gui.technicien.ListeMachine;
+import static fr.insa.binder.projets5.mavenproject1.operateur.login_o;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.Optional;
@@ -50,7 +50,7 @@ public class login_operateur extends VerticalLayout {
         String pass = this.vpass.getValue();
         try {
             Connection con = (Connection) VaadinSession.getCurrent().getAttribute("conn");
-            Optional<Integer> user = login(con, nom, pass);
+            Optional<Integer> user = login_o(con, nom, pass);
             if(user.isEmpty()) {
                 Notification.show("Utilisateur ou pass invalide");
             } else {
