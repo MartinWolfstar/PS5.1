@@ -34,6 +34,7 @@ public class Ajout_message extends VerticalLayout{
         int idc = (Integer) VaadinSession.getCurrent().getAttribute("id_client");
         this.valid.addClickListener(e -> {
             this.mess = new messagerie(this.message.getValue(),idc);
+            Notification.show("Problème BdD : x");
             try {
                 mess.saveInDBV1((Connection) VaadinSession.getCurrent().getAttribute("conn"));
                 UI.getCurrent().getPage().reload();

@@ -39,10 +39,10 @@ public class messagerie {
     
     public void saveInDBV1(Connection con) throws SQLException {
         try (PreparedStatement pst = con.prepareStatement(
-                "insert into messagerie_bof (message,id_operateur) values (?,?)")) {
-            pst.setInt(1, this.id);
-            pst.setString(3, this.mes);
-            pst.setInt(2, this.id_op);
+                "insert into messagerie_bof (id_operateur,message) values (?,?)")) {
+            //pst.setInt(1, this.id);
+            pst.setInt(1, this.id_op);
+            pst.setString(2, this.mes);
             pst.executeUpdate();
         }
     } 
