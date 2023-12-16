@@ -15,7 +15,7 @@ import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.server.VaadinSession;
 import fr.insa.binder.projets5.mavenproject1.Client;
 import static fr.insa.binder.projets5.mavenproject1.Client.getnom_client;
-import static fr.insa.binder.projets5.mavenproject1.Client.login;
+import static fr.insa.binder.projets5.mavenproject1.Client.login_c;
 import static fr.insa.binder.projets5.mavenproject1.Gestion.connectSurServeurM3;
 import fr.insa.binder.projets5.mavenproject1.gui.client.ProduitClient;
 import java.sql.Connection;
@@ -50,7 +50,7 @@ public  class Inscription_client extends VerticalLayout{
             try {
                 Connection con = (Connection) VaadinSession.getCurrent().getAttribute("conn");
                 client.saveInDBV(con);
-                Optional<Integer> user = login(con, this.login.getValue(), this.mdp.getValue());
+                Optional<Integer> user = login_c(con, this.login.getValue(), this.mdp.getValue());
                 VaadinSession.getCurrent().setAttribute("id_client", user.get());
                 UI.getCurrent().navigate(ProduitClient.class);
                 } catch (SQLException ex) {

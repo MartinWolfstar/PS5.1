@@ -11,7 +11,7 @@ import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.PasswordField;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.server.VaadinSession;
-import static fr.insa.binder.projets5.mavenproject1.Client.login;
+import static fr.insa.binder.projets5.mavenproject1.Client.login_c;
 import fr.insa.binder.projets5.mavenproject1.gui.client.ProduitClient;
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -51,7 +51,7 @@ public class login_client extends VerticalLayout {
         String pass = this.vpass.getValue();
         try {
             Connection con = (Connection) VaadinSession.getCurrent().getAttribute("conn");
-            Optional<Integer> user = login(con, nom, pass);
+            Optional<Integer> user = login_c(con, nom, pass);
             if(user.isEmpty()) {
                 Notification.show("Utilisateur ou pass invalide");
             } else {

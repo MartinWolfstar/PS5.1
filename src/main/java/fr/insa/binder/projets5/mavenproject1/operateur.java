@@ -4,10 +4,15 @@
  */
 package fr.insa.binder.projets5.mavenproject1;
 
+
+import static fr.insa.binder.projets5.mavenproject1.Gestion.connectSurServeurM3;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
 /**
  *
@@ -55,6 +60,90 @@ public class operateur {
         return "operateur{" + "id_operateur=" + id_operateur + ", nom_operateur=" + nom_operateur + ", prenom_operateur=" + prenom_operateur + ", login_operateur=" + login_operateur + ", password_operateur=" + password_operateur + '}';
     }
     
+        public void sup_operateur(Connection con) throws SQLException {
+        try (PreparedStatement pst = con.prepareStatement(
+                "delete from operateur_bof where id = ?")) {
+            pst.setInt(1, this.id_operateur);
+            pst.executeUpdate();
+        }
+    }
+    
+    public static void sup_operateur(Connection con, int id) throws SQLException {
+        try (PreparedStatement pst = con.prepareStatement(
+                "delete from operateur_bof where id_operateur = ?")) {
+            pst.setInt(1, id);
+            pst.executeUpdate();
+        }
+    }
+    
+    public static List<operateur> tousLesOperateur(Connection con) throws SQLException {
+        List<operateur> liste = new ArrayList<>();
+        try (PreparedStatement pst = con.prepareStatement(
+                "select id_operateur,nom_operateur, prenom_operateur, login_operateur, password_operateur from operateur_bof")) {
+            try (ResultSet rs = pst.executeQuery()) {
+                while (rs.next()) {
+                    int id = rs.getInt("id_operateur");
+                    String nom = rs.getString("nom_operateur");
+                    String prenom = rs.getString("prenom_operateur");
+                    String login = rs.getString("login_operateur");
+                    String mdp = rs.getString("password_operateur");
+                    liste.add(new operateur(id, nom, prenom, login, mdp));
+                }
+            }
+        }
+        return liste;
+    }
+
+    public static Optional<Integer> login_o(Connection con, String nom, String pass) throws SQLException {
+        try (PreparedStatement pst = con.prepareStatement(
+                "select id_operateur from operateur_bof where login_operateur = ? and password_operateur = ?")) {
+
+            pst.setString(1, nom);
+            pst.setString(2, pass);
+            ResultSet res = pst.executeQuery();
+            if (res.next()) {
+                return Optional.of(res.getInt("id_operateur"));
+            } else {
+                return Optional.empty();
+            }
+        }
+    }
+ 
+    public static void setPrenom(String prenom, int id, Connection con) throws SQLException {
+        try (PreparedStatement pst = con.prepareStatement(
+                "update operateur_bof set nom_operateur = ? where id_operateur = ?")) {
+            pst.setString(1, prenom);
+            pst.setInt(2, id);            
+            pst.executeUpdate();
+        }
+    }
+    
+    public static void setNom(String nom, int id, Connection con) throws SQLException {
+        try (PreparedStatement pst = con.prepareStatement(
+                "update operateur_bof set prenom_operateur = ? where id_operateur = ?")) {
+            pst.setString(1, nom);
+            pst.setInt(2, id);            
+            pst.executeUpdate();
+        }
+    }
+    
+    public static void setLogin(String login, int id, Connection con) throws SQLException {
+        try (PreparedStatement pst = con.prepareStatement(
+                "update operateur_bof set login_operateur = ? where id_operateur = ?")) {
+            pst.setString(1, login);
+            pst.setInt(2, id);            
+            pst.executeUpdate();
+        }
+    }
+
+    public static void setPassword(String mdp, int id, Connection con) throws SQLException {
+        try (PreparedStatement pst = con.prepareStatement(
+                "update operateur_bof set password_operateur = ? where id_operateur = ?")) {
+            pst.setString(1, mdp);
+            pst.setInt(2, id);            
+            pst.executeUpdate();
+        }
+    }
     /**
      * @return the id_operateur
      */
@@ -118,4 +207,35 @@ public class operateur {
         this.password_operateur = password_operateur;
     }
 
+        public static String getnom_operateur(int id, Connection con) throws SQLException{
+        String nom = "Personne";
+        String prenom = "Personne";
+        try (PreparedStatement pst = con.prepareStatement(
+                "select nom_operateur, prenom_operateur"
+                + " from operateur_bof "
+                + " where id_operateur = ?")) {
+            pst.setInt(1, id);
+            try (ResultSet rs = pst.executeQuery()) {
+                while (rs.next()) {
+                    nom = rs.getString("nom_operateur");
+                    prenom = rs.getString("prenom_operateur");
+                }
+            }
+        }
+        return nom + " " + prenom;
+    }
+     
+        public static void main(String[] args) throws SQLException {
+        operateur op = new operateur("Theo", "Stupide", "Idiot", "Aurore");
+        try {
+            Connection con = connectSurServeurM3();
+            op.save_operateur(con);
+            List<operateur> liset_c = tousLesOperateur(con);
+            System.out.println(liset_c);
+//           rOperateur.saveInDBV(connectSurServeurM3());
+        }
+        catch (SQLException ex) {
+            throw new Error(ex);
+        }
+    }
 }
