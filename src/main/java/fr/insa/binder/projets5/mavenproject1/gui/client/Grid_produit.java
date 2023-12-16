@@ -6,19 +6,20 @@ package fr.insa.binder.projets5.mavenproject1.gui.client;
 
 import com.vaadin.flow.component.grid.Grid;
 import fr.insa.binder.projets5.mavenproject1.commande;
+import fr.insa.binder.projets5.mavenproject1.produit;
 import java.util.List;
 
 /**
  *
  * @author binde
  */
-public class Grid_commande extends Grid<commande>{
+public class Grid_produit extends Grid<produit>{
     
-    public Grid_commande(List<commande> list_commande) {
-        this.setItems(list_commande);
-        this.addColumn(commande::getNom_commande).setHeader("Nom");
-        this.addColumn(commande::getDes_commande).setHeader("Description");
-        this.addColumn(commande::getId_commande).setHeader("Id_commande");
+    public Grid_produit(List<produit> list_produit) {
+        this.setItems(list_produit);
+        this.addColumn(produit::getRef).setHeader("Nom");
+        this.addColumn(produit::getDes).setHeader("Description");
+        this.addColumn(produit::getId).setHeader("Id_produit");
         
     }
 }

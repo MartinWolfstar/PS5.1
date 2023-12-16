@@ -39,7 +39,7 @@ public class produit {
     
     public void saveInDBV1(Connection con) throws SQLException {
         try (PreparedStatement pst = con.prepareStatement(
-                "insert into machine_bof (ref_produit,des_produit) values (?,?)")) {
+                "insert into produit_bof (ref_produit,des_produit) values (?,?)")) {
             pst.setInt(1, this.ref_p);
             pst.setString(2, this.des_p);
             pst.executeUpdate();
@@ -48,7 +48,7 @@ public class produit {
     
     public void supMachine(Connection con) throws SQLException {
         try (PreparedStatement pst = con.prepareStatement(
-                "delete from machine_bof where id_produit = ?")) {
+                "delete from produit_bof where id_produit = ?")) {
             pst.setInt(1, this.id_p);
             pst.executeUpdate();
         }
@@ -56,16 +56,16 @@ public class produit {
     
     public static void supMachine(Connection con, int id_p) throws SQLException {
         try (PreparedStatement pst = con.prepareStatement(
-                "delete from machine_bof where id_produit = ?")) {
+                "delete from produit_bof where id_produit = ?")) {
             pst.setInt(1, id_p);
             pst.executeUpdate();
         }
     }
     
-    public static List<produit> tousLesMachines(Connection con) throws SQLException {
+    public static List<produit> tousLesProduits(Connection con) throws SQLException {
         List<produit> res = new ArrayList<>();
         try (PreparedStatement pst = con.prepareStatement(
-                "select id_produit,des_produit,ref_produit from machine_bof")) {
+                "select id_produit,des_produit,ref_produit from produit_bof")) {
             try (ResultSet rs = pst.executeQuery()) {
                 while (rs.next()) {
                     int id_p = rs.getInt("id_produit");
@@ -80,7 +80,7 @@ public class produit {
 
     @Override
     public String toString() {
-        return "Machine{" + "id_p=" + getId() + ", ref_p=" + getRef() + ", des_p=" + getDes() + '}';
+        return "Produit{" + "id_p=" + getId() + ", ref_p=" + getRef() + ", des_p=" + getDes() + '}';
     }
 
     public void setRef(int ref_p) {
@@ -89,7 +89,7 @@ public class produit {
 
     public static void setRef(int ref_p, int id_p, Connection con) throws SQLException {
         try (PreparedStatement pst = con.prepareStatement(
-                "update machine_bof set ref_produit = ? where id_produit = ?")) {
+                "update produit_bof set ref_produit = ? where id_produit = ?")) {
             pst.setInt(1, ref_p);
             pst.setInt(2, id_p);            
             pst.executeUpdate();
@@ -102,7 +102,7 @@ public class produit {
 
     public static void setDes(String des_p, int id_p, Connection con) throws SQLException {
         try (PreparedStatement pst = con.prepareStatement(
-                "update machine_bof set des_produit = ? where id_produit = ?")) {
+                "update produit_bof set des_produit = ? where id_produit = ?")) {
             pst.setString(1, des_p);
             pst.setInt(2, id_p);            
             pst.executeUpdate();
