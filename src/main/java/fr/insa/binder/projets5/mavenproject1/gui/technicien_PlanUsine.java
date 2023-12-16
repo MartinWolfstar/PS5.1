@@ -8,6 +8,7 @@ package fr.insa.binder.projets5.mavenproject1.gui;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.html.H3;
 import com.vaadin.flow.component.map.events.MouseEventDetails;
+import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
@@ -19,27 +20,19 @@ import org.vaadin.hezamu.canvas.Canvas;
 public class technicien_PlanUsine extends VerticalLayout {
 
     private Canvas canvas;
+    private Button b1;
+    private Button b2;
+    private Button b3;
 
     public technicien_PlanUsine() {
-        // Title
-        add(new H3("Plan de l'usine"));
 
-        // Drawing area (Canvas)
+        add(new H3("Plan de l'usine"));
         canvas = new Canvas();
         canvas.setWidth("100%");
-        canvas.setHeight("300px"); // Adjust the height as needed
-
-        // Numbered row of buttons
+        canvas.setHeight("300px");
         VerticalLayout buttonRow = createButtons();
-
-        // Add components to the main layout
-        //add(canvas, buttonRow);
         add(buttonRow);
-
-        // Draw a filled rectangle on the canvas
         canvas.fillRect(10, 10, 20, 20);
-
-        // Draw grid on the canvas
         drawGrid();
 
         // Add a mouse move listener to the canvas
@@ -53,18 +46,25 @@ public class technicien_PlanUsine extends VerticalLayout {
 
     private VerticalLayout createButtons() {
         VerticalLayout buttonRow = new VerticalLayout();
-        buttonRow.add(new Button("1"));
-        buttonRow.add(new Button("2"));
-        buttonRow.add(new Button("3"));
+        this.b1 = new Button("Login");
+        this.b2 = new Button("Login");
+        this.b3 = new Button("Login");
+        buttonRow.add(b1,b2,b3);
+        this.b1.addClickListener(e -> {
+            Notification.show("Hello ");
+        });
+        this.b2.addClickListener(e -> {
+            Notification.show("Hello ");
+        });
+        this.b3.addClickListener(e -> {
+            Notification.show("Hello ");
+        });
         return buttonRow;
     }
 
     private void drawGrid() {
-        int gridSize = 20; // Adjust the grid size as needed
-
-        // Set the stroke style for the grid lines
-        canvas.setStrokeStyle("#000000"); // Black color
-
+        int gridSize = 20;
+        canvas.setStrokeStyle("#000000");
         // Draw vertical grid lines
         for (int x = 0; x <= canvas.getWidth(); x += gridSize) {
             canvas.beginPath();
@@ -72,7 +72,6 @@ public class technicien_PlanUsine extends VerticalLayout {
             canvas.lineTo(x, canvas.getHeight());
             canvas.stroke();
         }
-
         // Draw horizontal grid lines
         for (int y = 0; y <= canvas.getHeight(); y += gridSize) {
             canvas.beginPath();
