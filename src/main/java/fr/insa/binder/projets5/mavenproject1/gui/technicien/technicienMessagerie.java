@@ -11,7 +11,7 @@ import java.sql.Connection;
 import java.sql.SQLException;
 
 @PageTitle("Messagerie")
-@Route(value = "23", layout = BarreGaucheTechnicien.class)
+@Route(value = "24", layout = BarreGaucheTechnicien.class)
 public class technicienMessagerie extends VerticalLayout {
 
     private Grid_message grid;
