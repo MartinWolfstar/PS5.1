@@ -51,7 +51,7 @@ public class Modif_machine extends VerticalLayout{
         catch(SQLException ex) {
                this.add(new H3("Problème BdD : "));
             }
-        this.add(new H3("Supprimer machine"));
+        this.add(new H3("Modifier machine"));
         this.add(menu_bar);
         }    
 }
