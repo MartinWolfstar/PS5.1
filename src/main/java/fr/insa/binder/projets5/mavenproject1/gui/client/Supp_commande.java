@@ -11,6 +11,7 @@ import com.vaadin.flow.component.contextmenu.MenuItem;
 import com.vaadin.flow.component.contextmenu.SubMenu;
 import com.vaadin.flow.component.html.H3;
 import com.vaadin.flow.component.menubar.MenuBar;
+import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.server.VaadinSession;
 import fr.insa.binder.projets5.mavenproject1.commande;
@@ -36,7 +37,7 @@ public class Supp_commande extends VerticalLayout{
             try {
                 commande.supCommande((Connection) VaadinSession.getCurrent().getAttribute("conn"), Integer.valueOf(e.getSource().getText()));
             } catch (SQLException ex) {
-                this.add(new H3("Problème BdD : "));
+                Notification.show("Problème BdD : x");
             }
             UI.getCurrent().getPage().reload();
         };
@@ -48,7 +49,7 @@ public class Supp_commande extends VerticalLayout{
         }      
         } 
         catch(SQLException ex) {
-               this.add(new H3("Problème BdD : "));
+               Notification.show("Problème BdD : x");
             }
         this.add(new H3("Supprimer commande"));
         this.add(menu_bar);

@@ -4,17 +4,8 @@
  */
 package fr.insa.binder.projets5.mavenproject1.gui.client;
 
-import com.vaadin.flow.component.UI;
-import com.vaadin.flow.component.button.Button;
-import com.vaadin.flow.component.html.H3;
-import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
+import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
-import com.vaadin.flow.component.textfield.IntegerField;
-import com.vaadin.flow.component.textfield.TextField;
-import com.vaadin.flow.server.VaadinSession;
-import fr.insa.binder.projets5.mavenproject1.machine;
-import java.sql.Connection;
-import java.sql.SQLException;
 
 /**
  *
@@ -39,7 +30,7 @@ public class Achat extends VerticalLayout{
 //                com.saveInDBV1((Connection) VaadinSession.getCurrent().getAttribute("conn"));
 //                UI.getCurrent().getPage().reload();
 //            } catch(SQLException ex) {
-//            this.add(new H3("Problème BdD : "));
+//            Notification.show("Problème BdD : x");
 //        }
 //        });
 //        

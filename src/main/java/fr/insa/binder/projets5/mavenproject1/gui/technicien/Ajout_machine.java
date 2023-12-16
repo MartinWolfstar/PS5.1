@@ -11,6 +11,7 @@ import com.vaadin.flow.component.contextmenu.SubMenu;
 import com.vaadin.flow.component.html.H1;
 import com.vaadin.flow.component.html.H3;
 import com.vaadin.flow.component.menubar.MenuBar;
+import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.IntegerField;
@@ -46,7 +47,7 @@ public class Ajout_machine extends VerticalLayout{
                 mach.saveInDBV1((Connection) VaadinSession.getCurrent().getAttribute("conn"));
                 UI.getCurrent().getPage().reload();
             } catch(SQLException ex) {
-            this.add(new H3("Problème BdD : "));
+            Notification.show("Problème BdD : x");
         }
         });
         

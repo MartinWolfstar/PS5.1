@@ -11,6 +11,7 @@ import com.vaadin.flow.component.contextmenu.MenuItem;
 import com.vaadin.flow.component.contextmenu.SubMenu;
 import com.vaadin.flow.component.html.H3;
 import com.vaadin.flow.component.menubar.MenuBar;
+import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.server.VaadinSession;
 import static fr.insa.binder.projets5.mavenproject1.Gestion.connectSurServeurM3;
@@ -49,7 +50,7 @@ public class Modif_machine extends VerticalLayout{
         }      
         } 
         catch(SQLException ex) {
-               this.add(new H3("Problème BdD : "));
+               Notification.show("Problème BdD : x");
             }
         this.add(new H3("Modifier machine"));
         this.add(menu_bar);

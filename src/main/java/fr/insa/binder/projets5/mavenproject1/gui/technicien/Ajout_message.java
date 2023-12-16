@@ -4,17 +4,16 @@
  */
 package fr.insa.binder.projets5.mavenproject1.gui.technicien;
 
+import com.vaadin.flow.component.Key;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.html.H3;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
-import com.vaadin.flow.component.textfield.IntegerField;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.server.VaadinSession;
-import static fr.insa.binder.projets5.mavenproject1.Gestion.connectSurServeurM3;
-import fr.insa.binder.projets5.mavenproject1.machine;
+import fr.insa.binder.projets5.mavenproject1.messagerie;
 import java.sql.Connection;
 import java.sql.SQLException;
 
@@ -22,32 +21,29 @@ import java.sql.SQLException;
  *
  * @author binde
  */
-public class Modif_machine2 extends VerticalLayout{
-    private IntegerField ref;
-    private TextField des;
+public class Ajout_message extends VerticalLayout{
+    private TextField message;
     private HorizontalLayout HL;
     private Button valid;
-    private machine mach;
+    private messagerie mess;
 
     
-    public Modif_machine2(int id){
-        this.ref = new IntegerField("Reference produit");
-        this.des = new TextField("Description produit");
-        this.valid = new Button ("Modifier");
+    public Ajout_message(){
+        this.message = new TextField();
+        this.valid = new Button ("envoyer");
+        int idc = (Integer) VaadinSession.getCurrent().getAttribute("id_client");
         this.valid.addClickListener(e -> {
+            this.mess = new messagerie(this.message.getValue(),idc);
             try {
-                Connection con = (Connection) VaadinSession.getCurrent().getAttribute("conn");
-                machine.setDes(this.des.getValue(), id, con);
-                machine.setRef(this.ref.getValue(), id, con);
+                mess.saveInDBV1((Connection) VaadinSession.getCurrent().getAttribute("conn"));
                 UI.getCurrent().getPage().reload();
             } catch(SQLException ex) {
             Notification.show("Problème BdD : x");
         }
         });
-        
+        valid.addClickShortcut(Key.ENTER);
         this.HL = new HorizontalLayout();
-        this.add(new H3("Ajout machine"));
-        this.HL.add(this.ref, this.des);
+        this.HL.add(this.message);
         this.add(this.HL, this.valid);
-}
+    }
 }
