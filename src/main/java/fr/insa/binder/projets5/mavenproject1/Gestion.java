@@ -8,9 +8,12 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Timestamp;
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.Month;
+import java.time.ZoneOffset;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -128,8 +131,8 @@ public class Gestion {
                     "create table etat_bof (\n"
                     + " id_etat integer not null primary key AUTO_INCREMENT,\n"
                     + " id_type_etat integer not null,\n"
-                    + " debut float not null,\n"
-                    + " fin float not null\n"
+                    + " debut Timestamp,\n"
+                    + " fin Timestamp \n"
                     +")");
             st.executeUpdate(
                     "create table type_etat_bof (\n"
@@ -297,12 +300,18 @@ public class Gestion {
         m1.saveInDBV1(conn);
         operateur Titi = new operateur( "James", "Einstahitiii", "Titi01", "melissa68");
         Titi.save_operateur(conn);
-        //operateur Toto = new operateur( "Dodo", "Einstahitiii", "Dodo68", "123468");
-        //Toto.save_operateur(conn);
+        operateur Toto = new operateur( "Dodo", "Einstahitiii", "Dodo68", "123468");
+        Toto.save_operateur(conn);
         type_etat type_etat1 = new type_etat("abscence");
         type_etat1.save_type_etat(conn);
         type_operation type_operation1 = new type_operation("dressage");
         type_operation1.save_type_operation(conn);
+        LocalDateTime dt = LocalDateTime.of(2021, Month.DECEMBER, 3,15, 0, 23);
+        Timestamp ts = Timestamp.valueOf(dt);
+        LocalDateTime dt2 = LocalDateTime.of(2023, Month.DECEMBER, 3,15, 0, 23);
+        Timestamp ts2 = Timestamp.valueOf(dt2);
+        etat etat1 = new etat(1, ts, ts2);
+        etat1.save_etat(conn);
     }
     
     
