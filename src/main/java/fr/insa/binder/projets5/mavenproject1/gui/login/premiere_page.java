@@ -3,6 +3,7 @@ package fr.insa.binder.projets5.mavenproject1.gui.login;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.html.H1;
+import com.vaadin.flow.component.html.Image;
 import com.vaadin.flow.component.orderedlayout.FlexComponent;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
@@ -54,6 +55,8 @@ public class premiere_page extends VerticalLayout {
         // Ajoutez du style à la mise en page principale
         this.getStyle().set("background-color", "#f0f0f0");
         this.add(this.titre, this.h, this.h_dev);
+        Image image = new Image("images/imageTest1.jpg", "Pas de semoule pour Théo");
+        this.add(image);
         this.setJustifyContentMode(FlexComponent.JustifyContentMode.CENTER);
         this.setAlignItems(FlexComponent.Alignment.CENTER);
         this.setMargin(true);
