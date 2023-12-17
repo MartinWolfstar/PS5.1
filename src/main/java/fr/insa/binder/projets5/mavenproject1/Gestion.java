@@ -87,8 +87,9 @@ public class Gestion {
                     "create table produit_bof (\n"
                     + "    id_produit integer not null primary key AUTO_INCREMENT,\n"
                     + "    ref_produit varchar(30) not null,\n"
-                    + "    des_produit Text,\n"
-                    + "    id_commande integer not null \n"
+                    + "    des_produit Text\n"
+//                    + "    des_produit Text,\n"
+//                    + "    id_commande integer not null \n"
                     + ")\n"
             );
             st.executeUpdate(
@@ -263,11 +264,11 @@ public class Gestion {
                     "alter table commande_bof \n"
                     + "add constraint fk_commande_bof_id_client \n"
                     + "foreign key (id_client) references client_bof(id_client)");         
-            st.executeUpdate(
-                    "alter table produit_bof \n"
-                    + "add constraint fk_produit_bof_id_commande \n"
-                    + "foreign key (id_commande) references commande_bof(id_commande)");         
-                   
+//            st.executeUpdate(
+//                    "alter table produit_bof \n"
+//                    + "add constraint fk_produit_bof_id_commande \n"
+//                    + "foreign key (id_commande) references commande_bof(id_commande)");         
+//                   
             st.executeUpdate(
                     "alter table exemplaire_bof \n"
                     + "add constraint fk_exemplaire_bof_id_produit \n"
