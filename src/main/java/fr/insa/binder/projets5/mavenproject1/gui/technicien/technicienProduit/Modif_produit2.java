@@ -36,7 +36,7 @@ public class Modif_produit2 extends VerticalLayout{
         this.valid.addClickListener(e -> {
             try {
                 Connection con = (Connection) VaadinSession.getCurrent().getAttribute("conn");
-                produit.setDes(this.des.getValue(), id, con);
+//                produit.setDes(this.des.getValue(), id, con);
                 produit.setRef(this.ref.getValue(), id, con);
                 UI.getCurrent().getPage().reload();
             } catch(SQLException ex) {

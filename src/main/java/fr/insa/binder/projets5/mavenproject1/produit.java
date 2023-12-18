@@ -4,6 +4,11 @@
  */
 package fr.insa.binder.projets5.mavenproject1;
 
+import static fr.insa.binder.projets5.mavenproject1.Client.condition;
+import static fr.insa.binder.projets5.mavenproject1.Client.creerClient;
+import static fr.insa.binder.projets5.mavenproject1.Client.tousLesClients;
+import static fr.insa.binder.projets5.mavenproject1.Gestion.connectSurServeurM3;
+import java.io.Serializable;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -15,7 +20,7 @@ import java.util.List;
  *
  * @author binde
  */
-public class produit {
+public class produit implements Serializable{
     
     private int id_p;   
     private int ref_p;
@@ -39,9 +44,10 @@ public class produit {
     
     public void saveInDBV1(Connection con) throws SQLException {
         try (PreparedStatement pst = con.prepareStatement(
-                "insert into produit_bof (ref_produit,des_produit) values (?,?)")) {
+                "insert into produit_bof (ref_produit,des_produit, id_commande) values (?,?, ?)")) {
             pst.setInt(1, this.ref_p);
             pst.setString(2, this.des_p);
+            pst.setInt(3, 1);
             pst.executeUpdate();
         }
     } 
@@ -96,10 +102,6 @@ public class produit {
         }
     }
     
-    public void setDes(String des_p) {
-        this.des_p = des_p;
-    }
-
     public static void setDes(String des_p, int id_p, Connection con) throws SQLException {
         try (PreparedStatement pst = con.prepareStatement(
                 "update produit_bof set des_produit = ? where id_produit = ?")) {
@@ -109,6 +111,20 @@ public class produit {
         }
     }
     
+    
+    public void setDes(String des_p) {
+        this.des_p = des_p;
+    }
+
+//    public static void setDes(String des_p, int id_p, Connection con) throws SQLException {
+//        try (PreparedStatement pst = con.prepareStatement(
+//                "update produit_bof set des_produit = ? where id_produit = ?")) {
+//            pst.setString(1, des_p);
+//            pst.setInt(2, id_p);            
+//            pst.executeUpdate();
+//        }
+//    }
+//    
     public void setId(int id_p) {
         this.id_p = id_p;
     }
@@ -123,5 +139,21 @@ public class produit {
 
     public int getId() {
         return id_p;
+    }
+    
+        public static void main(String[] args) throws SQLException {
+        produit p = new produit("Theo", 556);
+        try {
+            Connection con = connectSurServeurM3();
+            p.saveInDBV1(con);
+//            List<Client> liset_c = tousLesClients(con);
+//            List<Integer> liste = condition(con);
+//            System.out.println(liste);
+//            System.out.println(liset_c);
+//            client.saveInDBV(connectSurServeurM3());
+        }
+        catch (SQLException ex) {
+            throw new Error(ex);
+        }
     }
 }

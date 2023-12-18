@@ -315,6 +315,12 @@ public class Gestion {
         type_etat1.save_type_etat(conn);
         type_operation type_operation1 = new type_operation("dressage");
         type_operation1.save_type_operation(conn);
+        Client client1 = new Client("Binder", "Aurore", "Auroraa", "Aurore");
+        Client client2 = new Client("Schmitt", "Theo", "Theo", "Theo");
+        Client client3 = new Client("Dalibard", "Melanie", "Melanie", "Melanie");
+        client1.saveInDBV(conn);
+        client2.saveInDBV(conn);
+        client3.saveInDBV(conn);
     }
     
     
