@@ -6,7 +6,10 @@ package fr.insa.binder.projets5.mavenproject1;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -28,7 +31,21 @@ public class type_machine {
             pst.executeUpdate();
         }
     }
-
+    
+    public static List<type_machine> tousLesTypesMachine(Connection con) throws SQLException {
+        List<type_machine> res = new ArrayList<>();
+        try (PreparedStatement pst = con.prepareStatement(
+                "select id_type_machine,des_type_machine from type_machine_bof")) {
+            try (ResultSet rs = pst.executeQuery()) {
+                while (rs.next()) {
+                    int id_type_machine = rs.getInt("id_type_machine");
+                    String des_type_machine = rs.getString("des_type_machine");
+                    res.add(new type_machine(id_type_machine,des_type_machine));
+                }
+            }
+        }
+        return res;
+    }
     public int getId_type_machine() {
         return id_type_machine;
     }

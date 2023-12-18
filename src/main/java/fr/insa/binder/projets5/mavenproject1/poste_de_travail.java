@@ -6,7 +6,10 @@ package fr.insa.binder.projets5.mavenproject1;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -28,6 +31,21 @@ public class poste_de_travail {
             pst.executeUpdate();
         }
     }
+    public static List<poste_de_travail> tousLesPosteDeTravail(Connection con) throws SQLException {
+        List<poste_de_travail> res = new ArrayList<>();
+        try (PreparedStatement pst = con.prepareStatement(
+                "select id_poste_de_travail,ref_poste_de_travail from poste_de_travail_bof")) {
+            try (ResultSet rs = pst.executeQuery()) {
+                while (rs.next()) {
+                    int id_poste_de_travail = rs.getInt("id_poste_de_travail");
+                    String ref_poste_de_travail = rs.getString("ref_poste_de_travail");
+                    res.add(new poste_de_travail(id_poste_de_travail,ref_poste_de_travail));
+                }
+            }
+        }
+        return res;
+    }
+    
     public int getId_poste_de_travail() {
         return id_poste_de_travail;
     }

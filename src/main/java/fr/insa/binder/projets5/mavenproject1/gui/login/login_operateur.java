@@ -11,8 +11,9 @@ import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.PasswordField;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.server.VaadinSession;
-import static fr.insa.binder.projets5.mavenproject1.Client.login_c;
 import fr.insa.binder.projets5.mavenproject1.gui.client.ProduitClient;
+import fr.insa.binder.projets5.mavenproject1.gui.technicien.technicienMachine.ListeMachine;
+import static fr.insa.binder.projets5.mavenproject1.operateur.login_o;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.Optional;
@@ -20,10 +21,8 @@ import java.util.Optional;
 /**
  *
  * @author binde
- * 
- * 
  */
-public class login_client extends VerticalLayout {
+public class login_operateur extends VerticalLayout {
     
     private Vue_principale_login main;
     private TextField vnom;
@@ -31,7 +30,7 @@ public class login_client extends VerticalLayout {
     private Button vbLogin;
     private Button inscription;
     
-    public login_client(Vue_principale_login main) {
+    public login_operateur(Vue_principale_login main) {
         this.main = main ;
         this.vnom = new TextField("Login");
         this.vpass = new PasswordField("Mot de passe");
@@ -42,7 +41,7 @@ public class login_client extends VerticalLayout {
             this.doLogin();
         });
         this.inscription.addClickListener((event) -> {
-            this.main.setMainContent(new Inscription_client(this.main));
+            this.main.setMainContent(new Inscription_operateur(this.main));
         });
     }
     
@@ -51,12 +50,12 @@ public class login_client extends VerticalLayout {
         String pass = this.vpass.getValue();
         try {
             Connection con = (Connection) VaadinSession.getCurrent().getAttribute("conn");
-            Optional<Integer> user = login_c(con, nom, pass);
+            Optional<Integer> user = login_o(con, nom, pass);
             if(user.isEmpty()) {
                 Notification.show("Utilisateur ou pass invalide");
             } else {
-                VaadinSession.getCurrent().setAttribute("id_client", user.get());
-                UI.getCurrent().navigate(ProduitClient.class);
+                VaadinSession.getCurrent().setAttribute("id_operateur", user.get());
+                UI.getCurrent().navigate(ListeMachine.class);
 //                RouterLink listLink = new RouterLink("Produit", ProduitClient.class);
 //                this.main.add(listLink);
             }

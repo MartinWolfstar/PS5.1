@@ -4,6 +4,7 @@
  */
 package fr.insa.binder.projets5.mavenproject1;
 
+import fr.insa.binder.projets5.mavenproject1.Utilitaire.ListUtils;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -44,20 +45,28 @@ public class machine {
         this(-1, des, ref);
     }
     
-    public static machine demande() {
+    public static machine demande(Connection con) throws SQLException{
         int ref = ConsoleFdB.entreeInt("ref : ");
         String des = ConsoleFdB.entreeString("des : ");
-        return new machine(des, ref);
+        //int id_poste_de_travail = ConsoleFdB.entreeInt("poste de travail:");
+        //int id_type_machine = ConsoleFdB.entreeInt("type de machine:");
+        poste_de_travail choix_poste_de_travail = ListUtils.selectOne("----selectionner un poste de travail", poste_de_travail.tousLesPosteDeTravail(con) , poste_de_travail::toString );
+        type_machine choix_type_machine = ListUtils.selectOne("---- selectionner un type de machine", type_machine.tousLesTypesMachine(con), type_machine::toString);
+        return new machine(ref, des,choix_poste_de_travail.getId_poste_de_travail(),choix_type_machine.getId_type_machine());
     }
     
     public void saveInDBV1(Connection con) throws SQLException {
         try (PreparedStatement pst = con.prepareStatement(
-                "insert into machine_bof (ref_machine,des_machine,id_poste_de_travail,id_type_machine) values (?,?,?,?)")) {
+                "insert into machine_bof (ref_machine,des_machine,id_poste_de_travail,id_type_machine) values (?,?,?,?)", PreparedStatement.RETURN_GENERATED_KEYS)) {
             pst.setInt(1, this.ref);
             pst.setString(2, this.des);
             pst.setInt(3, this.id_poste_de_travail);
             pst.setInt(4, this.id_type_machine);
             pst.executeUpdate();
+            try (ResultSet ids = pst.getGeneratedKeys()){
+                ids.next();
+                this.id = ids.getInt(1);
+            }
         }
     } 
     
@@ -80,18 +89,22 @@ public class machine {
     public static List<machine> tousLesMachines(Connection con) throws SQLException {
         List<machine> res = new ArrayList<>();
         try (PreparedStatement pst = con.prepareStatement(
-                "select id_machine,des_machine,ref_machine from machine_bof")) {
+                "select id_machine,des_machine,ref_machine,id_poste_de_travail,id_type_machine from machine_bof")) {
             try (ResultSet rs = pst.executeQuery()) {
                 while (rs.next()) {
                     int id = rs.getInt("id_machine");
                     String des = rs.getString("des_machine");
                     int ref = rs.getInt("ref_machine");
-                    res.add(new machine(id, des, ref));
+                    int id_poste_de_travail = rs.getInt("id_poste_de_travail");
+                    int id_type_machine = rs.getInt("id_type_machine");
+                    res.add(new machine(id,ref,des,id_poste_de_travail,id_type_machine));
                 }
             }
         }
         return res;
     }
+    
+    
 
     @Override
     public String toString() {

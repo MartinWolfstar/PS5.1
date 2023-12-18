@@ -1,21 +1,16 @@
-package fr.insa.binder.projets5.mavenproject1.gui;
+package fr.insa.binder.projets5.mavenproject1.gui.zoneTest;
 
-import fr.insa.binder.projets5.mavenproject1.gui.technicien.Supp_machine;
-import fr.insa.binder.projets5.mavenproject1.gui.technicien.Grid_machine;
-import fr.insa.binder.projets5.mavenproject1.gui.technicien.Modif_machine;
-import fr.insa.binder.projets5.mavenproject1.gui.technicien.Ajout_machine;
-import com.vaadin.flow.component.Key;
-import com.vaadin.flow.component.button.Button;
-import com.vaadin.flow.component.grid.Grid;
+import fr.insa.binder.projets5.mavenproject1.gui.technicien.technicienMachine.Supp_machine;
+import fr.insa.binder.projets5.mavenproject1.gui.technicien.technicienMachine.Grid_machine;
+import fr.insa.binder.projets5.mavenproject1.gui.technicien.technicienMachine.Modif_machine;
+import fr.insa.binder.projets5.mavenproject1.gui.technicien.technicienMachine.Ajout_machine;
 import com.vaadin.flow.component.html.H3;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
-import fr.insa.binder.projets5.mavenproject1.Gestion;
 import static fr.insa.binder.projets5.mavenproject1.Gestion.connectSurServeurM3;
 import fr.insa.binder.projets5.mavenproject1.machine;
-import java.sql.Connection;
 import java.sql.SQLException;
 
 @PageTitle("main")

@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package fr.insa.binder.projets5.mavenproject1.gui.technicien;
+package fr.insa.binder.projets5.mavenproject1.gui.technicien.technicienPlanUsine;
 
 
 import com.vaadin.flow.component.button.Button;
@@ -11,6 +11,7 @@ import com.vaadin.flow.component.map.events.MouseEventDetails;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
+import fr.insa.binder.projets5.mavenproject1.gui.technicien.BarreGaucheTechnicien;
 import org.vaadin.hezamu.canvas.Canvas;
 
 

@@ -4,15 +4,14 @@
  */
 package fr.insa.binder.projets5.mavenproject1;
 
+import fr.insa.binder.projets5.mavenproject1.Utilitaire.ListUtils;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Timestamp;
-import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.Month;
-import java.time.ZoneOffset;
 import java.util.List;
 
 /**
@@ -119,8 +118,8 @@ public class Gestion {
                     + "id_operateur integer primary key AUTO_INCREMENT,\n"
                     + "nom_operateur varchar(50),\n"
                     + "prenom_operateur varchar(40),\n"
-                    + "login_operateur varchar(50),\n"
-                    + "password_operateur varchar(40)\n"
+                    + "login_operateur varchar(50) not null unique,\n"
+                    + "password_operateur varchar(40) not null\n"
                     +")");
             st.executeUpdate(
                     "create table poste_de_travail_bof (\n"
@@ -144,8 +143,8 @@ public class Gestion {
                     + " id_client integer not null primary key AUTO_INCREMENT,\n"
                     + "nom_client varchar(50),\n"
                     + "prenom_client varchar(40),\n"
-                    + "login_client varchar(50),\n"
-                    + "password_client varchar(40)\n"
+                    + "login_client varchar(50) not null unique,\n"
+                    + "password_client varchar(40) not null\n"
                     +")");
             st.executeUpdate(
                     "create table commande_bof (\n"
@@ -203,6 +202,17 @@ public class Gestion {
                     + "operation_2 integer \n"
                     +")\n"
             );
+            st.executeUpdate(
+                    "create table messagerie_bof (\n"
+                    + "id_message integer not null primary key AUTO_INCREMENT,\n"
+                    + "id_operateur integer not null,\n"
+                    + "message text\n"
+                    +")\n"
+            );
+            st.executeUpdate(
+                    "alter table messagerie_bof \n"
+                    + "add constraint fk_messagerie_bof__operateur_bof \n"
+                    + "foreign key (id_operateur) references operateur_bof(id_operateur)");
             st.executeUpdate(
                     "alter table precede_bof \n"
                     + "add constraint fk_precede_bof_operation_1 \n"
@@ -425,7 +435,14 @@ public class Gestion {
                 st.executeUpdate("drop table operateur_bof");
             } catch (SQLException ex) {
             }
-            
+            try {
+                st.executeUpdate("alter table messagerie_bof drop constraint fk_messagerie_bof__operateur_bof");
+            } catch (SQLException ex) {
+            }
+            try {
+                st.executeUpdate("drop table messagerie_bof");
+            } catch (SQLException ex) {
+            }
             try {
                 st.executeUpdate("alter table utilisateur_bof drop constraint fk_utilisateur_bof_idrole");
             } catch (SQLException ex) {
@@ -577,18 +594,19 @@ public class Gestion {
                 
     }
 
-    public void menuMachine() {
+    public void menuPrincipal() {
         int rep = -1;
         while (rep != 0) {
             int i = 1;
-            System.out.println("Menu machine");
+            System.out.println("Menu principal");
             System.out.println("================");
-            System.out.println((i++) + ") supprimer schéma");
-            System.out.println((i++) + ") créer schéma");
-            System.out.println((i++)+ ") initialiser");
-            System.out.println((i++) +") Raz de la BdD = supprimer + creer + initialiser");
+            System.out.println((i++) + ") supprimer schéma (= supprimer la base de donnee)");
+            System.out.println((i++) + ") créer schéma (=supprimer la base de donnee)");
+            System.out.println((i++)+ ") initialiser la base de donnee");
+            System.out.println((i++) +") Raz de la BdD = supprimer + creer + initialiser la base de donnee");
             System.out.println((i++) + ") lister les machines");
             System.out.println((i++) + ") ajouter un machine");
+            System.out.println((i++) + ") menu machine");
             //System.out.println((i++) + ") chercher par pattern");
             System.out.println("0) Fin");
             rep = ConsoleFdB.entreeEntier("Votre choix : ");
@@ -611,10 +629,38 @@ public class Gestion {
                     //System.out.println(ListUtils.enumerateList(users));
                 } else if (rep == j++) {
                     System.out.println("entrez un nouvel utilisateur : ");
-                    machine nouveau = machine.demande();
+                    machine nouveau = machine.demande(conn);
                     nouveau.saveInDBV1(this.conn);
                 /*} else if (rep == j++) {
                     this.afficheUtilisateurAvecPattern();*/
+                }
+                else if (rep == j++) {
+                    menuMachine();
+                }
+            } catch (SQLException ex) {
+                System.out.println(ExceptionsUtils.messageEtPremiersAppelsDansPackage(ex, "fr.insa", 5));
+            }
+        }
+    }
+    
+    public void menuMachine() {
+        int rep = -1;
+        while (rep != 0) {
+            int i = 1;
+            System.out.println("Menu machine");
+            System.out.println("================");
+            System.out.println((i++) + ") liste les machines");
+            System.out.println((i++) + ") ajouter une machine");
+            //System.out.println((i++) + ") chercher par pattern");
+            System.out.println("0) Fin");
+            rep = ConsoleFdB.entreeEntier("Votre choix : ");
+            try {
+                int j = 1;
+                if (rep == j++) {
+                    System.out.println(ListUtils.enumerateList(machine.tousLesMachines(conn)));
+                } else if (rep == j++) {
+                    machine nouvelle = machine.demande(conn);
+                    nouvelle.saveInDBV1(conn);
                 }
             } catch (SQLException ex) {
                 System.out.println(ExceptionsUtils.messageEtPremiersAppelsDansPackage(ex, "fr.insa", 5));
@@ -627,7 +673,7 @@ public class Gestion {
             Connection con = connectSurServeurM3();
             System.out.println("Connecté");
             Gestion gestionnaire = new Gestion(con);
-            gestionnaire.menuMachine();
+            gestionnaire.menuPrincipal();
         } catch (SQLException ex) {
             throw new Error(ex);
         }

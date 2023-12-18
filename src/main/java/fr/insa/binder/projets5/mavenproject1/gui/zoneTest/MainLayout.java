@@ -2,8 +2,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package fr.insa.binder.projets5.mavenproject1.gui;
+package fr.insa.binder.projets5.mavenproject1.gui.zoneTest;
 
+import fr.insa.binder.projets5.mavenproject1.gui.zoneTest.GraphView;
 import com.vaadin.flow.component.applayout.AppLayout;
 import com.vaadin.flow.component.applayout.DrawerToggle;
 import com.vaadin.flow.component.html.H1;
@@ -16,6 +17,7 @@ import com.vaadin.flow.router.RouteParameters;
 import com.vaadin.flow.router.RouterLink;
 import com.vaadin.flow.theme.Theme;
 import fr.insa.binder.projets5.mavenproject1.Gestion;
+import fr.insa.binder.projets5.mavenproject1.gui.zoneTest.MainView;
 import java.sql.Connection;
 import javax.swing.text.html.ListView;
 
@@ -57,7 +59,7 @@ public class MainLayout extends AppLayout{
                 listLink2
         ));
         
-//        RouterLink listLink3 = new RouterLink("Plan", technicien_PlanUsine.class);
+//        RouterLink listLink3 = new RouterLink("Plannnn", technicien_PlanUsine.class);
 //        listLink3.setHighlightCondition(HighlightConditions.sameLocation());
 //        
 //        addToDrawer(new VerticalLayout(
