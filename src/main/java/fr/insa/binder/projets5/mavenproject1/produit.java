@@ -25,6 +25,7 @@ public class produit implements Serializable{
     private int id_p;   
     private int ref_p;
     private String des_p;
+    private int id_commande;
     
     public produit(int id_p, String des_p, int ref_p) {
         this.id_p = id_p;
@@ -142,7 +143,7 @@ public class produit implements Serializable{
     }
     
         public static void main(String[] args) throws SQLException {
-        produit p = new produit("Theo", 556);
+        produit p = new produit(1, "Theo", 1);
         try {
             Connection con = connectSurServeurM3();
             p.saveInDBV1(con);

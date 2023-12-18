@@ -5,6 +5,8 @@
 package fr.insa.binder.projets5.mavenproject1;
 
 import com.vaadin.flow.server.VaadinSession;
+import static fr.insa.binder.projets5.mavenproject1.Client.creerClient;
+import static fr.insa.binder.projets5.mavenproject1.Gestion.connectSurServeurM3;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -158,4 +160,22 @@ public class commande {
         return id_client;
     }
 
+    public static void main(String[] args) throws SQLException {
+        commande commande = new commande("Serviette", "POur moi", 1);
+        commande commande1 = new commande("Pull", "POur moi", 1);
+        try {
+            Connection con = connectSurServeurM3();
+            commande.saveInDBV1(con);
+            commande1.saveInDBV1(con);
+//            client.saveInDBV(con);
+//            List<Client> liset_c = tousLesClients(con);
+//            List<Integer> liste = condition(con);
+//            System.out.println(liste);
+//            System.out.println(liset_c);
+//            client.saveInDBV(connectSurServeurM3());
+        }
+        catch (SQLException ex) {
+            throw new Error(ex);
+        }
+    }
 }
