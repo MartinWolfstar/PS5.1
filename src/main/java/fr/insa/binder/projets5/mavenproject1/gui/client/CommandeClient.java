@@ -5,10 +5,11 @@
 package fr.insa.binder.projets5.mavenproject1.gui.client;
 
 import com.vaadin.flow.component.Key;
-import com.vaadin.flow.component.Text;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.dialog.Dialog;
+import com.vaadin.flow.component.html.H1;
 import com.vaadin.flow.component.html.H3;
+import com.vaadin.flow.component.html.H4;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
@@ -63,12 +64,22 @@ public class CommandeClient extends VerticalLayout{
         // Créer une fenêtre modale
         Dialog factureDialog = new Dialog();
         factureDialog.setCloseOnOutsideClick(true);
-        factureDialog.setWidth("400px"); // Ajustez la largeur selon vos besoins
+        factureDialog.setWidth("700px"); // Ajustez la largeur selon vos besoins
         factureDialog.setModal(true);
 
         // Ajouter le texte et la liste des commandes à la fenêtre
         VerticalLayout content = new VerticalLayout();
-        content.add(new Text("Texte de la facture"));
+        content.add(new H1("Facture"));
+        VerticalLayout V1 = new VerticalLayout();
+        HorizontalLayout H2 = new HorizontalLayout();
+        H2.add(new H4("Facturé à :"));
+        H2.add(new H4("Envoyé à :"));
+        H2.add(V1);
+        V1.add(new H4("facture numéro :"));
+        V1.add(new H4("date :"));
+        V1.add(new H4("numéro de commande :"));
+        content.add(H2);
+
 
         // Ajouter la liste des commandes (utilisez le contenu de votre grille)
         try {
@@ -79,12 +90,15 @@ public class CommandeClient extends VerticalLayout{
             content.add(new H3("Problème BdD"));
         }
         
+        content.add(new H3("Merci de votre achat"));
+        HorizontalLayout H3 = new HorizontalLayout();
+        content.add(H3);
         // Close button
         Button closeButton = new Button("Fermer", event -> factureDialog.close());
-        content.add(closeButton);
+        H3.add(closeButton);
         // Telechargement button
         Button TelechargementB = new Button("Telecharger", event -> factureDialog.close());
-        content.add(TelechargementB);
+        H3.add(TelechargementB);
         
         factureDialog.add(content);
 
