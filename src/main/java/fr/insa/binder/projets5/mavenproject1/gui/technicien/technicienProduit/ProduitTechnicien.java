@@ -46,5 +46,7 @@ public class ProduitTechnicien extends VerticalLayout{
         
         addClassName("liste_machine");
         setSizeFull();
+        
+        
     }
 }

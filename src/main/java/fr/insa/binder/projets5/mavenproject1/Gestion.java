@@ -93,10 +93,18 @@ public class Gestion {
                     + ")\n"
             );
             st.executeUpdate(
+                    "create table produit_commande_bof (\n"
+                    + "    id_produit integer not null,\n"
+                    + "    id_commande integer not null\n"
+                    + ")\n"
+            );
+            
+            st.executeUpdate(
                     "alter table realise_bof \n"
                     + "    add constraint fk_realise_bof_id_machine \n"
                     + "    foreign key (id_machine) references machine_bof(id_machine) \n"
             ); 
+            
             st.executeUpdate(
                     "alter table realise_bof \n"
                     + "    add constraint fk_realise_bof_id_type_operation \n"
@@ -149,9 +157,18 @@ public class Gestion {
                     "create table commande_bof (\n"
                     + "id_commande integer primary key AUTO_INCREMENT,\n"
                     + "nom_commande varchar(50),\n"
-                    + "des_commande text, \n"
-                    + "id_client integer not null"
+                    + "des_commande text \n"
                     +")");
+            
+            st.executeUpdate(
+                    "alter table produit_commande_bof \n"
+                    + "add constraint fk_produit_commande_bof_id_produit \n"
+                    + "foreign key (id_produit) references produit_bof(id_produit)");
+            st.executeUpdate(
+                    "alter table produit_commande_bof \n"
+                    + "add constraint fk_produit_commande_bof_id_commande \n"
+                    + "foreign key (id_commande) references produit_commande_bof(id_commande)");
+            
             st.executeUpdate(
                     "create table type_machine_bof (\n"
                     + "id_type_machine integer primary key,\n"
@@ -260,10 +277,10 @@ public class Gestion {
                     "alter table type_machine__type_operation_bof \n"
                     + "add constraint fk_type_machine__type_operation_bof_id_type_operation \n"
                     + "foreign key (id_type_operation) references type_operation_bof(id_type_operation)");         
-            st.executeUpdate(
-                    "alter table commande_bof \n"
-                    + "add constraint fk_commande_bof_id_client \n"
-                    + "foreign key (id_client) references client_bof(id_client)");         
+//            st.executeUpdate(
+//                    "alter table commande_bof \n"
+//                    + "add constraint fk_commande_bof_id_client \n"
+//                    + "foreign key (id_client) references client_bof(id_client)");         
 //            st.executeUpdate(
 //                    "alter table produit_bof \n"
 //                    + "add constraint fk_produit_bof_id_commande \n"
@@ -315,6 +332,16 @@ public class Gestion {
         type_etat1.save_type_etat(conn);
         type_operation type_operation1 = new type_operation("dressage");
         type_operation1.save_type_operation(conn);
+        Client client1 = new Client("Binder", "Aurore", "Auroraa", "Aurore");
+        Client client2 = new Client("Schmitt", "Theo", "Theo", "Theo");
+        Client client3 = new Client("Dalibard", "Melanie", "Melanie", "Melanie");
+        client1.saveInDBV(conn);
+        client2.saveInDBV(conn);
+        client3.saveInDBV(conn);
+        commande commande = new commande("Serviette", "POur moi", 1);
+        commande commande1 = new commande("Pull", "POur moi", 1);
+        commande.saveInDBV1(conn);
+        commande1.saveInDBV1(conn);
     }
     
     
@@ -348,14 +375,20 @@ public class Gestion {
                 st.executeUpdate("alter table exemplaire_bof drop constraint fk_exemplaire_bof_id_produit");
             } catch (SQLException ex) {
             }
+//            try {
+//                st.executeUpdate("alter table commande_bof drop constraint fk_commande_bof_id_client");
+//            } catch (SQLException ex) {
+//            }
+//            try {
+//                st.executeUpdate("alter table produit_bof drop constraint fk_produit_bof_id_commande");
+//            } catch (SQLException ex) {
+//            }
+
             try {
-                st.executeUpdate("alter table commande_bof drop constraint fk_commande_bof_id_client");
+                st.executeUpdate("alter table exemplaire_bof drop constraint fk_exemplaire_bof_id_produit");
             } catch (SQLException ex) {
             }
-            try {
-                st.executeUpdate("alter table produit_bof drop constraint fk_produit_bof_id_commande");
-            } catch (SQLException ex) {
-            }
+            
             try {
                 st.executeUpdate("alter table type_machine__type_operation_bof drop constraint fk_type_machine__type_operation_bof_id_type_operation");
             } catch (SQLException ex) {

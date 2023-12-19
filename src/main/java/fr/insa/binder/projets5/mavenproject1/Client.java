@@ -56,7 +56,7 @@ public class Client {
     } 
     
     public static void creerClient(Connection con) throws SQLException {
-        Client client1 = new Client("Binder", "Aurore", "Aurore", "Aurore");
+        Client client1 = new Client("Binder", "Aurore", "Auroraa", "Aurore");
         Client client2 = new Client("Schmitt", "Theo", "Theo", "Theo");
         Client client3 = new Client("Dalibard", "Melanie", "Melanie", "Melanie");
         client1.saveInDBV(con);
@@ -231,15 +231,16 @@ public class Client {
     }
     
     public static void main(String[] args) throws SQLException {
-        Client client = new Client("Theo", "Aurore", "Aurore", "Aurore");
+//        Client client = new Client("Theo", "Aurore", "Aurora", "Aurore");
+//        Client client1 = new Client ("Melanie", "Salut", "Bof", "Aurore"); 
         try {
             Connection con = connectSurServeurM3();
             creerClient(con);
-            client.saveInDBV(con);
-            List<Client> liset_c = tousLesClients(con);
-            List<Integer> liste = condition(con);
-            System.out.println(liste);
-            System.out.println(liset_c);
+//            client.saveInDBV(con);
+//            List<Client> liset_c = tousLesClients(con);
+//            List<Integer> liste = condition(con);
+//            System.out.println(liste);
+//            System.out.println(liset_c);
 //            client.saveInDBV(connectSurServeurM3());
         }
         catch (SQLException ex) {
