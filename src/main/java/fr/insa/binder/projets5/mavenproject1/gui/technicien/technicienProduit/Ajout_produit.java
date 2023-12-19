@@ -40,7 +40,7 @@ public class Ajout_produit extends VerticalLayout{
                 UI.getCurrent().getPage().reload();
             } catch(SQLException ex) {
             Notification.show("Problème BdD : a");
-        }
+            }
         });
         
         this.HL = new HorizontalLayout();
