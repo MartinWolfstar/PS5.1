@@ -84,6 +84,23 @@ public class produit implements Serializable{
         }
         return res;
     }
+    
+    public static List<produit> tousLesProduitsrecherche(String mot, Connection con) throws SQLException {
+        List<produit> res = new ArrayList<>();
+        try (PreparedStatement pst = con.prepareStatement(
+                "select id_produit,des_produit,ref_produit from produit_bof where des_produit LIKE ?")) {
+                pst.setString(1,mot);
+            try (ResultSet rs = pst.executeQuery()) {
+                while (rs.next()) {
+                    int id_p = rs.getInt("id_produit");
+                    String des_p = rs.getString("des_produit");
+                    int ref_p = rs.getInt("ref_produit");
+                    res.add(new produit(id_p, des_p, ref_p));
+                }
+            }
+        }
+        return res;
+    }
 
     @Override
     public String toString() {

@@ -4,6 +4,7 @@
  */
 package fr.insa.binder.projets5.mavenproject1.gui.login;
 
+import com.vaadin.flow.component.Key;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.notification.Notification;
@@ -44,6 +45,7 @@ public class login_client extends VerticalLayout {
         this.inscription.addClickListener((event) -> {
             this.main.setMainContent(new Inscription_client(this.main));
         });
+        vbLogin.addClickShortcut(Key.ENTER);
     }
     
     public void doLogin() {

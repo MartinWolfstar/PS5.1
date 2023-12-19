@@ -4,6 +4,7 @@
  */
 package fr.insa.binder.projets5.mavenproject1.gui.login;
 
+import com.vaadin.flow.component.Key;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.notification.Notification;
@@ -11,7 +12,6 @@ import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.PasswordField;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.server.VaadinSession;
-import fr.insa.binder.projets5.mavenproject1.gui.client.ProduitClient;
 import fr.insa.binder.projets5.mavenproject1.gui.technicien.technicienMachine.ListeMachine;
 import static fr.insa.binder.projets5.mavenproject1.operateur.login_o;
 import java.sql.Connection;
@@ -43,6 +43,7 @@ public class login_operateur extends VerticalLayout {
         this.inscription.addClickListener((event) -> {
             this.main.setMainContent(new Inscription_operateur(this.main));
         });
+        vbLogin.addClickShortcut(Key.ENTER);
     }
     
     public void doLogin() {

@@ -5,6 +5,7 @@
 package fr.insa.binder.projets5.mavenproject1.gui.client;
 
 
+import com.vaadin.flow.component.Key;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.html.H3;
@@ -66,9 +67,19 @@ public class ProduitClient extends VerticalLayout{
         });
         
         this.recherche.addClickListener(e -> {
-            this.remove(grid);  
-            this.add(new H3("Cherchez par vous-même"));
+            this.removeAll();  
+            this.add(H2);
+            //this.add(new H3("Cherchez par vous-même"));
+            String mot = "%" + this.rech.getValue() + "%";
+            Notification.show("mot :" + mot +"-");
+            try{
+                this.grid = new Grid_produit(produit.tousLesProduitsrecherche(mot, (Connection) VaadinSession.getCurrent().getAttribute("conn"))); 
+                this.add(this.grid);
+            }catch(SQLException ex){
+                Notification.show("Problème BdD : pp");
+            }
         });
+        recherche.addClickShortcut(Key.ENTER);
         
         addClassName("liste_machine");
         setSizeFull();
