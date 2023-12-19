@@ -22,6 +22,7 @@ public class premiere_page extends VerticalLayout {
     private HorizontalLayout h;
     private HorizontalLayout h_dev;
     
+    //TODO : mettre l'image en fond
     
     public premiere_page(Vue_principale_login main) {
         this.main = main;

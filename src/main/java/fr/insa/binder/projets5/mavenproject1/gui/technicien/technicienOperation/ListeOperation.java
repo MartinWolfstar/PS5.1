@@ -18,6 +18,8 @@ public class ListeOperation extends VerticalLayout {
     private Grid_operation grid;
     private HorizontalLayout H1;
    
+    //TODO : mettre le nom des typeoperation et des produits et pas leurs références
+    
     public ListeOperation() {
         this.add(new H3("Liste de toutes les Operations"));
         H1 = new HorizontalLayout();

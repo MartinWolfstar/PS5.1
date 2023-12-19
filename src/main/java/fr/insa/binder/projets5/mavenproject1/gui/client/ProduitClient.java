@@ -36,6 +36,8 @@ public class ProduitClient extends VerticalLayout{
     private HorizontalLayout H2;
     private Button recherche;
     
+    //TODO : rendre l'interface plus jolie, ajouter les images des produits
+    
     public ProduitClient() {
         
         this.add(new H3("Liste de tous les Produits"));
