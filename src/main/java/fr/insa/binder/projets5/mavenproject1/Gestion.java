@@ -317,7 +317,7 @@ public class Gestion {
             st.executeUpdate(
                     "alter table produit_commande_bof \n"
                     + "add constraint fk_produit_commande_bof_id_commande \n"
-                    + "foreign key (id_commande) references produit_commande_bof(id_commande)");
+                    + "foreign key (id_commande) references commande_bof(id_commande)");
             
             
             
@@ -406,6 +406,12 @@ public class Gestion {
             }
             try {
                 st.executeUpdate("alter table produit_commande_bof drop constraint fk_produit_commande_bof_id_commande");
+            } catch (SQLException ex) {
+                System.out.println("erreur8"+ ex);
+            }
+            
+            try {
+                st.executeUpdate("alter table produit_commande_bof drop constraint fk_produit_commande_bof_id_produit");
             } catch (SQLException ex) {
                 System.out.println("erreur8"+ ex);
             }
@@ -514,16 +520,19 @@ public class Gestion {
             } catch (SQLException ex) {
                 System.out.println("erreur27"+ ex);
             }
-            try {
-                st.executeUpdate("drop table operateur_bof");
-            } catch (SQLException ex) {
-                System.out.println("erreur28"+ ex);
-            }
+            
             try {
                 st.executeUpdate("alter table messagerie_bof drop constraint fk_messagerie_bof__operateur_bof");
             } catch (SQLException ex) {
                 System.out.println("erreur29"+ ex);
             }
+            
+            try {
+                st.executeUpdate("drop table operateur_bof");
+            } catch (SQLException ex) {
+                System.out.println("erreur28"+ ex);
+            }
+            
             try {
                 st.executeUpdate("drop table messagerie_bof");
             } catch (SQLException ex) {
