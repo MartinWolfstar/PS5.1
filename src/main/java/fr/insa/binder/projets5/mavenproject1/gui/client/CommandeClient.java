@@ -5,7 +5,9 @@
 package fr.insa.binder.projets5.mavenproject1.gui.client;
 
 import com.vaadin.flow.component.Key;
+import com.vaadin.flow.component.Text;
 import com.vaadin.flow.component.button.Button;
+import com.vaadin.flow.component.dialog.Dialog;
 import com.vaadin.flow.component.html.H3;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
@@ -14,9 +16,6 @@ import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.server.VaadinSession;
 import fr.insa.binder.projets5.mavenproject1.commande;
-import fr.insa.binder.projets5.mavenproject1.gui.technicien.technicienMachine.Ajout_machine;
-import fr.insa.binder.projets5.mavenproject1.gui.technicien.technicienMachine.Modif_machine;
-import fr.insa.binder.projets5.mavenproject1.gui.technicien.technicienMachine.Supp_machine;
 import java.sql.Connection;
 import java.sql.SQLException;
 
@@ -48,21 +47,48 @@ public class CommandeClient extends VerticalLayout{
         
         addClassName("liste_commande");
         setSizeFull();
-        
-
-
-
-
-
-
 
         facture = new Button("facture");
         facture.addClickListener(e -> {
             Notification.show("facture ");
+            showFactureDialog();
         });
         facture.addClickShortcut(Key.ENTER);
         setMargin(true);
         //setHorizontalComponentAlignment(FlexComponent.Alignment.END, name, sayHello);
         add(facture);
+    }
+    
+    private void showFactureDialog() {
+        // Créer une fenêtre modale
+        Dialog factureDialog = new Dialog();
+        factureDialog.setCloseOnOutsideClick(true);
+        factureDialog.setWidth("400px"); // Ajustez la largeur selon vos besoins
+        factureDialog.setModal(true);
+
+        // Ajouter le texte et la liste des commandes à la fenêtre
+        VerticalLayout content = new VerticalLayout();
+        content.add(new Text("Texte de la facture"));
+
+        // Ajouter la liste des commandes (utilisez le contenu de votre grille)
+        try {
+            int idc = (Integer) VaadinSession.getCurrent().getAttribute("id_client");
+            this.grid = new Grid_commande(commande.tousLesCommandes(idc, (Connection) VaadinSession.getCurrent().getAttribute("conn"))); 
+            content.add(this.grid);
+        } catch(SQLException ex) {
+            content.add(new H3("Problème BdD"));
+        }
+        
+        // Close button
+        Button closeButton = new Button("Fermer", event -> factureDialog.close());
+        content.add(closeButton);
+        // Telechargement button
+        Button TelechargementB = new Button("Telecharger", event -> factureDialog.close());
+        content.add(TelechargementB);
+        
+        factureDialog.add(content);
+
+        // Ouvrir la fenêtre modale
+        factureDialog.open();
     }
 }
