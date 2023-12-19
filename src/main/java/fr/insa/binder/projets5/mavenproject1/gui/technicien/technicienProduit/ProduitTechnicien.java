@@ -5,48 +5,49 @@
 package fr.insa.binder.projets5.mavenproject1.gui.technicien.technicienProduit;
 
 
-import fr.insa.binder.projets5.mavenproject1.gui.client.*;
+import fr.insa.binder.projets5.mavenproject1.gui.technicien.BarreGaucheTechnicien;
 import com.vaadin.flow.component.html.H3;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.server.VaadinSession;
-import fr.insa.binder.projets5.mavenproject1.gui.technicien.BarreGaucheTechnicien;
-import fr.insa.binder.projets5.mavenproject1.gui.technicien.technicienMachine.Ajout_machine;
-import fr.insa.binder.projets5.mavenproject1.gui.technicien.technicienMachine.Modif_machine;
-import fr.insa.binder.projets5.mavenproject1.gui.technicien.technicienMachine.Supp_machine;
+import com.vaadin.flow.component.upload.Upload;
+import fr.insa.binder.projets5.mavenproject1.gui.client.Grid_produit;
 import fr.insa.binder.projets5.mavenproject1.produit;
+
 import java.sql.Connection;
 import java.sql.SQLException;
 
 /**
- *
- * @author schmi
+ * Product view for the technician.
  */
 @PageTitle("Produit")
 @Route(value = "25", layout = BarreGaucheTechnicien.class)
-public class ProduitTechnicien extends VerticalLayout{
-    
+public class ProduitTechnicien extends VerticalLayout {
+
     private Grid_produit grid;
     private HorizontalLayout H1;
-    
+    private Upload upload;
+
     public ProduitTechnicien() {
-        
         this.add(new H3("Liste de tous les Produits"));
         H1 = new HorizontalLayout();
+
         try {
-            this.grid = new Grid_produit(produit.tousLesProduits((Connection) VaadinSession.getCurrent().getAttribute("conn"))); 
+            this.grid = new Grid_produit(produit.tousLesProduits((Connection) VaadinSession.getCurrent().getAttribute("conn")));
             this.add(this.grid);
-        } catch(SQLException ex) {
-            this.add(new H3("Problème BdD : "));
+        } catch (SQLException ex) {
+            this.add(new H3("Problème BdD : " + ex.getMessage()));
         }
-        H1.add(new Ajout_produit(),new Supp_produit(), new Modif_produit());
+
+        H1.add(new Ajout_produit(), new Supp_produit(), new Modif_produit());
         this.add(H1);
-        
+
         addClassName("liste_machine");
         setSizeFull();
-        
-        
+
+        this.add(upload);
     }
 }
+

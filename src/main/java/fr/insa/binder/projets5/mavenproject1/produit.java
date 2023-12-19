@@ -26,15 +26,23 @@ public class produit implements Serializable{
     private int ref_p;
     private String des_p;
     private int id_commande;
+    private String imageURL;
     
     public produit(int id_p, String des_p, int ref_p) {
         this.id_p = id_p;
         this.ref_p = ref_p;
         this.des_p = des_p;
+        this.imageURL = "";
+    }
+    public produit(int id_p, String des_p, int ref_p, String img) {
+        this.id_p = id_p;
+        this.ref_p = ref_p;
+        this.des_p = des_p;
+        this.imageURL = img;
     }
     
     public produit(String des_p, int ref_p) {
-        this(-1, des_p, ref_p);
+        this(-1, des_p, ref_p,"");
     }
     
     public static produit demande() {
@@ -173,5 +181,12 @@ public class produit implements Serializable{
         catch (SQLException ex) {
             throw new Error(ex);
         }
+    }
+        
+    public String getImageURL() {
+        return imageURL;
+    }
+    public void setImageURL(String img) {
+        this.imageURL = img;
     }
 }

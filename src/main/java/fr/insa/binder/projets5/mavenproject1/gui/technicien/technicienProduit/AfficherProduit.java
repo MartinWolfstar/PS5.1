@@ -35,33 +35,33 @@ import java.sql.SQLException;
 public class AfficherProduit extends VerticalLayout{
     
     private Grid grid;
+    
     public AfficherProduit(){
         
-
-    Grid<produit> grid = new Grid<>(produit.class, false);
-    try{
-    grid.setItems(produit.tousLesProduits((Connection) VaadinSession.getCurrent().getAttribute("conn")));
-    }catch(SQLException ex) {
+        Grid<produit> grid = new Grid<>(produit.class, false);
+        try{
+            grid.setItems(produit.tousLesProduits((Connection) VaadinSession.getCurrent().getAttribute("conn")));
+        }catch(SQLException ex) {
             this.add(new H3("Problème BdD : "));
         }
-Grid.Column<produit> firstNameColumn = grid
-        
-        .addColumn(produit::getRef).setHeader("Ref")
-        .setWidth("120px").setFlexGrow(0);
-        Grid.Column<produit> lastNameColumn = grid.addColumn(produit::getDes)
-        .setHeader("Last name").setWidth("120px").setFlexGrow(0);
+        Grid.Column<produit> firstNameColumn = grid
 
-Binder<produit> binder = new Binder<>(produit.class);
-Editor<produit> editor = grid.getEditor();
-editor.setBinder(binder);
+            .addColumn(produit::getRef).setHeader("Ref")
+            .setWidth("120px").setFlexGrow(0);
+            Grid.Column<produit> lastNameColumn = grid.addColumn(produit::getDes)
+            .setHeader("Last name").setWidth("120px").setFlexGrow(0);
 
-TextField lastNameField = new TextField();
-lastNameField.setWidthFull();
-//addCloseHandler(firstNameField, editor);
-binder.forField(lastNameField)
-        .asRequired("First name must not be empty")
-        .bind(produit::getDes, produit::setDes);
-lastNameColumn.setEditorComponent(lastNameField);
+        Binder<produit> binder = new Binder<>(produit.class);
+        Editor<produit> editor = grid.getEditor();
+            editor.setBinder(binder);
+
+        TextField lastNameField = new TextField();
+        lastNameField.setWidthFull();
+        //addCloseHandler(firstNameField, editor);
+        binder.forField(lastNameField)
+            .asRequired("First name must not be empty")
+            .bind(produit::getDes, produit::setDes);
+        lastNameColumn.setEditorComponent(lastNameField);
 
 //TextField lastNameField = new TextField();
 //lastNameField.setWidthFull();
@@ -81,27 +81,29 @@ lastNameColumn.setEditorComponent(lastNameField);
 //        .bind(Person::getEmail, Person::setEmail);
 //emailColumn.setEditorComponent(emailField);
 
-grid.addItemDoubleClickListener(e -> {
-    editor.editItem(e.getItem());
-    Component editorComponent = e.getColumn().getEditorComponent();
-    if (editorComponent instanceof Focusable) {
-        ((Focusable) editorComponent).focus();
-    }
-});
+        grid.addItemDoubleClickListener(e -> {
+            editor.editItem(e.getItem());
+            Component editorComponent = e.getColumn().getEditorComponent();
+            if (editorComponent instanceof Focusable) {
+                ((Focusable) editorComponent).focus();
+            }
+        });
 
-Button saveButton = new Button("Enregistrer", event -> {
-    if (editor.isOpen() && binder.writeBeanIfValid(editor.getItem())) {
-        // La ligne suivante déclenche la sauvegarde dans la base de données
-        try {
-                Connection con = (Connection) VaadinSession.getCurrent().getAttribute("conn");
-//                produit.setDes(this.des.getValue(), id, con);
-                setDes(editor.getItem().getDes(), editor.getItem().getId(), con);
-            } catch(SQLException ex) {
-            Notification.show("Problème BdD : m2");
-        }
-    }
-});
+        Button saveButton = new Button("Enregistrer", event -> {
+            if (editor.isOpen() && binder.writeBeanIfValid(editor.getItem())) {
+               // La ligne suivante déclenche la sauvegarde dans la base de données
+              try {
+                       Connection con = (Connection) VaadinSession.getCurrent().getAttribute("conn");
+        //                produit.setDes(this.des.getValue(), id, con);
+                        setDes(editor.getItem().getDes(), editor.getItem().getId(), con);
+                    } catch(SQLException ex) {
+                    Notification.show("Problème BdD : m2");
+               }
+            }
+        });
 
-    this.add(grid);
+
+
+        this.add(grid);
     }
 }
