@@ -70,6 +70,13 @@ public class BarreGaucheClient extends AppLayout{
                 listLink3
         ));
         
+       RouterLink listLink4 = new RouterLink("Commentaire", CommentaireClient.class);
+        listLink4.setHighlightCondition(HighlightConditions.sameLocation());
+        
+        addToDrawer(new VerticalLayout(
+                listLink4
+        ));
+        
     }
     
     

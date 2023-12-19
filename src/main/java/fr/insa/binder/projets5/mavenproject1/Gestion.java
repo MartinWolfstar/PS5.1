@@ -161,15 +161,6 @@ public class Gestion {
                     +")");
             
             st.executeUpdate(
-                    "alter table produit_commande_bof \n"
-                    + "add constraint fk_produit_commande_bof_id_produit \n"
-                    + "foreign key (id_produit) references produit_bof(id_produit)");
-            st.executeUpdate(
-                    "alter table produit_commande_bof \n"
-                    + "add constraint fk_produit_commande_bof_id_commande \n"
-                    + "foreign key (id_commande) references produit_commande_bof(id_commande)");
-            
-            st.executeUpdate(
                     "create table type_machine_bof (\n"
                     + "id_type_machine integer primary key,\n"
                     + "des_type_machine text\n"
@@ -225,6 +216,18 @@ public class Gestion {
                     + "message text\n"
                     +")\n"
             );
+            st.executeUpdate(
+                    "create table commentaire_bof (\n"
+                    + "id_commentaire integer not null primary key AUTO_INCREMENT,\n"
+                    + "id_produit integer not null,\n"
+                    + "id_client integer not null,\n"
+                    + "message text\n"
+                    +")\n"
+            );
+            st.executeUpdate(
+                    "alter table commentaire_bof \n"
+                    + "add constraint fk_commentaire_bof__produit_bof \n"
+                    + "foreign key (id_produit) references produit_bof(id_produit)");
             st.executeUpdate(
                     "alter table messagerie_bof \n"
                     + "add constraint fk_messagerie_bof__operateur_bof \n"
@@ -305,7 +308,17 @@ public class Gestion {
             st.executeUpdate(
                     "alter table machine_bof \n"
                     + "add constraint fk_machine_bof_id_type_machine \n"
-                    + "foreign key (id_type_machine) references type_machine_bof(id_type_machine)");         
+                    + "foreign key (id_type_machine) references type_machine_bof(id_type_machine)");       
+            
+            st.executeUpdate(
+                    "alter table produit_commande_bof \n"
+                    + "add constraint fk_produit_commande_bof_id_produit \n"
+                    + "foreign key (id_produit) references produit_bof(id_produit)");
+            st.executeUpdate(
+                    "alter table produit_commande_bof \n"
+                    + "add constraint fk_produit_commande_bof_id_commande \n"
+                    + "foreign key (id_commande) references produit_commande_bof(id_commande)");
+            
             
             
             this.conn.commit();
@@ -352,28 +365,49 @@ public class Gestion {
             // suppression des liens
             
             try {
+                st.executeUpdate("alter table commentaire_bof drop constraint fk_commentaire_bof__produit_bof");
+            } catch (SQLException ex) {
+                System.out.println("erreur1a" + ex);
+            }
+            try {
+                st.executeUpdate("alter table commentaire_bof drop constraint fk_commentaire_bof_id_commentaire");
+            } catch (SQLException ex) {
+                System.out.println("erreur1b" + ex);
+            }
+            try {
                 st.executeUpdate("alter table operation_bof drop constraint fk_operation_bof_id_type_operation");
             } catch (SQLException ex) {
+                System.out.println("erreur2"+ ex);
             }
             try {
                 st.executeUpdate("alter table machine_bof drop constraint fk_machine_bof_id_type_machine");
             } catch (SQLException ex) {
+                System.out.println("erreur3"+ ex);
             }
             try {
                 st.executeUpdate("alter table operations_effectuees_bof drop constraint fk_operations_effectuees_bof_id_exemplaire");
             } catch (SQLException ex) {
+                System.out.println("erreur4"+ ex);
             }
             try {
                 st.executeUpdate("alter table operations_effectuees_bof drop constraint fk_operations_effectuees_bof_id_operation");
             } catch (SQLException ex) {
+                System.out.println("erreur5"+ ex);
             }
             try {
                 st.executeUpdate("alter table operations_effectuees_bof drop constraint fk_operations_effectuees_bof_id_machine");
             } catch (SQLException ex) {
+                System.out.println("erreur6"+ ex);
             }
             try {
                 st.executeUpdate("alter table exemplaire_bof drop constraint fk_exemplaire_bof_id_produit");
             } catch (SQLException ex) {
+                System.out.println("erreur7"+ ex);
+            }
+            try {
+                st.executeUpdate("alter table produit_commande_bof drop constraint fk_produit_commande_bof_id_commande");
+            } catch (SQLException ex) {
+                System.out.println("erreur8"+ ex);
             }
 //            try {
 //                st.executeUpdate("alter table commande_bof drop constraint fk_commande_bof_id_client");
@@ -387,227 +421,298 @@ public class Gestion {
             try {
                 st.executeUpdate("alter table exemplaire_bof drop constraint fk_exemplaire_bof_id_produit");
             } catch (SQLException ex) {
+                System.out.println("erreur9"+ ex);
             }
             
             try {
                 st.executeUpdate("alter table type_machine__type_operation_bof drop constraint fk_type_machine__type_operation_bof_id_type_operation");
             } catch (SQLException ex) {
+                System.out.println("erreur10"+ ex);
             }
             try {
                 st.executeUpdate("alter table type_machine__type_operation_bof drop constraint fk_type_machine__type_operation_bof_id_type_machine");
             } catch (SQLException ex) {
+                System.out.println("erreur11"+ ex);
             }
             try {
                 st.executeUpdate("alter table machine_bof drop constraint fk_machine_bof_id_poste_de_travail");
             } catch (SQLException ex) {
+                System.out.println("erreur12"+ ex);
             }
             try {
                 st.executeUpdate("alter table etat_bof drop constraint fk_etat_bof_id_type_etat");
             } catch (SQLException ex) {
+                System.out.println("erreur13"+ ex);
             }
             try {
                 st.executeUpdate("alter table machine__etat_bof drop constraint fk_machine__etat_bof_id_machine");
             } catch (SQLException ex) {
+                System.out.println("erreur14"+ ex);
             }
             try {
                 st.executeUpdate("alter table machine__etat_bof drop constraint fk_machine__etat_bof_id_etat");
             } catch (SQLException ex) {
+                System.out.println("erreur15"+ ex);
             }
             try {
                 st.executeUpdate("alter table operateur__etat_bof drop constraint fk_operateur__etat_bof_id_etat");
             } catch (SQLException ex) {
+                System.out.println("erreur16"+ ex);
             }
             try {
                 st.executeUpdate("alter table operateur__etat_bof drop constraint fk_operateur__etat_bof_id_operateur");
             } catch (SQLException ex) {
+                System.out.println("erreur17"+ ex);
             }
             try {
                 st.executeUpdate("alter table operations__poste_de_travail_bof drop constraint fk_operations__poste_de_travail_bof_id_operateur");
             } catch (SQLException ex) {
+                System.out.println("erreur18"+ ex);
             }
             try {
                 st.executeUpdate("alter table operations__poste_de_travail_bof drop constraint fk_operations__poste_de_travail_bof_id_poste_de_travail");
             } catch (SQLException ex) {
+                System.out.println("erreur19"+ ex);
             }
             try {
                 st.executeUpdate("alter table precede_bof drop constraint fk_precede_operation_1");
             } catch (SQLException ex) {
+                System.out.println("erreur20"+ ex);
             }
             try {
                 st.executeUpdate("alter table precede_bof drop constraint fk_precede_operation_2");
             } catch (SQLException ex) {
+                System.out.println("erreur21"+ ex);
             }
             try {
                 st.executeUpdate("drop table precede_bof");
             } catch (SQLException ex) {
+                System.out.println("erreur22"+ ex);
+            }
+            try {
+                st.executeUpdate("drop table precede_bof");
+            } catch (SQLException ex) {
+                System.out.println("erreur23"+ ex);
             }
             try {
                 st.executeUpdate("alter table habilitation_bof drop constraint fk_habilitation_poste_de_travail");
             } catch (SQLException ex) {
+                System.out.println("erreur24"+ ex);
             }
             try {
                 st.executeUpdate("alter table habilitation_bof drop constraint fk_habilitation_operateur");
             } catch (SQLException ex) {
+                System.out.println("erreur25"+ ex);
             }
             try {
                 st.executeUpdate("drop table habilitation_bof");
             } catch (SQLException ex) {
+                System.out.println("erreur26"+ ex);
             }
             try {
                 st.executeUpdate("drop table poste_de_travail_bof");
             } catch (SQLException ex) {
+                System.out.println("erreur27"+ ex);
             }
             try {
                 st.executeUpdate("drop table operateur_bof");
             } catch (SQLException ex) {
+                System.out.println("erreur28"+ ex);
             }
             try {
                 st.executeUpdate("alter table messagerie_bof drop constraint fk_messagerie_bof__operateur_bof");
             } catch (SQLException ex) {
+                System.out.println("erreur29"+ ex);
             }
             try {
                 st.executeUpdate("drop table messagerie_bof");
             } catch (SQLException ex) {
+                System.out.println("erreur30"+ ex);
             }
             try {
                 st.executeUpdate("alter table utilisateur_bof drop constraint fk_utilisateur_bof_idrole");
             } catch (SQLException ex) {
+                System.out.println("erreur31"+ ex);
             }
             try {
                 st.executeUpdate("drop table utilisateur_bof");
             } catch (SQLException ex) {
+                System.out.println("erreur32"+ ex);
             }
             try {
                 st.executeUpdate("drop table role_bof");
             } catch (SQLException ex) {
+                System.out.println("erreur33"+ ex);
             }
             try {
                 st.executeUpdate("alter table ordre_op_bof drop constraint fk_ordre_op_bof_id_operation_pres");
             } catch (SQLException ex) {
+                System.out.println("erreur34"+ ex);
             }
             try {
                st.executeUpdate("alter table ordre_op_bof drop constraint fk_ordre_op_bof_id_operation");
             } catch (SQLException ex) {
+                System.out.println("erreur35"+ ex);
             }
             try {
                st.executeUpdate("alter table operation_bof drop constraint fk_operation_bof_id_produit");
             } catch (SQLException ex) {
+                System.out.println("erreur36"+ ex);
             }
             try {
                st.executeUpdate("alter table type_operation_bof drop constraint fk_type_operation_bof_id_operation");
             } catch (SQLException ex) {
+                System.out.println("erreur37"+ ex);
             }
             try {
                st.executeUpdate("alter table ordre_op_bof drop constraint fk_type_operation_bof_id_operation");
             } catch (SQLException ex) {
+                System.out.println("erreur38"+ ex);
             }
             try {
                st.executeUpdate("alter table realise_bof drop constraint fk_realise_bof_id_type_operation");
             } catch (SQLException ex) {
+                System.out.println("erreur39"+ ex);
             }
             try {
                st.executeUpdate("alter table realise_bof drop constraint fk_realise_bof_id_machine");
             } catch (SQLException ex) {
+                System.out.println("erreur40"+ ex);
             }
             try {
                 st.executeUpdate("drop table ordre_op_bof");
             } catch (SQLException ex) {
+                System.out.println("erreur42"+ ex);
             }
             try {   
                 st.executeUpdate("drop table produit_bof");
             } catch (SQLException ex) {
+                System.out.println("erreur43"+ ex);
             }
             try {
                 st.executeUpdate("drop table operation_bof");
             } catch (SQLException ex) {
+                System.out.println("erreur44"+ ex);
             }
             try {
                 st.executeUpdate("drop table type_operation_bof");
             } catch (SQLException ex) {
+                System.out.println("erreur45"+ ex);
             }
             try {
                 st.executeUpdate("drop table realise_bof");
             } catch (SQLException ex) {
+                System.out.println("erreur46"+ ex);
             }
             try {
                 st.executeUpdate("drop table machine_bof");
             } catch (SQLException ex) {
+                System.out.println("erreur47"+ ex);
             }
             try {
                 st.executeUpdate("drop table Operation");
             } catch (SQLException ex) {
+                System.out.println("erreur48"+ ex);
             }
             try {
                 st.executeUpdate("drop table machine");
             } catch (SQLException ex) {
+                System.out.println("erreur49"+ ex);
             }
             try {
                 st.executeUpdate("drop table habilitation_bof");
             } catch (SQLException ex) {
+                System.out.println("erreur50"+ ex);
             }
             try {
                 st.executeUpdate("drop table ordreoperation");
             } catch (SQLException ex) {
+                System.out.println("erreur51"+ ex);
             }
             try {
                 st.executeUpdate("drop table produit");
             } catch (SQLException ex) {
+                System.out.println("erreur52"+ ex);
             }
             try {
                 st.executeUpdate("drop table realisation");
             } catch (SQLException ex) {
+                System.out.println("erreur53"+ ex);
             }
             try {
                 st.executeUpdate("drop table typeoperation");
             } catch (SQLException ex) {
+                System.out.println("erreur54"+ ex);
             }
             try {
                 st.executeUpdate("drop table exemplaire_bof");
             } catch (SQLException ex) {
+                System.out.println("erreur55"+ ex);
             }
             try {
                 st.executeUpdate("drop table type_machine_bof");
             } catch (SQLException ex) {
+                System.out.println("erreur56"+ ex);
             }
             try {
                 st.executeUpdate("drop table commande_bof");
             } catch (SQLException ex) {
+                System.out.println("erreur57"+ ex);
             }
             try {
                 st.executeUpdate("drop table client_bof");
             } catch (SQLException ex) {
+                System.out.println("erreur58"+ ex);
             }
             try {
                 st.executeUpdate("drop table etat_bof");
             } catch (SQLException ex) {
+                System.out.println("erreur59"+ ex);
             }
             try {
                 st.executeUpdate("drop table type_etat_bof");
             } catch (SQLException ex) {
+                System.out.println("erreur60"+ ex);
             }
             try {
                 st.executeUpdate("drop table operations_effectuees_bof");
             } catch (SQLException ex) {
+                System.out.println("erreur61"+ ex);
             }
             try {
                 st.executeUpdate("drop table operations__poste_de_travail_bof");
             } catch (SQLException ex) {
+                System.out.println("erreur62"+ ex);
             }
             try {
                 st.executeUpdate("drop table operateur__etat_bof");
             } catch (SQLException ex) {
+                System.out.println("erreur63"+ ex);
             }
             try {
                 st.executeUpdate("drop table machine__etat_bof");
             } catch (SQLException ex) {
+                System.out.println("erreur64"+ ex);
             }
             try {
                 st.executeUpdate("drop table type_machine__type_operation_bof");
             } catch (SQLException ex) {
+                System.out.println("erreur65"+ ex);
             }
             try {
                 st.executeUpdate("drop table operation_operation_bof");
             } catch (SQLException ex) {
+                System.out.println("erreur66"+ ex);
+            }
+            try {
+                st.executeUpdate("drop table produit_commande_bof");
+            } catch (SQLException ex) {
+                System.out.println("erreur67"+ ex);
+            }
+            try {
+                st.executeUpdate("drop table commentaire_bof");
+            } catch (SQLException ex) {
+                System.out.println("erreur68"+ ex);
             }
             
         }  

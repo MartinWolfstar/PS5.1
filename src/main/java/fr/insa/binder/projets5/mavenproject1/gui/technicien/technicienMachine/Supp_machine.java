@@ -37,7 +37,7 @@ public class Supp_machine extends VerticalLayout{
     public Supp_machine(){
 //        this.id = new IntegerField("id machine");
         this.menu_bar = new MenuBar();
-        this.id = menu_bar.addItem("Selctionner l'identifiant de la machine à supprimer");
+        this.id = menu_bar.addItem("Selectionner l'identifiant de la machine à supprimer");
         SubMenu id_sub = id.getSubMenu();
         
 
