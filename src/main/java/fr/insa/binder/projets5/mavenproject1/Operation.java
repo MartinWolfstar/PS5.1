@@ -17,47 +17,47 @@ import java.util.List;
  */
 public class Operation {
     
-    private int id_o;
-    private int id_p;
-    private int id_to;
+    private int id_operation;
+    private int id_produit;
+    private int id_typeOperation;
     
-    public Operation(int id_o, int id_to, int id_p) {
-        this.id_o = id_o;
-        this.id_p = id_p;
-        this.id_to = id_to;
+    public Operation(int id_operation, int id_typeOperation, int id_produit) {
+        this.id_operation = id_operation;
+        this.id_produit = id_produit;
+        this.id_typeOperation = id_typeOperation;
     }
     
-    public Operation(int id_to, int id_p) {
-        this(-1, id_to, id_p);
+    public Operation(int id_typeOperation, int id_produit) {
+        this(-1, id_typeOperation, id_produit);
     }
     
     public static Operation demande() {
-        int id_p = ConsoleFdB.entreeInt("id_produit : ");
-        int id_to = ConsoleFdB.entreeInt("id_type_operation : ");
-        return new Operation(id_to, id_p);
+        int id_produit = ConsoleFdB.entreeInt("id_produitroduit : ");
+        int id_typeOperation = ConsoleFdB.entreeInt("id_type_operation : ");
+        return new Operation(id_typeOperation, id_produit);
     }
     
     public void saveInDBV1(Connection con) throws SQLException {
         try (PreparedStatement pst = con.prepareStatement(
-                "insert into machine_bof (id_produit,id_type_operation) values (?,?)")) {
-            pst.setInt(1, this.id_p);
-            pst.setInt(2, this.id_to);
+                "insert into operation_bof (id_produit,id_type_operation) values (?,?)")) {
+            pst.setInt(1, this.id_produit);
+            pst.setInt(2, this.id_typeOperation);
             pst.executeUpdate();
         }
     } 
     
     public void supOperation(Connection con) throws SQLException {
         try (PreparedStatement pst = con.prepareStatement(
-                "delete from machine_bof where id_operation = ?")) {
-            pst.setInt(1, this.id_o);
+                "delete from operation_bof where id_operation = ?")) {
+            pst.setInt(1, this.id_operation);
             pst.executeUpdate();
         }
     }
     
-    public static void supOperation(Connection con, int id_o) throws SQLException {
+    public static void supOperation(Connection con, int id_operation) throws SQLException {
         try (PreparedStatement pst = con.prepareStatement(
-                "delete from machine_bof where id_operation = ?")) {
-            pst.setInt(1, id_o);
+                "delete from operation_bof where id_operation = ?")) {
+            pst.setInt(1, id_operation);
             pst.executeUpdate();
         }
     }
@@ -65,13 +65,13 @@ public class Operation {
     public static List<Operation> tousLesOperations(Connection con) throws SQLException {
         List<Operation> res = new ArrayList<>();
         try (PreparedStatement pst = con.prepareStatement(
-                "select id_operation,id_type_operation,id_produit from machine_bof")) {
+                "select id_operation,id_type_operation,id_produit from operation_bof")) {
             try (ResultSet rs = pst.executeQuery()) {
                 while (rs.next()) {
-                    int id_o = rs.getInt("id_operation");
-                    int id_to = rs.getInt("id_type_operation");
-                    int id_p = rs.getInt("id_produit");
-                    res.add(new Operation(id_o, id_to, id_p));
+                    int id_operation = rs.getInt("id_operation");
+                    int id_typeOperation = rs.getInt("id_type_operation");
+                    int id_produit = rs.getInt("id_produit");
+                    res.add(new Operation(id_operation, id_typeOperation, id_produit));
                 }
             }
         }
@@ -80,49 +80,56 @@ public class Operation {
 
     @Override
     public String toString() {
-        return "Operation" + "id_o=" + getId() + ", id_p=" + getRef() + ", id_to=" + getDes() + '}';
+        return "Operation" + "id_operation=" + getId_operation() + ", id_produit=" + getId_produit() + ", id_typeOperation=" + getId_typeOperation() + '}';
     }
 
-    public void setRef(int id_p) {
-        this.id_p = id_p;
+    public void setRef(int id_produit) {
+        this.id_produit = id_produit;
     }
 
-    public static void setRef(int id_p, int id_o, Connection con) throws SQLException {
+    public static void setProduit(int id_produit, int id_operation, Connection con) throws SQLException {
         try (PreparedStatement pst = con.prepareStatement(
-                "update machine_bof set id_produit = ? where id_operation = ?")) {
-            pst.setInt(1, id_p);
-            pst.setInt(2, id_o);            
+                "update operation_bof set id_produit = ? where id_operation = ?")) {
+            pst.setInt(1, id_produit);
+            pst.setInt(2, id_operation);            
             pst.executeUpdate();
         }
     }
-    
-    public void setDes(int id_to) {
-        this.id_to = id_to;
-    }
 
-    public static void setDes(int id_to, int id_o, Connection con) throws SQLException {
+    public static void setTypeOperation(int id_typeOperation, int id_operation, Connection con) throws SQLException {
         try (PreparedStatement pst = con.prepareStatement(
-                "update machine_bof set id_type_operation = ? where id_operation = ?")) {
-            pst.setInt(1, id_to);
-            pst.setInt(2, id_o);            
+                "update operation_bof set id_type_operation = ? where id_operation = ?")) {
+            pst.setInt(1, id_typeOperation);
+            pst.setInt(2, id_operation);            
             pst.executeUpdate();
         }
     }
+
+    public int getId_operation() {
+        return id_operation;
+    }
+
+    public int getId_produit() {
+        return id_produit;
+    }
+
+    public int getId_typeOperation() {
+        return id_typeOperation;
+    }
+
+    public void setId_operation(int id_operation) {
+        this.id_operation = id_operation;
+    }
+
+    public void setId_produit(int id_produit) {
+        this.id_produit = id_produit;
+    }
+
+    public void setId_typeOperation(int id_typeOperation) {
+        this.id_typeOperation = id_typeOperation;
+    }
+
     
-    public void setId(int id_o) {
-        this.id_o = id_o;
-    }
 
-    public int getRef() {
-        return id_p;
-    }
-
-    public int getDes() {
-        return id_to;
-    }
-
-    public int getId() {
-        return id_o;
-    }
 }
 
