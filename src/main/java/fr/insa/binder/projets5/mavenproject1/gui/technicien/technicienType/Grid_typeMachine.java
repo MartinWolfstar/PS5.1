@@ -18,7 +18,6 @@ public class Grid_typeMachine extends Grid<Operation>{
     public Grid_typeMachine(List<Operation> list_operation) {
         this.setItems(list_operation);
         this.addColumn(Operation::getId_operation).setHeader("getId_operation");
-        this.addColumn(Operation::getId_produit).setHeader("getId_produit");
-        this.addColumn(Operation::getId_typeOperation).setHeader("getId_typeOperation");        
+        this.addColumn(Operation::getId_produit).setHeader("getId_produit");       
     }
 }
