@@ -23,18 +23,19 @@ public class ListeTypeMachine extends VerticalLayout {
    
     public ListeTypeMachine() {
         
+        V1 = new VerticalLayout();
         V1.add(new H3("Liste de toutes les Types de machine"));
         H1 = new HorizontalLayout();
         try {
             this.grid = new Grid_typeMachine(type_machine.tousLesTypeMachine((Connection) VaadinSession.getCurrent().getAttribute("conn"))); 
             this.add(this.grid);
         } catch(SQLException ex) {
-            this.add(new H3("Problème BdD : "));
+            this.add(new H3("Problème BdD : ltm"));
         }
         
         addClassName("liste_type_machine");
         setSizeFull();
-        H1.add(new Ajout_machine(),new Supp_machine(), new Modif_machine());
+        H1.add(new Ajout_type_machine(),new Supp_type_machine(), new Modif_type_machine());
         this.add(H1);
     }
 }

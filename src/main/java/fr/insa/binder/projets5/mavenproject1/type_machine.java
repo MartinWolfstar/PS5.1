@@ -4,6 +4,7 @@
  */
 package fr.insa.binder.projets5.mavenproject1;
 
+import com.vaadin.flow.component.notification.Notification;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -22,6 +23,9 @@ public class type_machine {
     public type_machine(int id_type_machine, String des_type_machine) {
         this.id_type_machine = id_type_machine;
         this.des_type_machine = des_type_machine;
+    }
+    public type_machine(String des_type_machine) {
+        this(-1,des_type_machine);
     }
     public void save_type_machine(Connection conn) throws SQLException{
         try (PreparedStatement pst = conn.prepareStatement(
@@ -46,9 +50,40 @@ public class type_machine {
         }
         return res;
     }
+        
+    public static void setDes_type_machine(String des, int id, Connection con) throws SQLException {
+        try (PreparedStatement pst = con.prepareStatement(
+                "update type_machine_bof set des_machine = ? where id_type_machine = ?")) {
+            pst.setString(1, des);
+            pst.setInt(2, id);            
+            pst.executeUpdate();
+        }catch(SQLException ex){
+            Notification.show("Problème BdD : setDes_type_machine");
+        }
+    }
 
     public int getId_type_machine() {
         return id_type_machine;
+    }
+    
+    public void supTypeMachine(Connection con) throws SQLException {
+        try (PreparedStatement pst = con.prepareStatement(
+                "delete from type_machine_bof where id_type_machine = ?")) {
+            pst.setInt(1, this.id_type_machine);
+            pst.executeUpdate();
+            Notification.show("aucun Problème BdD : supTypeMachine");
+        }
+        catch(SQLException ex){
+            Notification.show("Problème BdD : supTypeMachine");
+        }
+    }
+    
+    public static void supTypeMachine(Connection con, int id) throws SQLException {
+        try (PreparedStatement pst = con.prepareStatement(
+                "delete from type_machine_bof where id_type_machine = ?")) {
+            pst.setInt(1, id);
+            //pst.executeUpdate();
+        }
     }
 
     public String getDes_type_machine() {

@@ -4,7 +4,6 @@
  */
 package fr.insa.binder.projets5.mavenproject1.gui.technicien.technicienType;
 
-import fr.insa.binder.projets5.mavenproject1.gui.technicien.technicienMachine.*;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.html.H3;
@@ -14,8 +13,7 @@ import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.IntegerField;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.server.VaadinSession;
-import static fr.insa.binder.projets5.mavenproject1.Gestion.connectSurServeurM3;
-import fr.insa.binder.projets5.mavenproject1.machine;
+import fr.insa.binder.projets5.mavenproject1.type_machine;
 import java.sql.Connection;
 import java.sql.SQLException;
 
@@ -24,31 +22,28 @@ import java.sql.SQLException;
  * @author binde
  */
 public class Modif_type_machine2 extends VerticalLayout{
-    private IntegerField ref;
     private TextField des;
     private HorizontalLayout HL;
     private Button valid;
-    private machine mach;
+    private type_machine mach;
 
     
     public Modif_type_machine2(int id){
-        this.ref = new IntegerField("Reference produit");
-        this.des = new TextField("Description produit");
+        this.des = new TextField("Description type machine");
         this.valid = new Button ("Modifier");
         this.valid.addClickListener(e -> {
             try {
                 Connection con = (Connection) VaadinSession.getCurrent().getAttribute("conn");
-                machine.setDes(this.des.getValue(), id, con);
-                machine.setRef(this.ref.getValue(), id, con);
+                type_machine.setDes_type_machine(this.des.getValue(), id, con);
                 UI.getCurrent().getPage().reload();
             } catch(SQLException ex) {
-            Notification.show("Problème BdD : x");
+            Notification.show("Problème BdD : mtm2");
         }
         });
         
         this.HL = new HorizontalLayout();
-        this.add(new H3("Ajout machine"));
-        this.HL.add(this.ref, this.des);
+        this.add(new H3("Ajout type_machine"));
+        this.HL.add(this.des);
         this.add(this.HL, this.valid);
 }
 }
