@@ -14,6 +14,7 @@ import com.vaadin.flow.component.html.H3;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextField;
+import com.vaadin.flow.data.binder.BeanValidationBinder;
 import com.vaadin.flow.data.binder.Binder;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
@@ -24,6 +25,7 @@ import fr.insa.binder.projets5.mavenproject1.produit;
 import static fr.insa.binder.projets5.mavenproject1.produit.setDes;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.Optional;
 
 /**
  *
@@ -35,6 +37,8 @@ import java.sql.SQLException;
 public class AfficherProduit extends VerticalLayout{
     
     private Grid grid;
+    private Optional<Grid.Column<produit>> currentColumn = Optional.empty();
+    private Optional<produit> currentItem = Optional.empty();
     
     public AfficherProduit(){
         
@@ -44,17 +48,26 @@ public class AfficherProduit extends VerticalLayout{
         }catch(SQLException ex) {
             this.add(new H3("Problème BdD : "));
         }
-        Grid.Column<produit> firstNameColumn = grid
+        Grid.Column<produit> firstNameColumn = grid.addColumn(produit::getRef).setHeader("Ref").setWidth("120px").setFlexGrow(0);
+        Grid.Column<produit> lastNameColumn = grid.addColumn(produit::getDes).setHeader("Last name").setWidth("120px").setFlexGrow(0);
 
-            .addColumn(produit::getRef).setHeader("Ref")
-            .setWidth("120px").setFlexGrow(0);
-            Grid.Column<produit> lastNameColumn = grid.addColumn(produit::getDes)
-            .setHeader("Last name").setWidth("120px").setFlexGrow(0);
-
-        Binder<produit> binder = new Binder<>(produit.class);
+        Binder<produit> binder = new BeanValidationBinder<>(produit.class);
         Editor<produit> editor = grid.getEditor();
-            editor.setBinder(binder);
+        editor.setBinder(binder);
+        editor.setBuffered(true);
 
+        editor.addSaveListener(event -> {
+        produit item = event.getItem();
+        try {
+            Connection con = (Connection) VaadinSession.getCurrent().getAttribute("conn");
+        //                produit.setDes(this.des.getValue(), id, con);
+                        setDes(item.getDes(), item.getId(), con);
+                    } catch(SQLException ex) {
+                    Notification.show("Problème BdD : m2");
+               }
+        
+        });
+        
         TextField lastNameField = new TextField();
         lastNameField.setWidthFull();
         //addCloseHandler(firstNameField, editor);
@@ -62,7 +75,26 @@ public class AfficherProduit extends VerticalLayout{
             .asRequired("First name must not be empty")
             .bind(produit::getDes, produit::setDes);
         lastNameColumn.setEditorComponent(lastNameField);
+        
+        
+        grid.addSelectionListener(event -> event.getFirstSelectedItem().ifPresent(produit -> {
+    editor.save();
+    if (!editor.isOpen()) {
+        grid.getEditor().editItem(produit);
+        currentColumn.ifPresent(column -> {
+        if (column.getEditorComponent() instanceof Focusable<?> focusable) {
+            focusable.focus();
+        }
+    });
+}}));
 
+    grid.addCellFocusListener(event -> {
+        // Store the item on cell focus. Used in the ENTER ShortcutListener
+        currentItem = event.getItem();
+        // Store the current column. Used in the SelectionListener to focus the editor component
+        currentColumn = event.getColumn();
+    });
+        
 //TextField lastNameField = new TextField();
 //lastNameField.setWidthFull();
 //addCloseHandler(lastNameField, editor);
@@ -80,27 +112,29 @@ public class AfficherProduit extends VerticalLayout{
 //        .withStatusLabel(emailValidationMessage)
 //        .bind(Person::getEmail, Person::setEmail);
 //emailColumn.setEditorComponent(emailField);
+//
+//        grid.addItemDoubleClickListener(e -> {
+//            editor.editItem(e.getItem());
+//            Component editorComponent = e.getColumn().getEditorComponent();
+//            if (editorComponent instanceof Focusable) {
+//                ((Focusable) editorComponent).focus();
+//            }
+//        });
+//
 
-        grid.addItemDoubleClickListener(e -> {
-            editor.editItem(e.getItem());
-            Component editorComponent = e.getColumn().getEditorComponent();
-            if (editorComponent instanceof Focusable) {
-                ((Focusable) editorComponent).focus();
-            }
-        });
-
-        Button saveButton = new Button("Enregistrer", event -> {
-            if (editor.isOpen() && binder.writeBeanIfValid(editor.getItem())) {
-               // La ligne suivante déclenche la sauvegarde dans la base de données
-              try {
-                       Connection con = (Connection) VaadinSession.getCurrent().getAttribute("conn");
-        //                produit.setDes(this.des.getValue(), id, con);
-                        setDes(editor.getItem().getDes(), editor.getItem().getId(), con);
-                    } catch(SQLException ex) {
-                    Notification.show("Problème BdD : m2");
-               }
-            }
-        });
+        
+//        Button saveButton = new Button("Enregistrer", event -> {
+//            if (editor.isOpen() && binder.writeBeanIfValid(editor.getItem())) {
+//               // La ligne suivante déclenche la sauvegarde dans la base de données
+//              try {
+//                       Connection con = (Connection) VaadinSession.getCurrent().getAttribute("conn");
+//        //                produit.setDes(this.des.getValue(), id, con);
+//                        setDes(editor.getItem().getDes(), editor.getItem().getId(), con);
+//                    } catch(SQLException ex) {
+//                    Notification.show("Problème BdD : m2");
+//               }
+//            }
+//        });
 
 
 
