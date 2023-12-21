@@ -25,7 +25,6 @@ public class produit implements Serializable{
     private int id_p;   
     private int ref_p;
     private String des_p;
-    private int id_commande;
     private String imageURL;
     
     public produit(int id_p, String des_p, int ref_p) {
@@ -168,9 +167,11 @@ public class produit implements Serializable{
     
         public static void main(String[] args) throws SQLException {
         produit p = new produit(1, "Theo", 1);
+        produit p1 = new produit(1, "Aurore", 122);
         try {
             Connection con = connectSurServeurM3();
             p.saveInDBV1(con);
+            p1.saveInDBV1(con);
 //            List<Client> liset_c = tousLesClients(con);
 //            List<Integer> liste = condition(con);
 //            System.out.println(liste);
