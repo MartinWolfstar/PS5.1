@@ -28,21 +28,21 @@ public class Ajout_type_machine extends VerticalLayout{
 
     
     public Ajout_type_machine(){
-//        this.des = new TextField("Description produit");
-//        this.valid = new Button ("Ajouter type_machine");
-//        this.valid.addClickListener(e -> {
-//            this.mach = new type_machine(this.des.getValue());
-//            try {
-//                mach.saveInDBV1((Connection) VaadinSession.getCurrent().getAttribute("conn"));
-//                UI.getCurrent().getPage().reload();
-//            } catch(SQLException ex) {
-//            Notification.show("Problème BdD : x");
-//        }
-//        });
-//        
-//        this.HL = new HorizontalLayout();
-//        this.add(new H3("Ajout type_machine"));
-//        this.HL.add(this.des);
-//        this.add(this.HL, this.valid);
+        this.des = new TextField("Description produit");
+        this.valid = new Button ("Ajouter type_machine");
+        this.valid.addClickListener(e -> {
+            this.mach = new type_machine(this.des.getValue());
+            try {
+                mach.save_type_machine((Connection) VaadinSession.getCurrent().getAttribute("conn"));
+                UI.getCurrent().getPage().reload();
+            } catch(SQLException ex) {
+            Notification.show("Problème BdD : atm");
+        }
+        });
+        
+        this.HL = new HorizontalLayout();
+        this.add(new H3("Ajout type_machine"));
+        this.HL.add(this.des);
+        this.add(this.HL, this.valid);
     }
 }

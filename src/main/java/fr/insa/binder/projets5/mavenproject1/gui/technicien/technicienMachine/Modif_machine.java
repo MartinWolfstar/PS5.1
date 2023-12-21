@@ -24,6 +24,8 @@ import java.util.List;
  *
  * @author binde
  */
+
+// lol
 public class Modif_machine extends VerticalLayout{
     
     private MenuBar menu_bar;
@@ -31,7 +33,7 @@ public class Modif_machine extends VerticalLayout{
     private Modif_machine2 modif_machine2;
     
     public Modif_machine(){
-//        this.id = new IntegerField("id machine");
+
         this.menu_bar = new MenuBar();
         this.id = menu_bar.addItem("Selectionner l'identifiant de la machine à modifier");
         SubMenu id_sub = id.getSubMenu();

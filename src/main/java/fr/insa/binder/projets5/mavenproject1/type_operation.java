@@ -16,6 +16,7 @@ import java.util.List;
  * @author melan
  */
 public class type_operation {
+
     private int id_type_operation;
     private String des_type_operation;
 
@@ -37,6 +38,13 @@ public class type_operation {
             }
         }
     }
+        public static void supTypeOperation(Connection con, int id) throws SQLException {
+        try (PreparedStatement pst = con.prepareStatement(
+                "delete from type_operation_bof where id_type_operation = ?")) {
+            pst.setInt(1, id);
+            pst.executeUpdate();
+        }
+    }
     
     public static List<type_operation> tousLesTypeOperations(Connection con) throws SQLException {
         List<type_operation> res = new ArrayList<>();
@@ -56,6 +64,14 @@ public class type_operation {
     @Override
     public String toString() {
         return "type_operation{" + "id_type_operation=" + id_type_operation + ", des_type_operation=" + des_type_operation + '}';
+    }
+       public static void setDes(String des, int id, Connection con) throws SQLException {
+        try (PreparedStatement pst = con.prepareStatement(
+                "update type_operation_bof set des_type_operation = ? where id_type_operation = ?")) {
+            pst.setString(1, des);
+            pst.setInt(2, id);            
+            pst.executeUpdate();
+        }
     }
     public int getId_type_operation() {
         return id_type_operation;

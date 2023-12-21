@@ -23,18 +23,19 @@ public class ListeTypeOperation extends VerticalLayout {
    
     public ListeTypeOperation() {
         
+        V1 = new VerticalLayout();
         V1.add(new H3("Liste de toutes les Types d'opération"));
         H1 = new HorizontalLayout();
         try {
             this.grid = new Grid_typeOperation(type_operation.tousLesTypeOperations((Connection) VaadinSession.getCurrent().getAttribute("conn"))); 
             this.add(this.grid);
         } catch(SQLException ex) {
-            this.add(new H3("Problème BdD : "));
+            this.add(new H3("Problème BdD : lto"));
         }
         
         addClassName("liste_type_operation");
         setSizeFull();
-        H1.add(new Ajout_machine(),new Supp_machine(), new Modif_machine());
+        H1.add(new Ajout_type_operation(),new Supp_type_operation(), new Modif_type_operation());
         this.add(H1);
     }
 }
