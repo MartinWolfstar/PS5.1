@@ -160,7 +160,7 @@ public class Gestion {
             
             st.executeUpdate(
                     "create table type_machine_bof (\n"
-                    + "id_type_machine integer primary key,\n"
+                    + "id_type_machine integer primary key AUTO_INCREMENT,\n"
                     + "des_type_machine text\n"
                     +")");
             st.executeUpdate(
