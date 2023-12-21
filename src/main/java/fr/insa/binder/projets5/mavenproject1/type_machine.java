@@ -29,9 +29,8 @@ public class type_machine {
     }
     public void save_type_machine(Connection conn) throws SQLException{
         try (PreparedStatement pst = conn.prepareStatement(
-                "insert into type_machine_bof (id_type_machine,des_type_machine) values (?,?)")) {
-            pst.setInt(1, this.id_type_machine);
-            pst.setString(2, this.des_type_machine);
+                "insert into type_machine_bof (des_type_machine) values (?)")) {
+            pst.setString(1, this.des_type_machine);
             pst.executeUpdate();
         }
     }
@@ -53,7 +52,7 @@ public class type_machine {
         
     public static void setDes_type_machine(String des, int id, Connection con) throws SQLException {
         try (PreparedStatement pst = con.prepareStatement(
-                "update type_machine_bof set des_machine = ? where id_type_machine = ?")) {
+                "update type_machine_bof set des_type_machine = ? where id_type_machine = ?")) {
             pst.setString(1, des);
             pst.setInt(2, id);            
             pst.executeUpdate();
@@ -71,10 +70,10 @@ public class type_machine {
                 "delete from type_machine_bof where id_type_machine = ?")) {
             pst.setInt(1, this.id_type_machine);
             pst.executeUpdate();
-            Notification.show("aucun Problème BdD : supTypeMachine");
+            System.out.println("supTypeMachine reussi");
         }
         catch(SQLException ex){
-            Notification.show("Problème BdD : supTypeMachine");
+            System.out.println("supTypeMachine non reussi");
         }
     }
     
@@ -82,7 +81,10 @@ public class type_machine {
         try (PreparedStatement pst = con.prepareStatement(
                 "delete from type_machine_bof where id_type_machine = ?")) {
             pst.setInt(1, id);
-            //pst.executeUpdate();
+            pst.executeUpdate();
+        }
+        catch(SQLException ex){
+            System.out.println("supTypeMachine non reussi");
         }
     }
 

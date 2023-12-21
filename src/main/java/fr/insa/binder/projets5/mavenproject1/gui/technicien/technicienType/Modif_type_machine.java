@@ -38,7 +38,7 @@ public class Modif_type_machine extends VerticalLayout{
                 {
             int id_m = Integer.valueOf(e.getSource().getText());
             this.modif_machine2 = new Modif_type_machine2(id_m);
-            this.add( modif_machine2);
+            this.add(modif_machine2);
         };
         try {
             List<type_machine> id_liste = type_machine.tousLesTypeMachine((Connection) VaadinSession.getCurrent().getAttribute("conn"));
