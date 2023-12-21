@@ -8,6 +8,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -35,28 +37,32 @@ public class type_operation {
             }
         }
     }
+    
+    public static List<type_operation> tousLesTypeOperations(Connection con) throws SQLException {
+        List<type_operation> res = new ArrayList<>();
+        try (PreparedStatement pst = con.prepareStatement(
+                "select id_type_operation,des_type_operation from type_operation_bof")) {
+            try (ResultSet rs = pst.executeQuery()) {
+                while (rs.next()) {
+                    int id_type_operation = rs.getInt("id_type_operation");
+                    String des_type_operation = rs.getString("des_type_operation");
+                    res.add(new type_operation(id_type_operation, des_type_operation));
+                }
+            }
+        }
+        return res;
+    }
+    
     @Override
     public String toString() {
         return "type_operation{" + "id_type_operation=" + id_type_operation + ", des_type_operation=" + des_type_operation + '}';
     }
-    
-    /**
-     * @return the id_type_operation
-     */
     public int getId_type_operation() {
         return id_type_operation;
     }
-
-    /**
-     * @return the des_type_operation
-     */
     public String getDes_type_operation() {
         return des_type_operation;
     }
-
-    /**
-     * @param des_type_operation the des_type_operation to set
-     */
     public void setDes_type_operation(String des_type_operation) {
         this.des_type_operation = des_type_operation;
     }

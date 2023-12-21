@@ -19,7 +19,8 @@ import com.vaadin.flow.router.Route;
 import com.vaadin.flow.router.RouterLink;
 import fr.insa.binder.projets5.mavenproject1.gui.technicien.technicienOperation.ListeOperation;
 import fr.insa.binder.projets5.mavenproject1.gui.technicien.technicienProduit.ProduitTechnicien;
-import fr.insa.binder.projets5.mavenproject1.gui.technicien.technicienType.ListeType;
+import fr.insa.binder.projets5.mavenproject1.gui.technicien.technicienType.ListeTypeMachine;
+import fr.insa.binder.projets5.mavenproject1.gui.technicien.technicienType.ListeTypeOperation;
 
 /**
  *
@@ -78,11 +79,17 @@ public class BarreGaucheTechnicien extends AppLayout{
         addToDrawer(new VerticalLayout(
                 listLink5
         ));
-        RouterLink listLink6 = new RouterLink("Type", ListeType.class);
+        RouterLink listLink6 = new RouterLink("TypeOperation", ListeTypeOperation.class);
         listLink6.setHighlightCondition(HighlightConditions.sameLocation());
         
         addToDrawer(new VerticalLayout(
                 listLink6
+        ));
+        RouterLink listLink7 = new RouterLink("TypeMachine", ListeTypeMachine.class);
+        listLink7.setHighlightCondition(HighlightConditions.sameLocation());
+        
+        addToDrawer(new VerticalLayout(
+                listLink7
         ));
     }
 }

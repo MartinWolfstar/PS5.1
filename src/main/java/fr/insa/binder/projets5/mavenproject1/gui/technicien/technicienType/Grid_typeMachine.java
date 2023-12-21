@@ -4,20 +4,19 @@
  */
 package fr.insa.binder.projets5.mavenproject1.gui.technicien.technicienType;
 
-import fr.insa.binder.projets5.mavenproject1.gui.technicien.technicienOperation.*;
 import com.vaadin.flow.component.grid.Grid;
-import fr.insa.binder.projets5.mavenproject1.Operation;
+import fr.insa.binder.projets5.mavenproject1.type_machine;
 import java.util.List;
 
 /**
  *
  * @author binde
  */
-public class Grid_typeMachine extends Grid<Operation>{
+public class Grid_typeMachine extends Grid<type_machine>{
     
-    public Grid_typeMachine(List<Operation> list_operation) {
-        this.setItems(list_operation);
-        this.addColumn(Operation::getId_operation).setHeader("getId_operation");
-        this.addColumn(Operation::getId_produit).setHeader("getId_produit");       
+    public Grid_typeMachine(List<type_machine> list_machine) {
+        this.setItems(list_machine);
+        this.addColumn(type_machine::getId_type_machine).setHeader("getId_type_machine");
+        this.addColumn(type_machine::getDes_type_machine).setHeader("getDes_type_machine");       
     }
 }
