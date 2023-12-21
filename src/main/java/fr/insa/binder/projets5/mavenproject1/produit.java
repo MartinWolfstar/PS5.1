@@ -53,10 +53,9 @@ public class produit implements Serializable{
     
     public void saveInDBV1(Connection con) throws SQLException {
         try (PreparedStatement pst = con.prepareStatement(
-                "insert into produit_bof (ref_produit,des_produit, id_commande) values (?,?, ?)")) {
+                "insert into produit_bof (ref_produit,des_produit) values (?,?)")) {
             pst.setInt(1, this.ref_p);
             pst.setString(2, this.des_p);
-            pst.setInt(3, 1);
             pst.executeUpdate();
         }
     } 
