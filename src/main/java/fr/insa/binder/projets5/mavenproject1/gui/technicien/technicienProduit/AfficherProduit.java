@@ -50,8 +50,8 @@ public class AfficherProduit extends VerticalLayout{
         }catch(SQLException ex) {
             this.add(new H3("Problème BdD : "));
         }
-        Grid.Column<produit> firstNameColumn = grid.addColumn(produit::getRef).setHeader("Ref").setWidth("120px").setFlexGrow(0);
-        Grid.Column<produit> lastNameColumn = grid.addColumn(produit::getDes).setHeader("Last name").setWidth("120px").setFlexGrow(0);
+        Grid.Column<produit> firstNameColumn = grid.addColumn(produit::getRef).setHeader("Ref");
+        Grid.Column<produit> lastNameColumn = grid.addColumn(produit::getDes).setHeader("Last name");
 
         Binder<produit> binder = new BeanValidationBinder<>(produit.class);
         Editor<produit> editor = grid.getEditor();
