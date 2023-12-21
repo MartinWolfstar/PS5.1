@@ -155,14 +155,15 @@ public class Gestion {
                     "create table commande_bof (\n"
                     + "id_commande integer primary key AUTO_INCREMENT,\n"
                     + "nom_commande varchar(50),\n"
-                    + "des_commande text \n"
-                    +")");
+                    + "des_commande text, \n"
+                    + "id_client integer not null"
+                    +")\n");
             
             st.executeUpdate(
                     "create table type_machine_bof (\n"
                     + "id_type_machine integer primary key AUTO_INCREMENT,\n"
-                    + "des_type_machine text\n"
-                    +")");
+                    + "des_type_machine text"
+                    +")\n");
             st.executeUpdate(
                     "create table exemplaire_bof (\n"
                     + "id_exemplaire integer not null primary key AUTO_INCREMENT,\n"
@@ -278,10 +279,10 @@ public class Gestion {
                     "alter table type_machine__type_operation_bof \n"
                     + "add constraint fk_type_machine__type_operation_bof_id_type_operation \n"
                     + "foreign key (id_type_operation) references type_operation_bof(id_type_operation)");         
-//            st.executeUpdate(
-//                    "alter table commande_bof \n"
-//                    + "add constraint fk_commande_bof_id_client \n"
-//                    + "foreign key (id_client) references client_bof(id_client)");         
+            st.executeUpdate(
+                    "alter table commande_bof \n"
+                    + "add constraint fk_commande_bof_id_client \n"
+                    + "foreign key (id_client) references client_bof(id_client)");         
 //            st.executeUpdate(
 //                    "alter table produit_bof \n"
 //                    + "add constraint fk_produit_bof_id_commande \n"
