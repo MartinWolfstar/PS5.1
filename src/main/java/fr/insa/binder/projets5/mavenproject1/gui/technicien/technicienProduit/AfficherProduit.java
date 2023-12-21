@@ -6,6 +6,8 @@ package fr.insa.binder.projets5.mavenproject1.gui.technicien.technicienProduit;
 
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.Focusable;
+import com.vaadin.flow.component.Key;
+import com.vaadin.flow.component.Shortcuts;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.grid.Grid;
@@ -87,6 +89,23 @@ public class AfficherProduit extends VerticalLayout{
         }
     });
 }}));
+
+//        lastNameField.addKeyPressListener(Key.ENTER, event -> {
+//            // Enregistrer les modifications et fermer l'éditeur de grille
+//            editor.save();
+//        });
+
+
+        Shortcuts.addShortcutListener(grid, () -> {
+            if (editor.isOpen()) {
+                editor.save();
+                currentColumn.ifPresent(column -> {
+        if (column.getEditorComponent() instanceof Focusable<?> focusable) {
+            focusable.blur();
+        }
+    });            }
+        }, Key.ENTER).listenOn(grid);
+
 
     grid.addCellFocusListener(event -> {
         // Store the item on cell focus. Used in the ENTER ShortcutListener
