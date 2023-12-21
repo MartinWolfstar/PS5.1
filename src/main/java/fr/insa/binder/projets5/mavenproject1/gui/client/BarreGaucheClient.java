@@ -5,23 +5,17 @@
 package fr.insa.binder.projets5.mavenproject1.gui.client;
 
 import fr.insa.binder.projets5.mavenproject1.gui.zoneTest.MainLayout;
-import fr.insa.binder.projets5.mavenproject1.gui.*;
 import com.vaadin.flow.component.applayout.AppLayout;
 import com.vaadin.flow.component.applayout.DrawerToggle;
 import com.vaadin.flow.component.html.H1;
 import com.vaadin.flow.component.orderedlayout.FlexComponent;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
-import com.vaadin.flow.router.HasUrlParameter;
 import com.vaadin.flow.router.HighlightConditions;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
-import com.vaadin.flow.router.RouteParameters;
 import com.vaadin.flow.router.RouterLink;
-import com.vaadin.flow.theme.Theme;
-import fr.insa.binder.projets5.mavenproject1.Gestion;
-import java.sql.Connection;
-import javax.swing.text.html.ListView;
+import fr.insa.binder.projets5.mavenproject1.gui.technicien.technicienMachine.ListeMachine;
 
 /**
  *
@@ -75,6 +69,12 @@ public class BarreGaucheClient extends AppLayout{
         
         addToDrawer(new VerticalLayout(
                 listLink4
+        ));
+        RouterLink listLinkASup = new RouterLink("technicien", ListeMachine.class);
+        listLinkASup.setHighlightCondition(HighlightConditions.sameLocation());
+        
+        addToDrawer(new VerticalLayout(
+                listLinkASup
         ));
         
     }
