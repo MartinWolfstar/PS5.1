@@ -8,6 +8,7 @@
 //import com.vaadin.flow.component.Key;
 //import com.vaadin.flow.component.Shortcuts;
 //import com.vaadin.flow.component.button.Button;
+//import com.vaadin.flow.component.combobox.ComboBox;
 //import com.vaadin.flow.component.grid.Grid;
 //import com.vaadin.flow.component.grid.editor.Editor;
 //import com.vaadin.flow.component.notification.Notification;
@@ -44,6 +45,21 @@
 //        Grid.Column<Operation> id = this.addColumn(Operation::getId_operation).setHeader("Id");
 //
 //        this.addComponentColumn(Operation -> {
+//            Label
+//            ComboBox<String> combo = new ComboBox<>("Operations necessaires", clickEvent -> {
+//                try {
+//                    Operation.supOperation((Connection) VaadinSession.getCurrent().getAttribute("conn"));
+////                    UI.getCurrent().getPage().reload();
+//                    this.setItems(Operation.tousLesOperations((Connection) VaadinSession.getCurrent().getAttribute("conn")));
+//                } catch (SQLException ex) {
+//                    Notification.show("Problème BdD : a");
+//                    // Gérez les erreurs ici
+//                }
+//            });
+//            return button;
+//        }).setHeader("");
+//
+//        this.addComponentColumn(Operation -> {
 //            Button button = new Button("Supprimer", clickEvent -> {
 //                try {
 //                    Operation.supOperation((Connection) VaadinSession.getCurrent().getAttribute("conn"));
@@ -56,20 +72,20 @@
 //            });
 //            return button;
 //        }).setHeader("");
-//        
-//        this.addComponentColumn(Operation -> {
-//            Button button = new Button("Operations necessaires", clickEvent -> {
-//                try {
-//                    Operation.supOperation((Connection) VaadinSession.getCurrent().getAttribute("conn"));
-////                    UI.getCurrent().getPage().reload();
-//                    this.setItems(Operation.tousLesOperations((Connection) VaadinSession.getCurrent().getAttribute("conn")));
-//                } catch (SQLException ex) {
-//                    Notification.show("Problème BdD : a");
-//                    // Gérez les erreurs ici
-//                }
-//            });
-//            return button;
-//        }).setHeader("");
+////        
+////        this.addComponentColumn(Operation -> {
+////            ComboBox<String> combo = new ComboBox<>("Operations necessaires", clickEvent -> {
+////                try {
+////                    Operation.supOperation((Connection) VaadinSession.getCurrent().getAttribute("conn"));
+//////                    UI.getCurrent().getPage().reload();
+////                    this.setItems(Operation.tousLesOperations((Connection) VaadinSession.getCurrent().getAttribute("conn")));
+////                } catch (SQLException ex) {
+////                    Notification.show("Problème BdD : a");
+////                    // Gérez les erreurs ici
+////                }
+////            });
+////            return button;
+////        }).setHeader("");
 //
 //        Binder<Operation> binder = new BeanValidationBinder<>(Operation.class);
 //        Editor<Operation> editor = this.getEditor();
@@ -136,5 +152,3 @@
 //    }
 //
 //}
-//
-

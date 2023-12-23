@@ -93,7 +93,7 @@ public class AfficherProduit extends Grid<produit> {
             produit item = event.getItem();
             try {
                 Connection con = (Connection) VaadinSession.getCurrent().getAttribute("conn");
-                setRef(54, 1, con);
+                setRef(item.getRef(), item.getId(), con);
                 setDes(item.getDes(), item.getId(), con);
 //                setRef(54, 1, con);
             } catch (SQLException ex) {
