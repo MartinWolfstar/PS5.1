@@ -4,11 +4,13 @@
  */
 package fr.insa.binder.projets5.mavenproject1.gui.client;
 
+import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.html.Label;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import fr.insa.binder.projets5.mavenproject1.gui.utilities.UploadArea;
+import fr.insa.binder.projets5.mavenproject1.produit;
 import java.io.File;
 
 /**
@@ -21,18 +23,20 @@ public class ZoneTest extends VerticalLayout{
     
     private Label test;
     private UploadArea area;
+    private Button maj;
     
     public ZoneTest() {
 
         test = new Label("ceci est une zone de test");
+        this.maj = new Button("maj de l'image des produits");
         
-        File uploadFolder = new File("images");
+        File uploadFolder = new File("C:\\Users\\schmi\\Documents\\NetBeansProjects\\PS5.1\\src\\main\\resources\\META-INF\\resources\\images");
         if (!uploadFolder.exists()) {
             uploadFolder.mkdirs();
         }
 
         this.area = new UploadArea(uploadFolder);
 
-        add(test,area);
+        add(test,area,maj);
     }
 }

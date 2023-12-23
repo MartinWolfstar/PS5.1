@@ -46,7 +46,7 @@ public class Grid_choix_operation extends Grid<Operation> {
         Grid.Column<Operation> id = this.addColumn(Operation::getId_operation).setHeader("Id");
 
         this.addComponentColumn(Operation -> {
-            return new Label()
+            return new Label(ffffffffff)
             ComboBox<String> combo = new ComboBox<>("Operations necessaires", clickEvent -> {
                 try {
                     Operation.supOperation((Connection) VaadinSession.getCurrent().getAttribute("conn"));
