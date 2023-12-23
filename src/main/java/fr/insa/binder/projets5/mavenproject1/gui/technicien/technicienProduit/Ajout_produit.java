@@ -52,6 +52,12 @@ public class Ajout_produit extends VerticalLayout{
                 this.des.focus();}          
         , Key.ARROW_RIGHT).listenOn(this.ref);
         
+        Shortcuts.addShortcutListener(this.des, () -> {
+                this.des.blur();
+                this.ref.focus();}          
+        , Key.ARROW_LEFT).listenOn(this.des);
+        
+        
         this.HL = new HorizontalLayout();
         this.add(new H3("Ajout produit"));
         this.HL.add(this.ref, this.des);
