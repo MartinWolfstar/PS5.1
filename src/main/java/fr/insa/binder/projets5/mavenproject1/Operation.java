@@ -81,7 +81,7 @@ public class Operation {
     public static List<Operation> tousLesOperations_produit(Connection con, int id_produit) throws SQLException {
         List<Operation> res = new ArrayList<>();
         try (PreparedStatement pst = con.prepareStatement(
-                "select id_operation,id_type_operation from operation_bof where id_client=?")) {
+                "select id_operation,id_type_operation from operation_bof where id_produit=?")) {
             pst.setInt(1, id_produit);
             try (ResultSet rs = pst.executeQuery()) {
                 while (rs.next()) {
