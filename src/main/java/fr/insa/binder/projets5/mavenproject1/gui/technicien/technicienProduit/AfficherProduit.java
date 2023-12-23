@@ -69,6 +69,20 @@ public class AfficherProduit extends Grid<produit> {
             });
             return button;
         }).setHeader("");
+        
+        this.addComponentColumn(produit -> {
+            Button button = new Button("Operations necessaires", clickEvent -> {
+                try {
+                    produit.supProduit((Connection) VaadinSession.getCurrent().getAttribute("conn"));
+//                    UI.getCurrent().getPage().reload();
+                    this.setItems(produit.tousLesProduits((Connection) VaadinSession.getCurrent().getAttribute("conn")));
+                } catch (SQLException ex) {
+                    Notification.show("Problème BdD : a");
+                    // Gérez les erreurs ici
+                }
+            });
+            return button;
+        }).setHeader("");
 
         Binder<produit> binder = new BeanValidationBinder<>(produit.class);
         Editor<produit> editor = this.getEditor();

@@ -77,6 +77,22 @@ public class Operation {
         }
         return res;
     }
+    
+    public static List<Operation> tousLesOperations_produit(Connection con, int id_produit) throws SQLException {
+        List<Operation> res = new ArrayList<>();
+        try (PreparedStatement pst = con.prepareStatement(
+                "select id_operation,id_type_operation from operation_bof where id_client=?")) {
+            pst.setInt(1, id_produit);
+            try (ResultSet rs = pst.executeQuery()) {
+                while (rs.next()) {
+                    int id_operation = rs.getInt("id_operation");
+                    int id_typeOperation = rs.getInt("id_type_operation");
+                    res.add(new Operation(id_operation, id_typeOperation, id_produit));
+                }
+            }
+        }
+        return res;
+    }
 
     @Override
     public String toString() {
