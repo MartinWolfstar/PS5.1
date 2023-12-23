@@ -27,12 +27,10 @@ public class Grid_produit extends Grid<produit> {
 
         selectedIds = new ArrayList<>();
 
+        this.addComponentColumn(i -> i.getImage()).setHeader("Preview");
         this.addColumn(produit::getRef).setHeader("Nom");
         this.addColumn(produit::getDes).setHeader("Description");
-        //this.addColumn(produit::getImage).setHeader("Visuel");
-        this.addComponentColumn(i -> i.getImage()).setHeader("Preview");
 
-        
         this.addSelectionListener(selection -> {
             Set<produit> selectedItems = selection.getAllSelectedItems();
             selectedIds.clear(); // Effacer la liste existante
@@ -43,13 +41,6 @@ public class Grid_produit extends Grid<produit> {
 
             Notification.show("Number of selected people: " + selectedItems.size());
         });
-        
-//        this.addColumn(produit -> {
-//            Image image = new Image("images/chat.jpg", "Image");
-//            image.setHeight("50px"); // Set the height as needed
-//            image.setWidth("50px"); // Set the width as needed
-//            return image;
-//        }).setHeader("Visuel").setFlexGrow(0).setWidth("75px");
     }
 
     public List<Integer> getSelectedIds() {
