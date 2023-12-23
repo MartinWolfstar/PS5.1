@@ -4,9 +4,7 @@
  */
 package fr.insa.binder.projets5.mavenproject1;
 
-import static fr.insa.binder.projets5.mavenproject1.Client.condition;
-import static fr.insa.binder.projets5.mavenproject1.Client.creerClient;
-import static fr.insa.binder.projets5.mavenproject1.Client.tousLesClients;
+import com.vaadin.flow.component.html.Image;
 import static fr.insa.binder.projets5.mavenproject1.Gestion.connectSurServeurM3;
 import java.io.Serializable;
 import java.sql.Connection;
@@ -25,23 +23,23 @@ public class produit implements Serializable{
     private int id_p;   
     private int ref_p;
     private String des_p;
-    private String imageURL;
+    private Image image;
     
     public produit(int id_p, String des_p, int ref_p) {
         this.id_p = id_p;
         this.ref_p = ref_p;
         this.des_p = des_p;
-        this.imageURL = "";
+        this.image = new Image("images/chat.jpg", "image");
     }
-    public produit(int id_p, String des_p, int ref_p, String img) {
+    public produit(int id_p, String des_p, int ref_p, Image img) {
         this.id_p = id_p;
         this.ref_p = ref_p;
         this.des_p = des_p;
-        this.imageURL = img;
+        this.image = new Image("images/chat.jpg", "image");
     }
     
     public produit(String des_p, int ref_p) {
-        this(-1, des_p, ref_p,"");
+        this(-1, des_p, ref_p, new Image("images/chat.jpg", "Pas de semoule pour Théo"));
     }
     
     public static produit demande() {
@@ -182,11 +180,14 @@ public class produit implements Serializable{
             throw new Error(ex);
         }
     }
+
+    public Image getImage() {
+        return image;
+    }
+
+    public void setImage(Image image) {
+        this.image = image;
+    }
         
-    public String getImageURL() {
-        return imageURL;
-    }
-    public void setImageURL(String img) {
-        this.imageURL = img;
-    }
+
 }
