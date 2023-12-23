@@ -4,6 +4,8 @@
  */
 package fr.insa.binder.projets5.mavenproject1.gui.technicien.technicienProduit;
 
+import com.vaadin.flow.component.Key;
+import com.vaadin.flow.component.Shortcuts;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.html.H3;
@@ -42,6 +44,13 @@ public class Ajout_produit extends VerticalLayout{
             Notification.show("Problème BdD : a");
             }
         });
+        
+        valid.addClickShortcut(Key.ENTER);
+        
+        Shortcuts.addShortcutListener(this.ref, () -> {
+                this.ref.blur();
+                this.des.focus();}          
+        , Key.ARROW_RIGHT).listenOn(this.ref);
         
         this.HL = new HorizontalLayout();
         this.add(new H3("Ajout produit"));

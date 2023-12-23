@@ -4,6 +4,8 @@
  */
 package fr.insa.binder.projets5.mavenproject1.gui.technicien.technicienMachine;
 
+import com.vaadin.flow.component.Key;
+import com.vaadin.flow.component.Shortcuts;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.contextmenu.MenuItem;
@@ -50,6 +52,9 @@ public class Ajout_machine extends VerticalLayout{
             Notification.show("Problème BdD : x");
         }
         });
+        
+        
+
         
         this.HL = new HorizontalLayout();
         this.add(new H3("Ajout machine"));
