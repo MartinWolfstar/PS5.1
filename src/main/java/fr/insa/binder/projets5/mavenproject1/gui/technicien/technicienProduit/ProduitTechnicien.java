@@ -4,7 +4,6 @@
  */
 package fr.insa.binder.projets5.mavenproject1.gui.technicien.technicienProduit;
 
-
 import fr.insa.binder.projets5.mavenproject1.gui.technicien.BarreGaucheTechnicien;
 import com.vaadin.flow.component.html.H3;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
@@ -26,7 +25,7 @@ import java.sql.SQLException;
 @Route(value = "25", layout = BarreGaucheTechnicien.class)
 public class ProduitTechnicien extends VerticalLayout {
 
-    private Grid_produit grid;
+    private AfficherProduit grid;
     private HorizontalLayout H1;
     private Upload upload;
 
@@ -34,20 +33,22 @@ public class ProduitTechnicien extends VerticalLayout {
         this.add(new H3("Liste de tous les Produits"));
         H1 = new HorizontalLayout();
 
-        try {
-            this.grid = new Grid_produit(produit.tousLesProduits((Connection) VaadinSession.getCurrent().getAttribute("conn")));
-            this.add(this.grid);
-        } catch (SQLException ex) {
-            this.add(new H3("Problème BdD : " + ex.getMessage()));
-        }
+//        try {
+//            this.grid = new Grid_produit(produit.tousLesProduits((Connection) VaadinSession.getCurrent().getAttribute("conn")));
+        this.grid = new AfficherProduit();
+        this.add(this.grid);
+//        } catch (SQLException ex) {
+//            this.add(new H3("Problème BdD : " + ex.getMessage()));
+//        }
 
-        H1.add(new Ajout_produit(), new Supp_produit(), new Modif_produit());
+//        H1.add(new Ajout_produit(), new Supp_produit(), new Modif_produit());
+        H1.add(new Ajout_produit());
+
         this.add(H1);
 
         addClassName("liste_machine");
         setSizeFull();
 
-        this.add(upload);
+//        this.add(upload);
     }
 }
-

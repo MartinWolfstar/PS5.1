@@ -22,6 +22,7 @@ import com.vaadin.flow.data.binder.Binder;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.server.VaadinSession;
+import com.vaadin.ui.renderers.ButtonRenderer;
 import fr.insa.binder.projets5.mavenproject1.gui.client.Grid_produit;
 import fr.insa.binder.projets5.mavenproject1.gui.technicien.BarreGaucheTechnicien;
 import static fr.insa.binder.projets5.mavenproject1.produit.setRef;
@@ -35,29 +36,42 @@ import java.util.Optional;
  *
  * @author binde
  */
+//@PageTitle("Niouf")
+//@Route(value = "225")
+public class AfficherProduit extends Grid<produit> {
 
-@PageTitle("Niouf")
-@Route(value = "225")
-public class AfficherProduit extends VerticalLayout{
-    
-    private Grid grid;
     private Optional<Grid.Column<produit>> currentColumn = Optional.empty();
     private Optional<produit> currentItem = Optional.empty();
-    
-    public AfficherProduit(){
-        
-        Grid<produit> grid = new Grid<>(produit.class, false);
+
+    public AfficherProduit() {
+
+//        Grid grid = new Grid();
+//        Grid<produit> grid = new Grid<>(produit.class, false);
         try {
-            grid.setItems(produit.tousLesProduits((Connection) VaadinSession.getCurrent().getAttribute("conn")));
+            this.setItems(produit.tousLesProduits((Connection) VaadinSession.getCurrent().getAttribute("conn")));
         } catch (SQLException ex) {
-            this.add(new H3("Problème BdD : "));
+            Notification.show("Problème BdD : m2");
         }
-        Grid.Column<produit> id = grid.addColumn(produit::getId).setHeader("Id");
-        Grid.Column<produit> ref = grid.addColumn(produit::getRef).setHeader("Ref");
-        Grid.Column<produit> des = grid.addColumn(produit::getDes).setHeader("Des");
+        Grid.Column<produit> id = this.addColumn(produit::getId).setHeader("Id");
+        Grid.Column<produit> ref = this.addColumn(produit::getRef).setHeader("Ref");
+        Grid.Column<produit> des = this.addColumn(produit::getDes).setHeader("Des");
+
+        this.addComponentColumn(produit -> {
+            Button button = new Button("Supprimer", clickEvent -> {
+                try {
+                    produit.supProduit((Connection) VaadinSession.getCurrent().getAttribute("conn"));
+//                    UI.getCurrent().getPage().reload();
+                    this.setItems(produit.tousLesProduits((Connection) VaadinSession.getCurrent().getAttribute("conn")));
+                } catch (SQLException ex) {
+                    Notification.show("Problème BdD : a");
+                    // Gérez les erreurs ici
+                }
+            });
+            return button;
+        }).setHeader("");
 
         Binder<produit> binder = new BeanValidationBinder<>(produit.class);
-        Editor<produit> editor = grid.getEditor();
+        Editor<produit> editor = this.getEditor();
         editor.setBinder(binder);
         editor.setBuffered(true);
 
@@ -89,10 +103,10 @@ public class AfficherProduit extends VerticalLayout{
                 .bind(produit::getRef, produit::setRef);
         ref.setEditorComponent(ref_field);
 
-        grid.addSelectionListener(event -> event.getFirstSelectedItem().ifPresent(produit -> {
+        this.addSelectionListener(event -> event.getFirstSelectedItem().ifPresent(produit -> {
             editor.save();
             if (!editor.isOpen()) {
-                grid.getEditor().editItem(produit);
+                this.getEditor().editItem(produit);
                 currentColumn.ifPresent(column -> {
                     if (column.getEditorComponent() instanceof Focusable<?> focusable) {
                         focusable.focus();
@@ -101,7 +115,7 @@ public class AfficherProduit extends VerticalLayout{
             }
         }));
 
-        Shortcuts.addShortcutListener(grid, () -> {
+        Shortcuts.addShortcutListener(this, () -> {
             if (editor.isOpen()) {
                 editor.save();
                 currentColumn.ifPresent(column -> {
@@ -110,18 +124,14 @@ public class AfficherProduit extends VerticalLayout{
                     }
                 });
             }
-        }, Key.ENTER).listenOn(grid);
+        }, Key.ENTER).listenOn(this);
 
-        grid.addCellFocusListener(event -> {
+        this.addCellFocusListener(event -> {
             // Store the item on cell focus. Used in the ENTER ShortcutListener
             currentItem = event.getItem();
             // Store the current column. Used in the SelectionListener to focus the editor component
             currentColumn = event.getColumn();
         });
-        this.add(grid);
     }
 
-    public void CreerGrid() {
-
-    }
 }
