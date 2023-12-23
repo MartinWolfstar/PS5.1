@@ -29,17 +29,17 @@ public class produit implements Serializable{
         this.id_p = id_p;
         this.ref_p = ref_p;
         this.des_p = des_p;
-        this.image = new Image("images/chat.jpg", "image");
+        this.image = new Image("images/"+ref_p+".jpg", "image");
     }
     public produit(int id_p, String des_p, int ref_p, Image img) {
         this.id_p = id_p;
         this.ref_p = ref_p;
         this.des_p = des_p;
-        this.image = new Image("images/chat.jpg", "image");
+        this.image = new Image("images/"+ref_p+".jpg", "image");
     }
     
     public produit(String des_p, int ref_p) {
-        this(-1, des_p, ref_p, new Image("images/chat.jpg", "Pas de semoule pour Théo"));
+        this(-1, des_p, ref_p, new Image("images/"+ref_p+".jpg", "image"));
     }
     
     public static produit demande() {
