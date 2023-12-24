@@ -21,10 +21,7 @@ import fr.insa.binder.projets5.mavenproject1.gui.technicien.technicienMachine.Li
 
 /**
  * 
- * 
- * 
- * 
- * @author schmihuhbijhni
+ * @author schmi
  */
 @PageTitle("barreGauche")
 @Route(value = "10", layout = MainLayout.class)
