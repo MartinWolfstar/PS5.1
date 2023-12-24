@@ -17,7 +17,7 @@ import fr.insa.binder.projets5.mavenproject1.Client;
 import static fr.insa.binder.projets5.mavenproject1.Client.getnom_client;
 import static fr.insa.binder.projets5.mavenproject1.Client.login_c;
 import static fr.insa.binder.projets5.mavenproject1.Gestion.connectSurServeurM3;
-import fr.insa.binder.projets5.mavenproject1.gui.client.ProduitClient;
+import fr.insa.binder.projets5.mavenproject1.gui.client.clientProduit.ProduitClient;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.Optional;

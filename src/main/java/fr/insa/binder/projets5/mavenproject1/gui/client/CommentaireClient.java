@@ -5,6 +5,7 @@
 package fr.insa.binder.projets5.mavenproject1.gui.client;
 
 
+import fr.insa.binder.projets5.mavenproject1.gui.client.clientProduit.Grid_produit;
 import com.vaadin.flow.component.ClickEvent;
 import com.vaadin.flow.component.ComponentEventListener;
 import com.vaadin.flow.component.Key;

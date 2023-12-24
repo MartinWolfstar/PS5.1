@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package fr.insa.binder.projets5.mavenproject1.gui.client;
+package fr.insa.binder.projets5.mavenproject1.gui.client.clientProduit;
 
 
 import com.vaadin.flow.component.Key;
@@ -17,6 +17,7 @@ import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.server.VaadinSession;
 import fr.insa.binder.projets5.mavenproject1.commande;
+import fr.insa.binder.projets5.mavenproject1.gui.client.BarreGaucheClient;
 import fr.insa.binder.projets5.mavenproject1.produit;
 import java.sql.Connection;
 import java.sql.SQLException;

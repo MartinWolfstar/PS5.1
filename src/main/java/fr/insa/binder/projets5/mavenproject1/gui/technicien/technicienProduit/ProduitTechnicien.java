@@ -12,7 +12,7 @@ import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.server.VaadinSession;
 import com.vaadin.flow.component.upload.Upload;
-import fr.insa.binder.projets5.mavenproject1.gui.client.Grid_produit;
+import fr.insa.binder.projets5.mavenproject1.gui.client.clientProduit.Grid_produit;
 import fr.insa.binder.projets5.mavenproject1.gui.utilities.UploadArea;
 import fr.insa.binder.projets5.mavenproject1.produit;
 import java.io.File;
