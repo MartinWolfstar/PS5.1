@@ -30,6 +30,7 @@ public class Inscription_operateur extends VerticalLayout{
     private TextField login;
     private PasswordField mdp;
     private Button sauvegarder;
+    private VerticalLayout VL;
     
     public Inscription_operateur(Vue_principale_login main) {
         this.main = main;
@@ -40,6 +41,7 @@ public class Inscription_operateur extends VerticalLayout{
         sauvegarder = new Button("Sauvegarder les informations");
         //ALD = new AppLayoutDrawer();
         mdp.setValue("Ex@mplePassw0rd");
+        this.VL = new VerticalLayout();
         
         
         sauvegarder.addClickListener(e -> {
@@ -72,6 +74,32 @@ public class Inscription_operateur extends VerticalLayout{
         setMargin(true);
         //setHorizontalComponentAlignment(FlexComponent.Alignment.END, name, sayHello);
 
-        add(nom, prenom, login, mdp, sauvegarder);
+        VL.add(nom, prenom, login, mdp, sauvegarder);
+        add(VL);
+        stylisation();
+    }
+    private void stylisation() {
+        
+        this.getStyle()
+            .set("background", "url(images/1275600.jpg) no-repeat center center fixed")
+            .set("background-size", "cover")
+            .set("height", "100vh");
+        
+        VL.getStyle()
+            .set("margin", "auto")
+            .set("text-align", "center")
+            .set("display", "flex")
+            .set("flex-direction", "column")
+            .set("justify-content", "center")
+            .set("align-items", "center");  
+            
+        nom.getStyle().set("color", "Crimson");     
+        prenom.getStyle().set("color", "Crimson");
+        login.getStyle().set("color", "Crimson");
+        mdp.getStyle().set("color", "Crimson");
+        sauvegarder.getStyle()
+            .set("color", "Crimson")
+            .set("background-color", "PowderBlue");
+        mdp.getStyle().set("color", "Crimson");
     }
 }

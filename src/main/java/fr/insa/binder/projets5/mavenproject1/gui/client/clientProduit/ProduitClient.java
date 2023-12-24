@@ -36,12 +36,12 @@ public class ProduitClient extends VerticalLayout{
     private TextField rech;
     private HorizontalLayout H2;
     private Button recherche;
-    
-    //TODO : rendre l'interface plus jolie, ajouter les images des produits
+    private H3 titre;
     
     public ProduitClient() {
         
-        this.add(new H3("Liste de tous les Produits"));
+        this.titre = new H3("Liste de toutes les Produits");
+        this.add(titre);
         H1 = new HorizontalLayout();
         this.valid = new Button ("Acheter");
                 
@@ -51,6 +51,7 @@ public class ProduitClient extends VerticalLayout{
         
         this.H2.add(rech,recherche,valid);
         this.add(H2);
+        stylisation();
         
         try {
             this.grid = new Grid_produit(produit.tousLesProduits((Connection) VaadinSession.getCurrent().getAttribute("conn"))); 
@@ -58,15 +59,28 @@ public class ProduitClient extends VerticalLayout{
         } catch(SQLException ex) {
             this.add(new H3("Problème BdD : "));
         }
+        
         this.valid.addClickListener(e -> {
-            Notification.show("Vous avez acheté les produits :" + grid.getSelectedIds());
-            commande nouvelleCommande = new commande("nouvelle commande", grid.getSelectedIds().toString(), 1);  
-            try {
-                nouvelleCommande.saveInDBV1((Connection) VaadinSession.getCurrent().getAttribute("conn"));
-                UI.getCurrent().getPage().reload();
-            } catch(SQLException ex) {
-                Notification.show("Problème BdD : p");
+            Connection con = (Connection) VaadinSession.getCurrent().getAttribute("conn");
+            Integer idClient = (Integer) VaadinSession.getCurrent().getAttribute("id_client");
+            for (Integer produitId : grid.getSelectedIds()) {
+                try {
+                    String produitSelectionne = produit.giveProduit(con, produitId);
+
+                    // Vérifiez si le produit sélectionné existe avant de créer la commande
+                    if (produitSelectionne != null) {
+                        commande nouvelleCommande = new commande("nouvelle commande", produitSelectionne, idClient);
+                        nouvelleCommande.saveInDBV1(con);
+                    } else {
+                        // Gérez le cas où le produit sélectionné n'existe pas
+                        Notification.show("Le produit avec l'ID " + produitId + " n'existe pas.");
+                    }
+                } catch (SQLException ex) {
+                    Notification.show("Problème lors de la création de la commande : " + ex.getLocalizedMessage());
+                }
             }
+            UI.getCurrent().getPage().reload();
+            Notification.show("Vous avez acheté les produits :" + grid.getSelectedIds());
         });
         
         this.recherche.addClickListener(e -> {
@@ -86,7 +100,27 @@ public class ProduitClient extends VerticalLayout{
         
         addClassName("liste_machine");
         setSizeFull();
-
+    }
+    private void stylisation() {
         
+        this.getStyle()
+            .set("background", "url(images/1275600.jpg) no-repeat center center fixed")
+            .set("background-size", "cover")
+            .set("height", "120vh");
+        
+        recherche.getStyle()
+            .set("color", "Crimson")
+            .set("background-color", "PowderBlue");
+        
+        valid.getStyle()
+            .set("color", "Crimson")
+            .set("background-color", "PowderBlue");
+        
+        rech.getStyle()
+            .set("color", "Crimson");
+        this.titre.getStyle()
+            .set("color", "Indigo")
+            .set("border-radius", "10px") 
+            .set("padding", "10px");
     }
 }

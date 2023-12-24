@@ -30,6 +30,7 @@ public class Grid_produit extends Grid<produit> {
         this.addComponentColumn(i -> i.getImage()).setHeader("Preview");
         this.addColumn(produit::getRef).setHeader("Nom");
         this.addColumn(produit::getDes).setHeader("Description");
+        this.getStyle().setBackground("PowderBlue");
 
         this.addSelectionListener(selection -> {
             Set<produit> selectedItems = selection.getAllSelectedItems();

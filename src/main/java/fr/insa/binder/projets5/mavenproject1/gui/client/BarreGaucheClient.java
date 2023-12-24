@@ -42,7 +42,6 @@ public class BarreGaucheClient extends AppLayout{
         header.setDefaultVerticalComponentAlignment(FlexComponent.Alignment.CENTER);
         
         addToNavbar(header);
-                
     }
 
     private void createDrawer() {
@@ -86,6 +85,4 @@ public class BarreGaucheClient extends AppLayout{
         ));
         
     }
-    
-    
 }

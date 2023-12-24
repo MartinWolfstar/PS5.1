@@ -34,11 +34,14 @@ public class CommandeClient extends VerticalLayout{
     private Button facture;
     private Grid_commande grid;
     private HorizontalLayout H1;
+    private H3 titre;
     
     public CommandeClient() {
         
-        this.add(new H3("Liste de toutes les commandes"));
+        this.titre = new H3("Liste de toutes les commandes");
+        this.add(titre);
         H1 = new HorizontalLayout();
+        
         try {
             int idc = (Integer) VaadinSession.getCurrent().getAttribute("id_client");
             this.grid = new Grid_commande(commande.tousLesCommandes(idc, (Connection) VaadinSession.getCurrent().getAttribute("conn"))); 
@@ -48,6 +51,7 @@ public class CommandeClient extends VerticalLayout{
         }
         H1.add(new Supp_commande());
         this.add(H1);
+        
         
         addClassName("liste_commande");
         setSizeFull();
@@ -61,6 +65,7 @@ public class CommandeClient extends VerticalLayout{
         setMargin(true);
         //setHorizontalComponentAlignment(FlexComponent.Alignment.END, name, sayHello);
         add(facture);
+        stylisation();
     }
     
     private void showFactureDialog() {
@@ -107,5 +112,22 @@ public class CommandeClient extends VerticalLayout{
 
         // Ouvrir la fenêtre modale
         factureDialog.open();
+    }
+    
+    private void stylisation() {
+        
+        this.getStyle()
+            .set("background", "url(images/1275600.jpg) no-repeat center center fixed")
+            .set("background-size", "cover")
+            .set("height", "120vh");
+        
+        facture.getStyle()
+                .set("color", "Crimson")
+                .set("background-color", "PowderBlue");
+        
+        this.titre.getStyle()
+            .set("color", "Indigo")
+            .set("border-radius", "10px") 
+            .set("padding", "10px");
     }
 }

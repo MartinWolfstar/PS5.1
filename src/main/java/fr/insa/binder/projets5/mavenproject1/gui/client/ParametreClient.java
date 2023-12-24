@@ -36,6 +36,7 @@ public class ParametreClient extends VerticalLayout{
     private Button sauvegarder;
     
     public ParametreClient() {
+        
         String nom_prenom = "";
         try {
             nom_prenom = getnom_client((Integer) VaadinSession.getCurrent().getAttribute("id_client"), (Connection) VaadinSession.getCurrent().getAttribute("conn"));
@@ -54,7 +55,7 @@ public class ParametreClient extends VerticalLayout{
         //ALD = new AppLayoutDrawer();
         mdp.setValue("Ex@mplePassw0rd");
         
-        
+        stylisation();
         sauvegarder.addClickListener(e -> {
             Notification.show("Hello " + nom.getValue());
         });
@@ -64,5 +65,30 @@ public class ParametreClient extends VerticalLayout{
         //setHorizontalComponentAlignment(FlexComponent.Alignment.END, name, sayHello);
 
         add(nom_client, nom, prenom, adresse, mail, telephone, mdp, sauvegarder);
+        
+    }
+    
+    private void stylisation() {
+        
+        this.getStyle()
+            .set("background", "url(images/1275600.jpg) no-repeat center center fixed")
+            .set("background-size", "cover")
+            .set("height", "120vh");
+        nom.getStyle()
+                .set("color", "Crimson");
+        prenom.getStyle()
+                .set("color", "Crimson");
+        adresse.getStyle()
+                .set("color", "Crimson");
+        mail.getStyle()
+                .set("color", "Crimson");
+        telephone.getStyle()
+                .set("color", "Crimson");
+        mdp.getStyle()
+                .set("color", "Crimson");
+        sauvegarder.getStyle()
+                .set("color", "Crimson")
+                .set("background-color", "PowderBlue");
+        
     }
 }
