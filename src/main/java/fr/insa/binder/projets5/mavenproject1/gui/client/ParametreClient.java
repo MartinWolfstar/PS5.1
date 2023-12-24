@@ -28,7 +28,6 @@ import java.sql.SQLException;
 public class ParametreClient extends VerticalLayout{
     
     private TextField nom;
-    private TextField nom2;
     private TextField prenom;
     private TextField adresse;
     private TextField mail;
