@@ -20,8 +20,11 @@ import com.vaadin.flow.router.RouterLink;
 import fr.insa.binder.projets5.mavenproject1.gui.technicien.technicienMachine.ListeMachine;
 
 /**
- *
- * @author schmi
+ * 
+ * 
+ * 
+ * 
+ * @author schmihuhbijhni
  */
 @PageTitle("barreGauche")
 @Route(value = "10", layout = MainLayout.class)
