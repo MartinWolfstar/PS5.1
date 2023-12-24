@@ -53,6 +53,7 @@ public class AfficherProduit extends Grid<produit> {
             Notification.show("Problème BdD : m2");
         }
         Grid.Column<produit> id = this.addColumn(produit::getId).setHeader("Id");
+        this.addComponentColumn(i -> i.getImage()).setHeader("Preview");
         Grid.Column<produit> ref = this.addColumn(produit::getRef).setHeader("Ref");
         Grid.Column<produit> des = this.addColumn(produit::getDes).setHeader("Des");
 
