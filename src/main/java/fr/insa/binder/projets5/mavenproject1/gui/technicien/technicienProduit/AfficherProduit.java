@@ -23,7 +23,9 @@ import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.server.VaadinSession;
 import com.vaadin.ui.renderers.ButtonRenderer;
+import static fr.insa.binder.projets5.mavenproject1.Gestion.connectSurServeurM3;
 import fr.insa.binder.projets5.mavenproject1.gui.client.Grid_produit;
+import fr.insa.binder.projets5.mavenproject1.gui.client.ProduitClient;
 import fr.insa.binder.projets5.mavenproject1.gui.technicien.BarreGaucheTechnicien;
 import static fr.insa.binder.projets5.mavenproject1.produit.setRef;
 import fr.insa.binder.projets5.mavenproject1.produit;
@@ -70,17 +72,11 @@ public class AfficherProduit extends Grid<produit> {
             });
             return button;
         }).setHeader("");
-        
+
         this.addComponentColumn(produit -> {
             Button button = new Button("Operations necessaires", clickEvent -> {
-                try {
-                    produit.supProduit((Connection) VaadinSession.getCurrent().getAttribute("conn"));
-//                    UI.getCurrent().getPage().reload();
-                    this.setItems(produit.tousLesProduits((Connection) VaadinSession.getCurrent().getAttribute("conn")));
-                } catch (SQLException ex) {
-                    Notification.show("Problème BdD : a");
-                    // Gérez les erreurs ici
-                }
+                VaadinSession.getCurrent().setAttribute("produit", produit);
+                UI.getCurrent().navigate(Choix_operation_produit.class);
             });
             return button;
         }).setHeader("");
