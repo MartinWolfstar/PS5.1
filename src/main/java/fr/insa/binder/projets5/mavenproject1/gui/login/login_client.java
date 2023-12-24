@@ -8,6 +8,7 @@ import com.vaadin.flow.component.Key;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.notification.Notification;
+import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.PasswordField;
 import com.vaadin.flow.component.textfield.TextField;
@@ -31,6 +32,8 @@ public class login_client extends VerticalLayout {
     private PasswordField vpass;
     private Button vbLogin;
     private Button inscription;
+    private VerticalLayout VL;
+    private HorizontalLayout VH;
     
     public login_client(Vue_principale_login main) {
         this.main = main ;
@@ -38,7 +41,11 @@ public class login_client extends VerticalLayout {
         this.vpass = new PasswordField("Mot de passe");
         this.vbLogin = new Button("Login");
         this.inscription = new Button("Inscription");
-        this.add(this.vnom,this.vpass,this.vbLogin, this.inscription);
+        this.VL = new VerticalLayout();
+        this.VH = new HorizontalLayout();
+        VH.add(vbLogin,inscription);
+        VL.add(this.vnom,this.vpass,VH);
+        this.add(VL);
         this.vbLogin.addClickListener((event) -> {
             this.doLogin();
         });
@@ -46,6 +53,8 @@ public class login_client extends VerticalLayout {
             this.main.setMainContent(new Inscription_client(this.main));
         });
         vbLogin.addClickShortcut(Key.ENTER);
+        
+        stylisation();
     }
     
     public void doLogin() {
@@ -66,6 +75,35 @@ public class login_client extends VerticalLayout {
             Notification.show("Problème interne : " + ex.getLocalizedMessage());
         }        
     }
-    
+
+    private void stylisation() {
+        
+        this.getStyle()
+            .set("background", "url(images/1275600.jpg) no-repeat center center fixed")
+            .set("background-size", "cover")
+            .set("height", "100vh");
+        
+        VL.getStyle()
+            .set("margin", "auto")
+            .set("text-align", "center")
+            .set("display", "flex")
+            .set("flex-direction", "column")
+            .set("justify-content", "center")
+            .set("align-items", "center");  
+            
+        vbLogin.getStyle()
+            .set("color", "Crimson")
+            .set("background-color", "PowderBlue");
+        
+        inscription.getStyle()
+            .set("color", "Crimson")
+            .set("background-color", "PowderBlue");
+        
+        vnom.getStyle()
+            .set("color", "Crimson");
+        vpass.getStyle()
+            .set("color", "Crimson");
+        
+    }
 }
 
