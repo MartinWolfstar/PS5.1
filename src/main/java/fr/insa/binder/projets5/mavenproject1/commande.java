@@ -4,13 +4,12 @@
  */
 package fr.insa.binder.projets5.mavenproject1;
 
-import com.vaadin.flow.server.VaadinSession;
-import static fr.insa.binder.projets5.mavenproject1.Client.creerClient;
 import static fr.insa.binder.projets5.mavenproject1.Gestion.connectSurServeurM3;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -45,14 +44,28 @@ public class commande {
     
     public void saveInDBV1(Connection con) throws SQLException {
         try (PreparedStatement pst = con.prepareStatement(
-                "insert into commande_bof (nom_commande,des_commande,id_client) values (?,?,?)")) {
+                "insert into commande_bof (nom_commande, des_commande, id_client) values (?, ?, ?)",
+                Statement.RETURN_GENERATED_KEYS)) {
             pst.setString(1, this.nom_commande);
             pst.setString(2, this.des_commande);
             pst.setInt(3, this.id_client);
             pst.executeUpdate();
+
+            // Récupérer l'ID généré
+            try (ResultSet generatedKeys = pst.getGeneratedKeys()) {
+                if (generatedKeys.next()) {
+                    this.id_commande = generatedKeys.getInt(1);
+                } else {
+                    throw new SQLException("La récupération de l'ID généré a échoué.");
+                }
+            }
         }
-    } 
-    
+    }
+
+    public int getTheID() {
+        return this.id_commande;
+    }
+
     public void supCommande(Connection con) throws SQLException {
         try (PreparedStatement pst = con.prepareStatement(
                 "delete from commande_bof where id_commande = ?")) {
@@ -87,7 +100,7 @@ public class commande {
         return res;
     }
     
-        public static List<commande> tousLesCommandes(Connection con) throws SQLException {
+    public static List<commande> tousLesCommandes(Connection con) throws SQLException {
         List<commande> res = new ArrayList<>();
         try (PreparedStatement pst = con.prepareStatement(
                 "select id_commande,nom_commande,des_commande,id_client from commande_bof")) {

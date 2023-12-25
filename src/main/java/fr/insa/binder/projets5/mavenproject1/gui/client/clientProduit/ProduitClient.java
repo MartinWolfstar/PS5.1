@@ -17,10 +17,13 @@ import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.server.VaadinSession;
 import fr.insa.binder.projets5.mavenproject1.commande;
+import fr.insa.binder.projets5.mavenproject1.commande_produit;
 import fr.insa.binder.projets5.mavenproject1.gui.client.BarreGaucheClient;
 import fr.insa.binder.projets5.mavenproject1.produit;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -63,23 +66,28 @@ public class ProduitClient extends VerticalLayout{
         this.valid.addClickListener(e -> {
             Connection con = (Connection) VaadinSession.getCurrent().getAttribute("conn");
             Integer idClient = (Integer) VaadinSession.getCurrent().getAttribute("id_client");
+            commande nouvelleCommande = new commande("nouvelle commande", "contenu : ", idClient);
+            try {
+                nouvelleCommande.saveInDBV1(con);
+                //nouvelleCommande.setId_commande(nouvelleCommande.getTheID(con));
+            } catch (SQLException ex) {
+                Notification.show("Problème lors de la création de nouvelleCommande : " + ex.getLocalizedMessage());
+            }
+            Notification.show(nouvelleCommande.toString());
+            String str = new String("contenu : ");
             for (Integer produitId : grid.getSelectedIds()) {
+                String produitSelectionne;
                 try {
-                    String produitSelectionne = produit.giveProduit(con, produitId);
-
-                    // Vérifiez si le produit sélectionné existe avant de créer la commande
-                    if (produitSelectionne != null) {
-                        commande nouvelleCommande = new commande("nouvelle commande", produitSelectionne, idClient);
-                        nouvelleCommande.saveInDBV1(con);
-                    } else {
-                        // Gérez le cas où le produit sélectionné n'existe pas
-                        Notification.show("Le produit avec l'ID " + produitId + " n'existe pas.");
-                    }
+                    produitSelectionne = produit.giveProduit(con, produitId); 
+                    str += produitSelectionne;
+                    commande_produit cp = new commande_produit(nouvelleCommande.getId_commande(),produitId);
+                    nouvelleCommande.setDes(str,nouvelleCommande.getId_commande(),con);
+                    cp.saveInDBV1(con);
                 } catch (SQLException ex) {
-                    Notification.show("Problème lors de la création de la commande : " + ex.getLocalizedMessage());
+                    Notification.show("Problème commande_produit : " + ex.getLocalizedMessage());
                 }
             }
-            UI.getCurrent().getPage().reload();
+            //UI.getCurrent().getPage().reload(); // à remettre !!!
             Notification.show("Vous avez acheté les produits :" + grid.getSelectedIds());
         });
         
