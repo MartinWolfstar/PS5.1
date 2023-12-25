@@ -4,7 +4,6 @@
  */
 package fr.insa.binder.projets5.mavenproject1;
 
-import com.vaadin.flow.component.notification.Notification;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -20,15 +19,10 @@ public class commande_produit {
     private int id_commande;
     private int id_produit;
 
-
     public commande_produit(int id_commande, int id_produit) {
         this.id_commande = id_commande;
         this.id_produit = id_produit;
-    }
 
-    
-    public commande_produit(int id_produit) {
-       this(-1, id_produit);
     }
     
     public void saveInDBV1(Connection con) throws SQLException {
@@ -38,7 +32,6 @@ public class commande_produit {
             pst.setInt(2, this.id_produit);
             pst.executeUpdate();
         }
-        
     } 
     
     public void supMachine(Connection con) throws SQLException {
@@ -74,7 +67,7 @@ public class commande_produit {
 
     @Override
     public String toString() {
-        return "cp{" + "id_commande=" + id_commande + ", id_produit=" + id_produit + '}';
+        return "produit_commande_bof{" + "id_commande=" + id_commande + ", id_produit=" + id_produit + '}';
     }
-    
+
 }
