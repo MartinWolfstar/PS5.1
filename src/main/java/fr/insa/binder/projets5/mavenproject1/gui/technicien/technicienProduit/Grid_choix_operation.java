@@ -21,13 +21,18 @@ import com.vaadin.flow.data.binder.Binder;
 import com.vaadin.flow.server.VaadinSession;
 import fr.insa.binder.projets5.mavenproject1.Operation;
 import static fr.insa.binder.projets5.mavenproject1.Operation.setTypeOperation;
+import fr.insa.binder.projets5.mavenproject1.produit;
 import fr.insa.binder.projets5.mavenproject1.type_operation;
 import static fr.insa.binder.projets5.mavenproject1.type_operation.getId_type_operation;
 import static fr.insa.binder.projets5.mavenproject1.type_operation.tousLesTypeOperations;
 import static fr.insa.binder.projets5.mavenproject1.type_operation.tousLesTypeOperations_String;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.List;
 import java.util.Optional;
+import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -37,16 +42,16 @@ public class Grid_choix_operation extends Grid<Operation> {
 
     private Optional<Grid.Column<Operation>> currentColumn = Optional.empty();
     private Optional<Operation> currentItem = Optional.empty();
-
+    private List<Integer> selectedIds;
+    
     public Grid_choix_operation(int id_produit) {
 
-//        Grid grid = new Grid();
-//        Grid<Operation> grid = new Grid<>(Operation.class, false);
         try {
             this.setItems(Operation.tousLesOperations_produit((Connection) VaadinSession.getCurrent().getAttribute("conn"), id_produit));
         } catch (SQLException ex) {
             Notification.show(String.valueOf(id_produit));
         }
+        this.setSelectionMode(Grid.SelectionMode.MULTI);
         Grid.Column<Operation> id = this.addColumn(Operation::getId_operation).setHeader("Id");
 
         this.addComponentColumn(Operation -> {
@@ -63,7 +68,7 @@ public class Grid_choix_operation extends Grid<Operation> {
                 try {
                     int id_type_op = getId_type_operation(selectedValue, (Connection) VaadinSession.getCurrent().getAttribute("conn"));
                     Operation.setId_typeOperation(id_type_op);
-                    setTypeOperation( Operation.getId_typeOperation(), Operation.getId_operation(), (Connection) VaadinSession.getCurrent().getAttribute("conn"));
+                    setTypeOperation(Operation.getId_typeOperation(), Operation.getId_operation(), (Connection) VaadinSession.getCurrent().getAttribute("conn"));
                     //UI.getCurrent().getPage().reload();
                     this.getDataProvider().refreshItem(Operation);
 //                    this.setItems(Operation.tousLesOperations_produit((Connection) VaadinSession.getCurrent().getAttribute("conn"), id_produit));
@@ -71,41 +76,32 @@ public class Grid_choix_operation extends Grid<Operation> {
                     Notification.show("Problème BdD : m2");
                 }
             });
+
+            combo.setAllowCustomValue(true);
+            combo.addCustomValueSetListener(e -> {
+                String customValue = e.getDetail();
+                type_operation t_y = new type_operation(customValue);
+                try {
+                    t_y.save_type_operation((Connection) VaadinSession.getCurrent().getAttribute("conn"));
+                    int id_type_op = getId_type_operation(customValue, (Connection) VaadinSession.getCurrent().getAttribute("conn"));
+                    Operation.setId_typeOperation(id_type_op);
+                    setTypeOperation(Operation.getId_typeOperation(), Operation.getId_operation(), (Connection) VaadinSession.getCurrent().getAttribute("conn"));
+                    //UI.getCurrent().getPage().reload();
+                    this.getDataProvider().refreshItem(Operation);
+                } catch (SQLException ex) {
+                    Notification.show("Problème BdD : m2");
+                }
+
+            });
             return combo;
         }).setHeader("");
-        
-//        combo.addValueChangeListener(event -> {
-//                String selectedValue = event.getValue();
-//                try {
-//                    int id_type_op = getId_type_operation(selectedValue, (Connection) VaadinSession.getCurrent().getAttribute("conn"));
-//                    Operation.setId_typeOperation(id_type_op);
-//                    UI.getCurrent().getPage().reload();
-////                    this.setItems(Operation.tousLesOperations_produit((Connection) VaadinSession.getCurrent().getAttribute("conn"), id_produit));
-//                } catch (SQLException ex) {
-//                    Notification.show("Problème BdD : m2");
-//                }
-//            })
 
-//        this.addComponentColumn(Operation -> {
-//            return new Label(ffffffffff)
-//            ComboBox<String> combo = new ComboBox<>("Operations necessaires", clickEvent -> {
-//                try {
-//                    Operation.supOperation((Connection) VaadinSession.getCurrent().getAttribute("conn"));
-////                    UI.getCurrent().getPage().reload();
-//                    this.setItems(Operation.tousLesOperations((Connection) VaadinSession.getCurrent().getAttribute("conn")));
-//                } catch (SQLException ex) {
-//                    Notification.show("Problème BdD : a");
-//                    // Gérez les erreurs ici
-//                }
-//            });
-//            return button;
-//        }).setHeader("");
         this.addComponentColumn(Operation -> {
             Button button = new Button("Supprimer", clickEvent -> {
                 try {
                     Operation.supOperation((Connection) VaadinSession.getCurrent().getAttribute("conn"));
-//                    UI.getCurrent().getPage().reload();
-                    this.setItems(Operation.tousLesOperations((Connection) VaadinSession.getCurrent().getAttribute("conn")));
+                    UI.getCurrent().getPage().reload();
+                    this.getDataProvider().refreshItem(Operation);
                 } catch (SQLException ex) {
                     Notification.show("Problème BdD : a");
                     // Gérez les erreurs ici
@@ -113,71 +109,20 @@ public class Grid_choix_operation extends Grid<Operation> {
             });
             return button;
         }).setHeader("");
+        
+        this.addSelectionListener(selection -> {
+            Set<Operation> selectedItems = selection.getAllSelectedItems();
+            selectedIds.clear(); // Effacer la liste existante
+
+            for (Operation op : selectedItems) {
+                selectedIds.add(op.getId_operation()); // Ajouter l'identifiant de chaque objet sélectionné à la liste
+            }
+
+            Notification.show("Number of selected people: " + selectedItems.size());
+        });
+    }
+    
+    public List<Integer> getSelectedIds() {
+        return selectedIds;
     }
 }
-
-//        Binder<Operation> binder = new BeanValidationBinder<>(Operation.class);
-//        Editor<Operation> editor = this.getEditor();
-//        editor.setBinder(binder);
-//        editor.setBuffered(true);
-//
-//        editor.addSaveListener(event -> {
-//            Operation item = event.getItem();
-//            try {
-//                Connection con = (Connection) VaadinSession.getCurrent().getAttribute("conn");
-//                setId_operation(54, 1, con);
-//                setDes(item.getDes(), item.getId(), con);
-////                setRef(54, 1, con);
-//            } catch (SQLException ex) {
-//                Notification.show("Problème BdD : m2");
-//            }
-//
-//        });
-//
-//        TextField lastNameField = new TextField();
-//        IntegerField ref_field = new IntegerField();
-//        lastNameField.setWidthFull();
-//        ref_field.setWidthFull();
-//
-//        binder.forField(lastNameField)
-//                .asRequired("First name must not be empty")
-//                .bind(Operation::getDes, Operation::setDes);
-//        des.setEditorComponent(lastNameField);
-//
-//        binder.forField(ref_field)
-//                .asRequired("First name must not be empty")
-//                .bind(Operation::getRef, Operation::setRef);
-//        ref.setEditorComponent(ref_field);
-//
-//        this.addSelectionListener(event -> event.getFirstSelectedItem().ifPresent(Operation -> {
-//            editor.save();
-//            if (!editor.isOpen()) {
-//                this.getEditor().editItem(Operation);
-//                currentColumn.ifPresent(column -> {
-//                    if (column.getEditorComponent() instanceof Focusable<?> focusable) {
-//                        focusable.focus();
-//                    }
-//                });
-//            }
-//        }));
-//
-//        Shortcuts.addShortcutListener(this, () -> {
-//            if (editor.isOpen()) {
-//                editor.save();
-//                currentColumn.ifPresent(column -> {
-//                    if (column.getEditorComponent() instanceof Focusable<?> focusable) {
-//                        focusable.blur();
-//                    }
-//                });
-//            }
-//        }, Key.ENTER).listenOn(this);
-//
-//        this.addCellFocusListener(event -> {
-//            // Store the item on cell focus. Used in the ENTER ShortcutListener
-//            currentItem = event.getItem();
-//            // Store the current column. Used in the SelectionListener to focus the editor component
-//            currentColumn = event.getColumn();
-//        });
-//    }
-
-
