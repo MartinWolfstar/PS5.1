@@ -37,7 +37,7 @@ public class Choix_operation_produit extends VerticalLayout {
 //        }
 
 //        H1.add(new Ajout_produit(), new Supp_produit(), new Modif_produit());
-        H1.add(new Ajout_operation(), new Ordre_operation(this.grid));
+        H1.add(new Ajout_operation(this.grid), new Ordre_operation(this.grid));
 
         this.add(H1);
 

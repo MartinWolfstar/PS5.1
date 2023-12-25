@@ -22,17 +22,18 @@ import java.sql.SQLException;
 public class Ajout_operation extends VerticalLayout{
         private Button valid;
 
-        public Ajout_operation(){
+        public Ajout_operation(Grid_choix_operation grid){
             this.valid = new Button("Ajouter une operation");
             this.valid.addClickListener(e -> {
                 produit p = (produit) VaadinSession.getCurrent().getAttribute("produit");
             Operation op = new Operation(1, p.getId());
             try {
                 op.saveInDBV1((Connection) VaadinSession.getCurrent().getAttribute("conn"));
-                UI.getCurrent().getPage().reload();
+//                UI.getCurrent().getPage().reload();
             } catch(SQLException ex) {
             Notification.show("Problème BdD : a");
             }
+            grid.refresh();
         });
         
         valid.addClickShortcut(Key.ENTER);

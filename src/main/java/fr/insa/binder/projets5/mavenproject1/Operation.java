@@ -16,27 +16,27 @@ import java.util.List;
  * @author binde
  */
 public class Operation {
-    
+
     private int id_operation;
     private int id_produit;
     private int id_typeOperation;
-    
+
     public Operation(int id_operation, int id_typeOperation, int id_produit) {
         this.id_operation = id_operation;
         this.id_produit = id_produit;
         this.id_typeOperation = id_typeOperation;
     }
-    
+
     public Operation(int id_typeOperation, int id_produit) {
         this(-1, id_typeOperation, id_produit);
     }
-    
+
     public static Operation demande() {
         int id_produit = ConsoleFdB.entreeInt("id_produitroduit : ");
         int id_typeOperation = ConsoleFdB.entreeInt("id_type_operation : ");
         return new Operation(id_typeOperation, id_produit);
     }
-    
+
     public void saveInDBV1(Connection con) throws SQLException {
         try (PreparedStatement pst = con.prepareStatement(
                 "insert into operation_bof (id_produit,id_type_operation) values (?,?)")) {
@@ -44,16 +44,16 @@ public class Operation {
             pst.setInt(2, this.id_typeOperation);
             pst.executeUpdate();
         }
-    } 
-    
+    }
+
     public void supOperation(Connection con) throws SQLException {
-        try (PreparedStatement pst = con.prepareStatement(
-                "delete from operation_bof where id_operation = ?")) {
-            pst.setInt(1, this.id_operation);
-            pst.executeUpdate();
+        try (PreparedStatement pst1 = con.prepareStatement(
+                    "delete from operation_bof where id_operation = ?")){
+            pst1.setInt(1, this.id_operation);
+            pst1.executeUpdate();
         }
     }
-    
+
     public static void supOperation(Connection con, int id_operation) throws SQLException {
         try (PreparedStatement pst = con.prepareStatement(
                 "delete from operation_bof where id_operation = ?")) {
@@ -61,7 +61,7 @@ public class Operation {
             pst.executeUpdate();
         }
     }
-    
+
     public static List<Operation> tousLesOperations(Connection con) throws SQLException {
         List<Operation> res = new ArrayList<>();
         try (PreparedStatement pst = con.prepareStatement(
@@ -77,7 +77,7 @@ public class Operation {
         }
         return res;
     }
-    
+
     public static List<Operation> tousLesOperations_produit(Connection con, int id_produit) throws SQLException {
         List<Operation> res = new ArrayList<>();
         try (PreparedStatement pst = con.prepareStatement(
@@ -93,7 +93,7 @@ public class Operation {
         }
         return res;
     }
-    
+
     public static List<Integer> tousLesOperations_produit_int(Connection con, int id_produit) throws SQLException {
         List<Integer> res = new ArrayList<>();
         try (PreparedStatement pst = con.prepareStatement(
@@ -109,9 +109,9 @@ public class Operation {
         }
         return res;
     }
-    
+
     public static Operation getOperation(Connection con, int id_operation) throws SQLException {
-        Operation res = new Operation(1,1);
+        Operation res = new Operation(1, 1);
         try (PreparedStatement pst = con.prepareStatement(
                 "select id_operation,id_type_operation, id_produit from operation_bof where id_operation=?")) {
             pst.setInt(1, id_operation);
@@ -140,7 +140,7 @@ public class Operation {
         try (PreparedStatement pst = con.prepareStatement(
                 "update operation_bof set id_produit = ? where id_operation = ?")) {
             pst.setInt(1, id_produit);
-            pst.setInt(2, id_operation);            
+            pst.setInt(2, id_operation);
             pst.executeUpdate();
         }
     }
@@ -149,7 +149,7 @@ public class Operation {
         try (PreparedStatement pst = con.prepareStatement(
                 "update operation_bof set id_type_operation = ? where id_operation = ?")) {
             pst.setInt(1, id_typeOperation);
-            pst.setInt(2, id_operation);            
+            pst.setInt(2, id_operation);
             pst.executeUpdate();
         }
     }
@@ -178,7 +178,4 @@ public class Operation {
         this.id_typeOperation = id_typeOperation;
     }
 
-    
-
 }
-

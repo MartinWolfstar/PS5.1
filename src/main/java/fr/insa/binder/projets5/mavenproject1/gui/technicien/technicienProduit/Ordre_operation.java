@@ -38,15 +38,14 @@ public class Ordre_operation extends HorizontalLayout {
 
     private ComboBox combo;
     private Button bouton;
-    private TextField tf;
+
     private int op;
 
     public Ordre_operation(Grid_choix_operation grid) {
-        this.tf = new TextField("Salut");
-        this.bouton = new Button("Ajoutez des operations qui suivent");
+        this.bouton = new Button("Selectionnez les operations suivantes. Cliquez pour valider votre choix");
         Connection con = (Connection) VaadinSession.getCurrent().getAttribute("conn");
         produit produit = (produit) VaadinSession.getCurrent().getAttribute("produit");
-        this.combo = new ComboBox<Integer>();
+        this.combo = new ComboBox<Integer>("Selectionnez l'ID de l'opération");
         List<Integer> liste = new ArrayList<>();
         try {
             liste = tousLesOperations_produit_int(con, produit.getId());
@@ -97,6 +96,7 @@ public class Ordre_operation extends HorizontalLayout {
                 } catch (SQLException ex) {
                     Notification.show("Problème BdD : m2");
                 }
+                grid.refresh();
             }
         
     });

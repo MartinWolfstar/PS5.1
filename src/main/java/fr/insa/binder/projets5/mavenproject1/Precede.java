@@ -54,8 +54,9 @@ public class Precede {
     
     public static void supPrecede(Connection con, int id_operation_1) throws SQLException {
         try (PreparedStatement pst = con.prepareStatement(
-                "delete from precede_bof where operation_1 = ?")) {
+                "delete from precede_bof where operation_1 = ? and operation_2 = ?")) {
             pst.setInt(1, id_operation_1);
+            pst.setInt(2, id_operation_1);
             pst.executeUpdate();
         }
     }
