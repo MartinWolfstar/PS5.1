@@ -93,6 +93,39 @@ public class Operation {
         }
         return res;
     }
+    
+    public static List<Integer> tousLesOperations_produit_int(Connection con, int id_produit) throws SQLException {
+        List<Integer> res = new ArrayList<>();
+        try (PreparedStatement pst = con.prepareStatement(
+                "select id_operation,id_type_operation from operation_bof where id_produit=?")) {
+            pst.setInt(1, id_produit);
+            try (ResultSet rs = pst.executeQuery()) {
+                while (rs.next()) {
+                    int id_operation = rs.getInt("id_operation");
+                    int id_typeOperation = rs.getInt("id_type_operation");
+                    res.add(new Operation(id_operation, id_typeOperation, id_produit).getId_operation());
+                }
+            }
+        }
+        return res;
+    }
+    
+    public static Operation getOperation(Connection con, int id_operation) throws SQLException {
+        Operation res = new Operation(1,1);
+        try (PreparedStatement pst = con.prepareStatement(
+                "select id_operation,id_type_operation, id_produit from operation_bof where id_operation=?")) {
+            pst.setInt(1, id_operation);
+            try (ResultSet rs = pst.executeQuery()) {
+                while (rs.next()) {
+                    int operation = rs.getInt("id_operation");
+                    int id_typeOperation = rs.getInt("id_type_operation");
+                    int id_produit = rs.getInt("id_produit");
+                    res = new Operation(id_operation, id_typeOperation, id_produit);
+                }
+            }
+        }
+        return res;
+    }
 
     @Override
     public String toString() {
