@@ -17,7 +17,7 @@ import com.vaadin.flow.router.HighlightConditions;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.router.RouterLink;
-import fr.insa.binder.projets5.mavenproject1.gui.client.CommandeClient;
+import fr.insa.binder.projets5.mavenproject1.gui.client.clientCommande.CommandeClient;
 import fr.insa.binder.projets5.mavenproject1.gui.technicien.technicienInterface.ParametreTechnicien;
 import fr.insa.binder.projets5.mavenproject1.gui.technicien.technicienOperation.ListeOperation;
 import fr.insa.binder.projets5.mavenproject1.gui.technicien.technicienProduit.ProduitTechnicien;

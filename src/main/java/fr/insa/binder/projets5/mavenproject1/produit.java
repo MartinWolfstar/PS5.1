@@ -73,6 +73,20 @@ public class produit implements Serializable{
         }
     }
     
+    public static String giveProduit(Connection con, int id_p) throws SQLException {
+        String des = new String();
+        try (PreparedStatement pst = con.prepareStatement(
+                "select des_produit from produit_bof where id_produit = ?")) {
+            pst.setInt(1, id_p);
+            try (ResultSet rs = pst.executeQuery()) {
+                while (rs.next()) {
+                    des = rs.getString("des_produit");
+                }
+            }
+        }
+        return des;
+    }
+    
     public static List<produit> tousLesProduits(Connection con) throws SQLException {
         List<produit> res = new ArrayList<>();
         try (PreparedStatement pst = con.prepareStatement(

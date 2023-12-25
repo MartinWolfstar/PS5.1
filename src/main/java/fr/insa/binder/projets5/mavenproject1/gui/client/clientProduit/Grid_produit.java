@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package fr.insa.binder.projets5.mavenproject1.gui.client;
+package fr.insa.binder.projets5.mavenproject1.gui.client.clientProduit;
 
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.html.Image;
@@ -30,6 +30,7 @@ public class Grid_produit extends Grid<produit> {
         this.addComponentColumn(i -> i.getImage()).setHeader("Preview");
         this.addColumn(produit::getRef).setHeader("Nom");
         this.addColumn(produit::getDes).setHeader("Description");
+        this.getStyle().setBackground("PowderBlue");
 
         this.addSelectionListener(selection -> {
             Set<produit> selectedItems = selection.getAllSelectedItems();

@@ -24,8 +24,8 @@ import com.vaadin.flow.router.Route;
 import com.vaadin.flow.server.VaadinSession;
 import com.vaadin.ui.renderers.ButtonRenderer;
 import static fr.insa.binder.projets5.mavenproject1.Gestion.connectSurServeurM3;
-import fr.insa.binder.projets5.mavenproject1.gui.client.Grid_produit;
-import fr.insa.binder.projets5.mavenproject1.gui.client.ProduitClient;
+import fr.insa.binder.projets5.mavenproject1.gui.client.clientProduit.Grid_produit;
+import fr.insa.binder.projets5.mavenproject1.gui.client.clientProduit.ProduitClient;
 import fr.insa.binder.projets5.mavenproject1.gui.technicien.BarreGaucheTechnicien;
 import static fr.insa.binder.projets5.mavenproject1.produit.setRef;
 import fr.insa.binder.projets5.mavenproject1.produit;
@@ -55,6 +55,7 @@ public class AfficherProduit extends Grid<produit> {
             Notification.show("Problème BdD : m2");
         }
         Grid.Column<produit> id = this.addColumn(produit::getId).setHeader("Id");
+        this.addComponentColumn(i -> i.getImage()).setHeader("Preview");
         Grid.Column<produit> ref = this.addColumn(produit::getRef).setHeader("Ref");
         Grid.Column<produit> des = this.addColumn(produit::getDes).setHeader("Des");
 

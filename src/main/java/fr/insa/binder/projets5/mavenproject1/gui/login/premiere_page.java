@@ -3,12 +3,11 @@ package fr.insa.binder.projets5.mavenproject1.gui.login;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.html.H1;
-import com.vaadin.flow.component.html.Image;
 import com.vaadin.flow.component.orderedlayout.FlexComponent;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.server.VaadinSession;
-import fr.insa.binder.projets5.mavenproject1.gui.client.ProduitClient;
+import fr.insa.binder.projets5.mavenproject1.gui.client.clientProduit.ProduitClient;
 import fr.insa.binder.projets5.mavenproject1.gui.technicien.technicienMachine.ListeMachine;
 
 public class premiere_page extends VerticalLayout {
@@ -22,7 +21,6 @@ public class premiere_page extends VerticalLayout {
     private HorizontalLayout h;
     private HorizontalLayout h_dev;
     
-    //TODO : mettre l'image en fond
     
     public premiere_page(Vue_principale_login main) {
         this.main = main;
@@ -30,12 +28,17 @@ public class premiere_page extends VerticalLayout {
         this.client = new Button("Client");
         this.administrateur = new Button("Operateur");
         this.client_dev = new Button("Connection direct client (sur le compte du client avec id = 1 si il existe)");
-        this.administrateur_dev = new Button ("Connection direct operateur");
+        this.administrateur_dev = new Button("Connection direct operateur");
 
         // Ajoutez des styles aux composants
-        this.titre.getStyle().set("color", "blue");
-        //this.client.getStyle().set("background-color", "green");
-        //this.administrateur.getStyle().set("background-color", "orange");
+        this.titre.getStyle()
+            .set("color", "Indigo")
+            .set("border-radius", "10px") 
+            .set("padding", "10px");
+        this.client.getStyle().set("color", "Crimson").set("background-color", "PowderBlue");
+        this.administrateur.getStyle().set("color", "Crimson").set("background-color", "PowderBlue");
+        this.client_dev.getStyle().set("color", "Crimson").set("background-color", "PowderBlue");
+        this.administrateur_dev.getStyle().set("color", "Crimson").set("background-color", "PowderBlue");
 
         this.client.addClickListener(e -> {
             this.main.setMainContent(new login_client(main));
@@ -52,16 +55,18 @@ public class premiere_page extends VerticalLayout {
             UI.getCurrent().navigate(ProduitClient.class);
         });
         this.h = new HorizontalLayout(this.administrateur, this.client);
-        this.h_dev = new HorizontalLayout(this.administrateur_dev, this. client_dev);
-        // Ajoutez du style à la mise en page principale
-        this.getStyle().set("background-color", "#f0f0f0");
+        this.h_dev = new HorizontalLayout(this.administrateur_dev, this.client_dev);
         this.add(this.titre, this.h, this.h_dev);
-        Image image = new Image("images/imageTest1.jpg", "Pas de semoule pour Théo");
-        this.add(image);
+
+        this.getStyle()
+            .set("background", "url(images/1275600.jpg) no-repeat center center fixed")
+            .set("background-size", "cover")
+            .set("height", "100vh");
+
         this.setJustifyContentMode(FlexComponent.JustifyContentMode.CENTER);
         this.setAlignItems(FlexComponent.Alignment.CENTER);
-        this.setMargin(true);
-        this.setPadding(true);
+//        this.setMargin(true);
+//        this.setPadding(true);
     }
 }
 

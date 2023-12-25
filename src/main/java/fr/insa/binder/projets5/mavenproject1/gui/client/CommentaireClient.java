@@ -5,24 +5,19 @@
 package fr.insa.binder.projets5.mavenproject1.gui.client;
 
 
+import fr.insa.binder.projets5.mavenproject1.gui.client.clientProduit.Grid_produit;
 import com.vaadin.flow.component.ClickEvent;
 import com.vaadin.flow.component.ComponentEventListener;
-import com.vaadin.flow.component.Key;
 import com.vaadin.flow.component.UI;
-import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.contextmenu.MenuItem;
 import com.vaadin.flow.component.contextmenu.SubMenu;
 import com.vaadin.flow.component.html.H3;
 import com.vaadin.flow.component.menubar.MenuBar;
 import com.vaadin.flow.component.notification.Notification;
-import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
-import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.server.VaadinSession;
-import fr.insa.binder.projets5.mavenproject1.commande;
-import fr.insa.binder.projets5.mavenproject1.machine;
 import fr.insa.binder.projets5.mavenproject1.produit;
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -69,5 +64,15 @@ public class CommentaireClient extends VerticalLayout{
         
         this.add(new H3("Acceder au commentaire du produit"));
         this.add(menu_bar); 
+        stylisation();
+    }
+    private void stylisation() {
+        
+        this.getStyle()
+            .set("background", "url(images/1275600.jpg) no-repeat center center fixed")
+            .set("background-size", "cover")
+            .set("height", "120vh");
+        
+        
     }
 }

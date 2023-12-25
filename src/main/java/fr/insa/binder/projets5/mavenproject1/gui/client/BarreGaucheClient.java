@@ -4,6 +4,8 @@
  */
 package fr.insa.binder.projets5.mavenproject1.gui.client;
 
+import fr.insa.binder.projets5.mavenproject1.gui.client.clientProduit.ProduitClient;
+import fr.insa.binder.projets5.mavenproject1.gui.client.clientCommande.CommandeClient;
 import fr.insa.binder.projets5.mavenproject1.gui.zoneTest.MainLayout;
 import com.vaadin.flow.component.applayout.AppLayout;
 import com.vaadin.flow.component.applayout.DrawerToggle;
@@ -40,7 +42,6 @@ public class BarreGaucheClient extends AppLayout{
         header.setDefaultVerticalComponentAlignment(FlexComponent.Alignment.CENTER);
         
         addToNavbar(header);
-                
     }
 
     private void createDrawer() {
@@ -84,6 +85,4 @@ public class BarreGaucheClient extends AppLayout{
         ));
         
     }
-    
-    
 }
