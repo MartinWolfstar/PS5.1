@@ -22,6 +22,7 @@ import com.vaadin.flow.server.VaadinSession;
 import fr.insa.binder.projets5.mavenproject1.Operation;
 import static fr.insa.binder.projets5.mavenproject1.Operation.setTypeOperation;
 import static fr.insa.binder.projets5.mavenproject1.Precede.liste_to_string;
+import static fr.insa.binder.projets5.mavenproject1.Precede.supPrecede;
 import static fr.insa.binder.projets5.mavenproject1.Precede.tousLesPrecede_operation;
 import fr.insa.binder.projets5.mavenproject1.produit;
 import fr.insa.binder.projets5.mavenproject1.type_operation;
@@ -46,15 +47,17 @@ public class Grid_choix_operation extends Grid<Operation> {
     private Optional<Grid.Column<Operation>> currentColumn = Optional.empty();
     private Optional<Operation> currentItem = Optional.empty();
     private List<Integer> selectedIds;
+    private int id_produit;
 
     public Grid_choix_operation(int id_produit) {
+        this.id_produit = id_produit;
         Connection con = (Connection) VaadinSession.getCurrent().getAttribute("conn");
         try {
             this.setItems(Operation.tousLesOperations_produit((Connection) VaadinSession.getCurrent().getAttribute("conn"), id_produit));
         } catch (SQLException ex) {
             Notification.show(String.valueOf(id_produit));
         }
-        
+
         Grid.Column<Operation> id = this.addColumn(Operation::getId_operation).setHeader("Id");
 
         this.addComponentColumn(Operation -> {
@@ -107,34 +110,42 @@ public class Grid_choix_operation extends Grid<Operation> {
                 Notification.show("Problème BdD : m2");
             }
             return text;
-        }).setHeader("Colonne Texte Dynamique");
+        }).setHeader("Operation(s) suivantes");
 
         this.addComponentColumn(Operation -> {
             Button button = new Button("Supprimer", clickEvent -> {
                 try {
-                    Operation.supOperation((Connection) VaadinSession.getCurrent().getAttribute("conn"));
-                    UI.getCurrent().getPage().reload();
-                    this.getDataProvider().refreshItem(Operation);
+                    supPrecede(con, Operation.getId_operation());
+                   
+//                    UI.getCurrent().getPage().reload();
+                    this.refresh();
+                    
+//                    this.getDataProvider().refreshItem(Operation);
                 } catch (SQLException ex) {
-                    Notification.show("Problème BdD : a");
+                    Notification.show("Problème BdD : a" + ex.getLocalizedMessage());
                     // Gérez les erreurs ici
+                }
+                try {
+                    Operation.supOperation(con);
+                } catch (SQLException ex) {
+                    Notification.show("Problème BdD : a" + ex.getLocalizedMessage());
                 }
             });
             return button;
         }).setHeader("");
-        
+
         this.setSelectionMode(Grid.SelectionMode.MULTI);
-        
+
         this.selectedIds = new ArrayList<>();
-        
+
         this.addSelectionListener(selection -> {
             Set<Operation> selectedItems = selection.getAllSelectedItems();
             this.selectedIds.clear(); // Effacer la liste existante
-            Notification.show("Number of selected people: " );
+            Notification.show("Number of selected people: ");
             for (Operation op : selectedItems) {
                 selectedIds.add(op.getId_operation()); // Ajouter l'identifiant de chaque objet sélectionné à la liste
             }
-             
+
             Notification.show("Number of selected people: " + selectedItems.size());
         });
     }
@@ -142,5 +153,13 @@ public class Grid_choix_operation extends Grid<Operation> {
     public List<Integer> getSelectedIds() {
         System.out.print(selectedIds);
         return selectedIds;
+    }
+
+    public void refresh() {
+        try {
+            this.setItems(Operation.tousLesOperations_produit((Connection) VaadinSession.getCurrent().getAttribute("conn"), id_produit));
+        } catch (SQLException ex) {
+            Notification.show(String.valueOf(id_produit));
+        }
     }
 }
