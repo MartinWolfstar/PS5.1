@@ -13,6 +13,7 @@ import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.time.Month;
 import java.util.List;
+import java.util.Optional;
 
 /**
  *
@@ -651,6 +652,7 @@ public class Gestion {
             System.out.println("================");
             System.out.println((i++) + ") liste les machines");
             System.out.println((i++) + ") ajouter une machine");
+            System.out.println((i++) + ") supprimer une machine");
             //System.out.println((i++) + ") chercher par pattern");
             System.out.println("0) Fin");
             rep = ConsoleFdB.entreeEntier("Votre choix : ");
@@ -661,6 +663,12 @@ public class Gestion {
                 } else if (rep == j++) {
                     machine nouvelle = machine.demande(conn);
                     nouvelle.saveInDBV1(conn);
+                }
+                else if (rep == j++) {
+                    Optional<machine> choix = ListUtils.selectOneOrCancel("---- selectionnez une machine à supprimer",machine.tousLesMachines(conn), machine::toString);
+                    if (choix.isPresent()){
+                        choix.get().supMachine(conn);
+                    }
                 }
             } catch (SQLException ex) {
                 System.out.println(ExceptionsUtils.messageEtPremiersAppelsDansPackage(ex, "fr.insa", 5));
