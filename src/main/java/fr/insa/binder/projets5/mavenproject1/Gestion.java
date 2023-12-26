@@ -63,16 +63,18 @@ public class Gestion {
             );
             st.executeUpdate(
                     "create table realise_bof (\n"
+                    + "    id_realisation integer not null primary key AUTO_INCREMENT,\n"
                     + "    duree float not null,\n"
                     + "    id_type_operation integer not null,\n"
                     + "    id_machine integer not null\n"
                     + ")\n"
             );
             st.executeUpdate(
-                    "create table type_operation_bof (\n"
-                    + "    id_type_operation integer not null primary key AUTO_INCREMENT,\n"
-                    + "    des_type_operation Text \n"
-                    + ")\n"
+                    "CREATE TABLE type_operation_bof ("
+                    + "id_type_operation INT NOT NULL AUTO_INCREMENT PRIMARY KEY, "
+                    + "des_type_operation TEXT, "
+                    + "UNIQUE (des_type_operation(255))"
+                    + ")"
             );
             st.executeUpdate(
                     "create table operation_bof (\n"
@@ -141,7 +143,8 @@ public class Gestion {
             st.executeUpdate(
                     "create table type_etat_bof (\n"
                     + " id_type_etat integer not null primary key AUTO_INCREMENT,\n"
-                    + " des_type_etat text\n"
+                    + " des_type_etat text, "
+                    +" unique (des_type_etat(255))"
                     +")");
             st.executeUpdate(
                     "create table client_bof (\n"
@@ -162,8 +165,9 @@ public class Gestion {
             st.executeUpdate(
                     "create table type_machine_bof (\n"
                     + "id_type_machine integer primary key AUTO_INCREMENT,\n"
-                    + "des_type_machine text"
-                    +")\n");
+                    + "des_type_machine text,"
+                    + "unique (des_type_machine(255))"
+                    +")");
             st.executeUpdate(
                     "create table exemplaire_bof (\n"
                     + "id_exemplaire integer not null primary key AUTO_INCREMENT,\n"

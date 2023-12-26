@@ -1,7 +1,6 @@
 package fr.insa.binder.projets5.mavenproject1.gui.technicien.technicienRealisation;
 
 import com.vaadin.flow.component.html.H3;
-import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.PageTitle;
@@ -29,7 +28,7 @@ public class ListeRealisation extends VerticalLayout {
             this.add(this.grid);
         } catch(SQLException ex) {
             this.add(new H3("Problème liste realisation : " + ex));
-            Notification.show("Problème BdD : liste realisation :"+ ex);
+            //Notification.show("Problème BdD : liste realisation :"+ ex);
         }
         
         addClassName("liste_realisation");
