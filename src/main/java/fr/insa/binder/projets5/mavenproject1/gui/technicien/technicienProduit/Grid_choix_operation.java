@@ -120,7 +120,7 @@ public class Grid_choix_operation extends Grid<Operation> {
                     supPrecede1(con, Operation.getId_operation());
                    
 //                    UI.getCurrent().getPage().reload();
-                    this.refresh();
+                    
                     
 //                    this.getDataProvider().refreshItem(Operation);
                 } catch (SQLException ex) {
@@ -129,6 +129,7 @@ public class Grid_choix_operation extends Grid<Operation> {
                 }
                 try {
                     Operation.supOperation(con);
+                    this.refresh();
                 } catch (SQLException ex) {
                     Notification.show("Problème BdD : a" + ex.getLocalizedMessage());
                 }
