@@ -15,6 +15,7 @@ import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.server.VaadinSession;
 import fr.insa.binder.projets5.mavenproject1.commande;
+import fr.insa.binder.projets5.mavenproject1.commande_produit;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
@@ -35,7 +36,9 @@ public class Supp_commande extends VerticalLayout{
         ComponentEventListener<ClickEvent<MenuItem>> listener = e ->
                 {
             try {
-                commande.supCommande((Connection) VaadinSession.getCurrent().getAttribute("conn"), Integer.valueOf(e.getSource().getText()));
+                Connection con = (Connection) VaadinSession.getCurrent().getAttribute("conn");
+                commande_produit.supCommande_produit(con, Integer.valueOf(e.getSource().getText()));
+                commande.supCommande(con, Integer.valueOf(e.getSource().getText()));
             } catch (SQLException ex) {
                 Notification.show("Problème BdD : x");
             }
@@ -51,36 +54,10 @@ public class Supp_commande extends VerticalLayout{
         catch(SQLException ex) {
                Notification.show("Problème BdD : x");
             }
+        
         this.add(new H3("Supprimer commande"));
         this.add(menu_bar);
         }
-
-
-//        this.valid = new Button ("Supprimer machine");
-//        this.valid.addClickListener(e -> {
-//            try {
-//                machine.supMachine(connectSurServeurM3(),id.getValue());
-//                UI.getCurrent().getPage().reload();
-//            } catch(SQLException ex) {
-//            this.add(new H3("Problème BdD : "));
-//        }
-//        });
-//        
-//
-//        this.add(new H3("Supprimer machine"));
-//        this.add(this.id,this.valid);
-//        
-        
-//        this.menu_bar = new MenuBar();
-//        this.des = menu_bar.addItem("Description");
-//        this.ref = menu_bar.addItem("Reference");
-//        SubMenu des_sub = des.getSubMenu();
-//        List<String> messages = Arrays.asList("Hello", "World!", "How", "Are", "You");
-//        for (String x : messages) { 
-//            des_sub.addItem(x);
-//        }
-//        this.add(this.menu_bar);
-        
     }
 
 
