@@ -26,6 +26,8 @@ public class ListeTypeMachine extends VerticalLayout {
         V1 = new VerticalLayout();
         V1.add(new H3("Liste de toutes les Types de machine"));
         H1 = new HorizontalLayout();
+        H1.add(new Ajout_type_machine(),new Supp_type_machine(), new Modif_type_machine());
+        this.add(H1);
         try {
             this.grid = new Grid_typeMachine(type_machine.tousLesTypeMachine((Connection) VaadinSession.getCurrent().getAttribute("conn"))); 
             this.add(this.grid);
@@ -35,8 +37,7 @@ public class ListeTypeMachine extends VerticalLayout {
         
         addClassName("liste_type_machine");
         setSizeFull();
-        H1.add(new Ajout_type_machine(),new Supp_type_machine(), new Modif_type_machine());
-        this.add(H1);
+        
         stylisation();
     }
     private void stylisation() {

@@ -54,8 +54,17 @@ public class Supp_type_machine extends VerticalLayout{
             }
         this.add(new H3("Supprimer type_machine"));
         this.add(menu_bar);
-        }
+        stylisation();
+    }
+    private void stylisation() {
+        
+        id.getStyle()
+                .set("color", "Crimson")
+                .set("background-color", "PowderBlue");
+
         
     }
+        
+}
 
 

@@ -1,4 +1,4 @@
-/*
+    /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
@@ -45,5 +45,14 @@ public class Modif_type_machine2 extends VerticalLayout{
         this.add(new H3("Ajout type_machine"));
         this.HL.add(this.des);
         this.add(this.HL, this.valid);
-}
+        stylisation();
+    }
+    private void stylisation() {
+        
+        des.getStyle()
+                .set("color", "Crimson");
+        valid.getStyle()
+                .set("color", "Crimson").set("background-color", "PowderBlue");;
+        
+    }
 }

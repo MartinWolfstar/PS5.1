@@ -26,6 +26,8 @@ public class ListeTypeOperation extends VerticalLayout {
         V1 = new VerticalLayout();
         V1.add(new H3("Liste de toutes les Types d'opération"));
         H1 = new HorizontalLayout();
+        H1.add(new Ajout_type_operation(),new Supp_type_operation(), new Modif_type_operation());
+        this.add(H1);
         try {
             this.grid = new Grid_typeOperation(type_operation.tousLesTypeOperations((Connection) VaadinSession.getCurrent().getAttribute("conn"))); 
             this.add(this.grid);
@@ -35,8 +37,7 @@ public class ListeTypeOperation extends VerticalLayout {
         
         addClassName("liste_type_operation");
         setSizeFull();
-        H1.add(new Ajout_type_operation(),new Supp_type_operation(), new Modif_type_operation());
-        this.add(H1);
+
         stylisation();
     }
     private void stylisation() {

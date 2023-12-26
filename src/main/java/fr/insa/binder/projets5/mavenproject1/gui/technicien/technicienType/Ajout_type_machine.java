@@ -44,5 +44,15 @@ public class Ajout_type_machine extends VerticalLayout{
         this.add(new H3("Ajout type_machine"));
         this.HL.add(this.des);
         this.add(this.HL, this.valid);
+        stylisation();
+    }
+    private void stylisation() {
+        
+        des.getStyle()
+                .set("color", "Crimson");
+        valid.getStyle()
+                .set("color", "Crimson")
+                .set("background-color", "PowderBlue");
+        
     }
 }

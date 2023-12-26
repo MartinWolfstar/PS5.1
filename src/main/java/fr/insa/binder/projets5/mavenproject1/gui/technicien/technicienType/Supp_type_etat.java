@@ -51,8 +51,17 @@ public class Supp_type_etat extends VerticalLayout{
             }
         this.add(new H3("Supprimer type etat"));
         this.add(menu_bar);
-        }
+        stylisation();
+    }
+    private void stylisation() {
+        
+        id.getStyle()
+                .set("color", "Crimson")
+                .set("background-color", "PowderBlue");
+
         
     }
+        
+}
 
 

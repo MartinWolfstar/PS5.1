@@ -24,6 +24,8 @@ public class ListeTypeEtat extends VerticalLayout {
         V1 = new VerticalLayout();
         V1.add(new H3("Liste de toutes les Types de etat"));
         H1 = new HorizontalLayout();
+        H1.add(new Ajout_type_etat(),new Supp_type_etat(), new Modif_type_etat());
+        this.add(H1);
         try {
             this.grid = new Grid_typeEtat(type_etat.tousLesTypeEtats((Connection) VaadinSession.getCurrent().getAttribute("conn"))); 
             this.add(this.grid);
@@ -33,8 +35,7 @@ public class ListeTypeEtat extends VerticalLayout {
         
         addClassName("liste_type_etat");
         setSizeFull();
-        H1.add(new Ajout_type_etat(),new Supp_type_etat(), new Modif_type_etat());
-        this.add(H1);
+        
         stylisation();
     }
     private void stylisation() {
