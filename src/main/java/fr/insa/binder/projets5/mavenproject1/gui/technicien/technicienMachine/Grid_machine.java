@@ -18,6 +18,7 @@ public class Grid_machine extends Grid<machine>{
         this.setItems(list_machine);
         this.addColumn(machine::getRef).setHeader("Reference");
         this.addColumn(machine::getDes).setHeader("Description");
-        this.addColumn(machine::getId).setHeader("Identifiant");        
+        this.addColumn(machine::getId).setHeader("Identifiant");     
+        this.getStyle().setBackground("PowderBlue");
     }
 }

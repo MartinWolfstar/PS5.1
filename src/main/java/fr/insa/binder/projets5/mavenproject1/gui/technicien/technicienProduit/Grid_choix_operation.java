@@ -4,30 +4,18 @@
  */
 package fr.insa.binder.projets5.mavenproject1.gui.technicien.technicienProduit;
 
-import com.vaadin.flow.component.Focusable;
-import com.vaadin.flow.component.Key;
-import com.vaadin.flow.component.Shortcuts;
-import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.combobox.ComboBox;
 import com.vaadin.flow.component.grid.Grid;
-import com.vaadin.flow.component.grid.editor.Editor;
-import com.vaadin.flow.component.html.Label;
 import com.vaadin.flow.component.notification.Notification;
-import com.vaadin.flow.component.textfield.IntegerField;
-import com.vaadin.flow.component.textfield.TextField;
-import com.vaadin.flow.data.binder.BeanValidationBinder;
-import com.vaadin.flow.data.binder.Binder;
 import com.vaadin.flow.server.VaadinSession;
 import fr.insa.binder.projets5.mavenproject1.Operation;
 import static fr.insa.binder.projets5.mavenproject1.Operation.setTypeOperation;
 import static fr.insa.binder.projets5.mavenproject1.Precede.liste_to_string;
 import static fr.insa.binder.projets5.mavenproject1.Precede.supPrecede;
 import static fr.insa.binder.projets5.mavenproject1.Precede.tousLesPrecede_operation;
-import fr.insa.binder.projets5.mavenproject1.produit;
 import fr.insa.binder.projets5.mavenproject1.type_operation;
 import static fr.insa.binder.projets5.mavenproject1.type_operation.getId_type_operation;
-import static fr.insa.binder.projets5.mavenproject1.type_operation.tousLesTypeOperations;
 import static fr.insa.binder.projets5.mavenproject1.type_operation.tousLesTypeOperations_String;
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -35,8 +23,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -51,6 +37,7 @@ public class Grid_choix_operation extends Grid<Operation> {
 
     public Grid_choix_operation(int id_produit) {
         this.id_produit = id_produit;
+        this.getStyle().setBackground("PowderBlue");
         Connection con = (Connection) VaadinSession.getCurrent().getAttribute("conn");
         try {
             this.setItems(Operation.tousLesOperations_produit((Connection) VaadinSession.getCurrent().getAttribute("conn"), id_produit));
