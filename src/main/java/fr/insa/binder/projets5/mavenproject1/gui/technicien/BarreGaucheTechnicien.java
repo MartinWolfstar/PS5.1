@@ -22,6 +22,7 @@ import fr.insa.binder.projets5.mavenproject1.gui.client.clientCommande.CommandeC
 import fr.insa.binder.projets5.mavenproject1.gui.technicien.technicienInterface.ParametreTechnicien;
 import fr.insa.binder.projets5.mavenproject1.gui.technicien.technicienOperation.ListeOperation;
 import fr.insa.binder.projets5.mavenproject1.gui.technicien.technicienProduit.ProduitTechnicien;
+import fr.insa.binder.projets5.mavenproject1.gui.technicien.technicienRealisation.ListeRealisation;
 import fr.insa.binder.projets5.mavenproject1.gui.technicien.technicienType.ListeTypeEtat;
 import fr.insa.binder.projets5.mavenproject1.gui.technicien.technicienType.ListeTypeMachine;
 import fr.insa.binder.projets5.mavenproject1.gui.technicien.technicienType.ListeTypeOperation;
@@ -119,6 +120,12 @@ public class BarreGaucheTechnicien extends AppLayout {
 
         addToDrawer(new VerticalLayout(
                 listLinkASup
+        ));
+        RouterLink listLink11 = new RouterLink("realisation", ListeRealisation.class);
+        listLink11.setHighlightCondition(HighlightConditions.sameLocation());
+        
+        addToDrawer(new VerticalLayout(
+                listLink11
         ));
     }
 }

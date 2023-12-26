@@ -50,6 +50,22 @@ public class type_machine {
         return res;
     }
         
+    public static List<String> tousLesTypeMachines_String(Connection con) throws SQLException {
+        List<String> res = new ArrayList<>();
+        try (PreparedStatement pst = con.prepareStatement(
+                "select des_type_machine from type_machine_bof")) {
+            try (ResultSet rs = pst.executeQuery()) {
+                while (rs.next()) {
+                    String des_type_machine = rs.getString("des_type_machine");
+                    res.add(des_type_machine);
+                }
+            }
+        }catch (SQLException ex){
+            Notification.show("Problème BdD : type machine" + ex);
+        }
+        return res;
+    }
+        
     public static void setDes_type_machine(String des, int id, Connection con) throws SQLException {
         try (PreparedStatement pst = con.prepareStatement(
                 "update type_machine_bof set des_type_machine = ? where id_type_machine = ?")) {
@@ -63,6 +79,20 @@ public class type_machine {
 
     public int getId_type_machine() {
         return id_type_machine;
+    }
+    
+    public static int getId_type_machine(String des, Connection con) throws SQLException {
+        int id = 0;
+        try (PreparedStatement pst = con.prepareStatement(
+                "select id_type_machine from type_machine_bof where des_type_machine = ?")) {
+            pst.setString(1, des);
+            try (ResultSet rs = pst.executeQuery()) {
+                while (rs.next()) {
+                    id = rs.getInt("id_type_machine");
+                }
+            }
+        }
+        return id;
     }
     
     public void supTypeMachine(Connection con) throws SQLException {
@@ -90,6 +120,23 @@ public class type_machine {
 
     public String getDes_type_machine() {
         return des_type_machine;
+    }
+    
+    public static String getDes_type_machine(int Id, Connection con) throws SQLException {
+        String type_ma = "Erreur";
+        try (PreparedStatement pst = con.prepareStatement(
+                "select des_type_machine from type_machine_bof where id_type_machine = ?")) {
+            pst.setInt(1, Id);
+            try (ResultSet rs = pst.executeQuery()) {
+                while (rs.next()) {
+                    type_ma = rs.getString("des_type_machine");
+                }
+            }
+        }
+        catch(SQLException ex){
+            Notification.show("Problème BdD : getDes_type_machine");
+        }
+        return type_ma;
     }
 
     public void setDes_type_machine(String des_type_machine) {

@@ -13,7 +13,6 @@ import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.IntegerField;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.server.VaadinSession;
-import static fr.insa.binder.projets5.mavenproject1.Gestion.connectSurServeurM3;
 import fr.insa.binder.projets5.mavenproject1.machine;
 import java.sql.Connection;
 import java.sql.SQLException;
