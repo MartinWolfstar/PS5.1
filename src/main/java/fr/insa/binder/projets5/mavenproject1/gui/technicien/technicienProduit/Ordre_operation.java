@@ -4,30 +4,18 @@
  */
 package fr.insa.binder.projets5.mavenproject1.gui.technicien.technicienProduit;
 
-import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.combobox.ComboBox;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
-import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.server.VaadinSession;
-import fr.insa.binder.projets5.mavenproject1.Operation;
-import static fr.insa.binder.projets5.mavenproject1.Operation.getOperation;
-import static fr.insa.binder.projets5.mavenproject1.Operation.setTypeOperation;
-import static fr.insa.binder.projets5.mavenproject1.Operation.tousLesOperations_produit;
 import static fr.insa.binder.projets5.mavenproject1.Operation.tousLesOperations_produit_int;
 import fr.insa.binder.projets5.mavenproject1.Precede;
-import fr.insa.binder.projets5.mavenproject1.commande;
 import fr.insa.binder.projets5.mavenproject1.produit;
-import fr.insa.binder.projets5.mavenproject1.type_operation;
-import static fr.insa.binder.projets5.mavenproject1.type_operation.getId_type_operation;
-import static fr.insa.binder.projets5.mavenproject1.type_operation.tousLesTypeOperations_String;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * Salut

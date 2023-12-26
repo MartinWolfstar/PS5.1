@@ -7,11 +7,9 @@ package fr.insa.binder.projets5.mavenproject1.gui.technicien.technicienProduit;
 import com.vaadin.flow.component.html.H3;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
-import com.vaadin.flow.component.upload.Upload;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.server.VaadinSession;
 import fr.insa.binder.projets5.mavenproject1.produit;
-import java.sql.Connection;
 
 /**
  *
@@ -43,7 +41,15 @@ public class Choix_operation_produit extends VerticalLayout {
 
         addClassName("liste_machine");
         setSizeFull();
+        stylisation();
 
+    }
+    private void stylisation() {
+        
+        this.getStyle()
+            .set("background", "url(images/1275600.jpg) no-repeat center center fixed")
+            .set("background-size", "cover")
+            .set("height", "120vh");
     }
 }
     
