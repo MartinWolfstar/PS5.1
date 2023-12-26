@@ -27,7 +27,7 @@ public class Supp_commande extends VerticalLayout{
     private MenuItem id;
     
     public Supp_commande(){
-//        this.id = new IntegerField("id machine");
+
         this.menu_bar = new MenuBar();
         this.id = menu_bar.addItem("Selectionner l'identifiant de la commande à supprimer");
         SubMenu id_sub = id.getSubMenu();

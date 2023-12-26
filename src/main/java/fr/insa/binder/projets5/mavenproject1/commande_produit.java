@@ -50,7 +50,7 @@ public class commande_produit {
         }
     }
     
-    public static List<commande_produit> tousLesMachines(Connection con) throws SQLException {
+    public static List<commande_produit> tousLesCommande_produit(Connection con) throws SQLException {
         List<commande_produit> res = new ArrayList<>();
         try (PreparedStatement pst = con.prepareStatement(
                 "select id_commande,id_produit from produit_commande_bof")) {

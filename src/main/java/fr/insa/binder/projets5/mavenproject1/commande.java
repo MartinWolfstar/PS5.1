@@ -119,7 +119,7 @@ public class commande {
 
     @Override
     public String toString() {
-        return "Machine{" + "id_commande=" + getId_commande() + ", nom_commande=" + getNom_commande()+ ", des_commande=" + getDes_commande()  + ", Id_client=" + getId_client() + '}';
+        return "Commande enregistrée :{" + "id_commande=" + getId_commande() + ", nom_commande=" + getNom_commande()+ ", des_commande=" + getDes_commande()  + ", Id_client=" + getId_client() + '}';
     }
 
     public static void setNom_c(String nom_commande, int id_commande, Connection con) throws SQLException {

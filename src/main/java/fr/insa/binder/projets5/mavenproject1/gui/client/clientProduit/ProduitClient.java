@@ -15,12 +15,15 @@ import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.server.VaadinSession;
+import fr.insa.binder.projets5.mavenproject1.Operation;
 import fr.insa.binder.projets5.mavenproject1.commande;
 import fr.insa.binder.projets5.mavenproject1.commande_produit;
 import fr.insa.binder.projets5.mavenproject1.gui.client.BarreGaucheClient;
 import fr.insa.binder.projets5.mavenproject1.produit;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -37,6 +40,7 @@ public class ProduitClient extends VerticalLayout{
     private HorizontalLayout H2;
     private Button recherche;
     private H3 titre;
+    private Grid_operation2 grid2;
     
     public ProduitClient() {
         
@@ -80,12 +84,14 @@ public class ProduitClient extends VerticalLayout{
                     commande_produit cp = new commande_produit(nouvelleCommande.getId_commande(),produitId);
                     nouvelleCommande.setDes(str,nouvelleCommande.getId_commande(),con);
                     cp.saveInDBV1(con);
+                    produitCommandé(produitId);
                 } catch (SQLException ex) {
                     Notification.show("Problème commande_produit : " + ex.getLocalizedMessage());
                 }
             }
             //UI.getCurrent().getPage().reload(); // à remettre !!!
             Notification.show("Vous avez acheté les produits :" + grid.getSelectedIds());
+            
         });
         
         this.recherche.addClickListener(e -> {
@@ -106,6 +112,22 @@ public class ProduitClient extends VerticalLayout{
         addClassName("liste_machine");
         setSizeFull();
     }
+    
+    private void produitCommandé(int produitId){
+        try {
+            //doit récupérer les opérations requises pour faire le produit
+            
+            this.grid2 = new Grid_operation2(Operation.tousLesOperations_produit((Connection) VaadinSession.getCurrent().getAttribute("conn"),produitId));
+            Notification.show("les operation a effectuer : " + Operation.tousLesOperations_produit((Connection) VaadinSession.getCurrent().getAttribute("conn"),produitId));
+            
+            //puis creer un exemplaire
+            
+            //puis lui affecter les operations qui lui sont effectuées
+        } catch (SQLException ex) {
+            Logger.getLogger(ProduitClient.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
     private void stylisation() {
         
         this.getStyle()

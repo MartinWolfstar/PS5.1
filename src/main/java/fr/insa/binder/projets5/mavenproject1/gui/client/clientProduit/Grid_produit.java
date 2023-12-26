@@ -5,7 +5,6 @@
 package fr.insa.binder.projets5.mavenproject1.gui.client.clientProduit;
 
 import com.vaadin.flow.component.grid.Grid;
-import com.vaadin.flow.component.html.Image;
 import com.vaadin.flow.component.notification.Notification;
 import fr.insa.binder.projets5.mavenproject1.produit;
 import java.util.ArrayList;
