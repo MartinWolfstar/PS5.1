@@ -19,5 +19,6 @@ public class Grid_message extends Grid<messagerie>{
         this.setItems(list_messagerie);
         this.addColumn(messagerie::getId_op).setHeader("Nom");
         this.addColumn(messagerie::getMes).setHeader("Message");  
+        this.getStyle().setBackground("PowderBlue");
     }
 }

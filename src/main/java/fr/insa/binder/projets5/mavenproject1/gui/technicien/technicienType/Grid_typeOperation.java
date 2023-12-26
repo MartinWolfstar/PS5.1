@@ -17,6 +17,7 @@ public class Grid_typeOperation extends Grid<type_operation>{
     public Grid_typeOperation(List<type_operation> list_type_operation) {
         this.setItems(list_type_operation);
         this.addColumn(type_operation::getId_type_operation).setHeader("getId_type_operation");
-        this.addColumn(type_operation::getDes_type_operation).setHeader("getDes_type_operation");        
+        this.addColumn(type_operation::getDes_type_operation).setHeader("getDes_type_operation");      
+        this.getStyle().setBackground("PowderBlue");
     }
 }
