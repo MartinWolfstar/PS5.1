@@ -23,6 +23,7 @@ import fr.insa.binder.projets5.mavenproject1.Operation;
 import static fr.insa.binder.projets5.mavenproject1.Operation.setTypeOperation;
 import static fr.insa.binder.projets5.mavenproject1.Precede.liste_to_string;
 import static fr.insa.binder.projets5.mavenproject1.Precede.supPrecede;
+import static fr.insa.binder.projets5.mavenproject1.Precede.supPrecede1;
 import static fr.insa.binder.projets5.mavenproject1.Precede.tousLesPrecede_operation;
 import fr.insa.binder.projets5.mavenproject1.produit;
 import fr.insa.binder.projets5.mavenproject1.type_operation;
@@ -116,6 +117,7 @@ public class Grid_choix_operation extends Grid<Operation> {
             Button button = new Button("Supprimer", clickEvent -> {
                 try {
                     supPrecede(con, Operation.getId_operation());
+                    supPrecede1(con, Operation.getId_operation());
                    
 //                    UI.getCurrent().getPage().reload();
                     this.refresh();
