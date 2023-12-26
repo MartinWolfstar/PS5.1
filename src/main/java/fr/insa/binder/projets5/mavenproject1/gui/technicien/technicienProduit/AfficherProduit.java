@@ -4,7 +4,6 @@
  */
 package fr.insa.binder.projets5.mavenproject1.gui.technicien.technicienProduit;
 
-import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.Focusable;
 import com.vaadin.flow.component.Key;
 import com.vaadin.flow.component.Shortcuts;
@@ -12,21 +11,12 @@ import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.grid.editor.Editor;
-import com.vaadin.flow.component.html.H3;
 import com.vaadin.flow.component.notification.Notification;
-import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.IntegerField;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.binder.BeanValidationBinder;
 import com.vaadin.flow.data.binder.Binder;
-import com.vaadin.flow.router.PageTitle;
-import com.vaadin.flow.router.Route;
 import com.vaadin.flow.server.VaadinSession;
-import com.vaadin.ui.renderers.ButtonRenderer;
-import static fr.insa.binder.projets5.mavenproject1.Gestion.connectSurServeurM3;
-import fr.insa.binder.projets5.mavenproject1.gui.client.clientProduit.Grid_produit;
-import fr.insa.binder.projets5.mavenproject1.gui.client.clientProduit.ProduitClient;
-import fr.insa.binder.projets5.mavenproject1.gui.technicien.BarreGaucheTechnicien;
 import static fr.insa.binder.projets5.mavenproject1.produit.setRef;
 import fr.insa.binder.projets5.mavenproject1.produit;
 import static fr.insa.binder.projets5.mavenproject1.produit.setDes;
@@ -58,6 +48,7 @@ public class AfficherProduit extends Grid<produit> {
         this.addComponentColumn(i -> i.getImage()).setHeader("Preview");
         Grid.Column<produit> ref = this.addColumn(produit::getRef).setHeader("Ref");
         Grid.Column<produit> des = this.addColumn(produit::getDes).setHeader("Des");
+        this.getStyle().setBackground("PowderBlue");
 
         this.addComponentColumn(produit -> {
             Button button = new Button("Supprimer", clickEvent -> {
