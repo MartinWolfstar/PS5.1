@@ -23,6 +23,8 @@ public class ListeOperation extends VerticalLayout {
     public ListeOperation() {
         this.add(new H3("Liste de toutes les Operations"));
         H1 = new HorizontalLayout();
+        H1.add(new Ajout_operation(),new Supp_operation(), new Modif_operation());
+        this.add(H1);
         try {
             this.grid = new Grid_operation(Operation.tousLesOperations((Connection) VaadinSession.getCurrent().getAttribute("conn"))); 
             this.add(this.grid);
@@ -31,8 +33,7 @@ public class ListeOperation extends VerticalLayout {
         }
         addClassName("liste_operation");
         setSizeFull();
-        H1.add(new Ajout_operation(),new Supp_operation(), new Modif_operation());
-        this.add(H1);
+        
         stylisation();
     }
         private void stylisation() {

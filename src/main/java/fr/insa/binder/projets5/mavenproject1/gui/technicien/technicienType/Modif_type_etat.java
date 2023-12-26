@@ -13,7 +13,6 @@ import com.vaadin.flow.component.menubar.MenuBar;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.server.VaadinSession;
-import fr.insa.binder.projets5.mavenproject1.machine;
 import fr.insa.binder.projets5.mavenproject1.type_etat;
 import java.sql.Connection;
 import java.sql.SQLException;

@@ -10,15 +10,10 @@ import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
-import com.vaadin.flow.server.VaadinSession;
 import com.vaadin.flow.component.upload.Upload;
-import fr.insa.binder.projets5.mavenproject1.gui.client.clientProduit.Grid_produit;
 import fr.insa.binder.projets5.mavenproject1.gui.utilities.UploadArea;
-import fr.insa.binder.projets5.mavenproject1.produit;
 import java.io.File;
 
-import java.sql.Connection;
-import java.sql.SQLException;
 
 /**
  * Product view for the technician.
@@ -35,26 +30,17 @@ public class ProduitTechnicien extends VerticalLayout {
     public ProduitTechnicien() {
         this.add(new H3("Liste de tous les Produits"));
         H1 = new HorizontalLayout();
-
-//        try {
-//            this.grid = new Grid_produit(produit.tousLesProduits((Connection) VaadinSession.getCurrent().getAttribute("conn")));
-        this.grid = new AfficherProduit();
-        this.add(this.grid);
-//        } catch (SQLException ex) {
-//            this.add(new H3("Problème BdD : " + ex.getMessage()));
-//        }
-
-//        H1.add(new Ajout_produit(), new Supp_produit(), new Modif_produit());
-
         File uploadFolder = new File("src\\main\\resources\\META-INF\\resources\\images");
         if (!uploadFolder.exists()) {
             uploadFolder.mkdirs();
         }
         this.UpArea = new UploadArea(uploadFolder);
-
         H1.add(new Ajout_produit(),UpArea);
 
         this.add(H1);
+
+        this.grid = new AfficherProduit();
+        this.add(this.grid);
 
         addClassName("liste_machine");
         setSizeFull();
