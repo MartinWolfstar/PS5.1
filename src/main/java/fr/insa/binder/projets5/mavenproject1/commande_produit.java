@@ -34,7 +34,7 @@ public class commande_produit {
         }
     } 
     
-    public void supMachine(Connection con) throws SQLException {
+    public void supCommande_produit(Connection con) throws SQLException {
         try (PreparedStatement pst = con.prepareStatement(
                 "delete from produit_commande_bof where id_commande = ?")) {
             pst.setInt(1, this.id_commande);
@@ -42,7 +42,7 @@ public class commande_produit {
         }
     }
     
-    public static void supMachine(Connection con, int id_commande) throws SQLException {
+    public static void supCommande_produit(Connection con, int id_commande) throws SQLException {
         try (PreparedStatement pst = con.prepareStatement(
                 "delete from produit_commande_bof where id_commande = ?")) {
             pst.setInt(1, id_commande);
