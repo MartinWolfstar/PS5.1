@@ -58,7 +58,15 @@ public class ProduitTechnicien extends VerticalLayout {
 
         addClassName("liste_machine");
         setSizeFull();
+        stylisation();
 
 //        this.add(upload);
+    }
+    private void stylisation() {
+        
+        this.getStyle()
+            .set("background", "url(images/1275600.jpg) no-repeat center center fixed")
+            .set("background-size", "cover")
+            .set("height", "120vh");
     }
 }

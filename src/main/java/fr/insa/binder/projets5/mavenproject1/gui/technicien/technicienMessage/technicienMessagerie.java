@@ -34,7 +34,15 @@ public class technicienMessagerie extends VerticalLayout {
         addClassName("chat-layout");
         setSizeFull();
         H1.add(new Ajout_message());
-        this.add(H1);  
+        this.add(H1);
+        stylisation();
+    }
+    private void stylisation() {
+        
+        this.getStyle()
+            .set("background", "url(images/1275600.jpg) no-repeat center center fixed")
+            .set("background-size", "cover")
+            .set("height", "120vh");
     }
 }
 

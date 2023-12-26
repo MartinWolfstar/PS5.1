@@ -35,6 +35,14 @@ public class ListeTypeEtat extends VerticalLayout {
         setSizeFull();
         H1.add(new Ajout_type_etat(),new Supp_type_etat(), new Modif_type_etat());
         this.add(H1);
+        stylisation();
+    }
+    private void stylisation() {
+        
+        this.getStyle()
+            .set("background", "url(images/1275600.jpg) no-repeat center center fixed")
+            .set("background-size", "cover")
+            .set("height", "120vh");
     }
 }
 

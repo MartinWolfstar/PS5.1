@@ -33,6 +33,14 @@ public class ListeOperation extends VerticalLayout {
         setSizeFull();
         H1.add(new Ajout_operation(),new Supp_operation(), new Modif_operation());
         this.add(H1);
+        stylisation();
+    }
+        private void stylisation() {
+        
+        this.getStyle()
+            .set("background", "url(images/1275600.jpg) no-repeat center center fixed")
+            .set("background-size", "cover")
+            .set("height", "120vh");
     }
 }
 

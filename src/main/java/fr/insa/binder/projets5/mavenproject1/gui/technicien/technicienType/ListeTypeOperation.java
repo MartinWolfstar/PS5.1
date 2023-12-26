@@ -37,6 +37,14 @@ public class ListeTypeOperation extends VerticalLayout {
         setSizeFull();
         H1.add(new Ajout_type_operation(),new Supp_type_operation(), new Modif_type_operation());
         this.add(H1);
+        stylisation();
+    }
+    private void stylisation() {
+        
+        this.getStyle()
+            .set("background", "url(images/1275600.jpg) no-repeat center center fixed")
+            .set("background-size", "cover")
+            .set("height", "120vh");
     }
 }
 

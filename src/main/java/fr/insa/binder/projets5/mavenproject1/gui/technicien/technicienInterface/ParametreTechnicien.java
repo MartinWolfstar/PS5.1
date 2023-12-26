@@ -58,6 +58,7 @@ public class ParametreTechnicien extends VerticalLayout{
         mdp = new PasswordField("changer votre mot de passe :");
         sauvegarder = new Button("Sauvegarder les informations");
         mdp.setValue("Ex@mplePassw0rd");
+        stylisation();
         
 //        ComponentEventListener<ClickEvent<MenuItem>> listener = e ->
 //                {
@@ -83,5 +84,24 @@ public class ParametreTechnicien extends VerticalLayout{
         setMargin(true);
         //add(nom_technicien, nom, prenom, mail, menu_bar, mdp, sauvegarder);
         add(nom, prenom, mail, mdp, sauvegarder);
+    }
+    private void stylisation() {
+        
+        this.getStyle()
+            .set("background", "url(images/1275600.jpg) no-repeat center center fixed")
+            .set("background-size", "cover")
+            .set("height", "120vh");
+        nom.getStyle()
+                .set("color", "Crimson");
+        prenom.getStyle()
+                .set("color", "Crimson");
+        mail.getStyle()
+                .set("color", "Crimson");
+        mdp.getStyle()
+                .set("color", "Crimson");
+        sauvegarder.getStyle()
+                .set("color", "Crimson")
+                .set("background-color", "PowderBlue");
+        
     }
 }
