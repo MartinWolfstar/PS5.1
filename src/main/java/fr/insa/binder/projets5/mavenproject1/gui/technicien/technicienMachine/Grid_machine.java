@@ -46,8 +46,9 @@ public class Grid_machine extends Grid<machine>{
             try {
                 int id_pt = getId_poste_de_travail(selectedValue, (Connection) VaadinSession.getCurrent().getAttribute("conn"));
                 machine.setId_poste_de_travail(id_pt);
-                //Notification.show("t " + realisation.getId_type_operation()); 
-                setPosteDeTravail(id_pt, machine.getId_poste_de_travail(), (Connection) VaadinSession.getCurrent().getAttribute("conn"));
+                //Notification.show("t " + machine.getId_poste_de_travail()); 
+                setPosteDeTravail(id_pt, machine.getId(), (Connection) VaadinSession.getCurrent().getAttribute("conn"));
+                //Notification.show("t : " + machine); 
                 //UI.getCurrent().getPage().reload();
                 this.getDataProvider().refreshItem(machine);
 //                this.setItems(Operation.tousLesOperations_produit((Connection) VaadinSession.getCurrent().getAttribute("conn"), id_produit));
@@ -71,7 +72,6 @@ public class Grid_machine extends Grid<machine>{
                 } catch (SQLException ex) {
                     Notification.show("Problème BdD : grid machine pt" + ex);
                 }
-
             });
             return combo;
         }).setHeader("poste de travail");
