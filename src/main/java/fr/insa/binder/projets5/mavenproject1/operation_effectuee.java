@@ -4,6 +4,8 @@
  */
 package fr.insa.binder.projets5.mavenproject1;
 
+import static fr.insa.binder.projets5.mavenproject1.Precede.tousLesOrdreOperations_produit;
+import static fr.insa.binder.projets5.mavenproject1.realisation.getDuree;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -83,6 +85,26 @@ public class operation_effectuee {
             }
         }
         return res;
+    }
+    
+    public static List<operation_effectuee> Meilleurs_operation_produit (Connection con, exemplaire exempl) throws SQLException{
+        List<List<Operation>> liste = tousLesOrdreOperations_produit(con, exempl.getId_produit());
+        List<operation_effectuee> meilleur_liste = new ArrayList<>();
+        Operation operation = liste.get(0).get(0);
+        float min = getDuree(operation.getId_typeOperation(), con).getDuree();
+        for (List<Operation> liste_op : liste){
+            float duree = 0;
+            List<operation_effectuee> operation_eff = new ArrayList<>();
+            for (Operation op: liste_op){
+                realisation realise = getDuree(op.getId_typeOperation(), con);
+                duree = duree + realise.getDuree();
+                operation_eff.add(new operation_effectuee(op.getId_operation(), exempl.getId_exemplaire(), realise.getId_machine()));
+            }
+            if (duree < min){
+                meilleur_liste = operation_eff;
+            }
+        }
+        return meilleur_liste;
     }
 
 //    @Override

@@ -18,10 +18,15 @@ import com.vaadin.flow.server.VaadinSession;
 import fr.insa.binder.projets5.mavenproject1.Operation;
 import fr.insa.binder.projets5.mavenproject1.commande;
 import fr.insa.binder.projets5.mavenproject1.commande_produit;
+import fr.insa.binder.projets5.mavenproject1.exemplaire;
 import fr.insa.binder.projets5.mavenproject1.gui.client.BarreGaucheClient;
+import fr.insa.binder.projets5.mavenproject1.operation_effectuee;
+import static fr.insa.binder.projets5.mavenproject1.operation_effectuee.Meilleurs_operation_produit;
 import fr.insa.binder.projets5.mavenproject1.produit;
+import static fr.insa.binder.projets5.mavenproject1.produit.giveProduit;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -116,13 +121,16 @@ public class ProduitClient extends VerticalLayout{
     private void produitCommandé(int produitId){
         try {
             //doit récupérer les opérations requises pour faire le produit
+            Connection con = (Connection) VaadinSession.getCurrent().getAttribute("conn");
+            this.grid2 = new Grid_operation2(Operation.tousLesOperations_produit(con,produitId));
+            Notification.show("les operation a effectuer : " + Operation.tousLesOperations_produit(con,produitId));
             
-            this.grid2 = new Grid_operation2(Operation.tousLesOperations_produit((Connection) VaadinSession.getCurrent().getAttribute("conn"),produitId));
-            Notification.show("les operation a effectuer : " + Operation.tousLesOperations_produit((Connection) VaadinSession.getCurrent().getAttribute("conn"),produitId));
-            
-            //puis creer un exemplaire
-            
-            //puis lui affecter les operations qui lui sont effectuées
+            exemplaire exempl = new exemplaire(giveProduit(con, produitId), produitId);
+            exempl.saveInDBV1(con);
+            List<operation_effectuee> liste_op_eff = Meilleurs_operation_produit(con, exempl);
+            for (operation_effectuee op_ef : liste_op_eff){
+                op_ef.saveInDBV1(con);
+            }
         } catch (SQLException ex) {
             Logger.getLogger(ProduitClient.class.getName()).log(Level.SEVERE, null, ex);
         }

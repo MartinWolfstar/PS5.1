@@ -11,6 +11,7 @@ import fr.insa.binder.projets5.mavenproject1.Operation;
 import static fr.insa.binder.projets5.mavenproject1.Precede.liste_to_string;
 import static fr.insa.binder.projets5.mavenproject1.Precede.tousLesPrecede_operation;
 import fr.insa.binder.projets5.mavenproject1.commande;
+import fr.insa.binder.projets5.mavenproject1.operation_effectuee;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -18,9 +19,9 @@ import java.util.List;
  *
  * @author binde
  */
-public class Grid_op extends Grid<Operation> {
-    public Grid_op(List<Operation> list_operation) {
-//        this.setItems(list_operation);
+public class Grid_op extends Grid<operation_effectuee> {
+    public Grid_op(List<operation_effectuee> list_operation) {
+        this.setItems(list_operation);
 //        this.addColumn(Operation::getId_commande).setHeader("Id Commande");
 //        this.addColumn(Operation::getNom_commande).setHeader("Nom");
 //        this.addColumn(commande::getDes_commande).setHeader("Description");

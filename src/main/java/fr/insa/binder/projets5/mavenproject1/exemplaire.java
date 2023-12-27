@@ -33,13 +33,19 @@ public class exemplaire {
 
     public void saveInDBV1(Connection con) throws SQLException {
         try (PreparedStatement pst = con.prepareStatement(
-                "insert into exemplaire_bof (des_exemplaire,id_produit) values (?,?)")) {
+                "insert into exemplaire_bof (des_exemplaire,id_produit) values (?,?)",
+                PreparedStatement.RETURN_GENERATED_KEYS)) {
             pst.setString(1, this.des_exemplaire);
             pst.setInt(2, this.id_produit);
             pst.executeUpdate();
+        try (ResultSet ids = pst.getGeneratedKeys()) {
+                if (ids.next()) {
+                    this.id_exemplaire = ids.getInt(1);
+                }
+            }
         }
     }
-
+    
     public void supExemplaire(Connection con) throws SQLException {
         try (PreparedStatement pst1 = con.prepareStatement(
                     "delete from exemplaire_bof where id_exemplaire = ?")){
