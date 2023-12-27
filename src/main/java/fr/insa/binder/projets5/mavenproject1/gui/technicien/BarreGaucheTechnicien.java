@@ -78,12 +78,6 @@ public class BarreGaucheTechnicien extends AppLayout {
         addToDrawer(new VerticalLayout(
                 listLink4
         ));
-        RouterLink listLink5 = new RouterLink("Operation", ListeOperation.class);
-        listLink5.setHighlightCondition(HighlightConditions.sameLocation());
-
-        addToDrawer(new VerticalLayout(
-                listLink5
-        ));
         RouterLink listLink6 = new RouterLink("TypeOperation", ListeTypeOperation.class);
         listLink6.setHighlightCondition(HighlightConditions.sameLocation());
 

@@ -33,7 +33,7 @@ public class Ajout_machine extends VerticalLayout{
         this.des = new TextField("Description produit");
         this.valid = new Button ("Ajouter machine");
         this.valid.addClickListener(e -> {
-            this.mach = new machine(this.des.getValue(), this.ref.getValue());
+            this.mach = new machine(this.ref.getValue(), this.des.getValue(), 1, 1);
             try {
                 mach.saveInDBV1((Connection) VaadinSession.getCurrent().getAttribute("conn"));
                 UI.getCurrent().getPage().reload();
@@ -43,7 +43,7 @@ public class Ajout_machine extends VerticalLayout{
         });    
         this.HL = new HorizontalLayout();
         this.add(new H3("Ajout machine"));
-        this.HL.add(this.ref, this.des);
-        this.add(this.HL, this.valid);
+        this.HL.add(this.ref, this.des, this.valid);
+        this.add(this.HL);
     }
 }

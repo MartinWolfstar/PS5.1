@@ -21,7 +21,7 @@ public class ListeMachine extends VerticalLayout {
     public ListeMachine() {
         this.add(new H3("Liste de toutes les machines"));
         H1 = new HorizontalLayout();
-        H1.add(new Ajout_machine(), new Modif_machine());
+        H1.add(new Ajout_machine());
         this.add(H1);
         try {
             this.grid = new Grid_machine(machine.tousLesMachines((Connection) VaadinSession.getCurrent().getAttribute("conn"))); 

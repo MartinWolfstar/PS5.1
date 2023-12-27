@@ -95,7 +95,7 @@ public class poste_de_travail {
     }
     
     public static String getRef_poste_de_travail(int Id, Connection con) throws SQLException {
-        String pt = "Erreur";
+        String pt = "Erreur1";
         try (PreparedStatement pst = con.prepareStatement(
                 "select ref_poste_de_travail from poste_de_travail_bof where id_poste_de_travail = ?")) {
             pst.setInt(1, Id);
