@@ -4,6 +4,7 @@
  */
 package fr.insa.binder.projets5.mavenproject1;
 
+import com.vaadin.flow.component.notification.Notification;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -92,6 +93,22 @@ public class machine {
         }
         return res;
     }
+    
+        public static List<String> tousLesMachines_String(Connection con) throws SQLException {
+        List<String> res = new ArrayList<>();
+        try (PreparedStatement pst = con.prepareStatement(
+                "select des_machine from machine_bof")) {
+            try (ResultSet rs = pst.executeQuery()) {
+                while (rs.next()) {
+                    String des_machine = rs.getString("des_machine");
+                    res.add(des_machine);
+                }
+            }
+        }catch (SQLException ex){
+            Notification.show("Problème BdD : machine" + ex);
+        }
+        return res;
+    }
 
     @Override
     public String toString() {
@@ -124,6 +141,23 @@ public class machine {
         }
     }
     
+    public static String getDes_machine(int Id, Connection con) throws SQLException {
+        String type_ma = "Erreur";
+        try (PreparedStatement pst = con.prepareStatement(
+                "select des_machine from machine_bof where id_machine = ?")) {
+            pst.setInt(1, Id);
+            try (ResultSet rs = pst.executeQuery()) {
+                while (rs.next()) {
+                    type_ma = rs.getString("des_machine");
+                }
+            }
+        }
+        catch(SQLException ex){
+            Notification.show("Problème BdD : getDes_machine");
+        }
+        return type_ma;
+    }
+    
     public void setId(int id) {
         this.id = id;
     }
@@ -137,6 +171,20 @@ public class machine {
     }
 
     public int getId() {
+        return id;
+    }
+    
+        public static int getId_machine(String des, Connection con) throws SQLException {
+        int id = 0;
+        try (PreparedStatement pst = con.prepareStatement(
+                "select id_machine from machine_bof where des_machine = ?")) {
+            pst.setString(1, des);
+            try (ResultSet rs = pst.executeQuery()) {
+                while (rs.next()) {
+                    id = rs.getInt("id_machine");
+                }
+            }
+        }
         return id;
     }
 

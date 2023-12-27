@@ -10,7 +10,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,30 +20,35 @@ import java.util.List;
 public class realisation {
 
     private int id_realisation;
-    private Timestamp duree;
+    private float duree;
     private int id_type_operation;
     private int id_machine;
 
-    private realisation(int id_realisation, Timestamp duree, int id_type_operation, int id_machine) {
+    private realisation(int id_realisation, float duree, int id_type_operation, int id_machine) {
         this.id_realisation = id_realisation;
         this.duree = duree;
         this.id_type_operation = id_type_operation;
         this.id_machine = id_machine;
     }
-    public realisation(Timestamp duree, int id_type_operation, int id_machine) {
+    public realisation(float duree, int id_type_operation, int id_machine) {
         this(-1, duree, id_type_operation, id_machine);
     }
 
-    public void save_realisation(Connection con) throws SQLException {
-        try (PreparedStatement pst = con.prepareStatement(
-                "insert into realise_bof (id_realisation,duree,id_type_operation,id_machine) values (?,?,?,?)")) {
-            pst.setInt(1, this.getId_realisation());
-            pst.setTimestamp(2, this.getDuree());
-            pst.setInt(3, this.getId_type_operation());
-            pst.setInt(4, this.getId_machine());
-            pst.executeUpdate();
+public void save_realisation(Connection con) throws SQLException {
+    try (PreparedStatement pst = con.prepareStatement(
+            "insert into realise_bof (duree, id_type_operation, id_machine) values (?, ?, ?)",
+            PreparedStatement.RETURN_GENERATED_KEYS)) {
+        pst.setFloat(1, this.duree);
+        pst.setInt(2, this.id_type_operation);
+        pst.setInt(3, this.id_machine);
+        pst.executeUpdate();
+        try (ResultSet ids = pst.getGeneratedKeys()) {
+            if (ids.next()) {
+                this.id_realisation = ids.getInt(1);
+            }
         }
     }
+}
 
     @Override
     public String toString() {
@@ -58,7 +62,7 @@ public class realisation {
             try (ResultSet rs = pst.executeQuery()) {
                 while (rs.next()) {
                     int id_realisation = rs.getInt("id_realisation");
-                    Timestamp duree = rs.getTimestamp("duree");
+                    float duree = rs.getFloat("duree");
                     int id_type_operation = rs.getInt("id_type_operation");
                     int id_machine = rs.getInt("id_machine");
                     liste.add(new realisation(id_realisation,duree,id_type_operation, id_machine));
@@ -67,8 +71,24 @@ public class realisation {
         }
         return liste;
     }
+    
+    public void supRealisation(Connection con) throws SQLException {
+        try (PreparedStatement pst = con.prepareStatement(
+                "delete from realise_bof where id_realisation = ?")) {
+            pst.setInt(1, this.id_realisation);
+            pst.executeUpdate();
+        }
+    }
+    
+    public static void supRealisation(Connection con, int id) throws SQLException {
+        try (PreparedStatement pst = con.prepareStatement(
+                "delete from realise_bof where id_realisation = ?")) {
+            pst.setInt(1, id);
+            pst.executeUpdate();
+        }
+    }
 
-    public void setDuree(Timestamp duree) {
+    public void setDuree(float duree) {
         this.duree = duree;
     }
 
@@ -78,7 +98,7 @@ public class realisation {
     
     public static void setTypeOperation(int id_typeOperation, int id_realisation,Connection con) throws SQLException {
         try (PreparedStatement pst = con.prepareStatement(
-                "update operation_bof set id_type_operation = ? where id_realisation = ?")) {
+                "update realise_bof set id_type_operation = ? where id_realisation = ?")) {
             pst.setInt(1, id_typeOperation);
             pst.setInt(2, id_realisation);
             pst.executeUpdate();
@@ -86,14 +106,14 @@ public class realisation {
             Notification.show("Problème : 85 : realisation");
         }
     }
-    public static void setTypeMachine(int id_typeMachine, int id_realisation,Connection con) throws SQLException {
+    public static void setMachine(int id_Machine, int id_realisation ,Connection con) throws SQLException {
         try (PreparedStatement pst = con.prepareStatement(
-                "update operation_bof set id_type_machine = ? where id_realisation = ?")) {
-            pst.setInt(1, id_typeMachine);
+                "update realise_bof set id_machine = ? where id_realisation = ?")) {
+            pst.setInt(1, id_Machine);
             pst.setInt(2, id_realisation);
             pst.executeUpdate();
         }catch (SQLException ex){
-            Notification.show("Problème : 85 : realisation");
+            Notification.show("Problème : 86 : realisation :" + ex);
         }
     }
 
@@ -101,7 +121,7 @@ public class realisation {
         this.id_machine = id_machine;
     }
 
-    public Timestamp getDuree() {
+    public float getDuree() {
         return duree;
     }
 

@@ -20,9 +20,9 @@ public class ListeRealisation extends VerticalLayout {
    
     public ListeRealisation() {
         this.add(new H3("Liste de toutes les realisations"));
-        //H1 = new HorizontalLayout();
-        //H1.add(new Ajout_realisation());
-        //this.add(H1);
+        H1 = new HorizontalLayout();
+        H1.add(new Ajout_realisation());
+        this.add(H1);
         try {
             this.grid = new Grid_realisation(realisation.tousLesRealisation((Connection) VaadinSession.getCurrent().getAttribute("conn"))); 
             this.add(this.grid);
