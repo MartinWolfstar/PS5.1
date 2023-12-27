@@ -4,8 +4,12 @@
  */
 package fr.insa.binder.projets5.mavenproject1.gui.technicien.TechnicienCommande;
 
+import com.vaadin.flow.component.UI;
+import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.grid.Grid;
+import com.vaadin.flow.server.VaadinSession;
 import fr.insa.binder.projets5.mavenproject1.commande;
+import fr.insa.binder.projets5.mavenproject1.gui.technicien.technicienProduit.Choix_operation_produit;
 import java.util.List;
 
 /**
@@ -21,6 +25,14 @@ public class Grid_commande extends Grid<commande> {
         this.addColumn(commande::getDes_commande).setHeader("Description");
         this.addColumn(commande::getId_client).setHeader("Id_client");
         this.getStyle().setBackground("PowderBlue");
+        
+        this.addComponentColumn(commande -> {
+            Button button = new Button("Operations necessaires", clickEvent -> {
+                VaadinSession.getCurrent().setAttribute("commande", commande.getId_commande());
+                UI.getCurrent().navigate(Afficher_produit_commande.class);
+            });
+            return button;
+        }).setHeader("");
     }
 
 }
