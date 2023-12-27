@@ -14,6 +14,8 @@ import static fr.insa.binder.projets5.mavenproject1.Precede.liste_to_string;
 import static fr.insa.binder.projets5.mavenproject1.Precede.tousLesPrecede_operation;
 import fr.insa.binder.projets5.mavenproject1.commande;
 import fr.insa.binder.projets5.mavenproject1.commande_produit;
+import fr.insa.binder.projets5.mavenproject1.exemplaire;
+import static fr.insa.binder.projets5.mavenproject1.exemplaire.tousLesxemplaires_commande;
 import fr.insa.binder.projets5.mavenproject1.produit;
 import static fr.insa.binder.projets5.mavenproject1.produit.tousLesProduitsCom;
 import java.sql.Connection;
@@ -26,20 +28,20 @@ import java.util.logging.Logger;
  *
  * @author binde
  */
-public class Grid_produit_commande extends Grid<produit> {
+public class Grid_produit_commande extends Grid<exemplaire> {
 
     public Grid_produit_commande(int id_commande) {
         Connection con = (Connection) VaadinSession.getCurrent().getAttribute("conn");
         try {
-            this.setItems(tousLesProduitsCom(con, id_commande));
+            this.setItems(tousLesxemplaires_commande(con, id_commande));
         } catch (SQLException ex) {
             Notification.show("Problème BdD : a");
         }
-        this.addColumn(produit::getDes).setHeader("Produit");
+        this.addColumn(exemplaire::getDes_exemplaire).setHeader("Exemplaire");
 
-        this.addComponentColumn(Integer -> {
+        this.addComponentColumn(exemplaire -> {
             Button button = new Button("Operations necessaires", clickEvent -> {
-                VaadinSession.getCurrent().setAttribute("produit_com", Integer);
+                VaadinSession.getCurrent().setAttribute("exemplaire", exemplaire);
                 UI.getCurrent().navigate(Operation_necessaires.class);
             });
             return button;

@@ -20,23 +20,26 @@ public class exemplaire {
     private int id_exemplaire;
     private String des_exemplaire;
     private int id_produit;
+    private int id_commande;
 
-    public exemplaire(int id_exemplaire, String des_exemplaire, int id_produit) {
+    public exemplaire(int id_exemplaire, String des_exemplaire, int id_produit, int id_commande) {
         this.id_exemplaire = id_exemplaire;
         this.des_exemplaire = des_exemplaire;
         this.id_produit = id_produit;
+        this.id_commande = id_commande;
     }
 
-    public exemplaire(String des_exemplaire, int id_produit) {
-        this(-1, des_exemplaire, id_produit);
+    public exemplaire(String des_exemplaire, int id_produit, int id_commande) {
+        this(-1, des_exemplaire, id_produit, id_commande);
     }
 
     public void saveInDBV1(Connection con) throws SQLException {
         try (PreparedStatement pst = con.prepareStatement(
-                "insert into exemplaire_bof (des_exemplaire,id_produit) values (?,?)",
+                "insert into exemplaire_bof (des_exemplaire,id_produit, id_commande) values (?,?, ?)",
                 PreparedStatement.RETURN_GENERATED_KEYS)) {
             pst.setString(1, this.des_exemplaire);
             pst.setInt(2, this.id_produit);
+            pst.setInt(3, this.id_commande);
             pst.executeUpdate();
         try (ResultSet ids = pst.getGeneratedKeys()) {
                 if (ids.next()) {
@@ -65,13 +68,14 @@ public class exemplaire {
     public static List<exemplaire> tousLesExemplaires(Connection con) throws SQLException {
         List<exemplaire> res = new ArrayList<>();
         try (PreparedStatement pst = con.prepareStatement(
-                "select id_exemplaire,des_exemplaire,id_produit from exemplaire_bof")) {
+                "select * from exemplaire_bof")) {
             try (ResultSet rs = pst.executeQuery()) {
                 while (rs.next()) {
                     int id_exemplaire = rs.getInt("id_exemplaire");
                     String des_exemplaire = rs.getString("des_exemplaire");
                     int id_produit = rs.getInt("id_produit");
-                    res.add(new exemplaire(id_exemplaire, des_exemplaire, id_produit));
+                    int id_commande = rs.getInt("id_commande");
+                    res.add(new exemplaire(id_exemplaire, des_exemplaire, id_produit, id_commande));
                 }
             }
         }
@@ -81,17 +85,43 @@ public class exemplaire {
     public static List<exemplaire> tousLesxemplaires_produit(Connection con, int id_produit) throws SQLException {
         List<exemplaire> res = new ArrayList<>();
         try (PreparedStatement pst = con.prepareStatement(
-                "select id_exemplaire,des_exemplaire,id_produit from exemplaire_bof where id_produit=?")) {
+                "select * from exemplaire_bof where id_produit=?")) {
             pst.setInt(1, id_produit);
             try (ResultSet rs = pst.executeQuery()) {
                 while (rs.next()) {
                     int id_exemplaire = rs.getInt("id_exemplaire");
                     String des_exemplaire = rs.getString("des_exemplaire");
-                    res.add(new exemplaire(id_exemplaire, des_exemplaire, id_produit));
+                    int id_commande = rs.getInt("id_commande");
+                    res.add(new exemplaire(id_exemplaire, des_exemplaire, id_produit, id_commande));
                 }
             }
         }
         return res;
+    }
+    
+    public static List<exemplaire> tousLesxemplaires_commande(Connection con, int id_commande) throws SQLException {
+        List<exemplaire> res = new ArrayList<>();
+        try (PreparedStatement pst = con.prepareStatement(
+                "select * from exemplaire_bof where id_commande=?")) {
+            pst.setInt(1, id_commande);
+            try (ResultSet rs = pst.executeQuery()) {
+                while (rs.next()) {
+                    int id_exemplaire = rs.getInt("id_exemplaire");
+                    String des_exemplaire = rs.getString("des_exemplaire");
+                    int id_produit = rs.getInt("id_produit");
+                    res.add(new exemplaire(id_exemplaire, des_exemplaire, id_produit, id_commande));
+                }
+            }
+        }
+        return res;
+    }
+
+    public int getId_commande() {
+        return id_commande;
+    }
+
+    public void setId_commande(int id_commande) {
+        this.id_commande = id_commande;
     }
 
     @Override

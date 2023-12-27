@@ -89,7 +89,7 @@ public class ProduitClient extends VerticalLayout{
                     commande_produit cp = new commande_produit(nouvelleCommande.getId_commande(),produitId);
                     nouvelleCommande.setDes(str,nouvelleCommande.getId_commande(),con);
                     cp.saveInDBV1(con);
-                    produitCommandé(produitId);
+                    produitCommandé(produitId, nouvelleCommande.getId_commande());
                 } catch (SQLException ex) {
                     Notification.show("Problème commande_produit : " + ex.getLocalizedMessage());
                 }
@@ -118,21 +118,21 @@ public class ProduitClient extends VerticalLayout{
         setSizeFull();
     }
     
-    private void produitCommandé(int produitId){
+    private void produitCommandé(int produitId, int IdCommande){
         try {
             //doit récupérer les opérations requises pour faire le produit
             Connection con = (Connection) VaadinSession.getCurrent().getAttribute("conn");
             this.grid2 = new Grid_operation2(Operation.tousLesOperations_produit(con,produitId));
             Notification.show("les operation a effectuer : " + Operation.tousLesOperations_produit(con,produitId));
             
-            exemplaire exempl = new exemplaire(giveProduit(con, produitId), produitId);
+            exemplaire exempl = new exemplaire(giveProduit(con, produitId), produitId, IdCommande);
             exempl.saveInDBV1(con);
-            List<operation_effectuee> liste_op_eff = Meilleurs_operation_produit(con, exempl);
-            for (operation_effectuee op_ef : liste_op_eff){
-                op_ef.saveInDBV1(con);
-            }
+//            List<operation_effectuee> liste_op_eff = Meilleurs_operation_produit(con, exempl);
+//            for (operation_effectuee op_ef : liste_op_eff){
+//                op_ef.saveInDBV1(con);
+//            }
         } catch (SQLException ex) {
-            Logger.getLogger(ProduitClient.class.getName()).log(Level.SEVERE, null, ex);
+             Notification.show("Problème BdD : aurore");
         }
     }
     
