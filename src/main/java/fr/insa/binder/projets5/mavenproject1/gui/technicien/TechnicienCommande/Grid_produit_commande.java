@@ -40,7 +40,7 @@ public class Grid_produit_commande extends Grid<produit> {
         this.addComponentColumn(Integer -> {
             Button button = new Button("Operations necessaires", clickEvent -> {
                 VaadinSession.getCurrent().setAttribute("produit_com", Integer);
-                UI.getCurrent().navigate(Grid_op.class);
+                UI.getCurrent().navigate(Operation_necessaires.class);
             });
             return button;
         }).setHeader("");
