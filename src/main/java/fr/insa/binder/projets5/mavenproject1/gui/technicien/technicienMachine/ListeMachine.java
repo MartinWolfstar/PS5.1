@@ -21,13 +21,13 @@ public class ListeMachine extends VerticalLayout {
     public ListeMachine() {
         this.add(new H3("Liste de toutes les machines"));
         H1 = new HorizontalLayout();
-        H1.add(new Ajout_machine(),new Supp_machine(), new Modif_machine());
+        H1.add(new Ajout_machine(), new Modif_machine());
         this.add(H1);
         try {
             this.grid = new Grid_machine(machine.tousLesMachines((Connection) VaadinSession.getCurrent().getAttribute("conn"))); 
             this.add(this.grid);
         } catch(SQLException ex) {
-            this.add(new H3("Problème BdD : "));
+            this.add(new H3("Problème BdD : liste machine : " + ex));
         }
         
         addClassName("liste_machine");
@@ -41,31 +41,7 @@ public class ListeMachine extends VerticalLayout {
             .set("background", "url(images/1275600.jpg) no-repeat center center fixed")
             .set("background-size", "cover")
             .set("height", "120vh");
-    }
-    
-//    public MainView(){
-//        
-//    }
-//    
-//    @Override
-//    public void setParameter(BeforeEvent event, Connection parameter){
-//        this.conect = parameter;
-//    }
-//    
-//    @Override
-//    public void afterNavigation(AfterNavigationEvent event){
-//        this.add(new H3("Liste de toute les machines"));
-//        try {
-//            this.grid = new Grid_machine(machine.tousLesMachines(this.conect)); 
-//            this.add(this.grid);
-//        } catch(SQLException ex) {
-//            this.add(new H3("Problème BdD : "));
-//        }
-//        
-//        addClassName("lis-view");
-//        setSizeFull();
-//    }
-//    
+    }   
 
 }
 

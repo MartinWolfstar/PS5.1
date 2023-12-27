@@ -31,15 +31,14 @@ public class Supp_machine extends VerticalLayout{
         this.id = menu_bar.addItem("Selectionner l'identifiant de la machine à supprimer");
         SubMenu id_sub = id.getSubMenu();
         
-
         ComponentEventListener<ClickEvent<MenuItem>> listener = e ->
                 {
             try {
                 machine.supMachine((Connection) VaadinSession.getCurrent().getAttribute("conn"), Integer.valueOf(e.getSource().getText()));
             } catch (SQLException ex) {
-                Notification.show("Problème BdD : x");
+                Notification.show("Problème BdD : sup machine : " + ex);
             }
-            UI.getCurrent().getPage().reload();
+            //UI.getCurrent().getPage().reload();
         };
         try {
             List<machine> id_liste = machine.tousLesMachines((Connection) VaadinSession.getCurrent().getAttribute("conn"));
@@ -53,33 +52,6 @@ public class Supp_machine extends VerticalLayout{
         this.add(new H3("Supprimer machine"));
         this.add(menu_bar);
         }
-
-
-//        this.valid = new Button ("Supprimer machine");
-//        this.valid.addClickListener(e -> {
-//            try {
-//                machine.supMachine(connectSurServeurM3(),id.getValue());
-//                UI.getCurrent().getPage().reload();
-//            } catch(SQLException ex) {
-//            this.add(new H3("Problème BdD : "));
-//        }
-//        });
-//        
-//
-//        this.add(new H3("Supprimer machine"));
-//        this.add(this.id,this.valid);
-//        
-        
-//        this.menu_bar = new MenuBar();
-//        this.des = menu_bar.addItem("Description");
-//        this.ref = menu_bar.addItem("Reference");
-//        SubMenu des_sub = des.getSubMenu();
-//        List<String> messages = Arrays.asList("Hello", "World!", "How", "Are", "You");
-//        for (String x : messages) { 
-//            des_sub.addItem(x);
-//        }
-//        this.add(this.menu_bar);
-        
     }
 
 

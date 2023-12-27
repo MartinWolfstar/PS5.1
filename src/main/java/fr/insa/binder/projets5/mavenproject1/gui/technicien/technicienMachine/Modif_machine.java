@@ -23,7 +23,6 @@ import java.util.List;
  * @author binde
  */
 
-// lol
 public class Modif_machine extends VerticalLayout{
     
     private MenuBar menu_bar;
@@ -37,20 +36,19 @@ public class Modif_machine extends VerticalLayout{
         SubMenu id_sub = id.getSubMenu();
         
 
-        ComponentEventListener<ClickEvent<MenuItem>> listener = e ->
-                {
+        ComponentEventListener<ClickEvent<MenuItem>> listener = e -> {
             int id_m = Integer.valueOf(e.getSource().getText());
             this.modif_machine2 = new Modif_machine2(id_m);
-            this.add( modif_machine2);
+            this.add(modif_machine2);
         };
         try {
             List<machine> id_liste = machine.tousLesMachines((Connection) VaadinSession.getCurrent().getAttribute("conn"));
             for (machine x : id_liste) { 
                 id_sub.addItem(String.valueOf(x.getId()), listener);
-        }      
+            }      
         } 
         catch(SQLException ex) {
-               Notification.show("Problème BdD : x");
+               Notification.show("Problème BdD : modif machine : " + ex);
             }
         this.add(new H3("Modifier machine"));
         this.add(menu_bar);

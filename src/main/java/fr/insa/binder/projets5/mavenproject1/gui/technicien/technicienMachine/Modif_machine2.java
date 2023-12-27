@@ -40,8 +40,8 @@ public class Modif_machine2 extends VerticalLayout{
                 machine.setRef(this.ref.getValue(), id, con);
                 UI.getCurrent().getPage().reload();
             } catch(SQLException ex) {
-            Notification.show("Problème BdD : x");
-        }
+                Notification.show("Problème BdD : modif machine2 : " + ex);
+            }
         });
         
         this.HL = new HorizontalLayout();
