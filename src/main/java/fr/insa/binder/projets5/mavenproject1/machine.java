@@ -196,4 +196,23 @@ public class machine {
         return id_type_machine;
     }
     
+    public static void setPosteDeTravail(int id_poste, int id_machine,Connection con) throws SQLException {
+        try (PreparedStatement pst = con.prepareStatement(
+                "update machine_bof set id_poste_de_travail = ? where id_machine = ?")) {
+            pst.setInt(1, id_poste);
+            pst.setInt(2, id_machine);
+            pst.executeUpdate();
+        }catch (SQLException ex){
+            Notification.show("Problème : 88 : machine");
+        }
+    }
+
+    public void setId_poste_de_travail(int id_poste_de_travail) {
+        this.id_poste_de_travail = id_poste_de_travail;
+    }
+
+    public void setId_type_machine(int id_type_machine) {
+        this.id_type_machine = id_type_machine;
+    }
+    
 }
