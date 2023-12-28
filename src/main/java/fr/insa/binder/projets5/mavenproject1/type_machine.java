@@ -34,14 +34,7 @@ public class type_machine {
             pst.executeUpdate();
         }
     }
-    public void save_type_machine2(Connection conn) throws SQLException{
-        try (PreparedStatement pst = conn.prepareStatement(
-                "insert into type_machine_bof (id_type_machine,des_type_machine) values (?,?)")) {
-            pst.setInt(1, this.id_type_machine);
-            pst.setString(2, this.des_type_machine);
-            pst.executeUpdate();
-        }
-    }
+    
     
         public static List<type_machine> tousLesTypeMachine(Connection con) throws SQLException {
         List<type_machine> res = new ArrayList<>();

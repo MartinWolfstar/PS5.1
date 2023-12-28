@@ -347,20 +347,73 @@ public class Gestion {
     }
 
     public static void initialise(Connection conn) throws SQLException {
-        poste_de_travail poste1 = new poste_de_travail(1, "ranger");
+        // postes de travail
+        poste_de_travail poste1 = new poste_de_travail("ranger");
         poste1.save_poste_de_travail(conn);
-        type_machine type_machine1 = new type_machine(1, "tournage");
-        type_machine1.save_type_machine2(conn);
-        machine m1 = new machine(333, "tournage", 1, 1);
+        poste_de_travail poste2 = new poste_de_travail("poussiereux");
+        poste2.save_poste_de_travail(conn);
+        poste_de_travail poste3 = new poste_de_travail("brillant");
+        poste3.save_poste_de_travail(conn);
+        
+        // types de machines
+        type_machine type_machine1 = new type_machine("tournage");
+        type_machine1.save_type_machine(conn);
+        type_machine type_machine2 = new type_machine("fraisage");
+        type_machine2.save_type_machine(conn);
+        
+        // Machines
+        machine m1 = new machine(333, "tour tres puissant", 1, 1);
         m1.saveInDBV1(conn);
+        machine m2 = new machine(444,"tour tres precis",1,1);
+        m2.saveInDBV1(conn);
+        machine m3 = new machine(555,"fraise rapide",2,2);
+        m3.saveInDBV1(conn);
+        machine m4 = new machine(666,"fraise petits calibres",3,2);
+        m4.saveInDBV1(conn);
+        
+        // Operateurs
         operateur Titi = new operateur("James", "Einstahitiii", "Titi01", "melissa68");
         Titi.save_operateur(conn);
-        //operateur Toto = new operateur( "Dodo", "Einstahitiii", "Dodo68", "123468");
-        //Toto.save_operateur(conn);
-        type_etat type_etat1 = new type_etat("abscence");
+        operateur Toto = new operateur( "Dodo", "Einstahitiii", "Dodo68", "123468");
+        Toto.save_operateur(conn);
+        
+        // type etat
+        type_etat type_etat2 = new type_etat("abscent/en panne");
+        type_etat2.save_type_etat(conn);
+        type_etat type_etat1 = new type_etat("present/fonctionnel");
         type_etat1.save_type_etat(conn);
+        
+        // etats
+        LocalDateTime dt = LocalDateTime.of(2021, Month.DECEMBER, 3,15, 0, 23);
+        Timestamp ts = Timestamp.valueOf(dt);
+        LocalDateTime dt2 = LocalDateTime.of(2023, Month.DECEMBER, 3,15, 0, 23);
+        Timestamp ts2 = Timestamp.valueOf(dt2);
+        etat etat1 = new etat(1, ts, ts2);
+        etat1.save_etat(conn);
+        
+        LocalDateTime dt3 = LocalDateTime.of(2023,Month.OCTOBER,1,8,0,0);
+        Timestamp ts3 = Timestamp.valueOf(dt3);
+        LocalDateTime dt4 = LocalDateTime.of(2023,Month.NOVEMBER,16,18,30,00);
+        Timestamp ts4 = Timestamp.valueOf(dt4);
+        etat etat2 = new etat(2,ts3,ts4);
+        etat2.save_etat(conn);
+        
+        etat etat3 = new etat(1,Timestamp.valueOf(LocalDateTime.of(2021,Month.NOVEMBER,16,18,30,00)),Timestamp.valueOf(LocalDateTime.of(2023,Month.JANUARY,8,18,30,00)));
+        etat3.save_etat(conn);
+        
+        // type operation
         type_operation type_operation1 = new type_operation("dressage");
         type_operation1.save_type_operation(conn);
+        type_operation type_operation2 = new type_operation("chariotage");
+        type_operation2.save_type_operation(conn);
+        type_operation type_operation3 = new type_operation("chanfreinage");
+        type_operation3.save_type_operation(conn);
+        type_operation type_operation4 = new type_operation("rainurage");
+        type_operation4.save_type_operation(conn);
+        type_operation type_operation5 = new type_operation("tronconnage");
+        type_operation5.save_type_operation(conn);
+        
+        // clients
         Client client1 = new Client("Binder", "Aurore", "Auroraa", "Aurore");
         Client client2 = new Client("Schmitt", "Theo", "Theo", "Theo");
         Client client3 = new Client("Dalibard", "Melanie", "Melanie", "Melanie");
@@ -371,12 +424,7 @@ public class Gestion {
 //        commande commande1 = new commande("Pull", "POur moi", 1);
 //        commande.saveInDBV1(conn);
 //        commande1.saveInDBV1(conn);
-        LocalDateTime dt = LocalDateTime.of(2021, Month.DECEMBER, 3,15, 0, 23);
-        Timestamp ts = Timestamp.valueOf(dt);
-        LocalDateTime dt2 = LocalDateTime.of(2023, Month.DECEMBER, 3,15, 0, 23);
-        Timestamp ts2 = Timestamp.valueOf(dt2);
-        etat etat1 = new etat(1, ts, ts2);
-        etat1.save_etat(conn);
+        
     }
 
     public void deleteSchema() throws SQLException {
