@@ -116,6 +116,25 @@ public class exemplaire {
         return res;
     }
 
+    
+        public static exemplaire get_ex(Connection con, int id_ex) throws SQLException {
+        List<exemplaire> res = new ArrayList<>();
+            try (PreparedStatement pst = con.prepareStatement(
+                "select * from exemplaire_bof where id_exemplaire = ?")) {
+            pst.setInt(1, id_ex);
+            try (ResultSet rs = pst.executeQuery()) {
+                while (rs.next()) {
+                    int id_exemplaire = rs.getInt("id_exemplaire");
+                    String des_exemplaire = rs.getString("des_exemplaire");
+                    int id_commande = rs.getInt("id_commande");
+                    int id_produit = rs.getInt("id_produit");
+                    res.add(new exemplaire(id_exemplaire, des_exemplaire, id_produit, id_commande));
+                }
+            }
+        }
+        return res.get(0);
+    }
+    
     public int getId_commande() {
         return id_commande;
     }

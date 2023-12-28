@@ -4,7 +4,10 @@
  */
 package fr.insa.binder.projets5.mavenproject1;
 
+import static fr.insa.binder.projets5.mavenproject1.Gestion.connectSurServeurM3;
 import static fr.insa.binder.projets5.mavenproject1.Precede.tousLesOrdreOperations_produit;
+import static fr.insa.binder.projets5.mavenproject1.exemplaire.get_ex;
+import static fr.insa.binder.projets5.mavenproject1.operateur.tousLesOperateur;
 import static fr.insa.binder.projets5.mavenproject1.realisation.getDuree;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -28,7 +31,7 @@ public class operation_effectuee {
         this.id_exemplaire = id_exemplaire;
         this.id_machine = id_machine;
     }
-    
+
     public void saveInDBV1(Connection con) throws SQLException {
         try (PreparedStatement pst = con.prepareStatement(
                 "insert into operations_effectuees_bof (id_operation, id_exemplaire, id_machine) values (?,?,?)")) {
@@ -37,8 +40,8 @@ public class operation_effectuee {
             pst.setInt(3, this.id_machine);
             pst.executeUpdate();
         }
-    } 
-    
+    }
+
     public void sup_operation_effectuee_op(Connection con) throws SQLException {
         try (PreparedStatement pst = con.prepareStatement(
                 "delete from operations_effectuees_bof where id_operation = ?")) {
@@ -46,7 +49,7 @@ public class operation_effectuee {
             pst.executeUpdate();
         }
     }
-    
+
     public void sup_operation_effectuee_ex(Connection con) throws SQLException {
         try (PreparedStatement pst = con.prepareStatement(
                 "delete from operations_effectuees_bof where id_exemplaire = ?")) {
@@ -54,6 +57,7 @@ public class operation_effectuee {
             pst.executeUpdate();
         }
     }
+
     public void sup_operation_effectuee_ma(Connection con) throws SQLException {
         try (PreparedStatement pst = con.prepareStatement(
                 "delete from operations_effectuees_bof where id_machine = ?")) {
@@ -61,8 +65,7 @@ public class operation_effectuee {
             pst.executeUpdate();
         }
     }
-    
-    
+
     public static void sup_operation_effectuee_op(Connection con, int id_operation) throws SQLException {
         try (PreparedStatement pst = con.prepareStatement(
                 "delete from operations_effectuees_bof where id_operation = ?")) {
@@ -70,9 +73,9 @@ public class operation_effectuee {
             pst.executeUpdate();
         }
     }
-    
+
     public static List<operation_effectuee> tous_les_operation_effectuees(Connection con) throws SQLException {
-        List <operation_effectuee> res = new ArrayList<>();
+        List<operation_effectuee> res = new ArrayList<>();
         try (PreparedStatement pst = con.prepareStatement(
                 "select id_operation, id_machine, id_exemplaire from operations_effectuees_bof")) {
             try (ResultSet rs = pst.executeQuery()) {
@@ -86,32 +89,37 @@ public class operation_effectuee {
         }
         return res;
     }
-    
-    public static List<operation_effectuee> Meilleurs_operation_produit (Connection con, exemplaire exempl) throws SQLException{
+
+    public static List<operation_effectuee> Meilleurs_operation_produit(Connection con, exemplaire exempl) throws SQLException {
         List<List<Operation>> liste = tousLesOrdreOperations_produit(con, exempl.getId_produit());
         List<operation_effectuee> meilleur_liste = new ArrayList<>();
         Operation operation = liste.get(0).get(0);
         float min = getDuree(operation.getId_typeOperation(), con).getDuree();
-        for (List<Operation> liste_op : liste){
+        System.out.print(min);
+        for (List<Operation> liste_op : liste) {
             float duree = 0;
             List<operation_effectuee> operation_eff = new ArrayList<>();
-            for (Operation op: liste_op){
+            for (Operation op : liste_op) {
                 realisation realise = getDuree(op.getId_typeOperation(), con);
                 duree = duree + realise.getDuree();
                 operation_eff.add(new operation_effectuee(op.getId_operation(), exempl.getId_exemplaire(), realise.getId_machine()));
+                System.out.println(duree);
             }
-            if (duree < min){
+            if (duree < min) {
+                min = duree;
+                System.out.print("Nouveau min" + min);
+
                 meilleur_liste = operation_eff;
             }
         }
         return meilleur_liste;
     }
 
-//    @Override
-//    public String toString() {
-//        returnoperation_effectuee{" + "id_operation=" + id_operation + ", id_exemplaire=" + id_exemplaire + ", des=" + des + ", id_machinel=" + id_machinel + ", id_operation_typoperation_effectuee=" + id_operation_typoperation_effectuee + '}';
-//    }
+    @Override
+    public String toString() {
 
+        return "operation_effectuee" + "id_operation=" + getId_operation() + ", id_exemplaire=" + getId_exemplaire() + ", id_machine=" + getId_machine() + '}';
+    }
 
 //     public static void set_id_operation(int id_operation, Connection con) throws SQLException {
 //        try (PreparedStatement pst = con.prepareStatement(
@@ -131,9 +139,6 @@ public class operation_effectuee {
 //            pst.executeUpdate();
 //        }
 //    }
-    
-
-
 //    public static void set_id_machine(String des, int id_operation, Connection con) throws SQLException {
 //        try (PreparedStatement pst = con.prepareStatement(
 //                "updatoperation_effectuee_bof set deoperation_effectuee = ? where ioperation_effectuee = ?")) {
@@ -142,7 +147,6 @@ public class operation_effectuee {
 //            pst.executeUpdate();
 //        }
 //    }
-
     public int getId_operation() {
         return id_operation;
     }
@@ -166,6 +170,16 @@ public class operation_effectuee {
     public void setId_machine(int id_machine) {
         this.id_machine = id_machine;
     }
-    
-}
 
+    public static void main(String[] args) throws SQLException {
+        try {
+            Connection con = connectSurServeurM3();
+            List<operation_effectuee> liset_c = Meilleurs_operation_produit(con, get_ex(con, 1));
+            System.out.println(liset_c + "Salut");
+//           rOperateur.saveInDBV(connectSurServeurM3());
+        } catch (SQLException ex) {
+            throw new Error(ex);
+        }
+    }
+
+}
