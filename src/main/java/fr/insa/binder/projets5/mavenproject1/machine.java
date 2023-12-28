@@ -65,12 +65,16 @@ public class machine {
     
     public void saveInDBV1(Connection con) throws SQLException {
         try (PreparedStatement pst = con.prepareStatement(
-                "insert into machine_bof (ref_machine,des_machine,id_poste_de_travail,id_type_machine) values (?,?,?,?)")) {
+                "insert into machine_bof (ref_machine,des_machine,id_poste_de_travail,id_type_machine) values (?,?,?,?)", PreparedStatement.RETURN_GENERATED_KEYS)) {
             pst.setInt(1, this.ref);
             pst.setString(2, this.des);
             pst.setInt(3, this.id_poste_de_travail);
             pst.setInt(4, this.id_type_machine);
             pst.executeUpdate();
+            try (ResultSet ids = pst.getGeneratedKeys()) {
+                ids.next();
+                this.id = ids.getInt(1);
+            }
         }
     } 
     

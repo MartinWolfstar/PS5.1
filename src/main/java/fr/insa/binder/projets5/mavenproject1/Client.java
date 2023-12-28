@@ -46,12 +46,17 @@ public class Client {
     
     public void saveInDBV(Connection con) throws SQLException {
         try (PreparedStatement pst = con.prepareStatement(
-                "insert into client_bof (nom_client, prenom_client, login_client, password_client) values (?,?, ? , ?)")) {
+                "insert into client_bof (nom_client, prenom_client, login_client, password_client) values (?,?, ? , ?)", PreparedStatement.RETURN_GENERATED_KEYS)) {
             pst.setString(1, this.nom_client);
             pst.setString(2, this.prenom_client);
             pst.setString(3, this.login_client);
             pst.setString(4, this.password_client);
             pst.executeUpdate();
+            try (ResultSet ids = pst.getGeneratedKeys()) {
+                ids.next();
+                this.id_client = ids.getInt(1);
+            }
+            
         }
     } 
     

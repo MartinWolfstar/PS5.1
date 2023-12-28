@@ -40,7 +40,7 @@ public class etat {
             pst.executeUpdate();
             try (ResultSet ids = pst.getGeneratedKeys()) {
                 ids.next();
-                this.id_type_etat = ids.getInt(1);
+                this.id_etat = ids.getInt(1);
             }
         }
     } 

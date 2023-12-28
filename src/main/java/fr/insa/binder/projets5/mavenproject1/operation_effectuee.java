@@ -39,6 +39,7 @@ public class operation_effectuee {
             pst.setInt(2, this.id_exemplaire);
             pst.setInt(3, this.id_machine);
             pst.executeUpdate();
+            
         }
     }
 

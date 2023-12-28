@@ -29,9 +29,13 @@ public class type_machine {
     }
     public void save_type_machine(Connection conn) throws SQLException{
         try (PreparedStatement pst = conn.prepareStatement(
-                "insert into type_machine_bof (des_type_machine) values (?)")) {
+                "insert into type_machine_bof (des_type_machine) values (?)", PreparedStatement.RETURN_GENERATED_KEYS)) {
             pst.setString(1, this.des_type_machine);
             pst.executeUpdate();
+            try (ResultSet ids = pst.getGeneratedKeys()) {
+                ids.next();
+                this.id_type_machine = ids.getInt(1);
+            }
         }
     }
     

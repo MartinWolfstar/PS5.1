@@ -39,10 +39,14 @@ public class Operation {
 
     public void saveInDBV1(Connection con) throws SQLException {
         try (PreparedStatement pst = con.prepareStatement(
-                "insert into operation_bof (id_produit,id_type_operation) values (?,?)")) {
+                "insert into operation_bof (id_produit,id_type_operation) values (?,?)", PreparedStatement.RETURN_GENERATED_KEYS)) {
             pst.setInt(1, this.id_produit);
             pst.setInt(2, this.id_typeOperation);
             pst.executeUpdate();
+            try (ResultSet ids = pst.getGeneratedKeys()) {
+                ids.next();
+                this.id_operation = ids.getInt(1);
+            }
         }
     }
 
