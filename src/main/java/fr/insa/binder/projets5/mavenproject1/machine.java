@@ -5,6 +5,7 @@
 package fr.insa.binder.projets5.mavenproject1;
 
 import com.vaadin.flow.component.notification.Notification;
+import fr.insa.binder.projets5.mavenproject1.Utilitaire.ListUtils;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -51,6 +52,15 @@ public class machine {
         int id_poste_de_travail = ConsoleFdB.entreeInt("id_poste_de_travail : ");
         int id_type_machine = ConsoleFdB.entreeInt("id_type_machine : ");
         return new machine(ref, des,id_poste_de_travail,id_type_machine);
+    }
+    public static machine demande2(Connection con) throws SQLException{
+        int ref = ConsoleFdB.entreeInt("ref : ");
+        String des = ConsoleFdB.entreeString("des : ");
+        //int id_poste_de_travail = ConsoleFdB.entreeInt("poste de travail:");
+        //int id_type_machine = ConsoleFdB.entreeInt("type de machine:");
+        poste_de_travail choix_poste_de_travail = ListUtils.selectOne("----selectionner un poste de travail", poste_de_travail.tousLesPostes(con) , poste_de_travail::toString );
+        type_machine choix_type_machine = ListUtils.selectOne("---- selectionner un type de machine", type_machine.tousLesTypeMachine(con), type_machine::toString);
+        return new machine(ref, des,choix_poste_de_travail.getId_poste_de_travail(),choix_type_machine.getId_type_machine());
     }
     
     public void saveInDBV1(Connection con) throws SQLException {

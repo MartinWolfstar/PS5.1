@@ -4,11 +4,16 @@
  */
 package fr.insa.binder.projets5.mavenproject1;
 
+import fr.insa.binder.projets5.mavenproject1.Utilitaire.ListUtils;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
+import java.time.Month;
 import java.util.List;
+import java.util.Optional;
 
 /**
  *
@@ -345,7 +350,7 @@ public class Gestion {
         poste_de_travail poste1 = new poste_de_travail(1, "ranger");
         poste1.save_poste_de_travail(conn);
         type_machine type_machine1 = new type_machine(1, "tournage");
-        type_machine1.save_type_machine(conn);
+        type_machine1.save_type_machine2(conn);
         machine m1 = new machine(333, "tournage", 1, 1);
         m1.saveInDBV1(conn);
         operateur Titi = new operateur("James", "Einstahitiii", "Titi01", "melissa68");
@@ -366,6 +371,12 @@ public class Gestion {
 //        commande commande1 = new commande("Pull", "POur moi", 1);
 //        commande.saveInDBV1(conn);
 //        commande1.saveInDBV1(conn);
+        LocalDateTime dt = LocalDateTime.of(2021, Month.DECEMBER, 3,15, 0, 23);
+        Timestamp ts = Timestamp.valueOf(dt);
+        LocalDateTime dt2 = LocalDateTime.of(2023, Month.DECEMBER, 3,15, 0, 23);
+        Timestamp ts2 = Timestamp.valueOf(dt2);
+        etat etat1 = new etat(1, ts, ts2);
+        etat1.save_etat(conn);
     }
 
     public void deleteSchema() throws SQLException {
@@ -749,18 +760,19 @@ public class Gestion {
 
     }
 
-    public void menuMachine() {
+    public void menuPrincipal() {
         int rep = -1;
         while (rep != 0) {
             int i = 1;
-            System.out.println("Menu machine");
+            System.out.println("Menu principal");
             System.out.println("================");
-            System.out.println((i++) + ") supprimer schéma");
-            System.out.println((i++) + ") créer schéma");
-            System.out.println((i++) + ") initialiser");
+            System.out.println((i++) + ") supprimer schéma (= supprimer la base de donnee)");
+            System.out.println((i++) + ") créer schéma(=créer la base de donnee)");
+            System.out.println((i++) + ") initialiser la base de donnees");
             System.out.println((i++) + ") Raz de la BdD = supprimer + creer + initialiser");
             System.out.println((i++) + ") lister les machines");
             System.out.println((i++) + ") ajouter un machine");
+            System.out.println((i++) + ") menu un machine");
             //System.out.println((i++) + ") chercher par pattern");
             System.out.println("0) Fin");
             rep = ConsoleFdB.entreeEntier("Votre choix : ");
@@ -783,10 +795,44 @@ public class Gestion {
                     //System.out.println(ListUtils.enumerateList(users));
                 } else if (rep == j++) {
                     System.out.println("entrez un nouvel utilisateur : ");
-                    machine nouveau = machine.demande();
+                    machine nouveau = machine.demande2(conn);
                     nouveau.saveInDBV1(this.conn);
                     /*} else if (rep == j++) {
                     this.afficheUtilisateurAvecPattern();*/
+                }
+                else if (rep == j++) {
+                    menuMachine();
+                }
+            } catch (SQLException ex) {
+                System.out.println(ExceptionsUtils.messageEtPremiersAppelsDansPackage(ex, "fr.insa", 5));
+            }
+        }
+    }
+    public void menuMachine() {
+        int rep = -1;
+        while (rep != 0) {
+            int i = 1;
+            System.out.println("Menu machine");
+            System.out.println("================");
+            System.out.println((i++) + ") liste les machines");
+            System.out.println((i++) + ") ajouter une machine");
+            System.out.println((i++) + ") supprimer une machine");
+            //System.out.println((i++) + ") chercher par pattern");
+            System.out.println("0) Fin");
+            rep = ConsoleFdB.entreeEntier("Votre choix : ");
+            try {
+                int j = 1;
+                if (rep == j++) {
+                    System.out.println(ListUtils.enumerateList(machine.tousLesMachines(conn)));
+                } else if (rep == j++) {
+                    machine nouvelle = machine.demande2(conn);
+                    nouvelle.saveInDBV1(conn);
+                }
+                else if (rep == j++) {
+                    Optional<machine> choix = ListUtils.selectOneOrCancel("---- selectionnez une machine à supprimer",machine.tousLesMachines(conn), machine::toString);
+                    if (choix.isPresent()){
+                        choix.get().supMachine(conn);
+                    }
                 }
             } catch (SQLException ex) {
                 System.out.println(ExceptionsUtils.messageEtPremiersAppelsDansPackage(ex, "fr.insa", 5));
@@ -799,7 +845,7 @@ public class Gestion {
             Connection con = connectSurServeurM3();
             System.out.println("Connecté");
             Gestion gestionnaire = new Gestion(con);
-            gestionnaire.menuMachine();
+            gestionnaire.menuPrincipal();
         } catch (SQLException ex) {
             throw new Error(ex);
         }
