@@ -11,7 +11,7 @@ import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.component.upload.Upload;
-import fr.insa.binder.projets5.mavenproject1.gui.utilities.UploadArea;
+import fr.insa.binder.projets5.mavenproject1.Utilitaire.UploadArea;
 import java.io.File;
 
 

@@ -9,7 +9,7 @@ import com.vaadin.flow.component.html.Label;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
-import fr.insa.binder.projets5.mavenproject1.gui.utilities.UploadArea;
+import fr.insa.binder.projets5.mavenproject1.Utilitaire.UploadArea;
 import fr.insa.binder.projets5.mavenproject1.produit;
 import java.io.File;
 
