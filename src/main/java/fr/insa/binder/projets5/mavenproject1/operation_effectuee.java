@@ -95,7 +95,8 @@ public class operation_effectuee {
         List<List<Operation>> liste = tousLesOrdreOperations_produit(con, exempl.getId_produit());
         List<operation_effectuee> meilleur_liste = new ArrayList<>();
         Operation operation = liste.get(0).get(0);
-        float min = getDuree(operation.getId_typeOperation(), con).getDuree();
+        float min = 1000000;
+//        float min = getDuree(operation.getId_typeOperation(), con).getDuree();
         System.out.print(min);
         for (List<Operation> liste_op : liste) {
             float duree = 0;

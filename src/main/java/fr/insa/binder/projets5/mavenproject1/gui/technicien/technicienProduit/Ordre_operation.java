@@ -44,49 +44,21 @@ public class Ordre_operation extends HorizontalLayout {
 
         combo.addValueChangeListener(event -> {
             op = (int) event.getValue();
-
-//            try {
-//                int id_type_op = getId_type_operation(selectedValue, (Connection) VaadinSession.getCurrent().getAttribute("conn"));
-//                Operation.setId_typeOperation(id_type_op);
-//                setTypeOperation(Operation.getId_typeOperation(), Operation.getId_operation(), (Connection) VaadinSession.getCurrent().getAttribute("conn"));
-//                //UI.getCurrent().getPage().reload();
-//                this.getDataProvider().refreshItem(Operation);
-////                    this.setItems(Operation.tousLesOperations_produit((Connection) VaadinSession.getCurrent().getAttribute("conn"), id_produit));
-//            } catch (SQLException ex) {
-//                Notification.show("Problème BdD : m2");
-//            }
         });
 
         this.bouton.addClickListener(e -> {
-            Notification.show("Number of selected people: " );
-//            Integer idClient = (Integer) VaadinSession.getCurrent().getAttribute("id_client");
-            for (Integer IdOperation_2 : grid.getSelectedIds()) {
-                
+              List<Integer> selected_id = grid.getSelectedIds();
+            for (Integer IdOperation_2 : selected_id) {
+                Notification.show("Number of selected people: " + selected_id);
                 Precede precede = new Precede(op, IdOperation_2);
                 try {
                     precede.saveInDBV1(con);
-//                    String produitSelectionne = produit.giveProduit(con, produitId);
-//
-//                    // Vérifiez si le produit sélectionné existe avant de créer la commande
-//                    if (produitSelectionne != null) {
-//                        commande nouvelleCommande = new commande("nouvelle commande", produitSelectionne, idClient);
-//                        nouvelleCommande.saveInDBV1(con);
-//                    } else {
-//                        // Gérez le cas où le produit sélectionné n'existe pas
-//                        Notification.show("Le produit avec l'ID " + produitId + " n'existe pas.");
-//                    }
-//                } catch (SQLException ex) {
-//                    Notification.show("Problème lors de la création de la commande : " + ex.getLocalizedMessage());
-//                }
-//            }
-//            UI.getCurrent().getPage().reload();
-//            Notification.show("Vous avez acheté les produits :" + grid.getSelectedIds());
                 } catch (SQLException ex) {
                     Notification.show("Problème BdD : m2");
                 }
-                grid.refresh();
+                
             }
-        
+        grid.refresh();
     });
         this.add(this.combo, this.bouton);
 }}

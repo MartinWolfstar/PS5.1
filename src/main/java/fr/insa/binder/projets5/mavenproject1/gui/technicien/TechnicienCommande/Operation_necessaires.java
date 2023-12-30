@@ -7,6 +7,7 @@ package fr.insa.binder.projets5.mavenproject1.gui.technicien.TechnicienCommande;
 import com.vaadin.flow.component.html.H3;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
+import com.vaadin.flow.router.Route;
 import com.vaadin.flow.server.VaadinSession;
 import fr.insa.binder.projets5.mavenproject1.exemplaire;
 import static fr.insa.binder.projets5.mavenproject1.exemplaire.tousLesxemplaires_produit;
@@ -20,6 +21,7 @@ import java.util.logging.Logger;
  *
  * @author binde
  */
+@Route(value = "3335")
 public class Operation_necessaires extends VerticalLayout {
 
     private Grid_op grid;

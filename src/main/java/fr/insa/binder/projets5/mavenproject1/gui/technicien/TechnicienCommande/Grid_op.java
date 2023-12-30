@@ -22,9 +22,9 @@ import java.util.List;
 public class Grid_op extends Grid<operation_effectuee> {
     public Grid_op(List<operation_effectuee> list_operation) {
         this.setItems(list_operation);
-//        this.addColumn(Operation::getId_commande).setHeader("Id Commande");
-//        this.addColumn(Operation::getNom_commande).setHeader("Nom");
-//        this.addColumn(commande::getDes_commande).setHeader("Description");
+        this.addColumn(operation_effectuee::getId_operation).setHeader("Id Operation");
+        this.addColumn(operation_effectuee::getId_exemplaire).setHeader("Exemplaire");
+        this.addColumn(operation_effectuee::getId_machine).setHeader("Machine");
 //        this.addColumn(commande::getId_client).setHeader("Id_client");
 //        this.getStyle().setBackground("PowderBlue");
 //        
