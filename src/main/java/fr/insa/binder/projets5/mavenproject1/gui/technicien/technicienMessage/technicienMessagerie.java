@@ -22,6 +22,9 @@ public class technicienMessagerie extends VerticalLayout {
     public technicienMessagerie() {
         this.add(new H3("Messagerie interne"));
         H1 = new HorizontalLayout();
+        H1.add(new Ajout_message());
+        this.add(H1);
+        
         try {
             List<messagerie> messages = messagerie.tousLesMessages((Connection) VaadinSession.getCurrent().getAttribute("conn"));
             this.grid = new Grid_message(messages);
@@ -33,8 +36,7 @@ public class technicienMessagerie extends VerticalLayout {
  
         addClassName("chat-layout");
         setSizeFull();
-        H1.add(new Ajout_message());
-        this.add(H1);
+        
         stylisation();
     }
     private void stylisation() {

@@ -4,8 +4,6 @@
  */
 package fr.insa.binder.projets5.mavenproject1.gui.client.clientCommande;
 
-import fr.insa.binder.projets5.mavenproject1.gui.client.clientCommande.Supp_commande;
-import fr.insa.binder.projets5.mavenproject1.gui.client.clientCommande.Grid_commande;
 import com.vaadin.flow.component.Key;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.dialog.Dialog;
@@ -22,6 +20,8 @@ import fr.insa.binder.projets5.mavenproject1.commande;
 import fr.insa.binder.projets5.mavenproject1.gui.client.BarreGaucheClient;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 /**
  *
@@ -75,17 +75,23 @@ public class CommandeClient extends VerticalLayout{
         factureDialog.setWidth("700px"); // Ajustez la largeur selon vos besoins
         factureDialog.setModal(true);
 
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        String dateDuJour = LocalDate.now().format(formatter);
+        String nomClient = "nom du client";
+        String adresseClient = "adresse du Client";
+        String numeroCommande = "numero Commande";
+        String idclient = "id du client";
+        
         // Ajouter le texte et la liste des commandes à la fenêtre
         VerticalLayout content = new VerticalLayout();
         content.add(new H1("Facture"));
         VerticalLayout V1 = new VerticalLayout();
         HorizontalLayout H2 = new HorizontalLayout();
-        H2.add(new H4("Facturé à :"));
-        H2.add(new H4("Envoyé à :"));
+        H2.add(new H4("Facturé à : " + nomClient));
+        H2.add(new H4("Envoyé à : " + adresseClient));
         H2.add(V1);
-        V1.add(new H4("facture numéro :"));
-        V1.add(new H4("date :"));
-        V1.add(new H4("numéro de commande :"));
+        V1.add(new H4("facture numéro : " + numeroCommande + "-" + idclient));
+        V1.add(new H4("date : " + dateDuJour));
         content.add(H2);
 
 
@@ -106,6 +112,7 @@ public class CommandeClient extends VerticalLayout{
         H3.add(closeButton);
         // Telechargement button
         Button TelechargementB = new Button("Telecharger", event -> factureDialog.close());
+        
         H3.add(TelechargementB);
         
         factureDialog.add(content);
