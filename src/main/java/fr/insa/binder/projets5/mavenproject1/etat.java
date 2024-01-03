@@ -9,6 +9,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
 
 /*
  *
@@ -43,7 +45,39 @@ public class etat {
                 this.id_etat = ids.getInt(1);
             }
         }
-    } 
+    }
+    
+    public static List<etat> tousLesEtats(Connection con) throws SQLException {
+        List<etat> res = new ArrayList<>();
+        try (PreparedStatement pst = con.prepareStatement(
+                "select id_etat,id_type_etat,debut,fin from etat_bof")) {
+            try (ResultSet rs = pst.executeQuery()) {
+                while (rs.next()) {
+                    int id = rs.getInt("id_etat");
+                    int ite = rs.getInt("id_type_etat");
+                    Timestamp d=rs.getTimestamp("debut");
+                    Timestamp f=rs.getTimestamp("debut");
+                    res.add(new etat(id,ite,d,f));
+                }
+            }
+        }
+        return res;
+    }
+    public void supEtat(Connection con) throws SQLException {
+        try (PreparedStatement pst = con.prepareStatement(
+                "delete from etat_bof where id_etat = ?")) {
+            pst.setInt(1, this.id_etat);
+            pst.executeUpdate();
+        }
+    }
+    
+    public static void supEtat(Connection con, int id) throws SQLException {
+        try (PreparedStatement pst = con.prepareStatement(
+                "delete from etat_bof where id_etat = ?")) {
+            pst.setInt(1, id);
+            pst.executeUpdate();
+        }
+    }
     
     
     @Override

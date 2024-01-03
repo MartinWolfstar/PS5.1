@@ -6,19 +6,17 @@ package fr.insa.binder.projets5.mavenproject1.gui.technicien.technicienInterface
 
 import com.vaadin.flow.component.Key;
 import com.vaadin.flow.component.button.Button;
-import com.vaadin.flow.component.contextmenu.MenuItem;
-import com.vaadin.flow.component.contextmenu.SubMenu;
-import com.vaadin.flow.component.html.H1;
-import com.vaadin.flow.component.menubar.MenuBar;
+import com.vaadin.flow.component.html.H3;
 import com.vaadin.flow.component.notification.Notification;
+import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.PasswordField;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.server.VaadinSession;
+import fr.insa.binder.projets5.mavenproject1.etat;
 import fr.insa.binder.projets5.mavenproject1.gui.technicien.BarreGaucheTechnicien;
-import static fr.insa.binder.projets5.mavenproject1.operateur.getnom_operateur;
 import java.sql.Connection;
 import java.sql.SQLException;
 
@@ -29,7 +27,6 @@ import java.sql.SQLException;
 @PageTitle("ParametreTech")
 @Route(value = "30", layout = BarreGaucheTechnicien.class)
 public class ParametreTechnicien extends VerticalLayout{
-    
     private TextField nom;
     private TextField prenom;
     private TextField mail;
@@ -37,8 +34,14 @@ public class ParametreTechnicien extends VerticalLayout{
 //    private MenuItem id;
     private PasswordField mdp;
     private Button sauvegarder;
+    private Grid_technicien33 grid;
+    private HorizontalLayout H1;
+    private VerticalLayout H2;
+    
     
     public ParametreTechnicien() {
+         
+        
 //        String nom_prenom = "";
 //        try {
 //            nom_prenom = getnom_operateur((Integer) VaadinSession.getCurrent().getAttribute("id_operateur"), (Connection) VaadinSession.getCurrent().getAttribute("conn"));
@@ -58,6 +61,7 @@ public class ParametreTechnicien extends VerticalLayout{
         mdp = new PasswordField("changer votre mot de passe :");
         sauvegarder = new Button("Sauvegarder les informations");
         mdp.setValue("Ex@mplePassw0rd");
+        
         stylisation();
         
 //        ComponentEventListener<ClickEvent<MenuItem>> listener = e ->
@@ -84,6 +88,22 @@ public class ParametreTechnicien extends VerticalLayout{
         setMargin(true);
         //add(nom_technicien, nom, prenom, mail, menu_bar, mdp, sauvegarder);
         add(nom, prenom, mail, mdp, sauvegarder);
+        
+        this.add(new H3("Liste de tous les etats d'un operateur"));
+        H1 = new HorizontalLayout();
+        H1.add(new Ajout_etat_technicien());
+        this.add(H1);
+        H2 = new VerticalLayout();
+        H2.add(new Supp_etat());
+        this.add(H2);
+        try{
+            this.grid = new Grid_technicien33(etat.tousLesEtats((Connection) VaadinSession.getCurrent().getAttribute("conn")));
+            this.add(this.grid);
+        }catch (SQLException ex){
+            this.add(new H3("Problème BdD : liste etat : " + ex));
+        }
+        addClassName("list_etat");
+        setSizeFull();
     }
     private void stylisation() {
         
