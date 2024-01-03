@@ -37,6 +37,7 @@ public class ParametreTechnicien extends VerticalLayout{
     private Grid_technicien33 grid;
     private HorizontalLayout H1;
     private VerticalLayout H2;
+    private HorizontalLayout H4;
     
     
     public ParametreTechnicien() {
@@ -61,9 +62,8 @@ public class ParametreTechnicien extends VerticalLayout{
         mdp = new PasswordField("changer votre mot de passe :");
         sauvegarder = new Button("Sauvegarder les informations");
         mdp.setValue("Ex@mplePassw0rd");
-        
-        stylisation();
-        
+        H4 = new HorizontalLayout();
+        H4.add(nom, prenom, mail, mdp);
 //        ComponentEventListener<ClickEvent<MenuItem>> listener = e ->
 //                {
 //            int id_m = Integer.valueOf(e.getSource().getText());
@@ -87,7 +87,7 @@ public class ParametreTechnicien extends VerticalLayout{
 
         setMargin(true);
         //add(nom_technicien, nom, prenom, mail, menu_bar, mdp, sauvegarder);
-        add(nom, prenom, mail, mdp, sauvegarder);
+        add(H4, sauvegarder);
         
         this.add(new H3("Liste de tous les etats d'un operateur"));
         H1 = new HorizontalLayout();
@@ -104,6 +104,7 @@ public class ParametreTechnicien extends VerticalLayout{
         }
         addClassName("list_etat");
         setSizeFull();
+        stylisation();
     }
     private void stylisation() {
         

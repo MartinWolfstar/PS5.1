@@ -15,11 +15,11 @@ import java.util.List;
 public class Grid_technicien33 extends Grid<etat>{
     public Grid_technicien33(List<etat> list_etat){
         this.setItems(list_etat);
-        this.addColumn(etat::getId_etat).setHeader("getId_etat");
+        this.addColumn(etat::getId_etat).setHeader("Id_etat");
         //this.addColumn(type_etat::getDes_type_etat).setHeader("getDes_type_etat");  
-        this.addColumn(etat::getId_type_etat).setHeader("getId_type_etat");
-        this.addColumn(etat::getDebut).setHeader("getDebut");
-        this.addColumn(etat::getFin).setHeader("getFin");
+        this.addColumn(etat::getId_type_etat).setHeader("Id_type_etat");
+        this.addColumn(etat::getDebut).setHeader("Debut");
+        this.addColumn(etat::getFin).setHeader("Fin");
         this.getStyle().setBackground("PowderBlue");
     }
     
