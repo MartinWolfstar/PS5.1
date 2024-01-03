@@ -1,7 +1,5 @@
 package fr.insa.binder.projets5.mavenproject1.gui.technicien.technicienType;
 
-import fr.insa.binder.projets5.mavenproject1.gui.technicien.technicienMachine.*;
-import fr.insa.binder.projets5.mavenproject1.gui.technicien.technicienMachine.Ajout_machine;
 import com.vaadin.flow.component.html.H3;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;

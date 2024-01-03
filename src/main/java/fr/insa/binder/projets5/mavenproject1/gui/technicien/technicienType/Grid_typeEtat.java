@@ -8,10 +8,6 @@ import com.vaadin.flow.component.grid.Grid;
 import fr.insa.binder.projets5.mavenproject1.type_etat;
 import java.util.List;
 
-/**
- *
- * @author binde
- */
 public class Grid_typeEtat extends Grid<type_etat>{
     
     public Grid_typeEtat(List<type_etat> list_etat) {

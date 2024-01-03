@@ -8,10 +8,6 @@ import com.vaadin.flow.component.grid.Grid;
 import fr.insa.binder.projets5.mavenproject1.type_operation;
 import java.util.List;
 
-/**
- *
- * @author binde
- */
 public class Grid_typeOperation extends Grid<type_operation>{
     
     public Grid_typeOperation(List<type_operation> list_type_operation) {

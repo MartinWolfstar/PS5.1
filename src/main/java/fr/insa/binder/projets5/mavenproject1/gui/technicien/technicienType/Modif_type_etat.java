@@ -18,10 +18,6 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
 
-/**
- *
- * @author binde
- */
 public class Modif_type_etat extends VerticalLayout{
     
     private MenuBar menu_bar;

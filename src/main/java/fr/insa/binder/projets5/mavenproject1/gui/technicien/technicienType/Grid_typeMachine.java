@@ -8,10 +8,6 @@ import com.vaadin.flow.component.grid.Grid;
 import fr.insa.binder.projets5.mavenproject1.type_machine;
 import java.util.List;
 
-/**
- *
- * @author binde
- */
 public class Grid_typeMachine extends Grid<type_machine>{
     
     public Grid_typeMachine(List<type_machine> list_machine) {
