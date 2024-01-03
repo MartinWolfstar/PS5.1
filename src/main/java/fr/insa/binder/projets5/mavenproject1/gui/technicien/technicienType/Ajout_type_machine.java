@@ -16,10 +16,6 @@ import fr.insa.binder.projets5.mavenproject1.type_machine;
 import java.sql.Connection;
 import java.sql.SQLException;
 
-/**
- *
- * @author binde
- */
 public class Ajout_type_machine extends VerticalLayout{
     private TextField des;
     private HorizontalLayout HL;

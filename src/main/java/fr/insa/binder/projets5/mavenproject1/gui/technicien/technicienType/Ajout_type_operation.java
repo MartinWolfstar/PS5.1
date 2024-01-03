@@ -10,17 +10,12 @@ import com.vaadin.flow.component.html.H3;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
-import com.vaadin.flow.component.textfield.IntegerField;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.server.VaadinSession;
 import fr.insa.binder.projets5.mavenproject1.type_operation;
 import java.sql.Connection;
 import java.sql.SQLException;
 
-/**
- *
- * @author binde
- */
 public class Ajout_type_operation extends VerticalLayout{
     private TextField des;
     private HorizontalLayout HL;
