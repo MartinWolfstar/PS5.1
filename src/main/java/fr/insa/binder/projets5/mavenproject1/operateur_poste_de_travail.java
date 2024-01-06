@@ -23,25 +23,27 @@ public class operateur_poste_de_travail {
     
     public void saveInDBV1(Connection con) throws SQLException {
         try (PreparedStatement pst = con.prepareStatement(
-                "insert into operations_poste_de_travail (id_operateur,id_poste_de_travail) values (?,?)")) {
+                "insert into operations__poste_de_travail_bof (id_operateur,id_poste_de_travail) values (?,?)")) {
             pst.setInt(1, this.id_operateur);
             pst.setInt(2, this.id_poste_de_travail);
             pst.executeUpdate();
+        }catch(SQLException ex){
+            Notification.show("Problème BdD : save opdt : " + ex);
         }
     }
     
     public void supOpe_Poste(Connection con) throws SQLException {
         try (PreparedStatement pst = con.prepareStatement(
-                "delete from operations_poste_de_travail where id_operateur = ?")) {
+                "delete from operations__poste_de_travail_bof where id_operateur = ?")) {
             pst.setInt(1, this.id_operateur);
             pst.executeUpdate();
         }
     }
     
-    public static void supOpe_Poste(Connection con, int id_operateur) throws SQLException {
+    public static void supOpe_Poste(Connection con, int id_poste_de_travail) throws SQLException {
         try (PreparedStatement pst = con.prepareStatement(
-                "delete from operations_poste_de_travail where id_operateur = ?")) {
-            pst.setInt(1, id_operateur);
+                "delete from operations__poste_de_travail_bof where id_poste_de_travail = ?")) {
+            pst.setInt(1, id_poste_de_travail);
             pst.executeUpdate();
         }
     }
@@ -49,7 +51,7 @@ public class operateur_poste_de_travail {
     public static List<operateur_poste_de_travail> tousLesOpe_Poste(Connection con) throws SQLException {
         List<operateur_poste_de_travail> res = new ArrayList<>();
         try (PreparedStatement pst = con.prepareStatement(
-                "select id_operateur,id_poste_de_travail from operations_poste_de_travail")) {
+                "select id_operateur,id_poste_de_travail from operations__poste_de_travail_bof")) {
             try (ResultSet rs = pst.executeQuery()) {
                 while (rs.next()) {
                     int id_operateur = rs.getInt("id_operateur");
@@ -57,17 +59,17 @@ public class operateur_poste_de_travail {
                     res.add(new operateur_poste_de_travail(id_operateur, id_poste_de_travail));
                 }
             }catch(SQLException ex){
-                Notification.show("Problème BdD : op_poste 1");
+                Notification.show("Problème BdD : op_poste 1" + ex);
             }
         }catch(SQLException ex){
-            Notification.show("Problème BdD : op_poste 2");
+            Notification.show("Problème BdD : op_poste 2" + ex);
         }
         return res;
     }
 
     @Override
     public String toString() {
-        return "operations_poste_de_travail{" + "id_operateur=" + id_operateur + ", id_poste_de_travail=" + id_poste_de_travail + '}';
+        return "operations__poste_de_travail_bof{" + "id_operateur=" + id_operateur + ", id_poste_de_travail=" + id_poste_de_travail + '}';
     }
     
     public int getId_operateur() {
