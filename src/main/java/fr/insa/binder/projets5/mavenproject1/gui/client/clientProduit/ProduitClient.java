@@ -20,15 +20,10 @@ import fr.insa.binder.projets5.mavenproject1.commande;
 import fr.insa.binder.projets5.mavenproject1.commande_produit;
 import fr.insa.binder.projets5.mavenproject1.exemplaire;
 import fr.insa.binder.projets5.mavenproject1.gui.client.BarreGaucheClient;
-import fr.insa.binder.projets5.mavenproject1.operation_effectuee;
-import static fr.insa.binder.projets5.mavenproject1.operation_effectuee.Meilleurs_operation_produit;
 import fr.insa.binder.projets5.mavenproject1.produit;
 import static fr.insa.binder.projets5.mavenproject1.produit.giveProduit;
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
