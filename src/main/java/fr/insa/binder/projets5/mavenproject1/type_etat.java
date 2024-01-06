@@ -8,6 +8,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -63,6 +64,17 @@ public class type_etat {
         }
         return res;
     }
+    
+    public static ArrayList<type_etat> getLesTypesEtatsA(Connection con) throws SQLException {
+        Statement st = con.createStatement();
+        ResultSet res = st.executeQuery("SELECT id_type_etat,des_type_etat FROM type_etat_bof");
+        ArrayList<type_etat> a = new ArrayList<>();
+        while (res.next()) {
+            a.add(new type_etat(res.getInt("id_type_etat"), res.getString("des_type_etat")));
+        }
+        return a;
+    }
+    
     @Override
     public String toString() {
         return "type_etat{" + "id_type_etat=" + id_type_etat + ", des_type_etat=" + des_type_etat + '}';
