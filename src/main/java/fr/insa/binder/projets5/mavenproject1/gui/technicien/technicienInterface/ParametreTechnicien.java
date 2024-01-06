@@ -15,8 +15,8 @@ import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.server.VaadinSession;
-import fr.insa.binder.projets5.mavenproject1.etat;
 import fr.insa.binder.projets5.mavenproject1.gui.technicien.BarreGaucheTechnicien;
+import static fr.insa.binder.projets5.mavenproject1.gui.technicien.technicienInterface.Grid_technicien33.get_etat_d_un_operateur;
 import java.sql.Connection;
 import java.sql.SQLException;
 
@@ -38,10 +38,12 @@ public class ParametreTechnicien extends VerticalLayout{
     private HorizontalLayout H1;
     private VerticalLayout H2;
     private HorizontalLayout H4;
-    
+    private int id_operateur;
     
     public ParametreTechnicien() {
          
+        // Recuperer id_operateur
+        id_operateur = (int) VaadinSession.getCurrent().getAttribute("id_operateur");
         
 //        String nom_prenom = "";
 //        try {
@@ -97,7 +99,7 @@ public class ParametreTechnicien extends VerticalLayout{
         H2.add(new Supp_etat());
         this.add(H2);
         try{
-            this.grid = new Grid_technicien33(etat.tousLesEtats((Connection) VaadinSession.getCurrent().getAttribute("conn")));
+            this.grid = new Grid_technicien33(get_etat_d_un_operateur((Connection) VaadinSession.getCurrent().getAttribute("conn"), this.id_operateur));
             this.add(this.grid);
         }catch (SQLException ex){
             this.add(new H3("Problème BdD : liste etat : " + ex));

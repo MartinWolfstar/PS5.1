@@ -21,16 +21,22 @@ public class etat {
     private int id_type_etat;
     private Timestamp debut;
     private Timestamp fin;
+    private String des_type_etat;
 
-    public etat(int id_etat, int id_type_etat, Timestamp debut, Timestamp fin) {
+    public etat(int id_etat, int id_type_etat, Timestamp debut, Timestamp fin, String des_type_etat) {
         this.id_etat = id_etat;
         this.id_type_etat = id_type_etat;
         this.debut = debut;
         this.fin = fin;
+        this.des_type_etat = des_type_etat;
     }
 
     public etat(int id_type_etat, Timestamp debut, Timestamp fin) {
-        this(-1, id_type_etat, debut, fin);
+        this(-1, id_type_etat, debut, fin, null);
+    }
+    
+    public etat(int id_etat, int id_type_etat, Timestamp debut, Timestamp fin) {
+        this(id_etat, id_type_etat, debut,fin, null);
     }
     
     public void save_etat(Connection con) throws SQLException {
@@ -118,6 +124,10 @@ public class etat {
     
     public void setFin(Timestamp fin) {
         this.fin = fin;
+    }
+
+    public String getDes_type_etat() {
+        return des_type_etat;
     }
     
     
