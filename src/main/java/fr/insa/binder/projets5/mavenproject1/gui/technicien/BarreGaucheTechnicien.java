@@ -19,8 +19,8 @@ import com.vaadin.flow.router.Route;
 import com.vaadin.flow.router.RouterLink;
 import fr.insa.binder.projets5.mavenproject1.gui.technicien.TechnicienCommande.Afficher_commande;
 import fr.insa.binder.projets5.mavenproject1.gui.client.clientCommande.CommandeClient;
+import fr.insa.binder.projets5.mavenproject1.gui.technicien.technicienHabilitation.Habilitation;
 import fr.insa.binder.projets5.mavenproject1.gui.technicien.technicienInterface.ParametreTechnicien;
-import fr.insa.binder.projets5.mavenproject1.gui.technicien.technicienOperation.ListeOperation;
 import fr.insa.binder.projets5.mavenproject1.gui.technicien.technicienProduit.ProduitTechnicien;
 import fr.insa.binder.projets5.mavenproject1.gui.technicien.technicienRealisation.ListeRealisation;
 import fr.insa.binder.projets5.mavenproject1.gui.technicien.technicienType.ListeTypeEtat;
@@ -121,5 +121,11 @@ public class BarreGaucheTechnicien extends AppLayout {
         addToDrawer(new VerticalLayout(
                 listLink11
         ));
+//        RouterLink listLink12 = new RouterLink("habilitation", Habilitation.class);
+//        listLink12.setHighlightCondition(HighlightConditions.sameLocation());
+//        
+//        addToDrawer(new VerticalLayout(
+//                listLink12
+//        ));
     }
 }
