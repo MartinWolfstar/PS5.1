@@ -5,8 +5,12 @@
 package fr.insa.binder.projets5.mavenproject1.gui.technicien.technicienPlanUsine;
 
 import com.vaadin.flow.component.button.Button;
+
+
+import com.vaadin.flow.component.html.H1;
+
 import com.vaadin.flow.component.html.H3;
-import com.vaadin.flow.component.map.events.MouseEventDetails;
+import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
@@ -15,17 +19,24 @@ import org.vaadin.pekkam.Canvas;
 import org.vaadin.pekkam.event.MouseEvent;
 //import org.vaadin.hezamu.canvas.Canvas;
 
+
 @PageTitle("Plan")
 @Route(value = "22", layout = BarreGaucheTechnicien.class)
 public class technicien_PlanUsine extends VerticalLayout {
 
     private Canvas canvas;
+//    private HorizontalLayout canvas;
+//    private int x;
+//    private int y;
 
     public technicien_PlanUsine() {
         // Title
         add(new H3("Plan de l'usine"));
-
-        // Drawing area (Canvas)
+//        this.canvas = new HorizontalLayout();
+//        add(canvas);
+//        
+//        canvas.setSizeFull();
+// Drawing area (Canvas)
         canvas = new Canvas(100, 100);
         canvas.setWidth("100%");
         canvas.setHeight("300px"); // Adjust the height as needed
@@ -33,15 +44,27 @@ public class technicien_PlanUsine extends VerticalLayout {
         canvas.addMouseClickListener(e -> logEvent("click", e));
         canvas.addMouseDblClickListener(e -> logEvent("dblClick", e));
 
+//        canvas = new Canvas();
+//        add((Collection<Component>) canvas);
+        
+        
+        
+        
+//        canvas.setWidth("100%");
+//        canvas.setHeight("300px"); // Adjust the height as needed
+
         // Numbered row of buttons
-        VerticalLayout buttonRow = createButtons();
+        //VerticalLayout buttonRow = createButtons();
 
         // Add components to the main layout
-        //add(canvas, buttonRow);
-        add(buttonRow);
+        //add(canvas);
+        //this.fillRect(0, 0, 20, 20);
+        //add(buttonRow);
 
         // Draw a filled rectangle on the canvas
 //        canvas.fillRect(10, 10, 20, 20);
+
+
         // Draw grid on the canvas
         //drawGrid();
         // Add a mouse move listener to the canvas
@@ -51,6 +74,7 @@ public class technicien_PlanUsine extends VerticalLayout {
                     mouseDetails.getClientX() + "," +
                     mouseDetails.getClientY());
         });*/
+
     }
 
     private VerticalLayout createButtons() {
@@ -64,6 +88,15 @@ public class technicien_PlanUsine extends VerticalLayout {
     {
         System.out.println("mouse " + eventType + ": x=" + me.getOffsetX() + ", y=" + me.getOffsetY() + ", btn=" + me.getButton());
     }
+//    private VerticalLayout createButtons() {
+//        VerticalLayout buttonRow = new VerticalLayout();
+//        buttonRow.add(new Button("1"));
+//        buttonRow.add(new Button("2"));
+//        buttonRow.add(new Button("3"));
+//        return buttonRow;
+//    }
+
+            //Salut !
 
 //    private void drawGrid() {
 //        int gridSize = 20; // Adjust the grid size as needed
