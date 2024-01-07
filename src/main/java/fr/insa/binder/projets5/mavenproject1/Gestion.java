@@ -137,7 +137,9 @@ public class Gestion {
             st.executeUpdate(
                     "create table poste_de_travail_bof (\n"
                     + "id_poste_de_travail integer not null primary key AUTO_INCREMENT,\n"
-                    + "ref_poste_de_travail text\n"
+                    + "ref_poste_de_travail text,\n"
+                    + "x integer,\n"
+                    + "y integer\n"
                     + ")");
             st.executeUpdate(
                     "create table etat_bof (\n"

@@ -18,15 +18,27 @@ import java.util.List;
  */
 public class poste_de_travail {
    private int id_poste_de_travail;
-   private String ref_poste_de_travail;
+   private String ref_poste_de_travail; 
+   private int x;
+   private int y;
 
     public poste_de_travail(int id_poste_de_travail, String ref_poste_de_travail) {
         this.id_poste_de_travail = id_poste_de_travail;
         this.ref_poste_de_travail = ref_poste_de_travail;
     }
+    public poste_de_travail(int id_poste_de_travail, String ref_poste_de_travail, int x, int y) {
+        this.id_poste_de_travail = id_poste_de_travail;
+        this.ref_poste_de_travail = ref_poste_de_travail;
+        this.x = x;
+        this.y = y;
+    }
     public poste_de_travail(String ref_poste_de_travail) {
         this(-1, ref_poste_de_travail);
     }
+    public poste_de_travail(String ref_poste_de_travail, int x, int y) {
+        this(-1, ref_poste_de_travail,x,y);
+    }
+    
     
     public void save_poste_de_travail(Connection conn) throws SQLException{
         try (PreparedStatement pst = conn.prepareStatement(
@@ -126,5 +138,22 @@ public class poste_de_travail {
     public String toString() {
         return "poste_de_travail{" + "id_poste_de_travail=" + id_poste_de_travail + ", ref_poste_de_travail=" + ref_poste_de_travail + '}';
     }
+
+    public int getX() {
+        return x;
+    }
+
+    public int getY() {
+        return y;
+    }
+
+    public void setX(int x) {
+        this.x = x;
+    }
+
+    public void setY(int y) {
+        this.y = y;
+    }
+    
    
 }
