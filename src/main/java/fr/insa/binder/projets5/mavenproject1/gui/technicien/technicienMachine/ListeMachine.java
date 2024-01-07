@@ -17,23 +17,29 @@ public class ListeMachine extends VerticalLayout {
 
     private Grid_machine grid;
     private HorizontalLayout H1;
+    private HorizontalLayout H2;
    
     public ListeMachine() {
         this.add(new H3("Liste de toutes les machines"));
         H1 = new HorizontalLayout();
         H1.add(new Ajout_machine());
         this.add(H1);
+        H2 = new HorizontalLayout();
+        H2.add(new Ajout_etat_machine());
+        this.add(H2);
+        
         try {
             this.grid = new Grid_machine(machine.tousLesMachines((Connection) VaadinSession.getCurrent().getAttribute("conn"))); 
+            //this.grid.setHeight("50em");
             this.add(this.grid);
         } catch(SQLException ex) {
             this.add(new H3("Problème BdD : liste machine : " + ex));
         }
-        
+        this.add(new Etat_d_une_machine());
         addClassName("liste_machine");
         setSizeFull();
         
-        stylisation();
+       stylisation();
     }
     private void stylisation() {
         

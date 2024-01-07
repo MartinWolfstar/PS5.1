@@ -10,6 +10,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,6 +24,10 @@ public class machine {
     private String des;
     private int id_poste_de_travail;
     private int id_type_machine;
+    private int id_type_etat;
+    private String des_type_etat;
+    private Timestamp debut;
+    private Timestamp fin;
 
     private machine(int id, int ref, String des, int id_poste_de_travail, int id_type_machine) {
         this.id = id;
