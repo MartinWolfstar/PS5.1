@@ -29,7 +29,7 @@ public class Choix_operation_produit extends VerticalLayout {
 //        try {
 //            this.grid = new Grid_produit(produit.tousLesProduits((Connection) VaadinSession.getCurrent().getAttribute("conn")));
         this.grid = new Grid_choix_operation(p.getId());
-        this.add(this.grid);
+        
 //        } catch (SQLException ex) {
 //            this.add(new H3("Problème BdD : " + ex.getMessage()));
 //        }
@@ -38,6 +38,8 @@ public class Choix_operation_produit extends VerticalLayout {
         H1.add(new Ajout_operation(this.grid), new Ordre_operation(this.grid));
 
         this.add(H1);
+        this.add(this.grid);
+
 
         addClassName("liste_machine");
         setSizeFull();

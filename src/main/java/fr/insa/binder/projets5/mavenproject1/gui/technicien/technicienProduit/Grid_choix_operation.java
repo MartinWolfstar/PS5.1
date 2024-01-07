@@ -118,10 +118,8 @@ public class Grid_choix_operation extends Grid<Operation> {
                 try {
                     supPrecede(con, Operation.getId_operation());
                     supPrecede1(con, Operation.getId_operation());
-                   
+
 //                    UI.getCurrent().getPage().reload();
-                    
-                    
 //                    this.getDataProvider().refreshItem(Operation);
                 } catch (SQLException ex) {
                     Notification.show("Problème BdD : a" + ex.getLocalizedMessage());
@@ -151,6 +149,8 @@ public class Grid_choix_operation extends Grid<Operation> {
 
             Notification.show("Number of selected people: " + selectedItems.size());
         });
+
+        this.getStyle().setBackground("PowderBlue");
     }
 
     public List<Integer> getSelectedIds() {
@@ -166,5 +166,3 @@ public class Grid_choix_operation extends Grid<Operation> {
         }
     }
 }
-
-
