@@ -1,5 +1,6 @@
 package fr.insa.binder.projets5.mavenproject1.gui.technicien.technicienMachine;
 
+import com.vaadin.flow.component.Unit;
 import com.vaadin.flow.component.html.H3;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
@@ -30,7 +31,7 @@ public class ListeMachine extends VerticalLayout {
         
         try {
             this.grid = new Grid_machine(machine.tousLesMachines((Connection) VaadinSession.getCurrent().getAttribute("conn"))); 
-            //this.grid.setHeight("50em");
+            this.grid.setMinHeight(50, Unit.VMIN);
             this.add(this.grid);
         } catch(SQLException ex) {
             this.add(new H3("Problème BdD : liste machine : " + ex));
