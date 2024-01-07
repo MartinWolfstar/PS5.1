@@ -19,32 +19,40 @@ import java.util.List;
 public class poste_de_travail {
    private int id_poste_de_travail;
    private String ref_poste_de_travail; 
-   private int x;
-   private int y;
+   private int x1;
+   private int x2;
+   private int y1;
+   private int y2;
 
     public poste_de_travail(int id_poste_de_travail, String ref_poste_de_travail) {
         this.id_poste_de_travail = id_poste_de_travail;
         this.ref_poste_de_travail = ref_poste_de_travail;
     }
-    public poste_de_travail(int id_poste_de_travail, String ref_poste_de_travail, int x, int y) {
+    public poste_de_travail(int id_poste_de_travail, String ref_poste_de_travail, int x1, int x2, int y1, int y2) {
         this.id_poste_de_travail = id_poste_de_travail;
         this.ref_poste_de_travail = ref_poste_de_travail;
-        this.x = x;
-        this.y = y;
+        this.x1 = x1;
+        this.x2 = x2;
+        this.y1 = y1;
+        this.y2 = y2;
     }
     public poste_de_travail(String ref_poste_de_travail) {
         this(-1, ref_poste_de_travail);
     }
-    public poste_de_travail(String ref_poste_de_travail, int x, int y) {
-        this(-1, ref_poste_de_travail,x,y);
+    public poste_de_travail(String ref_poste_de_travail, int x1, int x2, int y1, int y2) {
+        this(-1, ref_poste_de_travail,x1,x2,y1,y2);
     }
     
     
     public void save_poste_de_travail(Connection conn) throws SQLException{
         try (PreparedStatement pst = conn.prepareStatement(
-                "insert into poste_de_travail_bof (ref_poste_de_travail) values (?)",
+                "insert into poste_de_travail_bof (ref_poste_de_travail,x1,x2,y1,y2) values (?,?,?,?,?)",
             PreparedStatement.RETURN_GENERATED_KEYS)) {
             pst.setString(1, this.ref_poste_de_travail);
+            pst.setInt(2, this.x1);
+            pst.setInt(3, this.x2);
+            pst.setInt(4, this.y1);
+            pst.setInt(5, this.y2);
             pst.executeUpdate();
             try (ResultSet ids = pst.getGeneratedKeys()) {
                 if (ids.next()) {
@@ -83,6 +91,10 @@ public class poste_de_travail {
         }
         return res;
     }
+    
+//    public boole IsIn(x,y){
+//        return true;
+//    }
     
     
     public int getId_poste_de_travail() {
@@ -136,24 +148,42 @@ public class poste_de_travail {
 
     @Override
     public String toString() {
-        return "poste_de_travail{" + "id_poste_de_travail=" + id_poste_de_travail + ", ref_poste_de_travail=" + ref_poste_de_travail + '}';
+        return "poste_de_travail{" + "id_poste_de_travail=" + id_poste_de_travail + ", ref_poste_de_travail=" + ref_poste_de_travail +'}';
     }
 
-    public int getX() {
-        return x;
+    public int getX1() {
+        return x1;
     }
 
-    public int getY() {
-        return y;
+    public int getX2() {
+        return x2;
     }
 
-    public void setX(int x) {
-        this.x = x;
+    public int getY1() {
+        return y1;
     }
 
-    public void setY(int y) {
-        this.y = y;
+    public int getY2() {
+        return y2;
     }
-    
+
+    public void setX1(int x1) {
+        this.x1 = x1;
+    }
+
+    public void setX2(int x2) {
+        this.x2 = x2;
+    }
+
+    public void setY1(int y1) {
+        this.y1 = y1;
+    }
+
+    public void setY2(int y2) {
+        this.y2 = y2;
+    }
+
+
+
    
 }
