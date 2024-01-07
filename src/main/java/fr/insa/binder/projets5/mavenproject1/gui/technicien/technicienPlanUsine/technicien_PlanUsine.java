@@ -4,7 +4,6 @@
  */
 package fr.insa.binder.projets5.mavenproject1.gui.technicien.technicienPlanUsine;
 
-
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.html.H3;
 import com.vaadin.flow.component.map.events.MouseEventDetails;
@@ -12,8 +11,9 @@ import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import fr.insa.binder.projets5.mavenproject1.gui.technicien.BarreGaucheTechnicien;
-import org.vaadin.hezamu.canvas.Canvas;
-
+import org.vaadin.pekkam.Canvas;
+import org.vaadin.pekkam.event.MouseEvent;
+//import org.vaadin.hezamu.canvas.Canvas;
 
 @PageTitle("Plan")
 @Route(value = "22", layout = BarreGaucheTechnicien.class)
@@ -26,9 +26,12 @@ public class technicien_PlanUsine extends VerticalLayout {
         add(new H3("Plan de l'usine"));
 
         // Drawing area (Canvas)
-        canvas = new Canvas();
+        canvas = new Canvas(100, 100);
         canvas.setWidth("100%");
         canvas.setHeight("300px"); // Adjust the height as needed
+        add(canvas);
+        canvas.addMouseClickListener(e -> logEvent("click", e));
+        canvas.addMouseDblClickListener(e -> logEvent("dblClick", e));
 
         // Numbered row of buttons
         VerticalLayout buttonRow = createButtons();
@@ -38,11 +41,9 @@ public class technicien_PlanUsine extends VerticalLayout {
         add(buttonRow);
 
         // Draw a filled rectangle on the canvas
-        canvas.fillRect(10, 10, 20, 20);
-
+//        canvas.fillRect(10, 10, 20, 20);
         // Draw grid on the canvas
         //drawGrid();
-
         // Add a mouse move listener to the canvas
         /*canvas.addMouseMoveListener(event -> {
             MouseEventDetails mouseDetails = event.getDetails();
@@ -58,6 +59,10 @@ public class technicien_PlanUsine extends VerticalLayout {
         buttonRow.add(new Button("2"));
         buttonRow.add(new Button("3"));
         return buttonRow;
+    }
+            private void logEvent(String eventType, MouseEvent me)
+    {
+        System.out.println("mouse " + eventType + ": x=" + me.getOffsetX() + ", y=" + me.getOffsetY() + ", btn=" + me.getButton());
     }
 
 //    private void drawGrid() {
