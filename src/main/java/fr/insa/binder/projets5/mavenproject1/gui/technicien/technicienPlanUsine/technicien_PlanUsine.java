@@ -13,6 +13,7 @@ import com.vaadin.flow.component.dialog.Dialog;
 import com.vaadin.flow.component.html.H3;
 import com.vaadin.flow.component.html.H4;
 import com.vaadin.flow.component.notification.Notification;
+import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.router.PageTitle;
@@ -22,6 +23,7 @@ import fr.insa.binder.projets5.mavenproject1.gui.technicien.BarreGaucheTechnicie
 import fr.insa.binder.projets5.mavenproject1.poste_de_travail;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.List;
 import org.vaadin.pekkam.Canvas;
 import org.vaadin.pekkam.CanvasRenderingContext2D;
 import org.vaadin.pekkam.event.MouseEvent;
@@ -38,56 +40,118 @@ public class technicien_PlanUsine extends VerticalLayout {
     private int x;
     private int y;
     private poste_de_travail pdt;
+    private String action;
     
     public technicien_PlanUsine() {
         // Title
         add(new H3("Plan de l'usine"));
         x = -1;
         y = -1;
+
         // Drawing area (Canvas)
         canvas = new Canvas(1000, 850);
-        canvas.getStyle().set("border", "1px solid");
+        canvas.getStyle().set("border", "10px solid gray"); // Bordure de 10px en gris
+        canvas.getStyle().set("background-color", "lightorange"); // Fond orange clair
         ctx = canvas.getContext();
-        ctx.setFillStyle("yellow");
-        add(canvas);
-        //ctx.drawImage("images/atelier1.jpg", 0, 0);
-        
-        
-        canvas.addMouseClickListener(e -> logEvent("click", e));
-        canvas.addMouseDblClickListener(e -> logEvent("dblClick", e));
+        rebout();
 
+        Button ajoutB = new Button("ajouter PDT", event -> this.action = "ajout" );
+        Button modifB = new Button("modifier PDT", event -> this.action = "modifier" );
+        Button suppB = new Button("supprimer PDT", event -> this.action = "supprimer" );
+        HorizontalLayout H1 = new HorizontalLayout();
+        H1.add(ajoutB,modifB,suppB);
+        
+        add(H1,canvas);
+
+        canvas.addMouseClickListener(e -> logEvent("click", e));
+        //canvas.addMouseDblClickListener(e -> logEvent("dblClick", e));
     }
 
+    public void rebout(){ 
+        ctx.clearRect(0, 0, 1000, 1000);
+        // Dessiner le cadrillage orange foncé espacé de 10px
+        drawGrid("orange", 50);
+        affiche_PDT_existant();
+    }
+    
+    private void affiche_PDT_existant() {
+        List<Integer> coordonneesList = poste_de_travail.getCoordonneesPostesTravail((Connection) VaadinSession.getCurrent().getAttribute("conn"));
+
+        for (int i = 0; i < coordonneesList.size(); i += 4) {
+            int x1 = coordonneesList.get(i);
+            int x2 = coordonneesList.get(i + 1);
+            int y1 = coordonneesList.get(i + 2);
+            int y2 = coordonneesList.get(i + 3);
+
+            ctx.setStrokeStyle("#000000");
+            ctx.beginPath();
+            ctx.moveTo(x1, y1);
+            ctx.lineTo(x2, y1);
+            ctx.lineTo(x2, y2);
+            ctx.lineTo(x1, y2);
+            ctx.lineTo(x1, y1);
+            ctx.stroke();
+        }
+    }
+
+    
     private void logEvent(String eventType, MouseEvent me) {
 //        drawHouse();
         //ctx.setStrokeStyle("#000000"); // Black color
         //ctx.strokeRect(me.getOffsetX() , me.getOffsetY(), 100, 100);
         Ajouter_poste_de_travail(me);
+        Modifier_poste_de_travail(me);
+        Supprimer_poste_de_travail(me);
+        //UI.getCurrent().getPage().reload();
+        
+        
         System.out.println("mouse " + eventType + ": x=" + me.getOffsetX() + ", y=" + me.getOffsetY() + ", btn=" + me.getButton());
     }
     
     private void Ajouter_poste_de_travail(MouseEvent me){
-        if ((this.x == -1)&&(this.y==-1)){
+        if ((this.x == -1)&&(this.y==-1)&&(this.action == "ajout")){
             this.x = me.getOffsetX();
             this.y = me.getOffsetY();
-//        }else if (IsIn(me.getOffsetX(),me.getOffsetY())){
-//            //verifier qu'aucune coordonée ne se trouver dans un poste de travail existant
-//            Notification.show("impossible de creer le pdt ");
-        }else{
-            showDialog(me);
+        }else if (poste_de_travail.IsIn(me.getOffsetX(),me.getOffsetY(),(Connection) VaadinSession.getCurrent().getAttribute("conn"))&&(this.action == "ajout")){
+            //verifier qu'aucune coordonée ne se trouve dans un poste de travail existant
+            Notification.show("impossible de creer le pdt ");
+            this.x= -1;
+            this.y = -1;
+        }else if((poste_de_travail.IsIn(this.x,this.y,(Connection) VaadinSession.getCurrent().getAttribute("conn")))||(poste_de_travail.IsIn(this.x,me.getOffsetY(),(Connection) VaadinSession.getCurrent().getAttribute("conn")))||(poste_de_travail.IsIn(me.getOffsetX(),this.y,(Connection) VaadinSession.getCurrent().getAttribute("conn")))&&(this.action == "ajout")){
+            Notification.show("impossible de creer le pdt ");
+            this.x= -1;
+            this.y = -1;
+        }else if (this.action == "ajout"){
+           
+                showDialogAjout(me);
             
-            ctx.setStrokeStyle("#FFC300");
-            ctx.beginPath();
-            ctx.moveTo(this.x, this.y);
-            ctx.lineTo(me.getOffsetX(), this.y);
-            ctx.lineTo(me.getOffsetX(), me.getOffsetY());
-            ctx.lineTo(this.x, me.getOffsetY());
-            ctx.lineTo(this.x, this.y);
-            ctx.stroke();
+                ctx.setStrokeStyle("#000000");
+                ctx.beginPath();
+                ctx.moveTo(this.x, this.y);
+                ctx.lineTo(me.getOffsetX(), this.y);
+                ctx.lineTo(me.getOffsetX(), me.getOffsetY());
+                ctx.lineTo(this.x, me.getOffsetY());
+                ctx.lineTo(this.x, this.y);
+                ctx.stroke();
+            
         }
         
     }
-    private void showDialog(MouseEvent me) {
+    private void Modifier_poste_de_travail(MouseEvent me){
+        
+    }
+    private void Supprimer_poste_de_travail(MouseEvent me){
+        //Notification.show("s");
+        if (poste_de_travail.IsIn(me.getOffsetX(),me.getOffsetY(),(Connection) VaadinSession.getCurrent().getAttribute("conn"))&&(this.action == "supprimer")){
+            Notification.show("essai de supprimer le pdt ");
+            poste_de_travail.sup(me.getOffsetX(),me.getOffsetY(),(Connection) VaadinSession.getCurrent().getAttribute("conn"));
+            this.x= -1;
+            this.y = -1;   
+            UI.getCurrent().getPage().reload();
+        }
+    }
+    
+    private void showDialogAjout(MouseEvent me) {
         // Créer une fenêtre modale
         Dialog enterDialog = new Dialog();
         enterDialog.setCloseOnOutsideClick(true);
@@ -100,7 +164,7 @@ public class technicien_PlanUsine extends VerticalLayout {
         TextField rech = new TextField();
         Button okButton = new Button("valider");
         okButton.addClickListener(e -> {
-            this.pdt = new poste_de_travail(rech.getValue(), this.x , this.y , me.getOffsetX() , me.getOffsetY());
+            this.pdt = new poste_de_travail(rech.getValue(), this.x , me.getOffsetX(), this.y, me.getOffsetY());
             try {
                 pdt.save_poste_de_travail((Connection) VaadinSession.getCurrent().getAttribute("conn"));
                 Notification.show("nouveau pdt : " + pdt);
@@ -123,11 +187,11 @@ public class technicien_PlanUsine extends VerticalLayout {
         
     }
     
-    private void drawGrid() {
-        int gridSize = 50; // Adjust the grid size as needed
+    private void drawGrid(String couleur, int espacement) {
+        int gridSize = espacement; // Adjust the grid size as needed
 
         // Set the stroke style for the grid lines
-        ctx.setStrokeStyle("#DAF7A6"); // Black color
+        ctx.setStrokeStyle(couleur); // Black color
 
         // Draw vertical grid lines
         for (int x = 0; x <= 1000; x += gridSize) {
