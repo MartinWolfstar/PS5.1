@@ -22,7 +22,9 @@ import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.server.VaadinSession;
 import fr.insa.binder.projets5.mavenproject1.gui.technicien.BarreGaucheTechnicien;
+import fr.insa.binder.projets5.mavenproject1.gui.technicien.technicienHabilitation.Ajout_Habilitation;
 import fr.insa.binder.projets5.mavenproject1.gui.technicien.technicienMachine.Ajout_machine;
+import fr.insa.binder.projets5.mavenproject1.gui.technicien.technicienMachine.Grid_machine;
 import fr.insa.binder.projets5.mavenproject1.machine;
 import fr.insa.binder.projets5.mavenproject1.operateur;
 import fr.insa.binder.projets5.mavenproject1.poste_de_travail;
@@ -57,7 +59,7 @@ public class technicien_PlanUsine extends VerticalLayout {
         // Drawing area (Canvas)
         canvas = new Canvas(1000, 850);
         canvas.getStyle().set("border", "10px solid gray"); // Bordure de 10px en gris
-        canvas.getStyle().set("background-color", "lightorange"); // Fond orange clair
+        //canvas.getStyle().set("background-color", "ash"); 
         ctx = canvas.getContext();
         rebout();
 
@@ -76,29 +78,12 @@ public class technicien_PlanUsine extends VerticalLayout {
     public void rebout(){ 
         ctx.clearRect(0, 0, 1000, 1000);
         // Dessiner le cadrillage orange foncé espacé de 10px
+        //ctx.drawImage("images/porte.png", 350, 0);
         drawGrid("orange", 50);
         affiche_PDT_existant();
+        
     }
     
-//    private void affiche_PDT_existant() {
-//        List<Integer> coordonneesList = poste_de_travail.getCoordonneesPostesTravail((Connection) VaadinSession.getCurrent().getAttribute("conn"));
-//
-//        for (int i = 0; i < coordonneesList.size(); i += 4) {
-//            int x1 = coordonneesList.get(i);
-//            int x2 = coordonneesList.get(i + 1);
-//            int y1 = coordonneesList.get(i + 2);
-//            int y2 = coordonneesList.get(i + 3);
-//
-//            ctx.setStrokeStyle("#000000");
-//            ctx.beginPath();
-//            ctx.moveTo(x1, y1);
-//            ctx.lineTo(x2, y1);
-//            ctx.lineTo(x2, y2);
-//            ctx.lineTo(x1, y2);
-//            ctx.lineTo(x1, y1);
-//            ctx.stroke();
-//        }
-//    }
     private void affiche_PDT_existant() {
         Map<String, List<Integer>> coordonneesEtNomMap = poste_de_travail.getCoordonneesEtNomPostesTravail(
                 (Connection) VaadinSession.getCurrent().getAttribute("conn"));
@@ -230,12 +215,13 @@ public class technicien_PlanUsine extends VerticalLayout {
         try {
             Connection connection = (Connection) VaadinSession.getCurrent().getAttribute("conn");
             List<machine> machines = machine.tousLesMachinesByPosteDeTravail(id_pdt, connection);
-            Grid<machine> gridMachines = new Grid<>();
-            gridMachines.setItems(machines);
-
-            gridMachines.addColumn(machine::getId).setHeader("ID machine");
-            gridMachines.addColumn(machine::getDes).setHeader("Description");
-            gridMachines.addColumn(machine::getRef).setHeader("Référence");
+//            Grid<machine> gridMachines = new Grid<>();
+//            gridMachines.setItems(machines);
+//
+//            gridMachines.addColumn(machine::getId).setHeader("ID machine");
+//            gridMachines.addColumn(machine::getDes).setHeader("Description");
+//            gridMachines.addColumn(machine::getRef).setHeader("Référence");
+            Grid_machine gridMachines = new Grid_machine(machines);
 
             // Set a fixed or maximum height for the Grid
             gridMachines.setMaxHeight("200px");
@@ -248,7 +234,14 @@ public class technicien_PlanUsine extends VerticalLayout {
                 // Open a sub-dialog for adding a machine
                 openAddMachineDialog(id_pdt);
             });
-            enterDialog.add(addMachineButton);
+            Button addOperateurButton = new Button("ajouter son habilitation");
+            addOperateurButton.addClickListener(event -> {
+                //openAddOperateurDialog(id_pdt);
+                Ajout_Habilitation ajout_habi = new Ajout_Habilitation(id_pdt);
+                Notification.show("bclick");
+                
+            });
+            enterDialog.add(addMachineButton,addOperateurButton);
         } catch (SQLException ex) {
             Notification.show("Essai de modif échoué pour les machines : " + ex.getMessage());
         }
@@ -285,20 +278,23 @@ public class technicien_PlanUsine extends VerticalLayout {
     private void openAddMachineDialog(int id_pdt) {
         Dialog addMachineDialog = new Dialog();
         addMachineDialog.setCloseOnOutsideClick(true);
-        addMachineDialog.setWidth("400px");
+        addMachineDialog.setWidth("700px");
         addMachineDialog.setModal(true);
 
-        Ajout_machine ajoutMachineLayout = new Ajout_machine();
+        Ajout_machine ajoutMachineLayout = new Ajout_machine(id_pdt);
 
-        // Add a button to save the machine
-//        Button saveMachineButton = new Button("Enregistrer");
-//        saveMachineButton.addClickListener(event -> {
-//            // Save the machine and close the sub-dialog
-//            ajoutMachineLayout.getValid().click();
-//            addMachineDialog.close();
-//        });
+        addMachineDialog.add(ajoutMachineLayout);
+        addMachineDialog.open();
+    }
+    // Method to open a sub-dialog for adding a machine
+    private void openAddOperateurDialog(int id_pdt) {
+        Dialog addMachineDialog = new Dialog();
+        addMachineDialog.setCloseOnOutsideClick(true);
+        addMachineDialog.setWidth("700px");
+        addMachineDialog.setModal(true);
 
-        //addMachineDialog.add(ajoutMachineLayout, saveMachineButton);
+        Ajout_machine ajoutMachineLayout = new Ajout_machine(id_pdt);
+
         addMachineDialog.add(ajoutMachineLayout);
         addMachineDialog.open();
     }

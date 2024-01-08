@@ -46,4 +46,22 @@ public class Ajout_machine extends VerticalLayout{
         this.HL.add(this.ref, this.des, this.valid);
         this.add(this.HL);
     }
+    public Ajout_machine(int id_pdt){
+        this.ref = new IntegerField("Reference produit");
+        this.des = new TextField("Description produit");
+        this.valid = new Button ("Ajouter machine");
+        this.valid.addClickListener(e -> {
+            this.mach = new machine(this.ref.getValue(), this.des.getValue(), id_pdt, 1);
+            try {
+                mach.saveInDBV1((Connection) VaadinSession.getCurrent().getAttribute("conn"));
+                UI.getCurrent().getPage().reload();
+            } catch(SQLException ex) {
+                Notification.show("Problème BdD : ajout machine : " + ex);
+            }
+        });    
+        this.HL = new HorizontalLayout();
+        this.add(new H3("Ajout machine"));
+        this.HL.add(this.ref, this.des, this.valid);
+        this.add(this.HL);
+    }
 }

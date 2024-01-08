@@ -51,8 +51,22 @@ public class Ajout_Habilitation extends VerticalLayout{
         } 
         catch(SQLException ex) {
                Notification.show("Problème BdD : ajout habilitation 2 : " + ex);
-            }
+        }
         this.add(new H3("ajouter habilitation"));
         this.add(menu_bar);
-        }
     }
+    public Ajout_Habilitation(int id_pdt){
+        Integer idTech = (Integer) VaadinSession.getCurrent().getAttribute("id_operateur");
+        
+        try {
+            this.op_poste = new operateur_poste_de_travail(idTech, id_pdt);
+            op_poste.saveInDBV1((Connection) VaadinSession.getCurrent().getAttribute("conn"));
+        } catch (SQLException ex) {
+            Notification.show("Problème BdD : ajout habilitation : " + ex);
+        }
+        UI.getCurrent().getPage().reload();
+    }
+    
+    
+}
+
