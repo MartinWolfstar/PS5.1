@@ -92,9 +92,95 @@ public class poste_de_travail {
         return res;
     }
     
-//    public boole IsIn(x,y){
-//        return true;
-//    }
+    public static boolean IsIn(int x, int y, Connection con) {
+        List<String> res = new ArrayList<>();
+        try (PreparedStatement pst = con.prepareStatement(
+                "SELECT ref_poste_de_travail FROM poste_de_travail_bof WHERE x1 < ? AND ? < x2 AND y1 < ? AND ? < y2")) {
+            pst.setInt(1, x);
+            pst.setInt(2, x);
+            pst.setInt(3, y);
+            pst.setInt(4, y);
+
+            try (ResultSet rs = pst.executeQuery()) {
+                while (rs.next()) {
+                    String ref_poste_de_travail = rs.getString("ref_poste_de_travail");
+                    res.add(ref_poste_de_travail);
+                }
+            }catch (SQLException ex) {
+                Notification.show("Problème BdD : poste_de_travail 3" + ex);
+        }
+        } catch (SQLException ex) {
+            Notification.show("Problème BdD : poste_de_travail 4" + ex);
+        }
+
+        return !res.isEmpty();
+    }
+    
+    public static List<String> getAll(int x, int y, Connection con) {
+    List<String> res = new ArrayList<>();
+    try (PreparedStatement pst = con.prepareStatement(
+            "SELECT ref_poste_de_travail FROM poste_de_travail_bof WHERE x1 < ? AND ? < x2 AND y1 < ? AND ? < y2")) {
+        pst.setInt(1, x);
+        pst.setInt(2, x);
+        pst.setInt(3, y);
+        pst.setInt(4, y);
+
+        try (ResultSet rs = pst.executeQuery()) {
+            while (rs.next()) {
+                String ref_poste_de_travail = rs.getString("ref_poste_de_travail");
+                res.add(ref_poste_de_travail);
+            }
+        } catch (SQLException ex) {
+            Notification.show("Problème BdD : poste_de_travail 3" + ex.getMessage());
+        }
+    } catch (SQLException ex) {
+        Notification.show("Problème BdD : poste_de_travail 4" + ex.getMessage());
+    }
+
+    return res;
+}
+
+    
+    public static void sup(int x, int y, Connection con) {
+        try (PreparedStatement pst = con.prepareStatement(
+                "DELETE FROM poste_de_travail_bof WHERE x1 < ? AND ? < x2 AND y1 < ? AND ? < y2")) {
+            pst.setInt(1, x);
+            pst.setInt(2, x);
+            pst.setInt(3, y);
+            pst.setInt(4, y);
+            pst.executeUpdate();
+            Notification.show("supprimer le pdt");
+            Notification.show(String.valueOf(x) + " " + String.valueOf(y));
+        } catch (SQLException ex) {
+            Notification.show("Problème BdD : poste_de_travail 6" + ex);
+        }
+    }
+
+   public static List<Integer> getCoordonneesPostesTravail(Connection con) {
+        List<Integer> coordonneesList = new ArrayList<>();
+
+        try (PreparedStatement pst = con.prepareStatement(
+                "SELECT x1, y1, x2, y2 FROM poste_de_travail_bof")) {
+            try (ResultSet rs = pst.executeQuery()) {
+                while (rs.next()) {
+                    int x1 = rs.getInt("x1");
+                    int y1 = rs.getInt("y1");
+                    int x2 = rs.getInt("x2");
+                    int y2 = rs.getInt("y2");
+                    
+                    // Ajouter les coordonnées à la liste
+                    coordonneesList.add(x1);
+                    coordonneesList.add(x2);
+                    coordonneesList.add(y1);
+                    coordonneesList.add(y2);
+                }
+            }
+        } catch (SQLException ex) {
+            Notification.show("Problème BdD : poste_de_travail7" + ex);
+        }
+
+        return coordonneesList;
+    } 
     
     
     public int getId_poste_de_travail() {
