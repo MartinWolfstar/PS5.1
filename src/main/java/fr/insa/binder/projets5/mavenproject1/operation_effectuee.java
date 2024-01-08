@@ -13,7 +13,10 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -90,6 +93,21 @@ public class operation_effectuee {
         }
         return res;
     }
+    
+    public static float Duree_liste_op (List<Operation> liste, Connection con) throws SQLException{
+            float duree = 0;
+            float min = 1000000;
+            for (Operation op : liste) {
+                realisation realise = getDuree(op.getId_typeOperation(), con);
+                duree = duree + realise.getDuree();
+                System.out.println(duree);
+            }
+            if (duree < min) {
+                min = duree;
+                System.out.print("Nouveau min" + min);
+            }
+        return min;
+    }
 
     public static List<operation_effectuee> Meilleurs_operation_produit(Connection con, exemplaire exempl) throws SQLException {
         List<List<Operation>> liste = tousLesOrdreOperations_produit(con, exempl.getId_produit());
@@ -116,7 +134,67 @@ public class operation_effectuee {
         }
         return meilleur_liste;
     }
+    
+//    public static List<Timestamp> Premiere_dispo (Timestamp time, float duree, int id_m, Connection con) throws SQLException {
+//    List<Timestamp> temps_premier = new ArrayList<>();
+//    List<List<Timestamp>> disponnibilité = Disponiblité_machine(id_m, con);
+//    disponnibilité = Disponibilité_pour_duree(duree, disponnibilité, time);
+//    Collections.sort(disponnibilité, Comparator.comparing(liste -> liste.get(0)));
+//    if () {
+//        
+//    }
+//}
 
+    public static List<List<Timestamp>> Disponiblité_machine (int id_m, Connection con)throws SQLException{
+        List<List<Timestamp>> res = new ArrayList<>();
+        try (PreparedStatement pst = con.prepareStatement(
+                "select debut, fin from etat_bof join machine_etat_bof on etat_bof.id_etat = machine_etat_bof.id_etat where id_machine = ? and etat_bof.id_etat = 2")) {
+            pst.setInt(1, id_m);
+            try (ResultSet rs = pst.executeQuery()) {
+                while (rs.next()) {
+                    List<Timestamp> time = new ArrayList<>();
+                    Timestamp debut = rs.getTimestamp("debut");
+                    Timestamp fin = rs.getTimestamp("fin");
+                    time.add(debut);
+                    time.add(fin);
+                    res.add(time);
+                }
+            }
+        }
+        return res;
+    }
+    
+    public static List<List<Timestamp>> Disponibilité_pour_duree (float duree, List<List<Timestamp>> liste, Timestamp debut) {
+        List<List<Timestamp>> res = new ArrayList<>();
+        for (List<Timestamp> liste_tst : liste){
+            Timestamp fin_t = liste_tst.get(1);
+            if (((fin_t.getTime()-debut.getTime())/(1000*60) >= duree)){
+                res.add(liste_tst);
+            }
+        }
+        return res;
+    }
+    
+    public static List<List<Timestamp>> Disponiblité_operateur (Timestamp temps, int id_op, Connection con)throws SQLException{
+        List<List<Timestamp>> res = new ArrayList<>();
+        try (PreparedStatement pst = con.prepareStatement(
+                "select debut, fin from etat_bof join operateur_etat_bof on etat_bof.id_etat = operateur_etat_bof.id_etat where id_operateur = ? and etat_bof.id_etat = 2 and debut > ?")) {
+            pst.setInt(1, id_op);
+            pst.setTimestamp(2, temps);
+            try (ResultSet rs = pst.executeQuery()) {
+                while (rs.next()) {
+                    List<Timestamp> time = new ArrayList<>();
+                    Timestamp debut = rs.getTimestamp("debut");
+                    Timestamp fin = rs.getTimestamp("fin");
+                    time.add(debut);
+                    time.add(fin);
+                    res.add(time);
+                }
+            }
+        }
+        return res;
+    }
+    
     @Override
     public String toString() {
 

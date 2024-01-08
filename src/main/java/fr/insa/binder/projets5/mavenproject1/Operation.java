@@ -66,6 +66,23 @@ public class Operation {
         }
     }
 
+    public static List<realisation> Machine_operation (Operation op, Connection con)throws SQLException {
+        List<realisation> res = new ArrayList<>();
+        try (PreparedStatement pst = con.prepareStatement(
+                "select duree,id_type_operation,id_machine from realise_bof where id_type_operation = ?")) {
+            pst.setInt(1, op.getId_typeOperation());
+            try (ResultSet rs = pst.executeQuery()) {
+                while (rs.next()) {
+                    float duree = rs.getFloat("duree");
+                    int id_typeOperation = rs.getInt("id_type_operation");
+                    int id_machine = rs.getInt("id_machine");
+                    res.add(new realisation(duree, id_typeOperation, id_machine));
+                }
+            }
+        }
+        return res;
+    }
+    
     public static List<Operation> tousLesOperations(Connection con) throws SQLException {
         List<Operation> res = new ArrayList<>();
         try (PreparedStatement pst = con.prepareStatement(
