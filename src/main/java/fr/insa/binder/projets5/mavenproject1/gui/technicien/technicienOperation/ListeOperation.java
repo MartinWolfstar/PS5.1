@@ -8,6 +8,7 @@ import com.vaadin.flow.router.Route;
 import com.vaadin.flow.server.VaadinSession;
 import fr.insa.binder.projets5.mavenproject1.gui.technicien.BarreGaucheTechnicien;
 import fr.insa.binder.projets5.mavenproject1.Operation;
+import fr.insa.binder.projets5.mavenproject1.Utilitaire.utile;
 import java.sql.Connection;
 import java.sql.SQLException;
 
@@ -34,14 +35,7 @@ public class ListeOperation extends VerticalLayout {
         addClassName("liste_operation");
         setSizeFull();
         
-        stylisation();
-    }
-        private void stylisation() {
-        
-        this.getStyle()
-            .set("background", "url(images/1275600.jpg) no-repeat center center fixed")
-            .set("background-size", "cover")
-            .set("height", "120vh");
+        utile.stylisation(this);
     }
 }
 

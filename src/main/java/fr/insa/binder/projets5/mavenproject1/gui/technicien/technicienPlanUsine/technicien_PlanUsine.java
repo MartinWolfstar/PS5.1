@@ -21,6 +21,7 @@ import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.server.VaadinSession;
+import fr.insa.binder.projets5.mavenproject1.Utilitaire.utile;
 import fr.insa.binder.projets5.mavenproject1.gui.technicien.BarreGaucheTechnicien;
 import fr.insa.binder.projets5.mavenproject1.gui.technicien.technicienHabilitation.Ajout_Habilitation;
 import fr.insa.binder.projets5.mavenproject1.gui.technicien.technicienMachine.Ajout_machine;
@@ -47,7 +48,6 @@ public class technicien_PlanUsine extends VerticalLayout {
     private Button modifB;
     private Button suppB;
 
-//    private HorizontalLayout canvas;
     private int x;
     private int y;
     private poste_de_travail pdt;
@@ -64,7 +64,6 @@ public class technicien_PlanUsine extends VerticalLayout {
         canvas.getStyle().set("border", "10px solid gray"); // Bordure de 10px en gris
         canvas.getStyle().set("background-color", "white"); 
         ctx = canvas.getContext();
-        //ctx.setFillStyle("white");
         rebout();
 
         this.ajoutB = new Button("ajouter PDT", event -> this.action = "ajout" );
@@ -76,7 +75,7 @@ public class technicien_PlanUsine extends VerticalLayout {
         add(H1,canvas);
 
         canvas.addMouseClickListener(e -> logEvent("click", e));
-        stylisation();
+        utile.stylisation(this,this.ajoutB,this.modifB,this.suppB);
         //canvas.addMouseDblClickListener(e -> logEvent("dblClick", e));
         
     }
@@ -375,23 +374,7 @@ public class technicien_PlanUsine extends VerticalLayout {
             ctx.lineTo(1000, y);
             ctx.stroke();
         }
-    }
-    private void stylisation() {
-        
-        this.getStyle()
-            .set("background", "url(images/1275600.jpg) no-repeat center center fixed")
-            .set("background-size", "cover")
-            .set("height", "120vh");
-        ajoutB.getStyle()
-            .set("color", "Crimson")
-            .set("background-color", "PowderBlue");
-        modifB.getStyle()
-            .set("color", "Crimson")
-            .set("background-color", "PowderBlue");
-        suppB.getStyle()
-            .set("color", "Crimson")
-            .set("background-color", "PowderBlue");
-    }   
+    }  
 
 //    private void drawHouse() {
 //        ctx.save();

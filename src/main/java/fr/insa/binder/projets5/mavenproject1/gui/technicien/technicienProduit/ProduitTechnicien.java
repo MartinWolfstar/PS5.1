@@ -12,6 +12,7 @@ import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.component.upload.Upload;
 import fr.insa.binder.projets5.mavenproject1.Utilitaire.UploadArea;
+import fr.insa.binder.projets5.mavenproject1.Utilitaire.utile;
 import java.io.File;
 
 
@@ -44,15 +45,8 @@ public class ProduitTechnicien extends VerticalLayout {
 
         addClassName("liste_machine");
         setSizeFull();
-        stylisation();
+        utile.stylisation(this);
 
 //        this.add(upload);
-    }
-    private void stylisation() {
-        
-        this.getStyle()
-            .set("background", "url(images/1275600.jpg) no-repeat center center fixed")
-            .set("background-size", "cover")
-            .set("height", "120vh");
     }
 }

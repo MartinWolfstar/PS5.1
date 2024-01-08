@@ -8,9 +8,7 @@ import com.vaadin.flow.component.html.H3;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.server.VaadinSession;
-import fr.insa.binder.projets5.mavenproject1.commande;
-import java.sql.Connection;
-import java.sql.SQLException;
+import fr.insa.binder.projets5.mavenproject1.Utilitaire.utile;
 
 /**
  *
@@ -30,6 +28,6 @@ public class Afficher_produit_commande extends VerticalLayout {
         addClassName("liste_commande");
         setSizeFull();
 
-//        stylisation();
+        utile.stylisation(this);
     }
 }

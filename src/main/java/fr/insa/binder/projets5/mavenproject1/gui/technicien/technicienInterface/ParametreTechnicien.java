@@ -15,6 +15,7 @@ import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.server.VaadinSession;
+import fr.insa.binder.projets5.mavenproject1.Utilitaire.utile;
 import fr.insa.binder.projets5.mavenproject1.gui.technicien.BarreGaucheTechnicien;
 import static fr.insa.binder.projets5.mavenproject1.gui.technicien.technicienInterface.Grid_technicien33.get_etat_d_un_operateur;
 import java.sql.Connection;
@@ -42,45 +43,15 @@ public class ParametreTechnicien extends VerticalLayout{
     
     public ParametreTechnicien() {
          
-        // Recuperer id_operateur
         id_operateur = (int) VaadinSession.getCurrent().getAttribute("id_operateur");
-        
-//        String nom_prenom = "";
-//        try {
-//            nom_prenom = getnom_operateur((Integer) VaadinSession.getCurrent().getAttribute("id_operateur"), (Connection) VaadinSession.getCurrent().getAttribute("conn"));
-//        }
-//        catch (SQLException ex) {
-//            Notification.show("Problème interne : " + ex.getLocalizedMessage());
-//        }   
-//        H1 nom_technicien = new H1(nom_prenom);
         nom = new TextField("votre nom :");
         prenom = new TextField("votre prénom :");
         mail = new TextField("votre adresse mail :");
-        
-//        this.menu_bar = new MenuBar();
-//        this.id = menu_bar.addItem("Selectionner votre Etat");
-//        SubMenu id_sub = id.getSubMenu();
-        
         mdp = new PasswordField("changer votre mot de passe :");
         sauvegarder = new Button("Sauvegarder les informations");
         mdp.setValue("Ex@mplePassw0rd");
         H4 = new HorizontalLayout();
         H4.add(nom, prenom, mail, mdp);
-//        ComponentEventListener<ClickEvent<MenuItem>> listener = e ->
-//                {
-//            int id_m = Integer.valueOf(e.getSource().getText());
-//            this.modif_etat = new Modif_etat(id_m);
-//            this.add(modif_etat);
-//        };
-//        try {
-//            List<operateur> id_liste = operateur.tousLesOperateur((Connection) VaadinSession.getCurrent().getAttribute("conn"));
-//            for (operateur x : id_liste) { 
-//                id_sub.addItem(String.valueOf(x.getId_operateur()), listener);
-//            }      
-//        } 
-//        catch(SQLException ex) {
-//               Notification.show("Problème BdD : mtm");
-//        }
         
         sauvegarder.addClickListener(e -> {
             Notification.show("Hello " + nom.getValue());
@@ -106,25 +77,6 @@ public class ParametreTechnicien extends VerticalLayout{
         }
         addClassName("list_etat");
         setSizeFull();
-        stylisation();
-    }
-    private void stylisation() {
-        
-        this.getStyle()
-            .set("background", "url(images/1275600.jpg) no-repeat center center fixed")
-            .set("background-size", "cover")
-            .set("height", "120vh");
-        nom.getStyle()
-                .set("color", "Crimson");
-        prenom.getStyle()
-                .set("color", "Crimson");
-        mail.getStyle()
-                .set("color", "Crimson");
-        mdp.getStyle()
-                .set("color", "Crimson");
-        sauvegarder.getStyle()
-                .set("color", "Crimson")
-                .set("background-color", "PowderBlue");
-        
+        utile.stylisation(this,nom,prenom,mail,mdp,sauvegarder);
     }
 }

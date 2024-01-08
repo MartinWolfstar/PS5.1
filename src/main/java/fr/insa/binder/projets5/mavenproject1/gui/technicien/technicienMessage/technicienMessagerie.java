@@ -6,6 +6,7 @@ import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.server.VaadinSession;
+import fr.insa.binder.projets5.mavenproject1.Utilitaire.utile;
 import fr.insa.binder.projets5.mavenproject1.gui.technicien.BarreGaucheTechnicien;
 import fr.insa.binder.projets5.mavenproject1.messagerie;
 import java.sql.Connection;
@@ -37,14 +38,8 @@ public class technicienMessagerie extends VerticalLayout {
         addClassName("chat-layout");
         setSizeFull();
         
-        stylisation();
+        utile.stylisation(this);
     }
-    private void stylisation() {
-        
-        this.getStyle()
-            .set("background", "url(images/1275600.jpg) no-repeat center center fixed")
-            .set("background-size", "cover")
-            .set("height", "120vh");
-    }
+
 }
 
