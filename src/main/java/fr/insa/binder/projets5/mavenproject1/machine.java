@@ -117,6 +117,27 @@ public class machine {
         return res;
     }
     
+public static List<machine> tousLesMachinesByPosteDeTravail(int id_pdt, Connection con) throws SQLException {
+    List<machine> res = new ArrayList<>();
+    try (PreparedStatement pst = con.prepareStatement(
+            "SELECT id_machine, des_machine, ref_machine, id_poste_de_travail, id_type_machine FROM machine_bof WHERE id_poste_de_travail = ?")) {
+        pst.setInt(1, id_pdt);
+
+        try (ResultSet rs = pst.executeQuery()) {
+            while (rs.next()) {
+                int id = rs.getInt("id_machine");
+                String des = rs.getString("des_machine");
+                int ref = rs.getInt("ref_machine");
+                int pt = rs.getInt("id_poste_de_travail");
+                int itm = rs.getInt("id_type_machine");
+                res.add(new machine(id, ref, des, pt, itm));
+            }
+        }
+    }
+    return res;
+}
+
+    
         public static List<String> tousLesMachines_String(Connection con) throws SQLException {
         List<String> res = new ArrayList<>();
         try (PreparedStatement pst = con.prepareStatement(

@@ -5,6 +5,7 @@
 package fr.insa.binder.projets5.mavenproject1;
 
 
+import com.vaadin.flow.component.notification.Notification;
 import static fr.insa.binder.projets5.mavenproject1.Gestion.connectSurServeurM3;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -108,6 +109,35 @@ public class operateur {
             }
         }
     }
+    
+    public static List<operateur> tousLesOperateursByPosteDeTravail(int id_poste_de_travail, Connection con) throws SQLException {
+    List<operateur> res = new ArrayList<>();
+    try (PreparedStatement pst = con.prepareStatement(
+            "SELECT o.id_operateur, o.nom_operateur, o.prenom_operateur, o.login_operateur, o.password_operateur " +
+            "FROM operateur_bof o " +
+            "JOIN operations__poste_de_travail_bof op ON o.id_operateur = op.id_operateur " +
+            "WHERE op.id_poste_de_travail = ?")) {
+        pst.setInt(1, id_poste_de_travail);
+
+        try (ResultSet rs = pst.executeQuery()) {
+            while (rs.next()) {
+                int id_operateur = rs.getInt("id_operateur");
+                String nom = rs.getString("nom_operateur");
+                String prenom = rs.getString("prenom_operateur");
+                String login = rs.getString("login_operateur");
+                String password = rs.getString("password_operateur");
+
+                res.add(new operateur(id_operateur, nom, prenom, login, password));
+            }
+        } catch (SQLException ex) {
+            Notification.show("Problème BdD : operateur_poste_de_travail 1" + ex.getMessage());
+        }
+    } catch (SQLException ex) {
+        Notification.show("Problème BdD : operateur_poste_de_travail 2" + ex.getMessage());
+    }
+    return res;
+}
+
  
     public static void setPrenom(String prenom, int id, Connection con) throws SQLException {
         try (PreparedStatement pst = con.prepareStatement(

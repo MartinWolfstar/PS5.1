@@ -66,6 +66,26 @@ public class operateur_poste_de_travail {
         }
         return res;
     }
+    
+    public static List<operateur_poste_de_travail> tousLesOperateursByPosteDeTravail(int id_poste_de_travail, Connection con) throws SQLException {
+        List<operateur_poste_de_travail> res = new ArrayList<>();
+        try (PreparedStatement pst = con.prepareStatement(
+                "SELECT id_operateur, id_poste_de_travail FROM operations__poste_de_travail_bof WHERE id_poste_de_travail = ?")) {
+            pst.setInt(1, id_poste_de_travail);
+
+            try (ResultSet rs = pst.executeQuery()) {
+                while (rs.next()) {
+                    int id_operateur = rs.getInt("id_operateur");
+                    res.add(new operateur_poste_de_travail(id_operateur, id_poste_de_travail));
+                }
+            } catch (SQLException ex) {
+                Notification.show("Problème BdD : op_poste 1" + ex.getMessage());
+            }
+        } catch (SQLException ex) {
+            Notification.show("Problème BdD : op_poste 2" + ex.getMessage());
+        }
+        return res;
+    }
 
     @Override
     public String toString() {

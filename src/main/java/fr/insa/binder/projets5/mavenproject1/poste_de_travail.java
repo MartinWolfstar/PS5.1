@@ -10,7 +10,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  *
@@ -116,10 +118,10 @@ public class poste_de_travail {
         return !res.isEmpty();
     }
     
-    public static List<String> getAll(int x, int y, Connection con) {
-    List<String> res = new ArrayList<>();
+    public static List<Integer> getAll(int x, int y, Connection con) {
+    List<Integer> res = new ArrayList<>();
     try (PreparedStatement pst = con.prepareStatement(
-            "SELECT ref_poste_de_travail FROM poste_de_travail_bof WHERE x1 < ? AND ? < x2 AND y1 < ? AND ? < y2")) {
+            "SELECT id_poste_de_travail FROM poste_de_travail_bof WHERE x1 < ? AND ? < x2 AND y1 < ? AND ? < y2")) {
         pst.setInt(1, x);
         pst.setInt(2, x);
         pst.setInt(3, y);
@@ -127,7 +129,7 @@ public class poste_de_travail {
 
         try (ResultSet rs = pst.executeQuery()) {
             while (rs.next()) {
-                String ref_poste_de_travail = rs.getString("ref_poste_de_travail");
+                int ref_poste_de_travail = rs.getInt("id_poste_de_travail");
                 res.add(ref_poste_de_travail);
             }
         } catch (SQLException ex) {
@@ -156,31 +158,63 @@ public class poste_de_travail {
         }
     }
 
-   public static List<Integer> getCoordonneesPostesTravail(Connection con) {
-        List<Integer> coordonneesList = new ArrayList<>();
+//   public static List<Integer> getCoordonneesPostesTravail(Connection con) {
+//        List<Integer> coordonneesList = new ArrayList<>();
+//
+//        try (PreparedStatement pst = con.prepareStatement(
+//                "SELECT x1, y1, x2, y2 FROM poste_de_travail_bof")) {
+//            try (ResultSet rs = pst.executeQuery()) {
+//                while (rs.next()) {
+//                    int x1 = rs.getInt("x1");
+//                    int y1 = rs.getInt("y1");
+//                    int x2 = rs.getInt("x2");
+//                    int y2 = rs.getInt("y2");
+//                    
+//                    // Ajouter les coordonnées à la liste
+//                    coordonneesList.add(x1);
+//                    coordonneesList.add(x2);
+//                    coordonneesList.add(y1);
+//                    coordonneesList.add(y2);
+//                }
+//            }
+//        } catch (SQLException ex) {
+//            Notification.show("Problème BdD : poste_de_travail7" + ex);
+//        }
+//
+//        return coordonneesList;
+//    } 
+    
+    public static Map<String, List<Integer>> getCoordonneesEtNomPostesTravail(Connection con) {
+        Map<String, List<Integer>> coordonneesMap = new HashMap<>();
 
         try (PreparedStatement pst = con.prepareStatement(
-                "SELECT x1, y1, x2, y2 FROM poste_de_travail_bof")) {
+                "SELECT ref_poste_de_travail, x1, y1, x2, y2 FROM poste_de_travail_bof")) {
             try (ResultSet rs = pst.executeQuery()) {
                 while (rs.next()) {
+                    String refPosteDeTravail = rs.getString("ref_poste_de_travail");
                     int x1 = rs.getInt("x1");
                     int y1 = rs.getInt("y1");
                     int x2 = rs.getInt("x2");
                     int y2 = rs.getInt("y2");
-                    
+
                     // Ajouter les coordonnées à la liste
+                    List<Integer> coordonneesList = new ArrayList<>();
                     coordonneesList.add(x1);
                     coordonneesList.add(x2);
                     coordonneesList.add(y1);
                     coordonneesList.add(y2);
+
+                    // Ajouter la référence du poste de travail et les coordonnées à la map
+                    coordonneesMap.put(refPosteDeTravail, coordonneesList);
                 }
             }
         } catch (SQLException ex) {
             Notification.show("Problème BdD : poste_de_travail7" + ex);
         }
 
-        return coordonneesList;
-    } 
+        return coordonneesMap;
+    }
+
     
     
     public int getId_poste_de_travail() {
