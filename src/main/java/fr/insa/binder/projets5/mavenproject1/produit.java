@@ -224,5 +224,18 @@ public class produit implements Serializable {
     public void setImage(Image image) {
         this.image = image;
     }
+    public static int getIdProduitParDescription(String description, Connection con) throws SQLException {
+        int idProduit = -1; // Valeur par défaut si aucun produit correspondant n'est trouvé
+        try (PreparedStatement pst = con.prepareStatement(
+                "select id_produit from produit_bof where des_produit = ?")) {
+            pst.setString(1, description);
+            try (ResultSet rs = pst.executeQuery()) {
+                if (rs.next()) {
+                    idProduit = rs.getInt("id_produit");
+                }
+            }
+        }
+        return idProduit;
+    }
 
 }

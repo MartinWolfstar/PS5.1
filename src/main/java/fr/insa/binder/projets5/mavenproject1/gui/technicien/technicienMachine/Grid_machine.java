@@ -34,10 +34,6 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
 
-/**
- *
- * @author binde
- */
 public class Grid_machine extends Grid<machine>{
     
     private Optional<Grid.Column<machine>> currentColumn = Optional.empty();
