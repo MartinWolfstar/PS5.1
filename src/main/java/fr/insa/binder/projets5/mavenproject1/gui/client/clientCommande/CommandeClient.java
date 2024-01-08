@@ -126,7 +126,7 @@ public class CommandeClient extends VerticalLayout{
         this.getStyle()
             .set("background", "url(images/1275600.jpg) no-repeat center center fixed")
             .set("background-size", "cover")
-            .set("height", "120vh");
+            .set("height", "1200vh");
         
         facture.getStyle()
                 .set("color", "Crimson")

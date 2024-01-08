@@ -21,8 +21,8 @@ public class utile {
         
         V.getStyle()
             .set("background", "url(images/1275600.jpg) no-repeat center center fixed")
-            .set("background-size", "cover");
-            //.set("height", "120vh");
+            .set("background-size", "cover")
+            .set("height", "1200vh");
     } 
     
     public static void stylisation(ParametreTechnicien V,TextField a1,TextField a2,TextField a3,PasswordField a4, Button b1) {
@@ -30,7 +30,7 @@ public class utile {
         V.getStyle()
             .set("background", "url(images/1275600.jpg) no-repeat center center fixed")
             .set("background-size", "cover")
-            .set("height", "120vh");
+            .set("height", "1200vh");
         a1.getStyle()
                 .set("color", "Crimson");
         a2.getStyle()
@@ -48,8 +48,8 @@ public class utile {
         
         aThis.getStyle()
             .set("background", "url(images/1275600.jpg) no-repeat center center fixed")
-            .set("background-size", "cover");
-            //.set("height", "120vh");
+            .set("background-size", "cover")
+            .set("height", "1200vh");
         ajoutB.getStyle()
             .set("color", "Crimson")
             .set("background-color", "PowderBlue");

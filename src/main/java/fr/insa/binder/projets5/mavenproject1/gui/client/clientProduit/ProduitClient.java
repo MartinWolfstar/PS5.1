@@ -137,7 +137,7 @@ public class ProduitClient extends VerticalLayout{
         this.getStyle()
             .set("background", "url(images/1275600.jpg) no-repeat center center fixed")
             .set("background-size", "cover")
-            .set("height", "120vh");
+            .set("height", "1200vh");
         
         recherche.getStyle()
             .set("color", "Crimson")
