@@ -85,6 +85,7 @@ public class ProduitClient extends VerticalLayout{
                     nouvelleCommande.setDes(str,nouvelleCommande.getId_commande(),con);
                     cp.saveInDBV1(con);
                     produitCommandé(produitId, nouvelleCommande.getId_commande());
+                    
                 } catch (SQLException ex) {
                     Notification.show("Problème commande_produit : " + ex.getLocalizedMessage());
                 }
