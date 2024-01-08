@@ -43,6 +43,9 @@ public class technicien_PlanUsine extends VerticalLayout {
 
     private Canvas canvas;
     private CanvasRenderingContext2D ctx;
+    private Button ajoutB;
+    private Button modifB;
+    private Button suppB;
 
 //    private HorizontalLayout canvas;
     private int x;
@@ -59,23 +62,26 @@ public class technicien_PlanUsine extends VerticalLayout {
         // Drawing area (Canvas)
         canvas = new Canvas(1000, 850);
         canvas.getStyle().set("border", "10px solid gray"); // Bordure de 10px en gris
-        //canvas.getStyle().set("background-color", "ash"); 
+        canvas.getStyle().set("background-color", "white"); 
         ctx = canvas.getContext();
+        //ctx.setFillStyle("white");
         rebout();
 
-        Button ajoutB = new Button("ajouter PDT", event -> this.action = "ajout" );
-        Button modifB = new Button("modifier PDT", event -> this.action = "modifier" );
-        Button suppB = new Button("supprimer PDT", event -> this.action = "supprimer" );
+        this.ajoutB = new Button("ajouter PDT", event -> this.action = "ajout" );
+        this.modifB = new Button("modifier PDT", event -> this.action = "modifier" );
+        this.suppB = new Button("supprimer PDT", event -> this.action = "supprimer" );
         HorizontalLayout H1 = new HorizontalLayout();
         H1.add(ajoutB,modifB,suppB);
         
         add(H1,canvas);
 
         canvas.addMouseClickListener(e -> logEvent("click", e));
+        stylisation();
         //canvas.addMouseDblClickListener(e -> logEvent("dblClick", e));
+        
     }
 
-    public void rebout(){ 
+    private void rebout(){ 
         ctx.clearRect(0, 0, 1000, 1000);
         // Dessiner le cadrillage orange foncé espacé de 10px
         //ctx.drawImage("images/porte.png", 350, 0);
@@ -159,19 +165,19 @@ public class technicien_PlanUsine extends VerticalLayout {
     }
     
     private void Ajouter_poste_de_travail(MouseEvent me){
-        if ((this.x == -1)&&(this.y==-1)&&(this.action == "ajout")){
+        if ((this.x == -1)&&(this.y==-1)&&("ajout".equals(this.action))){
             this.x = me.getOffsetX();
             this.y = me.getOffsetY();
-        }else if (poste_de_travail.IsIn(me.getOffsetX(),me.getOffsetY(),(Connection) VaadinSession.getCurrent().getAttribute("conn"))&&(this.action == "ajout")){
+        }else if (poste_de_travail.IsIn(me.getOffsetX(),me.getOffsetY(),(Connection) VaadinSession.getCurrent().getAttribute("conn"))&&("ajout".equals(this.action))){
             //verifier qu'aucune coordonée ne se trouve dans un poste de travail existant
             Notification.show("impossible de creer le pdt ");
             this.x= -1;
             this.y = -1;
-        }else if((poste_de_travail.IsIn(this.x,this.y,(Connection) VaadinSession.getCurrent().getAttribute("conn")))||(poste_de_travail.IsIn(this.x,me.getOffsetY(),(Connection) VaadinSession.getCurrent().getAttribute("conn")))||(poste_de_travail.IsIn(me.getOffsetX(),this.y,(Connection) VaadinSession.getCurrent().getAttribute("conn")))&&(this.action == "ajout")){
+        }else if((poste_de_travail.IsIn(this.x,this.y,(Connection) VaadinSession.getCurrent().getAttribute("conn")))||(poste_de_travail.IsIn(this.x,me.getOffsetY(),(Connection) VaadinSession.getCurrent().getAttribute("conn")))||(poste_de_travail.IsIn(me.getOffsetX(),this.y,(Connection) VaadinSession.getCurrent().getAttribute("conn")))&&("ajout".equals(this.action))){
             Notification.show("impossible de creer le pdt ");
             this.x= -1;
             this.y = -1;
-        }else if (this.action == "ajout"){
+        }else if ("ajout".equals(this.action)){
            
                 showDialogAjout(me);
             
@@ -188,7 +194,7 @@ public class technicien_PlanUsine extends VerticalLayout {
         
     }
     private void Modifier_poste_de_travail(MouseEvent me){
-        if (poste_de_travail.IsIn(me.getOffsetX(),me.getOffsetY(),(Connection) VaadinSession.getCurrent().getAttribute("conn"))&&(this.action == "modifier")){
+        if (poste_de_travail.IsIn(me.getOffsetX(),me.getOffsetY(),(Connection) VaadinSession.getCurrent().getAttribute("conn"))&&("modifier".equals(this.action))){
             
             
             List<Integer> id_pdt_l = poste_de_travail.getAll(me.getOffsetX(), me.getOffsetY(), (Connection) VaadinSession.getCurrent().getAttribute("conn"));
@@ -370,6 +376,22 @@ public class technicien_PlanUsine extends VerticalLayout {
             ctx.stroke();
         }
     }
+    private void stylisation() {
+        
+        this.getStyle()
+            .set("background", "url(images/1275600.jpg) no-repeat center center fixed")
+            .set("background-size", "cover")
+            .set("height", "120vh");
+        ajoutB.getStyle()
+            .set("color", "Crimson")
+            .set("background-color", "PowderBlue");
+        modifB.getStyle()
+            .set("color", "Crimson")
+            .set("background-color", "PowderBlue");
+        suppB.getStyle()
+            .set("color", "Crimson")
+            .set("background-color", "PowderBlue");
+    }   
 
 //    private void drawHouse() {
 //        ctx.save();

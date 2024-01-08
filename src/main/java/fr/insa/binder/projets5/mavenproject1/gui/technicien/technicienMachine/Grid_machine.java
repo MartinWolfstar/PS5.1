@@ -7,6 +7,7 @@ package fr.insa.binder.projets5.mavenproject1.gui.technicien.technicienMachine;
 import com.vaadin.flow.component.Focusable;
 import com.vaadin.flow.component.Key;
 import com.vaadin.flow.component.Shortcuts;
+import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.combobox.ComboBox;
 import com.vaadin.flow.component.grid.Grid;
@@ -205,8 +206,8 @@ public class Grid_machine extends Grid<machine>{
             Button button = new Button("Supprimer", clickEvent -> {
                 try {
                     machine.supMachine((Connection) VaadinSession.getCurrent().getAttribute("conn"));
-                    //UI.getCurrent().getPage().reload();
-                    this.setItems(machine.tousLesMachines((Connection) VaadinSession.getCurrent().getAttribute("conn")));
+                    UI.getCurrent().getPage().reload();
+                    //this.setItems(machine.tousLesMachines((Connection) VaadinSession.getCurrent().getAttribute("conn")));
                 } catch (SQLException ex) {
                     Notification.show("Problème BdD : grid machine : " + ex);
                     // Gérez les erreurs ici
