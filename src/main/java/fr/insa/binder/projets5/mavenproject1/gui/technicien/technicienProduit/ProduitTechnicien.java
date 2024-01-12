@@ -31,11 +31,11 @@ public class ProduitTechnicien extends VerticalLayout {
     public ProduitTechnicien() {
         this.add(new H3("Liste de tous les Produits"));
         H1 = new HorizontalLayout();
-        File uploadFolder = new File("src\\main\\resources\\META-INF\\resources\\images");
-        if (!uploadFolder.exists()) {
-            uploadFolder.mkdirs();
-        }
-        this.UpArea = new UploadArea(uploadFolder);
+//        File uploadFolder = new File("src\\main\\resources\\META-INF\\resources\\images");
+//        if (!uploadFolder.exists()) {
+//            uploadFolder.mkdirs();
+//        }
+        this.UpArea = new UploadArea();
         H1.add(new Ajout_produit(),UpArea);
 
         this.add(H1);

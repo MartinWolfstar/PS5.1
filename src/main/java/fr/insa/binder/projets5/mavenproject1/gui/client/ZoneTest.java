@@ -31,11 +31,11 @@ public class ZoneTest extends VerticalLayout{
         this.maj = new Button("maj de l'image des produits");
         
         //File uploadFolder = new File("C:\\Users\\schmi\\Documents\\NetBeansProjects\\PS5.1\\src\\main\\resources\\META-INF\\resources\\images");
-        File uploadFolder = new File("src\\main\\resources\\META-INF\\resources\\images");
-        if (!uploadFolder.exists()) {
-            uploadFolder.mkdirs();
-        }
-        this.area = new UploadArea(uploadFolder);
+//        File uploadFolder = new File("src\\main\\resources\\META-INF\\resources\\images");
+//        if (!uploadFolder.exists()) {
+//            uploadFolder.mkdirs();
+//        }
+        this.area = new UploadArea();
 
         
         

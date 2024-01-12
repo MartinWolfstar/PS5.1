@@ -30,6 +30,7 @@ public class produit implements Serializable {
         this.ref_p = ref_p;
         this.des_p = des_p;
         this.image = new Image("images/" + ref_p + ".jpg", "image");
+        
     }
 
     public produit(int id_p, String des_p, int ref_p, Image img) {
@@ -41,6 +42,7 @@ public class produit implements Serializable {
 
     public produit(String des_p, int ref_p) {
         this(-1, des_p, ref_p, new Image("images/" + ref_p + ".jpg", "image"));
+        
     }
 
     public static produit demande() {

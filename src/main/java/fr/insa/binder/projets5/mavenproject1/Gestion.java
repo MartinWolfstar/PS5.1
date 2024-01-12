@@ -68,6 +68,14 @@ public class Gestion {
                     + ")\n"
             );
             st.executeUpdate(
+                "CREATE TABLE ImageT (\n" +
+                "    id_image INTEGER NOT NULL PRIMARY KEY AUTO_INCREMENT,\n" +
+                "    nom VARCHAR(255) NOT NULL,\n" +
+                "    image LONGBLOB\n" +
+                ")"
+            );
+
+            st.executeUpdate(
                     "create table realise_bof (\n"
                     + "    id_realisation integer not null primary key AUTO_INCREMENT,\n"
                     + "    duree float not null,\n"
@@ -800,6 +808,11 @@ public class Gestion {
                 st.executeUpdate("drop table commentaire_bof");
             } catch (SQLException ex) {
                 System.out.println("erreur68" + ex);
+            }
+            try {
+                st.executeUpdate("drop table ImageT");
+            } catch (SQLException ex) {
+                System.out.println("erreur23" + ex);
             }
 
         }

@@ -16,10 +16,6 @@ import fr.insa.binder.projets5.mavenproject1.messagerie;
 import java.sql.Connection;
 import java.sql.SQLException;
 
-/**
- *
- * @author binde
- */
 public class Ajout_message extends VerticalLayout{
     private TextField message;
     private HorizontalLayout HL;
@@ -30,7 +26,7 @@ public class Ajout_message extends VerticalLayout{
     public Ajout_message(){
         this.message = new TextField();
         this.valid = new Button ("envoyer");
-        int idc = (Integer) VaadinSession.getCurrent().getAttribute("id_client");
+        int idc = (Integer) VaadinSession.getCurrent().getAttribute("id_operateur");
         this.valid.addClickListener(e -> {
             this.mess = new messagerie(this.message.getValue(),idc);
             Notification.show("Problème BdD : x");
