@@ -73,7 +73,7 @@ public class utile {
                 V.getStyle()
                     .set("background", "url(data:image/jpeg;base64," + base64Image + ") no-repeat center center fixed")
                     .set("background-size", "cover")
-                    .set("height", "1200vh");
+                    .set("height", "200vh");
             } else {
                 System.err.println("Image not found in the database.");
             }

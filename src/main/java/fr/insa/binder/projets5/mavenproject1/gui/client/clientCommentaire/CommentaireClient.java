@@ -6,6 +6,7 @@ package fr.insa.binder.projets5.mavenproject1.gui.client.clientCommentaire;
 
 import com.vaadin.flow.component.ClickEvent;
 import com.vaadin.flow.component.ComponentEventListener;
+import com.vaadin.flow.component.Key;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.combobox.ComboBox;
 import com.vaadin.flow.component.contextmenu.MenuItem;
@@ -14,6 +15,7 @@ import com.vaadin.flow.component.html.H3;
 import com.vaadin.flow.component.html.H6;
 import com.vaadin.flow.component.menubar.MenuBar;
 import com.vaadin.flow.component.notification.Notification;
+import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextArea;
 import com.vaadin.flow.router.PageTitle;
@@ -27,8 +29,6 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -44,9 +44,15 @@ public class CommentaireClient extends VerticalLayout {
     private ComboBox<produit> comboBoxProduits;
     private TextArea nouveauCommentaire;
     private Button boutonAjoutCommentaire;
+    private HorizontalLayout HL;
+    private VerticalLayout VL;
+    private VerticalLayout VL2;
 
     public CommentaireClient() {
         this.menu_bar = new MenuBar();
+        this.HL = new HorizontalLayout();
+        this.VL = new VerticalLayout();
+        this.VL2 = new VerticalLayout();
         this.id = menu_bar.addItem("Sélectionner l'identifiant du produit");
         SubMenu id_sub = id.getSubMenu();
 
@@ -87,11 +93,12 @@ public class CommentaireClient extends VerticalLayout {
         // Ajouter le bouton pour ajouter un commentaire
         this.boutonAjoutCommentaire = new Button("Ajouter Commentaire", this::ajouterCommentaire);
 
-        this.add(new H3("Accéder aux commentaires du produit"));
-        this.add(menu_bar);
-        this.add(comboBoxProduits);
-        this.add(nouveauCommentaire);
-        this.add(boutonAjoutCommentaire);
+        boutonAjoutCommentaire.addClickShortcut(Key.ENTER);
+        
+        VL.add(new H6("Pour rajouter un commentaire :"),comboBoxProduits,nouveauCommentaire,boutonAjoutCommentaire);
+        VL2.add(new H6("Pour voir les commentaires :"),menu_bar);
+        HL.add(VL2,VL);
+        this.add(HL);
         stylisation();
     }
 
