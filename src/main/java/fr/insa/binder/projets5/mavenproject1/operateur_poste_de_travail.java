@@ -5,6 +5,7 @@
 package fr.insa.binder.projets5.mavenproject1;
 
 import com.vaadin.flow.component.notification.Notification;
+import com.vaadin.flow.server.VaadinSession;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -95,6 +96,16 @@ public class operateur_poste_de_travail {
     public int getId_operateur() {
         return id_operateur;
     }
+    public String getNom_operateur() {
+        String nom;
+        try {
+            nom = operateur.getnom_operateur(id_operateur,(Connection) VaadinSession.getCurrent().getAttribute("conn"));
+        } catch (SQLException ex) {
+            nom = "erreur BDD, id non identifié";
+        }
+        return nom;
+    }
+    
 
     public int getId_poste_de_travail() {
         return id_poste_de_travail;

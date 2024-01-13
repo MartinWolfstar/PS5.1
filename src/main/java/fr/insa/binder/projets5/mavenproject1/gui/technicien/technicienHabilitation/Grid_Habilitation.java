@@ -18,8 +18,8 @@ public class Grid_Habilitation extends Grid<operateur_poste_de_travail>{
     
     public Grid_Habilitation(List<operateur_poste_de_travail> liste_operateur_poste_de_travail) {
         this.setItems(liste_operateur_poste_de_travail);
-        //this.addColumn(operateur_poste_de_travail::getId_operateur).setHeader("getId_operateur");
-        this.addColumn(operateur_poste_de_travail::getId_poste_de_travail).setHeader("getId_poste_de_travail");
+        this.addColumn(operateur_poste_de_travail::getNom_operateur).setHeader("Nom de l'opérateur");
+        this.addColumn(operateur_poste_de_travail::getId_poste_de_travail).setHeader("Id du poste de travail");
         
         this.addComponentColumn(operateur_poste_de_travail -> {
             Button button = new Button("Supprimer", clickEvent -> {
@@ -29,7 +29,6 @@ public class Grid_Habilitation extends Grid<operateur_poste_de_travail>{
                     this.setItems(operateur_poste_de_travail.tousLesOpe_Poste((Connection) VaadinSession.getCurrent().getAttribute("conn")));
                 } catch (SQLException ex) {
                     Notification.show("Problème BdD : grid machine : " + ex);
-                    // Gérez les erreurs ici
                 }
             });
             return button;
