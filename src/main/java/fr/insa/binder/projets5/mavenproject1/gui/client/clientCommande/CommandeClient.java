@@ -16,6 +16,7 @@ import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.server.VaadinSession;
+import fr.insa.binder.projets5.mavenproject1.Client;
 import fr.insa.binder.projets5.mavenproject1.ImageT;
 import fr.insa.binder.projets5.mavenproject1.commande;
 import fr.insa.binder.projets5.mavenproject1.gui.client.BarreGaucheClient;
@@ -24,6 +25,7 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Random;
 
 /**
  *
@@ -79,10 +81,26 @@ public class CommandeClient extends VerticalLayout{
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
         String dateDuJour = LocalDate.now().format(formatter);
-        String nomClient = "nom du client";
-        String adresseClient = "adresse du Client";
-        String numeroCommande = "numero Commande";
-        String idclient = "id du client";
+        int idc = (Integer) VaadinSession.getCurrent().getAttribute("id_client");
+        Connection con = (Connection) VaadinSession.getCurrent().getAttribute("conn");
+        String nomClient;
+        try {
+            nomClient = Client.getnom_client(idc,con);
+        } catch (SQLException ex) {
+            Notification.show("echec lors de l'import du nom client" + ex);
+            nomClient = "inconnu";
+        }
+        String adresseClient;
+        try {
+            adresseClient = Client.getAdd_client(idc,con);
+        } catch (SQLException ex) {
+            Notification.show("echec lors de l'import de l'adresse client" + ex);
+            adresseClient = "inconnu";
+        }
+        Random random = new Random();
+        int randomNumber = random.nextInt(1000);
+        String numeroCommande = randomNumber+"-FR67";
+        String idclient = "0C0-"+idc;
         
         // Ajouter le texte et la liste des commandes à la fenêtre
         VerticalLayout content = new VerticalLayout();
@@ -99,7 +117,6 @@ public class CommandeClient extends VerticalLayout{
 
         // Ajouter la liste des commandes (utilisez le contenu de votre grille)
         try {
-            int idc = (Integer) VaadinSession.getCurrent().getAttribute("id_client");
             this.grid = new Grid_commande(commande.tousLesCommandes(idc, (Connection) VaadinSession.getCurrent().getAttribute("conn"))); 
             content.add(this.grid);
         } catch(SQLException ex) {

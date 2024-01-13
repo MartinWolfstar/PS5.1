@@ -37,13 +37,10 @@ public class UploadArea extends VerticalLayout {
             try {
                 String filename = event.getFileName();
                 InputStream inputStream = buffer.getInputStream(filename);
-
                 // Création d'une instance de la classe ImageT
                 ImageT image = new ImageT(filename, inputStream.readAllBytes());
-
                 // Connexion à la base de données (assurez-vous que votre connexion est établie correctement)
                 Connection conn = (Connection) VaadinSession.getCurrent().getAttribute("conn");
-
                 // Enregistrement de l'image dans la base de données
                 try {
                     image.saveImage(conn);
@@ -56,10 +53,8 @@ public class UploadArea extends VerticalLayout {
             }
         });
 
-
         uploadField.addFailedListener(e -> showErrorMessage(e.getReason().getMessage()));
         uploadField.addFileRejectedListener(e -> showErrorMessage(e.getErrorMessage()));
-
         add(uploadField, errorField);
     }
 

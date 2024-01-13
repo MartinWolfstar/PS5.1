@@ -73,18 +73,18 @@ public class BarreGaucheClient extends AppLayout{
         addToDrawer(new VerticalLayout(
                 listLink4
         ));
-        RouterLink listLinkASup = new RouterLink("technicien", ListeMachine.class);
-        listLinkASup.setHighlightCondition(HighlightConditions.sameLocation());
-        
-        addToDrawer(new VerticalLayout(
-                listLinkASup
-        ));
-        RouterLink listLinkASup2 = new RouterLink("test", ZoneTest.class);
-        listLinkASup2.setHighlightCondition(HighlightConditions.sameLocation());
-        
-        addToDrawer(new VerticalLayout(
-                listLinkASup2
-        ));
+//        RouterLink listLinkASup = new RouterLink("technicien", ListeMachine.class);
+//        listLinkASup.setHighlightCondition(HighlightConditions.sameLocation());
+//        
+//        addToDrawer(new VerticalLayout(
+//                listLinkASup
+//        ));
+//        RouterLink listLinkASup2 = new RouterLink("test", ZoneTest.class);
+//        listLinkASup2.setHighlightCondition(HighlightConditions.sameLocation());
+//        
+//        addToDrawer(new VerticalLayout(
+//                listLinkASup2
+//        ));
         
     }
 }

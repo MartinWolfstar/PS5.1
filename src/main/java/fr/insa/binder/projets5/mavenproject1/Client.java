@@ -261,6 +261,21 @@ public class Client {
         }
         return nom + " " + prenom;
     }
+    public static String getAdd_client(int id, Connection con) throws SQLException{
+        String adresse = "Personne";
+        try (PreparedStatement pst = con.prepareStatement(
+                "select adresse_client"
+                + " from client_bof "
+                + " where id_client = ?")) {
+            pst.setInt(1, id);
+            try (ResultSet rs = pst.executeQuery()) {
+                while (rs.next()) {
+                    adresse = rs.getString("adresse_client");
+                }
+            }
+        }
+        return adresse;
+    }
     
     public static void main(String[] args) throws SQLException {
 //        Client client = new Client("Theo", "Aurore", "Aurora", "Aurore");
