@@ -54,17 +54,23 @@ public class BarreGaucheTechnicien extends AppLayout {
     }
 
     private void createDrawer() {
-        RouterLink listLink = new RouterLink("ListeMachine", ListeMachine.class);
-        listLink.setHighlightCondition(HighlightConditions.sameLocation());
-
-        addToDrawer(new VerticalLayout(
-                listLink
-        ));
         RouterLink listLink2 = new RouterLink("Plan", technicien_PlanUsine.class);
         listLink2.setHighlightCondition(HighlightConditions.sameLocation());
 
         addToDrawer(new VerticalLayout(
                 listLink2
+        ));
+        RouterLink listLink9 = new RouterLink("Paramètre", ParametreTechnicien.class);
+        listLink9.setHighlightCondition(HighlightConditions.sameLocation());
+
+        addToDrawer(new VerticalLayout(
+                listLink9
+        ));
+        RouterLink listLink = new RouterLink("ListeMachine", ListeMachine.class);
+        listLink.setHighlightCondition(HighlightConditions.sameLocation());
+
+        addToDrawer(new VerticalLayout(
+                listLink
         ));
         RouterLink listLink3 = new RouterLink("Messagerie", technicienMessagerie.class);
         listLink3.setHighlightCondition(HighlightConditions.sameLocation());
@@ -78,7 +84,31 @@ public class BarreGaucheTechnicien extends AppLayout {
         addToDrawer(new VerticalLayout(
                 listLink4
         ));
-        RouterLink listLink6 = new RouterLink("TypeOperation", ListeTypeOperation.class);
+        RouterLink listLink10 = new RouterLink("Commande", Afficher_commande.class);
+        listLink10.setHighlightCondition(HighlightConditions.sameLocation());
+
+        addToDrawer(new VerticalLayout(
+                listLink10
+        ));
+//        RouterLink listLinkASup = new RouterLink("client", CommandeClient.class);
+//        listLinkASup.setHighlightCondition(HighlightConditions.sameLocation());
+//
+//        addToDrawer(new VerticalLayout(
+//                listLinkASup
+//        ));
+        RouterLink listLink11 = new RouterLink("realisation", ListeRealisation.class);
+        listLink11.setHighlightCondition(HighlightConditions.sameLocation());
+        
+        addToDrawer(new VerticalLayout(
+                listLink11
+        ));
+        RouterLink listLink12 = new RouterLink("habilitation", Habilitation.class);
+        listLink12.setHighlightCondition(HighlightConditions.sameLocation());
+        
+        addToDrawer(new VerticalLayout(
+                listLink12
+        ));
+                RouterLink listLink6 = new RouterLink("TypeOperation", ListeTypeOperation.class);
         listLink6.setHighlightCondition(HighlightConditions.sameLocation());
 
         addToDrawer(new VerticalLayout(
@@ -95,37 +125,6 @@ public class BarreGaucheTechnicien extends AppLayout {
 
         addToDrawer(new VerticalLayout(
                 listLink8
-        ));
-        RouterLink listLink9 = new RouterLink("Paramètre", ParametreTechnicien.class);
-        listLink9.setHighlightCondition(HighlightConditions.sameLocation());
-
-        addToDrawer(new VerticalLayout(
-                listLink9
-        ));
-
-        RouterLink listLink10 = new RouterLink("Commande", Afficher_commande.class);
-        listLink10.setHighlightCondition(HighlightConditions.sameLocation());
-
-        addToDrawer(new VerticalLayout(
-                listLink10
-        ));
-        RouterLink listLinkASup = new RouterLink("client", CommandeClient.class);
-        listLinkASup.setHighlightCondition(HighlightConditions.sameLocation());
-
-        addToDrawer(new VerticalLayout(
-                listLinkASup
-        ));
-        RouterLink listLink11 = new RouterLink("realisation", ListeRealisation.class);
-        listLink11.setHighlightCondition(HighlightConditions.sameLocation());
-        
-        addToDrawer(new VerticalLayout(
-                listLink11
-        ));
-        RouterLink listLink12 = new RouterLink("habilitation", Habilitation.class);
-        listLink12.setHighlightCondition(HighlightConditions.sameLocation());
-        
-        addToDrawer(new VerticalLayout(
-                listLink12
         ));
     }
 }

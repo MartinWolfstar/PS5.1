@@ -26,6 +26,7 @@ public class Grid_technicien33 extends Grid<etat>{
         this.addColumn(etat::getDebut).setHeader("Debut");
         this.addColumn(etat::getFin).setHeader("Fin");
         this.getStyle().setBackground("PowderBlue");
+        this.setMinHeight("50vh");
     }
     public static List<etat> get_etat_d_un_operateur(Connection conn,int id_operateur)throws SQLException{
         List<etat> out = new ArrayList<>();

@@ -15,10 +15,6 @@ import java.time.Month;
 import java.util.List;
 import java.util.Optional;
 
-/**
- *
- * @author abinder01
- */
 public class Gestion {
 
     private Connection conn;
@@ -52,9 +48,6 @@ public class Gestion {
                 "m3_abinder01", "m3_abinder01",
                 "c7b7bc39");
     }
-    // Bonjour
-    // Bonjour
-
     public void creeSchema() throws SQLException {
         this.conn.setAutoCommit(false);
         try (Statement st = this.conn.createStatement()) {

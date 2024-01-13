@@ -152,5 +152,6 @@ public class Grid_realisation extends Grid<realisation>{
         }).setHeader("");
         
         this.getStyle().setBackground("PowderBlue");
+        this.setMinHeight("100vh");
     }
 }

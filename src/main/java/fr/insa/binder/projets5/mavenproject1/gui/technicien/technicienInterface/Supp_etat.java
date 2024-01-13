@@ -9,7 +9,7 @@ import com.vaadin.flow.component.ComponentEventListener;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.contextmenu.MenuItem;
 import com.vaadin.flow.component.contextmenu.SubMenu;
-import com.vaadin.flow.component.html.H3;
+import com.vaadin.flow.component.html.H6;
 import com.vaadin.flow.component.menubar.MenuBar;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
@@ -59,7 +59,7 @@ public class Supp_etat extends VerticalLayout {
         } catch (SQLException ex) {
             Notification.show("Problème BdD : sto2");
         }
-        this.add(new H3("Supprimer un état"));
+        this.add(new H6("Supprimer un état"));
         this.add(menu_bar);
         stylisation();
     }

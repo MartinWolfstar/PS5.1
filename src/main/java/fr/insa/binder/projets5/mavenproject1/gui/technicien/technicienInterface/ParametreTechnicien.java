@@ -7,6 +7,7 @@ package fr.insa.binder.projets5.mavenproject1.gui.technicien.technicienInterface
 import com.vaadin.flow.component.Key;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.html.H3;
+import com.vaadin.flow.component.html.H5;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
@@ -69,9 +70,10 @@ public class ParametreTechnicien extends VerticalLayout{
 
         setMargin(true);
         //add(nom_technicien, nom, prenom, mail, menu_bar, mdp, sauvegarder);
+        this.add(new H5("Informations personnelles"));
         add(H4, sauvegarder);
         
-        this.add(new H3("Liste de tous les etats d'un operateur"));
+        this.add(new H5("Liste de tous les etats d'un operateur"));
         H1 = new HorizontalLayout();
         H1.add(new Ajout_etat_technicien());
         this.add(H1);
