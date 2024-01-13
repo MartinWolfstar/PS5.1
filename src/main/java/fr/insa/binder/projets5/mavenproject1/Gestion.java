@@ -361,7 +361,7 @@ public class Gestion {
 
     public static void initialise(Connection conn) throws SQLException {
         // postes de travail
-        poste_de_travail poste1 = new poste_de_travail("ranger",10,10,200,200);
+        poste_de_travail poste1 = new poste_de_travail("ranger",10,200,10,200);
         poste1.save_poste_de_travail(conn);
         poste_de_travail poste2 = new poste_de_travail("poussiereux",300,350,60,90);
         poste2.save_poste_de_travail(conn);
