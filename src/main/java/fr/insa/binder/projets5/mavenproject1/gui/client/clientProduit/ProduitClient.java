@@ -15,6 +15,7 @@ import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.server.VaadinSession;
+import fr.insa.binder.projets5.mavenproject1.ImageT;
 import fr.insa.binder.projets5.mavenproject1.Operation;
 import fr.insa.binder.projets5.mavenproject1.commande;
 import fr.insa.binder.projets5.mavenproject1.commande_produit;
@@ -22,6 +23,7 @@ import fr.insa.binder.projets5.mavenproject1.exemplaire;
 import fr.insa.binder.projets5.mavenproject1.gui.client.BarreGaucheClient;
 import fr.insa.binder.projets5.mavenproject1.produit;
 import static fr.insa.binder.projets5.mavenproject1.produit.giveProduit;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
 
@@ -134,10 +136,27 @@ public class ProduitClient extends VerticalLayout{
     
     private void stylisation() {
         
-        this.getStyle()
-            .set("background", "url(images/1275600.jpg) no-repeat center center fixed")
-            .set("background-size", "cover")
-            .set("height", "1200vh");
+//        this.getStyle()
+//            .set("background", "url(images/1275600.jpg) no-repeat center center fixed")
+//            .set("background-size", "cover")
+//            .set("height", "1200vh");
+        
+        String imageName = "1275600.jpg";
+        Connection conn = (Connection) VaadinSession.getCurrent().getAttribute("conn");
+        try {
+            ImageT image = ImageT.getImageByName(conn, imageName);
+            if (image != null) {
+                String base64Image = java.util.Base64.getEncoder().encodeToString(image.getImageBytes());
+                this.getStyle()
+                    .set("background", "url(data:image/jpeg;base64," + base64Image + ") no-repeat center center fixed")
+                    .set("background-size", "cover")
+                    .set("height", "1200vh");
+            } else {
+                System.err.println("Image not found in the database.");
+            }
+        } catch (SQLException | IOException e) {
+            Notification.show("probleme style : " + e);
+        }
         
         recherche.getStyle()
             .set("color", "Crimson")

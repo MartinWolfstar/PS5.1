@@ -5,13 +5,17 @@
 package fr.insa.binder.projets5.mavenproject1;
 
 import com.vaadin.flow.component.html.Image;
+import com.vaadin.flow.component.notification.Notification;
+import com.vaadin.flow.server.VaadinSession;
 import static fr.insa.binder.projets5.mavenproject1.Gestion.connectSurServeurM3;
+import java.io.IOException;
 import java.io.Serializable;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.List;
 
 /**
@@ -19,7 +23,6 @@ import java.util.List;
  * @author binde
  */
 public class produit implements Serializable {
-
     private int id_p;
     private int ref_p;
     private String des_p;
@@ -29,20 +32,51 @@ public class produit implements Serializable {
         this.id_p = id_p;
         this.ref_p = ref_p;
         this.des_p = des_p;
-        this.image = new Image("images/" + ref_p + ".jpg", "image");
+        //this.image = new Image("images/" + ref_p + ".jpg", "image");
         
+        String imageName = String.valueOf(ref_p);
+        Notification.show(imageName);
+        Connection conn = (Connection) VaadinSession.getCurrent().getAttribute("conn");
+        try {
+            ImageT image = ImageT.getImageByName(conn, imageName);
+
+            if (image != null) {
+                String base64Image = Base64.getEncoder().encodeToString(image.getImageBytes());
+                this.image = new Image("data:image/jpeg;base64," + base64Image, "Image Alternative Text");
+                Notification.show(base64Image);
+            } else {
+                System.err.println("Image not found in the database.");
+            }
+        } catch (SQLException | IOException e) {
+            Notification.show("Problème de style : " + e.getMessage());
+        }
     }
 
     public produit(int id_p, String des_p, int ref_p, Image img) {
         this.id_p = id_p;
         this.ref_p = ref_p;
         this.des_p = des_p;
-        this.image = new Image("images/" + ref_p + ".jpg", "image");
+        //this.image = new Image("images/" + ref_p + ".jpg", "image");
+        
+        String imageName = String.valueOf(ref_p);
+        Notification.show(imageName);
+        Connection conn = (Connection) VaadinSession.getCurrent().getAttribute("conn");
+        try {
+            ImageT image = ImageT.getImageByName(conn, imageName);
+
+            if (image != null) {
+                String base64Image = Base64.getEncoder().encodeToString(image.getImageBytes());
+                this.image = new Image("data:image/jpeg;base64," + base64Image, "Image Alternative Text");
+            } else {
+                System.err.println("Image not found in the database.");
+            }
+        } catch (SQLException | IOException e) {
+            Notification.show("Problème de style : " + e.getMessage());
+        }
     }
 
     public produit(String des_p, int ref_p) {
-        this(-1, des_p, ref_p, new Image("images/" + ref_p + ".jpg", "image"));
-        
+        this(-1, des_p, ref_p, new Image("images/" + ref_p + ".jpg", "image"));      
     }
 
     public static produit demande() {
