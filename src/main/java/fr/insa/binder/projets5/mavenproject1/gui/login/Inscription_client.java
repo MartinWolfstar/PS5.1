@@ -42,6 +42,8 @@ public  class Inscription_client extends VerticalLayout{
         mdp = new PasswordField("Votre mot de passe :");
         sauvegarder = new Button("Sauvegarder les informations");
         this.VL = new VerticalLayout();
+        prenom.setValue("titi");
+        login.setValue("tototiti");
         //ALD = new AppLayoutDrawer();
         mdp.setValue("Ex@mplePassw0rd");
         

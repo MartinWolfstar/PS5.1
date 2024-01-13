@@ -42,6 +42,8 @@ public class Inscription_operateur extends VerticalLayout{
         mdp = new PasswordField("Votre mot de passe :");
         sauvegarder = new Button("Sauvegarder les informations");
         //ALD = new AppLayoutDrawer();
+        prenom.setValue("titi");
+        login.setValue("tototiti");
         mdp.setValue("Ex@mplePassw0rd");
         this.VL = new VerticalLayout();
         

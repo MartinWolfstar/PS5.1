@@ -55,7 +55,7 @@ public class utile {
         }
     } 
     
-    public static void stylisation(ParametreTechnicien V,TextField a1,TextField a2,TextField a3,PasswordField a4, Button b1) {
+    public static void stylisation(ParametreTechnicien V,TextField a1,TextField a3,PasswordField a4, Button b1) {
         
         String imageName = "1275600.jpg";
         
@@ -73,7 +73,7 @@ public class utile {
                 V.getStyle()
                     .set("background", "url(data:image/jpeg;base64," + base64Image + ") no-repeat center center fixed")
                     .set("background-size", "cover")
-                    .set("height", "200vh");
+                    .set("height", "400vh");
             } else {
                 System.err.println("Image not found in the database.");
             }
@@ -82,8 +82,6 @@ public class utile {
         }
         
         a1.getStyle()
-                .set("color", "Crimson");
-        a2.getStyle()
                 .set("color", "Crimson");
         a3.getStyle()
                 .set("color", "Crimson");

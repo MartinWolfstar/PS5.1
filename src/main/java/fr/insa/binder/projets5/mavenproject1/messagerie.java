@@ -4,12 +4,15 @@
  */
 package fr.insa.binder.projets5.mavenproject1;
 
+import com.vaadin.flow.server.VaadinSession;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -81,6 +84,16 @@ public class messagerie {
             }
         }
         return res;
+    }
+    
+    public String getNom() {
+        String nom;
+        try {
+            nom = operateur.getnom_operateur(id_op,(Connection) VaadinSession.getCurrent().getAttribute("conn"));
+        } catch (SQLException ex) {
+            nom = "erreur BDD, id non identifié";
+        }
+        return nom;
     }
 
     @Override

@@ -18,6 +18,7 @@ import com.vaadin.flow.server.VaadinSession;
 import fr.insa.binder.projets5.mavenproject1.Utilitaire.utile;
 import fr.insa.binder.projets5.mavenproject1.gui.technicien.BarreGaucheTechnicien;
 import static fr.insa.binder.projets5.mavenproject1.gui.technicien.technicienInterface.Grid_technicien33.get_etat_d_un_operateur;
+import fr.insa.binder.projets5.mavenproject1.operateur;
 import java.sql.Connection;
 import java.sql.SQLException;
 
@@ -46,15 +47,23 @@ public class ParametreTechnicien extends VerticalLayout{
         id_operateur = (int) VaadinSession.getCurrent().getAttribute("id_operateur");
         nom = new TextField("votre nom :");
         prenom = new TextField("votre prénom :");
-        mail = new TextField("votre adresse mail :");
         mdp = new PasswordField("changer votre mot de passe :");
         sauvegarder = new Button("Sauvegarder les informations");
         mdp.setValue("Ex@mplePassw0rd");
         H4 = new HorizontalLayout();
-        H4.add(nom, prenom, mail, mdp);
+        H4.add(nom, prenom, mdp);
+        
+        Connection conn = (Connection) VaadinSession.getCurrent().getAttribute("conn");
+        int id_o = (Integer) VaadinSession.getCurrent().getAttribute("id_operateur");
         
         sauvegarder.addClickListener(e -> {
-            Notification.show("Hello " + nom.getValue());
+            try {
+                operateur.setNom(nom.getValue(),id_o, conn);
+                operateur.setPrenom(prenom.getValue(),id_o, conn);
+                operateur.setPassword(mdp.getValue(),id_o, conn);
+            } catch (SQLException ex) {
+                Notification.show("Problème interne des parametres: " + ex);
+            }
         });
         sauvegarder.addClickShortcut(Key.ENTER);
 
@@ -77,6 +86,6 @@ public class ParametreTechnicien extends VerticalLayout{
         }
         addClassName("list_etat");
         setSizeFull();
-        utile.stylisation(this,nom,prenom,mail,mdp,sauvegarder);
+        utile.stylisation(this,nom,prenom,mdp,sauvegarder);
     }
 }
