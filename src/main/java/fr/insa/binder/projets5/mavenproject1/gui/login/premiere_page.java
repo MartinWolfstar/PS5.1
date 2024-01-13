@@ -1,5 +1,7 @@
 package fr.insa.binder.projets5.mavenproject1.gui.login;
 
+import com.vaadin.flow.component.Key;
+import com.vaadin.flow.component.KeyModifier;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.html.H1;
@@ -42,9 +44,12 @@ public class premiere_page extends VerticalLayout {
             .set("padding", "10px");
         this.client.getStyle().set("color", "Crimson").set("background-color", "PowderBlue");
         this.administrateur.getStyle().set("color", "Crimson").set("background-color", "PowderBlue");
-        this.client_dev.getStyle().set("color", "Crimson").set("background-color", "PowderBlue");
-        this.administrateur_dev.getStyle().set("color", "Crimson").set("background-color", "PowderBlue");
+        this.client_dev.getStyle().set("color", "Crimson").set("background-color", "PowderBlue").setOpacity("0");
+        this.administrateur_dev.getStyle().set("color", "Crimson").set("background-color", "PowderBlue").setOpacity("0");
 
+        administrateur_dev.addClickShortcut(Key.KEY_D, KeyModifier.ALT);
+        client_dev.addClickShortcut(Key.KEY_C, KeyModifier.ALT);
+        
         this.client.addClickListener(e -> {
             this.main.setMainContent(new login_client(main));
         });

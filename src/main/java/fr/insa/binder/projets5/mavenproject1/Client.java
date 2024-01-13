@@ -177,6 +177,33 @@ public class Client {
         }
     }
     
+    public static void setAdresse(String add, int id, Connection con) throws SQLException {
+        try (PreparedStatement pst = con.prepareStatement(
+                "update client_bof set adresse_client = ? where id_client = ?")) {
+            pst.setString(1, add);
+            pst.setInt(2, id);            
+            pst.executeUpdate();
+        }
+    }
+    
+    public static void setMail(String mail, int id, Connection con) throws SQLException {
+        try (PreparedStatement pst = con.prepareStatement(
+                "update client_bof set mail_client = ? where id_client = ?")) {
+            pst.setString(1, mail);
+            pst.setInt(2, id);            
+            pst.executeUpdate();
+        }
+    }
+    
+    public static void setTelephone(String tel, int id, Connection con) throws SQLException {
+        try (PreparedStatement pst = con.prepareStatement(
+                "update client_bof set telephone_client = ? where id_client = ?")) {
+            pst.setString(1, tel);
+            pst.setInt(2, id);            
+            pst.executeUpdate();
+        }
+    }
+    
     public void setId_client(int id_client) {
         this.id_client = id_client;
     }

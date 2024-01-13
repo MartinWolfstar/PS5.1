@@ -170,6 +170,9 @@ public class Gestion {
                     + "nom_client varchar(50),\n"
                     + "prenom_client varchar(40),\n"
                     + "login_client varchar(50) not null unique,\n"
+                    + "adresse_client varchar(50),\n"
+                    + "telephone_client varchar(50),\n"
+                    + "mail_client varchar(50),\n"
                     + "password_client varchar(40) not null\n"
                     + ")");
             st.executeUpdate(
@@ -360,11 +363,11 @@ public class Gestion {
 
     public static void initialise(Connection conn) throws SQLException {
         // postes de travail
-        poste_de_travail poste1 = new poste_de_travail("ranger");
+        poste_de_travail poste1 = new poste_de_travail("ranger",10,10,200,200);
         poste1.save_poste_de_travail(conn);
-        poste_de_travail poste2 = new poste_de_travail("poussiereux");
+        poste_de_travail poste2 = new poste_de_travail("poussiereux",300,350,60,90);
         poste2.save_poste_de_travail(conn);
-        poste_de_travail poste3 = new poste_de_travail("brillant");
+        poste_de_travail poste3 = new poste_de_travail("brillant",500,700,70,320);
         poste3.save_poste_de_travail(conn);
         
         // types de machines

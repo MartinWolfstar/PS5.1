@@ -4,7 +4,6 @@
  */
 package fr.insa.binder.projets5.mavenproject1.gui.client.clientParametre;
 
-import fr.insa.binder.projets5.mavenproject1.gui.*;
 import com.vaadin.flow.component.Key;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.html.H1;
@@ -15,12 +14,15 @@ import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.server.VaadinSession;
+import fr.insa.binder.projets5.mavenproject1.Client;
 import fr.insa.binder.projets5.mavenproject1.gui.client.BarreGaucheClient;
 import static fr.insa.binder.projets5.mavenproject1.Client.getnom_client;
 import fr.insa.binder.projets5.mavenproject1.ImageT;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -42,11 +44,15 @@ public class ParametreClient extends VerticalLayout{
         
         String nom_prenom = "";
         try {
-            nom_prenom = getnom_client((Integer) VaadinSession.getCurrent().getAttribute("id_client"), (Connection) VaadinSession.getCurrent().getAttribute("conn"));
+            nom_prenom = getnom_client((Integer) VaadinSession.getCurrent().getAttribute("id_client"), (Connection) VaadinSession.getCurrent().getAttribute("conn"));  
         }
         catch (SQLException ex) {
             Notification.show("Problème interne : " + ex.getLocalizedMessage());
-        }   
+        }  
+        
+        Connection conn = (Connection) VaadinSession.getCurrent().getAttribute("conn");
+        int id_c = (Integer) VaadinSession.getCurrent().getAttribute("id_client");
+        
         H1 nom_client = new H1(nom_prenom);
         nom = new TextField("votre nom :");
         prenom = new TextField("votre prénom :");
@@ -60,10 +66,18 @@ public class ParametreClient extends VerticalLayout{
         
         stylisation();
         sauvegarder.addClickListener(e -> {
-            Notification.show("Hello " + nom.getValue());
+            try {
+                Client.setNom(nom.getValue(),id_c, conn);
+                Client.setPrenom(prenom.getValue(),id_c, conn);
+                Client.setAdresse(adresse.getValue(),id_c, conn);
+                Client.setMail(mail.getValue(),id_c, conn);
+                Client.setTelephone(telephone.getValue(),id_c, conn);
+                Client.setPassword(mdp.getValue(),id_c, conn);
+            } catch (SQLException ex) {
+                Notification.show("Problème interne des parametres: " + ex);
+            }
         });
         sauvegarder.addClickShortcut(Key.ENTER);
-
         setMargin(true);
         //setHorizontalComponentAlignment(FlexComponent.Alignment.END, name, sayHello);
 
@@ -82,7 +96,7 @@ public class ParametreClient extends VerticalLayout{
                 this.getStyle()
                     .set("background", "url(data:image/jpeg;base64," + base64Image + ") no-repeat center center fixed")
                     .set("background-size", "cover")
-                    .set("height", "1200vh");
+                    .set("height", "200vh");
             } else {
                 System.err.println("Image not found in the database.");
             }
