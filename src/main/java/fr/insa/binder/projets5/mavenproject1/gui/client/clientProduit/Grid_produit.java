@@ -36,7 +36,7 @@ public class Grid_produit extends Grid<produit> {
 
         selectedIds = new ArrayList<>();
 
-        this.addComponentColumn(i -> i.getImage()).setHeader("Preview");
+        //this.addComponentColumn(i -> i.getImage()).setHeader("Preview");
         this.addColumn(produit::getRef).setHeader("Nom");
         this.addColumn(produit::getDes).setHeader("Description");
         
