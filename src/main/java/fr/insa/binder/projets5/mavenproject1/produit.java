@@ -85,7 +85,6 @@ public class produit implements Serializable {
         return new produit(des_p, ref_p);
     }
 
-    //salut
     public void saveInDBV1(Connection con) throws SQLException {
         try (PreparedStatement pst = con.prepareStatement(
                 "insert into produit_bof (ref_produit,des_produit) values (?,?)", PreparedStatement.RETURN_GENERATED_KEYS)) {
