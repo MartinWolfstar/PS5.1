@@ -135,20 +135,45 @@ public class operation_effectuee {
         return meilleur_liste;
     }
     
-//    public static List<Timestamp> Premiere_dispo (Timestamp time, float duree, int id_m, Connection con) throws SQLException {
-//    List<Timestamp> temps_premier = new ArrayList<>();
-//    List<List<Timestamp>> disponnibilité = Disponiblité_machine(id_m, con);
-//    disponnibilité = Disponibilité_pour_duree(duree, disponnibilité, time);
-//    Collections.sort(disponnibilité, Comparator.comparing(liste -> liste.get(0)));
-//    if () {
-//        
-//    }
-//}
-
+    //Devrait renvoyé la premiere disponibilité d'un couple machine operateur 
+    public static List<Timestamp> Premiere_dispo (Timestamp time, float duree, int id_m, int id_op, Connection con) throws SQLException {
+    List<Timestamp> temps_premier = new ArrayList<>();
+    
+    List<List<Timestamp>> disponnibilite_m = Disponiblité_machine(id_m, con);
+    disponnibilite_m = Disponibilité_pour_duree(duree, disponnibilite_m, time);
+    Collections.sort(disponnibilite_m, Comparator.comparing(liste -> liste.get(0)));
+    System.out.println(disponnibilite_m);
+    System.out.println(disponnibilite_m);
+    
+    List<List<Timestamp>> disponnibilite_op = Disponiblité_operateur(id_op, con);
+    disponnibilite_op = Disponibilité_pour_duree(duree, disponnibilite_op, time);
+    Collections.sort(disponnibilite_op, Comparator.comparing(liste -> liste.get(0)));
+    System.out.println(disponnibilite_op);
+    
+    // Plus de disponibilitées
+    if (disponnibilite_m.isEmpty() || disponnibilite_op.isEmpty()){
+       return temps_premier; 
+    }  
+    // l'operateur n'est pas disponible sur la duree proposée
+    else if (Dispo_debut_fin_op(duree, disponnibilite_op, disponnibilite_m.get(0).get(0) , disponnibilite_m.get(0).get(1)).isEmpty()) {    
+        return Premiere_dispo (disponnibilite_op.get(0).get(0), duree, id_m, id_op, con);
+    }
+    else{
+        Timestamp debut_2 = disponnibilite_op.get(0).get(0);
+        long fin_2 = (long) (debut_2.getTime() + duree *60*1000);
+        Timestamp fin = new Timestamp(fin_2);
+        temps_premier.add(debut_2);
+        temps_premier.add(fin);
+        return temps_premier;
+    }
+    }
+    
+    
+// renvoie une liste de timestamp (debut et fin) de toutes les plages de disponibilité de la machine. 
     public static List<List<Timestamp>> Disponiblité_machine (int id_m, Connection con)throws SQLException{
         List<List<Timestamp>> res = new ArrayList<>();
         try (PreparedStatement pst = con.prepareStatement(
-                "select debut, fin from etat_bof join machine_etat_bof on etat_bof.id_etat = machine_etat_bof.id_etat where id_machine = ? and etat_bof.id_etat = 2")) {
+                "select debut, fin from etat_bof join machine__etat_bof on etat_bof.id_etat = machine__etat_bof.id_etat where id_machine = ? and etat_bof.id_etat = 2")) {
             pst.setInt(1, id_m);
             try (ResultSet rs = pst.executeQuery()) {
                 while (rs.next()) {
@@ -164,6 +189,7 @@ public class operation_effectuee {
         return res;
     }
     
+    // Renvoie normalement la liste des paires de timestamp (debut et fin), qui convienne pour la durée, et a partir d'un certain moment
     public static List<List<Timestamp>> Disponibilité_pour_duree (float duree, List<List<Timestamp>> liste, Timestamp debut) {
         List<List<Timestamp>> res = new ArrayList<>();
         for (List<Timestamp> liste_tst : liste){
@@ -175,12 +201,32 @@ public class operation_effectuee {
         return res;
     }
     
-    public static List<List<Timestamp>> Disponiblité_operateur (Timestamp temps, int id_op, Connection con)throws SQLException{
+    
+    // regarder si un operateur est diponible entre deux timestamp sur une certaine duree. Renvoie le moment ou il est dispo. (debut + fin)
+    public static List<Timestamp> Dispo_debut_fin_op (float duree, List<List<Timestamp>> liste, Timestamp debut, Timestamp fin) {
+        List<Timestamp> res = new ArrayList<>();
+        List<List<Timestamp>> liste_pas_classee = new ArrayList<>();
+        for (List<Timestamp> liste_tst : liste){
+            long debut_op = liste_tst.get(0).getTime();
+            long fin_op = liste_tst.get(1).getTime();
+            if ((debut_op<debut.getTime()) && (fin_op>fin.getTime())){
+                liste_pas_classee.add(liste_tst);
+            } else if ((debut_op>debut.getTime()) && ((debut_op/(1000*60))+duree < (fin.getTime()/(1000*60)))){
+                liste_pas_classee.add(liste_tst);
+            } else if ((fin_op < fin.getTime())&& ((fin_op/(1000*60))-duree)>debut.getTime()){
+                liste_pas_classee.add(liste_tst);
+            }
+        
+        }
+        Collections.sort(liste_pas_classee, Comparator.comparing(list -> list.get(0)));
+        return liste_pas_classee.get(0);
+    }    
+    // Idem mais avec les operateurs
+    public static List<List<Timestamp>> Disponiblité_operateur (int id_op, Connection con)throws SQLException{
         List<List<Timestamp>> res = new ArrayList<>();
         try (PreparedStatement pst = con.prepareStatement(
-                "select debut, fin from etat_bof join operateur_etat_bof on etat_bof.id_etat = operateur_etat_bof.id_etat where id_operateur = ? and etat_bof.id_etat = 2 and debut > ?")) {
+                "select debut, fin from etat_bof join operateur__etat_bof on etat_bof.id_etat = operateur__etat_bof.id_etat where id_operateur = ? and etat_bof.id_etat = 2")) {
             pst.setInt(1, id_op);
-            pst.setTimestamp(2, temps);
             try (ResultSet rs = pst.executeQuery()) {
                 while (rs.next()) {
                     List<Timestamp> time = new ArrayList<>();
@@ -250,12 +296,15 @@ public class operation_effectuee {
     public void setId_machine(int id_machine) {
         this.id_machine = id_machine;
     }
-
+    
     public static void main(String[] args) throws SQLException {
         try {
             Connection con = connectSurServeurM3();
-            List<operation_effectuee> liset_c = Meilleurs_operation_produit(con, get_ex(con, 1));
-            System.out.println(liset_c + "Salut");
+//            List<operation_effectuee> liset_c = Meilleurs_operation_produit(con, get_ex(con, 1));
+//            System.out.println(liset_c + "Salut");
+            Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+            List<Timestamp> liste_tst = Premiere_dispo(timestamp, 50, 5, 1, con);
+            System.out.println(liste_tst);
 //           rOperateur.saveInDBV(connectSurServeurM3());
         } catch (SQLException ex) {
             throw new Error(ex);
