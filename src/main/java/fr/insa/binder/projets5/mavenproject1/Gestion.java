@@ -202,6 +202,7 @@ public class Gestion {
                     + "id_operation integer not null,\n"
                     + "id_exemplaire integer not null,\n"
                     + "id_machine integer not null, \n"
+                    + "id_operateur integer not null, \n"
                     + "debut TIMESTAMP,\n"
                     + "fin TIMESTAMP\n"
                     + ")\n"
@@ -339,6 +340,10 @@ public class Gestion {
                     + "add constraint fk_operations_effectuees_bof_id_exemplaire \n"
                     + "foreign key (id_exemplaire) references exemplaire_bof(id_exemplaire)");
             st.executeUpdate(
+                    "alter table operations_effectuees_bof \n"
+                    + "add constraint fk_operations_effectuees_bof_id_operateur \n"
+                    + "foreign key (id_operateur) references operateur_bof(id_operateur)");
+            st.executeUpdate(
                     "alter table machine_bof \n"
                     + "add constraint fk_machine_bof_id_type_machine \n"
                     + "foreign key (id_type_machine) references type_machine_bof(id_type_machine)");
@@ -470,6 +475,11 @@ public class Gestion {
             }
             try {
                 st.executeUpdate("alter table operations_effectuees_bof drop constraint fk_operations_effectuees_bof_id_exemplaire");
+            } catch (SQLException ex) {
+                System.out.println("erreur4" + ex);
+            }
+            try {
+                st.executeUpdate("alter table operations_effectuees_bof drop constraint fk_operations_effectuees_bof_id_operateur");
             } catch (SQLException ex) {
                 System.out.println("erreur4" + ex);
             }

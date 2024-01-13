@@ -135,6 +135,8 @@ public class operation_effectuee {
         return meilleur_liste;
     }
     
+    
+    
     //Devrait renvoyé la premiere disponibilité d'un couple machine operateur 
     public static List<Timestamp> Premiere_dispo (Timestamp time, float duree, int id_m, int id_op, Connection con) throws SQLException {
     List<Timestamp> temps_premier = new ArrayList<>();
@@ -173,7 +175,7 @@ public class operation_effectuee {
     public static List<List<Timestamp>> Disponiblité_machine (int id_m, Connection con)throws SQLException{
         List<List<Timestamp>> res = new ArrayList<>();
         try (PreparedStatement pst = con.prepareStatement(
-                "select debut, fin from etat_bof join machine__etat_bof on etat_bof.id_etat = machine__etat_bof.id_etat where id_machine = ? and etat_bof.id_etat = 2")) {
+                "select debut, fin from etat_bof join machine__etat_bof on etat_bof.id_etat = machine__etat_bof.id_etat where id_machine = ? and etat_bof.id_type_etat = 2")) {
             pst.setInt(1, id_m);
             try (ResultSet rs = pst.executeQuery()) {
                 while (rs.next()) {
@@ -186,6 +188,7 @@ public class operation_effectuee {
                 }
             }
         }
+        System.out.println(res);
         return res;
     }
     
@@ -198,6 +201,7 @@ public class operation_effectuee {
                 res.add(liste_tst);
             }
         }
+        System.out.println(res);
         return res;
     }
     
@@ -219,13 +223,14 @@ public class operation_effectuee {
         
         }
         Collections.sort(liste_pas_classee, Comparator.comparing(list -> list.get(0)));
+        System.out.println(liste_pas_classee);
         return liste_pas_classee.get(0);
     }    
     // Idem mais avec les operateurs
     public static List<List<Timestamp>> Disponiblité_operateur (int id_op, Connection con)throws SQLException{
         List<List<Timestamp>> res = new ArrayList<>();
         try (PreparedStatement pst = con.prepareStatement(
-                "select debut, fin from etat_bof join operateur__etat_bof on etat_bof.id_etat = operateur__etat_bof.id_etat where id_operateur = ? and etat_bof.id_etat = 2")) {
+                "select debut, fin from etat_bof join operateur__etat_bof on etat_bof.id_etat = operateur__etat_bof.id_etat where id_operateur = ? and etat_bof.id_type_etat = 2")) {
             pst.setInt(1, id_op);
             try (ResultSet rs = pst.executeQuery()) {
                 while (rs.next()) {
@@ -238,6 +243,7 @@ public class operation_effectuee {
                 }
             }
         }
+        System.out.println(res);
         return res;
     }
     
@@ -304,6 +310,7 @@ public class operation_effectuee {
 //            System.out.println(liset_c + "Salut");
             Timestamp timestamp = new Timestamp(System.currentTimeMillis());
             List<Timestamp> liste_tst = Premiere_dispo(timestamp, 50, 5, 1, con);
+            System.out.println("liste des états :");
             System.out.println(liste_tst);
 //           rOperateur.saveInDBV(connectSurServeurM3());
         } catch (SQLException ex) {
