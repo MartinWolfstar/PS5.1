@@ -6,6 +6,7 @@ package fr.insa.binder.projets5.mavenproject1.gui.client.clientCommentaire;
 
 import com.vaadin.flow.component.ClickEvent;
 import com.vaadin.flow.component.ComponentEventListener;
+import com.vaadin.flow.component.Key;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.combobox.ComboBox;
 import com.vaadin.flow.component.contextmenu.MenuItem;
@@ -87,6 +88,7 @@ public class CommentaireClient extends VerticalLayout {
         // Ajouter le bouton pour ajouter un commentaire
         this.boutonAjoutCommentaire = new Button("Ajouter Commentaire", this::ajouterCommentaire);
 
+        boutonAjoutCommentaire.addClickShortcut(Key.ENTER);
         this.add(new H3("Accéder aux commentaires du produit"));
         this.add(menu_bar);
         this.add(comboBoxProduits);
