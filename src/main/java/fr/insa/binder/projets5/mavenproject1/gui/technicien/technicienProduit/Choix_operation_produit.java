@@ -9,6 +9,7 @@ import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.server.VaadinSession;
+import fr.insa.binder.projets5.mavenproject1.Utilitaire.utile;
 import fr.insa.binder.projets5.mavenproject1.produit;
 
 /**
@@ -39,19 +40,9 @@ public class Choix_operation_produit extends VerticalLayout {
 
         this.add(H1);
         this.add(this.grid);
-
-
         addClassName("liste_machine");
         setSizeFull();
-        stylisation();
-
-    }
-    private void stylisation() {
-        
-        this.getStyle()
-            .set("background", "url(images/1275600.jpg) no-repeat center center fixed")
-            .set("background-size", "cover")
-            .set("height", "120vh");
+        utile.stylisation(this);
     }
 }
     
