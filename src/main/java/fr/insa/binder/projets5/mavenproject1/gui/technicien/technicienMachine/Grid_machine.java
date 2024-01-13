@@ -213,5 +213,6 @@ public class Grid_machine extends Grid<machine>{
         }).setHeader("");
 
         this.getStyle().setBackground("PowderBlue");
+        this.setHeight("120vh");
     }
 }
