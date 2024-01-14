@@ -74,8 +74,8 @@ public class CommandeClient extends VerticalLayout{
     }
     
     private void showFactureDialog() {
-        // Créer une fenêtre modale
         Dialog factureDialog = new Dialog();
+        //factureDialog.getStyle().setBackground("#FEE59D;");
         factureDialog.setCloseOnOutsideClick(true);
         factureDialog.setWidth("700px"); // Ajustez la largeur selon vos besoins
         factureDialog.setModal(true);
@@ -103,7 +103,6 @@ public class CommandeClient extends VerticalLayout{
         String numeroCommande = randomNumber+"-FR67";
         String idclient = "0C0-"+idc;
         
-        // Ajouter le texte et la liste des commandes à la fenêtre
         VerticalLayout content = new VerticalLayout();
         content.add(new H1("Facture"));
         VerticalLayout V1 = new VerticalLayout();
@@ -115,8 +114,6 @@ public class CommandeClient extends VerticalLayout{
         V1.add(new H4("date : " + dateDuJour));
         content.add(H2);
 
-
-        // Ajouter la liste des commandes (utilisez le contenu de votre grille)
         try {
             this.grid = new Grid_commande(commande.tousLesCommandes(idc, (Connection) VaadinSession.getCurrent().getAttribute("conn"))); 
             content.add(this.grid);
@@ -127,18 +124,11 @@ public class CommandeClient extends VerticalLayout{
         content.add(new H3("Merci de votre achat"));
         HorizontalLayout H3 = new HorizontalLayout();
         content.add(H3);
-        // Close button
         Button closeButton = new Button("Fermer", event -> factureDialog.close());
         H3.add(closeButton);
-        // Telechargement button
         Button TelechargementB = new Button("Telecharger", event -> factureDialog.close());
-        
         H3.add(TelechargementB);
-        
         factureDialog.add(content);
-
-        // Ouvrir la fenêtre modale
         factureDialog.open();
-        utile.stylisation(this);
     }
 }

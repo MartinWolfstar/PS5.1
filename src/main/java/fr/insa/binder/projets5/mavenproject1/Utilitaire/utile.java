@@ -6,6 +6,7 @@ package fr.insa.binder.projets5.mavenproject1.Utilitaire;
 
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.notification.Notification;
+import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.PasswordField;
 import com.vaadin.flow.component.textfield.TextField;
@@ -31,18 +32,12 @@ public class utile {
 //            .set("height", "1200vh");
 
         String imageName = "fdecran.jpg";
-        
-        // Connexion à la base de données (assurez-vous que votre connexion est établie correctement)
         Connection conn = (Connection) VaadinSession.getCurrent().getAttribute("conn");
-
         try {
-            // Récupération de l'image depuis la base de données
             ImageT image = ImageT.getImageByName(conn, imageName);
 
             if (image != null) {
-                // Convertir les données binaires de l'image en base64 pour l'utiliser dans le style
                 String base64Image = java.util.Base64.getEncoder().encodeToString(image.getImageBytes());
-
                 V.getStyle()
                     .set("background", "url(data:image/jpeg;base64," + base64Image + ") no-repeat center center fixed")
                     .set("background-size", "cover")
@@ -55,22 +50,68 @@ public class utile {
             Notification.show("probleme style : " + e);
         }
     } 
+        public static void stylisation(HorizontalLayout V) {
+        
+//        V.getStyle()
+//            .set("background", "url(images/1275600.jpg) no-repeat center center fixed")
+//            .set("background-size", "cover")
+//            .set("height", "1200vh");
+
+        String imageName = "fdecran.jpg";
+        Connection conn = (Connection) VaadinSession.getCurrent().getAttribute("conn");
+        try {
+            ImageT image = ImageT.getImageByName(conn, imageName);
+
+            if (image != null) {
+                String base64Image = java.util.Base64.getEncoder().encodeToString(image.getImageBytes());
+                V.getStyle()
+                    .set("background", "url(data:image/jpeg;base64," + base64Image + ") no-repeat center center fixed")
+                    .set("background-size", "cover")
+                    .setOpacity("50")
+                    .set("height", "200vh");
+            } else {
+                System.err.println("Image not found in the database.");
+            }
+        } catch (SQLException | IOException e) {
+            Notification.show("probleme style : " + e);
+        }
+    } 
+    public static void stylisation2(HorizontalLayout V) {
+        
+//        V.getStyle()
+//            .set("background", "url(images/1275600.jpg) no-repeat center center fixed")
+//            .set("background-size", "cover")
+//            .set("height", "1200vh");
+
+        String imageName = "MarcoL.jpg";
+        Connection conn = (Connection) VaadinSession.getCurrent().getAttribute("conn");
+        try {
+            ImageT image = ImageT.getImageByName(conn, imageName);
+
+            if (image != null) {
+                String base64Image = java.util.Base64.getEncoder().encodeToString(image.getImageBytes());
+                V.getStyle()
+                    .set("background", "url(data:image/jpeg;base64," + base64Image + ") no-repeat center center fixed")
+                    .set("background-size", "cover");
+                    //.setOpacity("50")
+                    //.set("height", "200vh");
+            } else {
+                System.err.println("Image not found in the database.");
+            }
+        } catch (SQLException | IOException e) {
+            Notification.show("probleme style : " + e);
+        }
+    } 
     
     public static void stylisation(ParametreTechnicien V,TextField a1,TextField a3,PasswordField a4, Button b1) {
         
         String imageName = "fdecran.jpg";
-        
-        // Connexion à la base de données (assurez-vous que votre connexion est établie correctement)
         Connection conn = (Connection) VaadinSession.getCurrent().getAttribute("conn");
 
         try {
-            // Récupération de l'image depuis la base de données
             ImageT image = ImageT.getImageByName(conn, imageName);
-
             if (image != null) {
-                // Convertir les données binaires de l'image en base64 pour l'utiliser dans le style
                 String base64Image = java.util.Base64.getEncoder().encodeToString(image.getImageBytes());
-
                 V.getStyle()
                     .set("background", "url(data:image/jpeg;base64," + base64Image + ") no-repeat center center fixed")
                     .set("background-size", "cover")
@@ -85,16 +126,11 @@ public class utile {
     public static void stylisation(technicien_PlanUsine aThis, Button ajoutB, Button modifB, Button suppB) {
         
         String imageName = "fdecran.jpg";
-        
-        // Connexion à la base de données (assurez-vous que votre connexion est établie correctement)
         Connection conn = (Connection) VaadinSession.getCurrent().getAttribute("conn");
-
         try {
-            // Récupération de l'image depuis la base de données
             ImageT image = ImageT.getImageByName(conn, imageName);
 
             if (image != null) {
-                // Convertir les données binaires de l'image en base64 pour l'utiliser dans le style
                 String base64Image = java.util.Base64.getEncoder().encodeToString(image.getImageBytes());
 
                 aThis.getStyle()
@@ -106,7 +142,6 @@ public class utile {
             }
         } catch (SQLException | IOException e) {
             Notification.show("probleme style : " + e);
-            // Gérer les exceptions appropriées ici
         }
     }
     

@@ -26,7 +26,7 @@ import java.util.Set;
  */
 public class Grid_produit extends Grid<produit> {
 
-    private List<Integer> selectedIds; // Liste pour stocker les identifiants des objets sélectionnés
+    private List<Integer> selectedIds;
     private Optional<Grid.Column<produit>> currentColumn = Optional.empty();
     private Optional<produit> currentItem = Optional.empty();
 
@@ -37,8 +37,11 @@ public class Grid_produit extends Grid<produit> {
         selectedIds = new ArrayList<>();
 
         //this.addComponentColumn(i -> i.getImage()).setHeader("Preview");
-        this.addColumn(produit::getRef).setHeader("Nom");
-        this.addColumn(produit::getDes).setHeader("Description");
+        Grid.Column<produit> nom =this.addColumn(produit::getRef).setHeader("Nom");
+        Grid.Column<produit> des =this.addColumn(produit::getDes).setHeader("Description");
+        nom.setWidth("50px");
+        des.setWidth("500px");
+        
         
         Grid.Column<produit> quantite = this.addColumn(produit -> {
             int text = 1;
@@ -51,7 +54,7 @@ public class Grid_produit extends Grid<produit> {
         editor.setBuffered(true);
 
         editor.addSaveListener(event -> {
-            Notification.show("Number : " + event);
+            //Notification.show("Number : " + event);
         });
         
         IntegerField quant_field = new IntegerField();
@@ -86,23 +89,20 @@ public class Grid_produit extends Grid<produit> {
         }, Key.ENTER).listenOn(this);
 
         this.addCellFocusListener(event -> {
-            // Store the item on cell focus. Used in the ENTER ShortcutListener
             currentItem = event.getItem();
-            // Store the current column. Used in the SelectionListener to focus the editor component
             currentColumn = event.getColumn();
         });
         
         this.addSelectionListener(selection -> {
             Set<produit> selectedItems = selection.getAllSelectedItems();
-            selectedIds.clear(); // Effacer la liste existante
+            selectedIds.clear(); 
 
             for (produit produit : selectedItems) {
-                selectedIds.add(produit.getId()); // Ajouter l'identifiant de chaque objet sélectionné à la liste
+                selectedIds.add(produit.getId()); 
             }
-
-            Notification.show("Number of selected people: " + selectedItems.size());
+            //Notification.show("Number of selected people: " + selectedItems.size());
         });
-        
+        this.setMaxHeight("100vh");
     }
 
     public List<Integer> getSelectedIds() {

@@ -49,6 +49,10 @@ public class AfficherProduit extends Grid<produit> {
         Grid.Column<produit> ref = this.addColumn(produit::getRef).setHeader("Ref");
         Grid.Column<produit> des = this.addColumn(produit::getDes).setHeader("Des");
 
+        id.setWidth("10px");
+        ref.setWidth("20px");
+        des.setWidth("800px");
+        
         this.addComponentColumn(produit -> {
             Button button = new Button("Supprimer", clickEvent -> {
                 try {

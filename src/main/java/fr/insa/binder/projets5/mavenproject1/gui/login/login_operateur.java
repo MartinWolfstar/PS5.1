@@ -54,7 +54,7 @@ public class login_operateur extends VerticalLayout {
         });
         vbLogin.addClickShortcut(Key.ENTER);
         stylisation();
-        this.inscription.setVisible(false);
+        //this.inscription.setVisible(false);
         inscription.addClickShortcut(Key.KEY_I);;
     }
     

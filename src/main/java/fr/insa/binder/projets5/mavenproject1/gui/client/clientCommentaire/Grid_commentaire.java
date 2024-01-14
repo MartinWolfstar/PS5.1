@@ -25,7 +25,7 @@ public class Grid_commentaire extends Grid<commantaire> {
     private Optional<commantaire> currentItem = Optional.empty();
 
     public Grid_commentaire(List<commantaire> list_commentaires) {
-        addColumn(commantaire -> {
+        Grid.Column<commantaire> nom = addColumn(commantaire -> {
             int idClient = commantaire.getId_client();
             try {
                 Connection con = (Connection) VaadinSession.getCurrent().getAttribute("conn");
@@ -36,19 +36,22 @@ public class Grid_commentaire extends Grid<commantaire> {
             }
         }).setHeader("Nom du Client");
         
-        addColumn(commantaire::getMessage).setHeader("Message");
+        Grid.Column<commantaire> mes =addColumn(commantaire::getMessage).setHeader("Message");
+        nom.setWidth("50px");
+        mes.setWidth("900px");
+
         //addColumn(this::createMessageEditor).setHeader("Message");
 
-        selectedIds = new ArrayList<>();
-        setSelectionMode(SelectionMode.MULTI);
+//        selectedIds = new ArrayList<>();
+//        setSelectionMode(SelectionMode.MULTI);
         setItems(list_commentaires);
 
-        addSelectionListener(event -> {
-            Set<commantaire> selectedItems = event.getAllSelectedItems();
-            selectedIds = selectedItems.stream().map(commantaire::getId_commentaire).collect(Collectors.toList());
-            currentItem = selectedItems.stream().findFirst();
-        });
-        
+//        addSelectionListener(event -> {
+//            Set<commantaire> selectedItems = event.getAllSelectedItems();
+//            selectedIds = selectedItems.stream().map(commantaire::getId_commentaire).collect(Collectors.toList());
+//            currentItem = selectedItems.stream().findFirst();
+//        });
+        this.setMaxHeight("50vh");
 
     }
 //    private HorizontalLayout createMessageEditor(commantaire commentaire) {

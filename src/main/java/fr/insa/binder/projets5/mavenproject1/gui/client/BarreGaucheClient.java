@@ -19,7 +19,6 @@ import com.vaadin.flow.router.HighlightConditions;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.router.RouterLink;
-import fr.insa.binder.projets5.mavenproject1.gui.technicien.technicienMachine.ListeMachine;
 
 /**
  * 
@@ -32,63 +31,71 @@ public class BarreGaucheClient extends AppLayout{
     public BarreGaucheClient(){
         creatHeader();
         createDrawer();
-        this.getStyle()
-            .set("background-color", "#030876")
-            .set("color", "#FEE59D");
+        this.getStyle().setBackground("#FEE59D");
     }
 
     private void creatHeader() {
         H1 logo = new H1("MarcoPolo");
+        logo.getStyle().setColor("#030876");
         logo.addClassName("logo");
         
+//        String imageName = "MarcoL.jpg";
+//        Connection conn = (Connection) VaadinSession.getCurrent().getAttribute("conn");
+//        Image img = new Image();
+//        try {
+//            ImageT image = ImageT.getImageByName(conn, imageName);
+//
+//            if (image != null) {
+//                String base64Image = java.util.Base64.getEncoder().encodeToString(image.getImageBytes());
+//                img = new Image("url(data:image/jpeg;base64," + base64Image + ")", "");
+//
+//            } else {
+//                System.err.println("Image not found in the database.");
+//            }
+//        } catch (SQLException | IOException e) {
+//            Notification.show("probleme style : " + e);
+//        }
         HorizontalLayout header = new HorizontalLayout(new DrawerToggle(), logo);
+        header.setMinHeight("60px");
         header.addClassName("header");
         header.setWidth("100%");
         header.setDefaultVerticalComponentAlignment(FlexComponent.Alignment.CENTER);
-        
+        header.getStyle().setBackground("#ffde75");
         addToNavbar(header);
         
     }
 
+
     private void createDrawer() {
+        VerticalLayout drawerLayout = new VerticalLayout();
+        drawerLayout.getStyle().setBackground("#ffde75");
+        drawerLayout.setMinHeight("100vh");
         RouterLink listLink = new RouterLink("Produit", ProduitClient.class);
         listLink.setHighlightCondition(HighlightConditions.sameLocation());
-        
-        addToDrawer(new VerticalLayout(
+        listLink.getStyle().setColor("#030876");
+        drawerLayout.add(new VerticalLayout(
                 listLink
         ));
         RouterLink listLink2 = new RouterLink("Commande", CommandeClient.class);
         listLink2.setHighlightCondition(HighlightConditions.sameLocation());
-        
-        addToDrawer(new VerticalLayout(
+        listLink2.getStyle().setColor("#030876");
+        drawerLayout.add(new VerticalLayout(
                 listLink2
         ));
         
         RouterLink listLink3 = new RouterLink("Parametre", ParametreClient.class);
         listLink3.setHighlightCondition(HighlightConditions.sameLocation());
-        
-        addToDrawer(new VerticalLayout(
+        listLink3.getStyle().setColor("#030876");
+        drawerLayout.add(new VerticalLayout(
                 listLink3
         ));
         
        RouterLink listLink4 = new RouterLink("Commentaire", CommentaireClient.class);
         listLink4.setHighlightCondition(HighlightConditions.sameLocation());
-        
-        addToDrawer(new VerticalLayout(
+        listLink4.getStyle().setColor("#030876");
+        drawerLayout.add(new VerticalLayout(
                 listLink4
         ));
-//        RouterLink listLinkASup = new RouterLink("technicien", ListeMachine.class);
-//        listLinkASup.setHighlightCondition(HighlightConditions.sameLocation());
-//        
-//        addToDrawer(new VerticalLayout(
-//                listLinkASup
-//        ));
-//        RouterLink listLinkASup2 = new RouterLink("test", ZoneTest.class);
-//        listLinkASup2.setHighlightCondition(HighlightConditions.sameLocation());
-//        
-//        addToDrawer(new VerticalLayout(
-//                listLinkASup2
-//        ));
-        
+        addToDrawer(drawerLayout);
     }
 }

@@ -21,6 +21,24 @@ vaadin-menu-bar-button {
     background-color: #030876;
 }*/
 
+vaadin-RouterLink {
+    color:#030876;
+}
+vaadin-H2 {
+    color:#030876;
+}
+vaadin-H3 {
+    color:#030876;
+}
+vaadin-H4 {
+    color:#030876;
+}
+vaadin-H5 {
+    color:#030876;
+}
+vaadin-H6 {
+    color:#030876;
+}
 vaadin-Grid {
     color:#030876;
     background-color: #FEE59D;
