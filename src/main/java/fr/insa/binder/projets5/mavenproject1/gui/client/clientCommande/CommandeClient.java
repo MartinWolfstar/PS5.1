@@ -16,7 +16,9 @@ import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.server.VaadinSession;
+import fr.insa.binder.projets5.mavenproject1.Client;
 import fr.insa.binder.projets5.mavenproject1.ImageT;
+import fr.insa.binder.projets5.mavenproject1.Utilitaire.utile;
 import fr.insa.binder.projets5.mavenproject1.commande;
 import fr.insa.binder.projets5.mavenproject1.gui.client.BarreGaucheClient;
 import java.io.IOException;
@@ -24,6 +26,7 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Random;
 
 /**
  *
@@ -67,24 +70,39 @@ public class CommandeClient extends VerticalLayout{
         setMargin(true);
         //setHorizontalComponentAlignment(FlexComponent.Alignment.END, name, sayHello);
         add(facture);
-        stylisation();
+        utile.stylisation(this);
     }
     
     private void showFactureDialog() {
-        // Créer une fenêtre modale
         Dialog factureDialog = new Dialog();
+        //factureDialog.getStyle().setBackground("#FEE59D;");
         factureDialog.setCloseOnOutsideClick(true);
         factureDialog.setWidth("700px"); // Ajustez la largeur selon vos besoins
         factureDialog.setModal(true);
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
         String dateDuJour = LocalDate.now().format(formatter);
-        String nomClient = "nom du client";
-        String adresseClient = "adresse du Client";
-        String numeroCommande = "numero Commande";
-        String idclient = "id du client";
+        int idc = (Integer) VaadinSession.getCurrent().getAttribute("id_client");
+        Connection con = (Connection) VaadinSession.getCurrent().getAttribute("conn");
+        String nomClient;
+        try {
+            nomClient = Client.getnom_client(idc,con);
+        } catch (SQLException ex) {
+            Notification.show("echec lors de l'import du nom client" + ex);
+            nomClient = "inconnu";
+        }
+        String adresseClient;
+        try {
+            adresseClient = Client.getAdd_client(idc,con);
+        } catch (SQLException ex) {
+            Notification.show("echec lors de l'import de l'adresse client" + ex);
+            adresseClient = "inconnu";
+        }
+        Random random = new Random();
+        int randomNumber = random.nextInt(1000);
+        String numeroCommande = randomNumber+"-FR67";
+        String idclient = "0C0-"+idc;
         
-        // Ajouter le texte et la liste des commandes à la fenêtre
         VerticalLayout content = new VerticalLayout();
         content.add(new H1("Facture"));
         VerticalLayout V1 = new VerticalLayout();
@@ -96,10 +114,7 @@ public class CommandeClient extends VerticalLayout{
         V1.add(new H4("date : " + dateDuJour));
         content.add(H2);
 
-
-        // Ajouter la liste des commandes (utilisez le contenu de votre grille)
         try {
-            int idc = (Integer) VaadinSession.getCurrent().getAttribute("id_client");
             this.grid = new Grid_commande(commande.tousLesCommandes(idc, (Connection) VaadinSession.getCurrent().getAttribute("conn"))); 
             content.add(this.grid);
         } catch(SQLException ex) {
@@ -109,46 +124,11 @@ public class CommandeClient extends VerticalLayout{
         content.add(new H3("Merci de votre achat"));
         HorizontalLayout H3 = new HorizontalLayout();
         content.add(H3);
-        // Close button
         Button closeButton = new Button("Fermer", event -> factureDialog.close());
         H3.add(closeButton);
-        // Telechargement button
         Button TelechargementB = new Button("Telecharger", event -> factureDialog.close());
-        
         H3.add(TelechargementB);
-        
         factureDialog.add(content);
-
-        // Ouvrir la fenêtre modale
         factureDialog.open();
-    }
-    
-    private void stylisation() {
-
-        facture.getStyle()
-                .set("color", "Crimson")
-                .set("background-color", "PowderBlue");
-        
-        this.titre.getStyle()
-            .set("color", "Indigo")
-            .set("border-radius", "10px") 
-            .set("padding", "10px");
-        
-        String imageName = "1275600.jpg";
-        Connection conn = (Connection) VaadinSession.getCurrent().getAttribute("conn");
-        try {
-            ImageT image = ImageT.getImageByName(conn, imageName);
-            if (image != null) {
-                String base64Image = java.util.Base64.getEncoder().encodeToString(image.getImageBytes());
-                this.getStyle()
-                    .set("background", "url(data:image/jpeg;base64," + base64Image + ") no-repeat center center fixed")
-                    .set("background-size", "cover")
-                    .set("height", "1200vh");
-            } else {
-                System.err.println("Image not found in the database.");
-            }
-        } catch (SQLException | IOException e) {
-            Notification.show("probleme style : " + e);
-        }
     }
 }

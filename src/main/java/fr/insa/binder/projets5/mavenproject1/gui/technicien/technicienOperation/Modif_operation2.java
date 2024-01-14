@@ -11,10 +11,6 @@ import com.vaadin.flow.component.textfield.IntegerField;
 import com.vaadin.flow.component.textfield.TextField;
 import fr.insa.binder.projets5.mavenproject1.Operation;
 
-/**
- *
- * @author binde
- */
 public class Modif_operation2 extends VerticalLayout{
     private IntegerField ref;
     private TextField des;

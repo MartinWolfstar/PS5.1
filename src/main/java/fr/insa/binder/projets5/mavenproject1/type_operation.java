@@ -43,10 +43,12 @@ public class type_operation {
     }
 
     public static void supTypeOperation(Connection con, int id) throws SQLException {
-        try (PreparedStatement pst = con.prepareStatement(
-                "delete from type_operation_bof where id_type_operation = ?")) {
-            pst.setInt(1, id);
-            pst.executeUpdate();
+        if (id!=1){
+            try (PreparedStatement pst = con.prepareStatement(
+                    "delete from type_operation_bof where id_type_operation = ?")) {
+                pst.setInt(1, id);
+                pst.executeUpdate();
+            }
         }
     }
 

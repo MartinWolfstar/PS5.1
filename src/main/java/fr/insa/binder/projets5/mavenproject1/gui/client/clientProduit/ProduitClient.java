@@ -17,10 +17,12 @@ import com.vaadin.flow.router.Route;
 import com.vaadin.flow.server.VaadinSession;
 import fr.insa.binder.projets5.mavenproject1.ImageT;
 import fr.insa.binder.projets5.mavenproject1.Operation;
+import fr.insa.binder.projets5.mavenproject1.Utilitaire.utile;
 import fr.insa.binder.projets5.mavenproject1.commande;
 import fr.insa.binder.projets5.mavenproject1.commande_produit;
 import fr.insa.binder.projets5.mavenproject1.exemplaire;
 import fr.insa.binder.projets5.mavenproject1.gui.client.BarreGaucheClient;
+import static fr.insa.binder.projets5.mavenproject1.operation_effectuee.Meilleurs_operation_produit;
 import fr.insa.binder.projets5.mavenproject1.produit;
 import static fr.insa.binder.projets5.mavenproject1.produit.giveProduit;
 import java.io.IOException;
@@ -57,7 +59,7 @@ public class ProduitClient extends VerticalLayout{
         
         this.H2.add(rech,recherche,valid);
         this.add(H2);
-        stylisation();
+
         
         try {
             this.grid = new Grid_produit(produit.tousLesProduits((Connection) VaadinSession.getCurrent().getAttribute("conn"))); 
@@ -76,7 +78,7 @@ public class ProduitClient extends VerticalLayout{
             } catch (SQLException ex) {
                 Notification.show("Problème lors de la création de nouvelleCommande : " + ex.getLocalizedMessage());
             }
-            Notification.show(nouvelleCommande.toString());
+            //Notification.show(nouvelleCommande.toString());
             String str = new String("contenu : ");
             for (Integer produitId : grid.getSelectedIds()) {
                 String produitSelectionne;
@@ -102,7 +104,7 @@ public class ProduitClient extends VerticalLayout{
             this.add(H2);
             //this.add(new H3("Cherchez par vous-même"));
             String mot = "%" + this.rech.getValue() + "%";
-            Notification.show("mot :" + mot +"-");
+            //Notification.show("mot :" + mot +"-");
             try{
                 this.grid = new Grid_produit(produit.tousLesProduitsrecherche(mot, (Connection) VaadinSession.getCurrent().getAttribute("conn"))); 
                 this.add(this.grid);
@@ -114,6 +116,7 @@ public class ProduitClient extends VerticalLayout{
         
         addClassName("liste_machine");
         setSizeFull();
+        utile.stylisation(this);
     }
     
     private void produitCommandé(int produitId, int IdCommande){
@@ -121,56 +124,17 @@ public class ProduitClient extends VerticalLayout{
             //doit récupérer les opérations requises pour faire le produit
             Connection con = (Connection) VaadinSession.getCurrent().getAttribute("conn");
             this.grid2 = new Grid_operation2(Operation.tousLesOperations_produit(con,produitId));
-            Notification.show("les operation a effectuer : " + Operation.tousLesOperations_produit(con,produitId));
+            //Notification.show("les operation a effectuer : " + Operation.tousLesOperations_produit(con,produitId));
             
             exemplaire exempl = new exemplaire(giveProduit(con, produitId), produitId, IdCommande);
             exempl.saveInDBV1(con);
+            Meilleurs_operation_produit(con, exempl);
 //            List<operation_effectuee> liste_op_eff = Meilleurs_operation_produit(con, exempl);
 //            for (operation_effectuee op_ef : liste_op_eff){
 //                op_ef.saveInDBV1(con);
 //            }
         } catch (SQLException ex) {
-             Notification.show("Problème BdD : aurore");
+             Notification.show("Problème BdD");
         }
-    }
-    
-    private void stylisation() {
-        
-//        this.getStyle()
-//            .set("background", "url(images/1275600.jpg) no-repeat center center fixed")
-//            .set("background-size", "cover")
-//            .set("height", "1200vh");
-        
-        String imageName = "1275600.jpg";
-        Connection conn = (Connection) VaadinSession.getCurrent().getAttribute("conn");
-        try {
-            ImageT image = ImageT.getImageByName(conn, imageName);
-            if (image != null) {
-                String base64Image = java.util.Base64.getEncoder().encodeToString(image.getImageBytes());
-                this.getStyle()
-                    .set("background", "url(data:image/jpeg;base64," + base64Image + ") no-repeat center center fixed")
-                    .set("background-size", "cover")
-                    .set("height", "1200vh");
-            } else {
-                System.err.println("Image not found in the database.");
-            }
-        } catch (SQLException | IOException e) {
-            Notification.show("probleme style : " + e);
-        }
-        
-        recherche.getStyle()
-            .set("color", "Crimson")
-            .set("background-color", "PowderBlue");
-        
-        valid.getStyle()
-            .set("color", "Crimson")
-            .set("background-color", "PowderBlue");
-        
-        rech.getStyle()
-            .set("color", "Crimson");
-        this.titre.getStyle()
-            .set("color", "Indigo")
-            .set("border-radius", "10px") 
-            .set("padding", "10px");
     }
 }

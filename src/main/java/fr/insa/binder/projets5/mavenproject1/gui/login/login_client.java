@@ -84,7 +84,7 @@ public class login_client extends VerticalLayout {
 //            .set("background", "url(images/1275600.jpg) no-repeat center center fixed")
 //            .set("background-size", "cover")
 //            .set("height", "100vh");
-        String imageName = "1275600.jpg";
+        String imageName = "fdecran.jpg";
         // Connexion à la base de données (assurez-vous que votre connexion est établie correctement)
         Connection conn = (Connection) VaadinSession.getCurrent().getAttribute("conn");
         try {
@@ -98,7 +98,7 @@ public class login_client extends VerticalLayout {
                 this.getStyle()
                     .set("background", "url(data:image/jpeg;base64," + base64Image + ") no-repeat center center fixed")
                     .set("background-size", "cover")
-                    .set("height", "100vh");
+                    .set("height", "100%");
             } else {
                 System.err.println("Image not found in the database.");
             }
@@ -115,18 +115,20 @@ public class login_client extends VerticalLayout {
             .set("justify-content", "center")
             .set("align-items", "center");  
             
-        vbLogin.getStyle()
-            .set("color", "Crimson")
-            .set("background-color", "PowderBlue");
+//        vbLogin.getStyle()
+//            .set("color", "#FEE59D")
+//            .set("background-color", "#030876");
+//        
+//        inscription.getStyle()
+//            .set("color", "#FEE59D")
+//            .set("background-color", "#030876");
+//        
+//        vnom.getStyle()
+//            .set("color", "#030876");
+//        vpass.getStyle()
+//            .set("color", "#030876");
         
-        inscription.getStyle()
-            .set("color", "Crimson")
-            .set("background-color", "PowderBlue");
-        
-        vnom.getStyle()
-            .set("color", "Crimson");
-        vpass.getStyle()
-            .set("color", "Crimson");
+
         
     }
 }

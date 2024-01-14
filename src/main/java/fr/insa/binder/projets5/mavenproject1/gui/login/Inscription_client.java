@@ -42,6 +42,8 @@ public  class Inscription_client extends VerticalLayout{
         mdp = new PasswordField("Votre mot de passe :");
         sauvegarder = new Button("Sauvegarder les informations");
         this.VL = new VerticalLayout();
+        prenom.setValue("titi");
+        login.setValue("tototiti");
         //ALD = new AppLayoutDrawer();
         mdp.setValue("Ex@mplePassw0rd");
         
@@ -75,7 +77,7 @@ public  class Inscription_client extends VerticalLayout{
 //            .set("background-size", "cover")
 //            .set("height", "100vh");
         
-        String imageName = "1275600.jpg";
+        String imageName = "fdecran.jpg";
         Connection conn = (Connection) VaadinSession.getCurrent().getAttribute("conn");
         try {
             ImageT image = ImageT.getImageByName(conn, imageName);
@@ -87,7 +89,7 @@ public  class Inscription_client extends VerticalLayout{
                 VL.getStyle()
                     .set("background", "url(data:image/jpeg;base64," + base64Image + ") no-repeat center center fixed")
                     .set("background-size", "cover")
-                    .set("height", "100vh");
+                    .set("height", "100%");
             } else {
                 System.err.println("Image not found in the database.");
             }
@@ -103,14 +105,6 @@ public  class Inscription_client extends VerticalLayout{
             .set("justify-content", "center")
             .set("align-items", "center");  
             
-        nom.getStyle().set("color", "Crimson");     
-        prenom.getStyle().set("color", "Crimson");
-        login.getStyle().set("color", "Crimson");
-        mdp.getStyle().set("color", "Crimson");
-        sauvegarder.getStyle()
-            .set("color", "Crimson")
-            .set("background-color", "PowderBlue");
-        mdp.getStyle().set("color", "Crimson");
     }
 }
 

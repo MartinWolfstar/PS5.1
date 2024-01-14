@@ -26,7 +26,7 @@ import java.util.Set;
  */
 public class Grid_produit extends Grid<produit> {
 
-    private List<Integer> selectedIds; // Liste pour stocker les identifiants des objets sélectionnés
+    private List<Integer> selectedIds;
     private Optional<Grid.Column<produit>> currentColumn = Optional.empty();
     private Optional<produit> currentItem = Optional.empty();
 
@@ -36,76 +36,73 @@ public class Grid_produit extends Grid<produit> {
 
         selectedIds = new ArrayList<>();
 
-        this.addComponentColumn(i -> i.getImage()).setHeader("Preview");
-        this.addColumn(produit::getRef).setHeader("Nom");
-        this.addColumn(produit::getDes).setHeader("Description");
+        //this.addComponentColumn(i -> i.getImage()).setHeader("Preview");
+        Grid.Column<produit> nom =this.addColumn(produit::getRef).setHeader("Nom");
+        Grid.Column<produit> des =this.addColumn(produit::getDes).setHeader("Description");
+        nom.setWidth("50px");
+        des.setWidth("1000px");
         
-        Grid.Column<produit> quantite = this.addColumn(produit -> {
-            int text = 1;
-            return text;
-        }).setHeader("quantité");
         
-        Binder<produit> binder = new BeanValidationBinder<>(produit.class);
-        Editor<produit> editor = this.getEditor();
-        editor.setBinder(binder);
-        editor.setBuffered(true);
-
-        editor.addSaveListener(event -> {
-            Notification.show("Number : " + event);
-        });
-        
-        IntegerField quant_field = new IntegerField();
-        quant_field.setWidthFull();
-        
-//        binder.forField(quant_field)
-//                .asRequired("First name must not be empty")
-//                .bind(produit::getRef, produit::setRef);
-        quantite.setEditorComponent(quant_field);
-        
-        this.addSelectionListener(event -> event.getFirstSelectedItem().ifPresent(produit -> {
-            editor.save();
-            if (!editor.isOpen()) {
-                this.getEditor().editItem(produit);
-                currentColumn.ifPresent(column -> {
-                    if (column.getEditorComponent() instanceof Focusable<?> focusable) {
-                        focusable.focus();
-                    }
-                });
-            }
-        }));
-
-        Shortcuts.addShortcutListener(this, () -> {
-            if (editor.isOpen()) {
-                editor.save();
-                currentColumn.ifPresent(column -> {
-                    if (column.getEditorComponent() instanceof Focusable<?> focusable) {
-                        focusable.blur();
-                    }
-                });
-            }
-        }, Key.ENTER).listenOn(this);
+//        Grid.Column<produit> quantite = this.addColumn(produit -> {
+//            int text = 1;
+//            return text;
+//        }).setHeader("quantité");
+//        
+//        Binder<produit> binder = new BeanValidationBinder<>(produit.class);
+//        Editor<produit> editor = this.getEditor();
+//        editor.setBinder(binder);
+//        editor.setBuffered(true);
+//
+//        editor.addSaveListener(event -> {
+//            //Notification.show("Number : " + event);
+//        });
+//        
+//        IntegerField quant_field = new IntegerField();
+//        quant_field.setWidthFull();
+//        
+////        binder.forField(quant_field)
+////                .asRequired("First name must not be empty")
+////                .bind(produit::getRef, produit::setRef);
+//        quantite.setEditorComponent(quant_field);
+//        
+//        this.addSelectionListener(event -> event.getFirstSelectedItem().ifPresent(produit -> {
+//            editor.save();
+//            if (!editor.isOpen()) {
+//                this.getEditor().editItem(produit);
+//                currentColumn.ifPresent(column -> {
+//                    if (column.getEditorComponent() instanceof Focusable<?> focusable) {
+//                        focusable.focus();
+//                    }
+//                });
+//            }
+//        }));
+//
+//        Shortcuts.addShortcutListener(this, () -> {
+//            if (editor.isOpen()) {
+//                editor.save();
+//                currentColumn.ifPresent(column -> {
+//                    if (column.getEditorComponent() instanceof Focusable<?> focusable) {
+//                        focusable.blur();
+//                    }
+//                });
+//            }
+//        }, Key.ENTER).listenOn(this);
 
         this.addCellFocusListener(event -> {
-            // Store the item on cell focus. Used in the ENTER ShortcutListener
             currentItem = event.getItem();
-            // Store the current column. Used in the SelectionListener to focus the editor component
             currentColumn = event.getColumn();
         });
         
-        
-        
-        this.getStyle().setBackground("PowderBlue");
-
         this.addSelectionListener(selection -> {
             Set<produit> selectedItems = selection.getAllSelectedItems();
-            selectedIds.clear(); // Effacer la liste existante
+            selectedIds.clear(); 
 
             for (produit produit : selectedItems) {
-                selectedIds.add(produit.getId()); // Ajouter l'identifiant de chaque objet sélectionné à la liste
+                selectedIds.add(produit.getId()); 
             }
-
-            Notification.show("Number of selected people: " + selectedItems.size());
+            //Notification.show("Number of selected people: " + selectedItems.size());
         });
+        this.setMaxHeight("100vh");
     }
 
     public List<Integer> getSelectedIds() {

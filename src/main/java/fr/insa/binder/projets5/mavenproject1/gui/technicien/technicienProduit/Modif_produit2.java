@@ -17,10 +17,6 @@ import fr.insa.binder.projets5.mavenproject1.produit;
 import java.sql.Connection;
 import java.sql.SQLException;
 
-/**
- *
- * @author binde
- */
 public class Modif_produit2 extends VerticalLayout{
     private IntegerField ref;
     private TextField des;

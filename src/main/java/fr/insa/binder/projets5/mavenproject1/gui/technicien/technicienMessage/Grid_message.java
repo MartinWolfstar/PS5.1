@@ -5,11 +5,9 @@
 package fr.insa.binder.projets5.mavenproject1.gui.technicien.technicienMessage;
 
 import com.vaadin.flow.component.grid.Grid;
-import com.vaadin.flow.server.VaadinSession;
 
 import fr.insa.binder.projets5.mavenproject1.messagerie;
-import fr.insa.binder.projets5.mavenproject1.operateur;
-import java.sql.Connection;
+import fr.insa.binder.projets5.mavenproject1.produit;
 import java.util.List;
 
 /**
@@ -20,11 +18,11 @@ public class Grid_message extends Grid<messagerie>{
     
     public Grid_message(List<messagerie> list_messagerie) {
         this.setItems(list_messagerie);
-//        
-//        String nom = operateur.getnom_operateur(messagerie::getId_op,(Connection) VaadinSession.getCurrent().getAttribute("conn"));
-//        
-//        this.addColumn(nom).setHeader("Nom");
-        this.addColumn(messagerie::getMes).setHeader("Message");  
-        this.getStyle().setBackground("PowderBlue");
+        Grid.Column<messagerie> nom = this.addColumn(messagerie::getNom).setHeader("Nom");
+        Grid.Column<messagerie> mes =this.addColumn(messagerie::getMes).setHeader("Message");  
+        
+        nom.setWidth("100px");
+        mes.setWidth("900px");
+
     }
 }

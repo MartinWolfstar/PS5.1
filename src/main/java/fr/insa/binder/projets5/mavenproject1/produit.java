@@ -34,22 +34,22 @@ public class produit implements Serializable {
         this.des_p = des_p;
         //this.image = new Image("images/" + ref_p + ".jpg", "image");
         
-        String imageName = String.valueOf(ref_p);
-        Notification.show(imageName);
-        Connection conn = (Connection) VaadinSession.getCurrent().getAttribute("conn");
-        try {
-            ImageT image = ImageT.getImageByName(conn, imageName);
-
-            if (image != null) {
-                String base64Image = Base64.getEncoder().encodeToString(image.getImageBytes());
-                this.image = new Image("data:image/jpeg;base64," + base64Image, "Image Alternative Text");
-                Notification.show(base64Image);
-            } else {
-                System.err.println("Image not found in the database.");
-            }
-        } catch (SQLException | IOException e) {
-            Notification.show("Problème de style : " + e.getMessage());
-        }
+//        String imageName = String.valueOf(ref_p);
+//        Notification.show(imageName);
+//        Connection conn = (Connection) VaadinSession.getCurrent().getAttribute("conn");
+//        try {
+//            ImageT image = ImageT.getImageByName(conn, imageName);
+//
+//            if (image != null) {
+//                String base64Image = Base64.getEncoder().encodeToString(image.getImageBytes());
+//                this.image = new Image("data:image/jpeg;base64," + base64Image, "Image Alternative Text");
+//                Notification.show(base64Image);
+//            } else {
+//                System.err.println("Image not found in the database.");
+//            }
+//        } catch (SQLException | IOException e) {
+//            Notification.show("Problème de style : " + e.getMessage());
+//        }
     }
 
     public produit(int id_p, String des_p, int ref_p, Image img) {
@@ -76,7 +76,8 @@ public class produit implements Serializable {
     }
 
     public produit(String des_p, int ref_p) {
-        this(-1, des_p, ref_p, new Image("images/" + ref_p + ".jpg", "image"));      
+        //this(-1, des_p, ref_p, new Image("images/" + ref_p + ".jpg", "image"));  
+        this(-1, des_p, ref_p);  
     }
 
     public static produit demande() {
@@ -85,7 +86,6 @@ public class produit implements Serializable {
         return new produit(des_p, ref_p);
     }
 
-    //salut
     public void saveInDBV1(Connection con) throws SQLException {
         try (PreparedStatement pst = con.prepareStatement(
                 "insert into produit_bof (ref_produit,des_produit) values (?,?)", PreparedStatement.RETURN_GENERATED_KEYS)) {

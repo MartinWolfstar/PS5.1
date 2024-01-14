@@ -64,12 +64,6 @@ public class Ajout_etat_machine extends VerticalLayout {
         this.finDateTimePicker.setValue(LocalDateTime.now().withSecond(0).withNano(0));
 
         this.valid = new Button("Soumettre");
-
-        
-        // Ajout du style au bouton
-        this.valid.getStyle()
-                .set("color", "Crimson")
-                .set("background-color", "PowderBlue");
         // Récupérer l'état sélectionné
         String etatSelectionne = this.etatComboBox.getValue();
 
@@ -144,14 +138,5 @@ public class Ajout_etat_machine extends VerticalLayout {
         this.add(new H3("Ajout etat"));
         this.HL.add(this.id_MachineComboBox,this.etatComboBox, this.debutDateTimePicker, this.finDateTimePicker);
         this.add(this.HL, this.valid);
-
-    }
-
-    private void stylisation() {
-
-        valid.getStyle()
-                .set("color", "Crimson")
-                .set("background-color", "PowderBlue");
-
     }
 }

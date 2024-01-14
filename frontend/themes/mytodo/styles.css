@@ -1,39 +1,58 @@
 html {
-  --lumo-primary-color: orange;
-  --material-primary-text-color: orange;
-  --material-background-color: black;
+  --lumo-primary-color: #FEE59D;
+  --material-primary-text-color: #FEE59D;
+  --material-background-color: #030876;
 }
 
+
 vaadin-button {
-color: orange;
-background-color: black;
+color: #FEE59D;
+background-color: #030876;
 
 }
 
 vaadin-menu-bar-button {
-    color:orange;
-    background-color: black;
+    color:#FEE59D;
+    background-color: #030876;
 }
 
 /*vaadin-MenuItem {
-    color:orange;
-    background-color: black;
+    color:#FEE59D;
+    background-color: #030876;
 }*/
 
+vaadin-RouterLink {
+    color:#030876;
+}
+vaadin-H2 {
+    color:#030876;
+}
+vaadin-H3 {
+    color:#030876;
+}
+vaadin-H4 {
+    color:#030876;
+}
+vaadin-H5 {
+    color:#030876;
+}
+vaadin-H6 {
+    color:#030876;
+}
 vaadin-Grid {
-    color:black;
-    background-color: orange;
+    color:#030876;
+    background-color: #FEE59D;
 }
 .liste_machine {
     background-image: url("..frontend/themes/mytodo.svg");
-    background-color: orange;
+    background-color: #FEE59D;
 }
 /* Style du tableau de messages */
 .liste_message {
     max-height: 300px;
     overflow-y: auto;
     padding: 10px;
-    background-color: orange;
+    background-color: #FEE59D;
     list-style-type: none;
     margin: 0;
 }

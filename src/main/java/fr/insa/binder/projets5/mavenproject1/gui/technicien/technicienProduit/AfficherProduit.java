@@ -45,11 +45,14 @@ public class AfficherProduit extends Grid<produit> {
             Notification.show("Problème BdD : m2");
         }
         Grid.Column<produit> id = this.addColumn(produit::getId).setHeader("Id");
-        this.addComponentColumn(i -> i.getImage()).setHeader("Preview");
+        //this.addComponentColumn(i -> i.getImage()).setHeader("Preview");
         Grid.Column<produit> ref = this.addColumn(produit::getRef).setHeader("Ref");
         Grid.Column<produit> des = this.addColumn(produit::getDes).setHeader("Des");
-        this.getStyle().setBackground("PowderBlue");
 
+        id.setWidth("10px");
+        ref.setWidth("20px");
+        des.setWidth("800px");
+        
         this.addComponentColumn(produit -> {
             Button button = new Button("Supprimer", clickEvent -> {
                 try {
@@ -129,9 +132,7 @@ public class AfficherProduit extends Grid<produit> {
         }, Key.ENTER).listenOn(this);
 
         this.addCellFocusListener(event -> {
-            // Store the item on cell focus. Used in the ENTER ShortcutListener
             currentItem = event.getItem();
-            // Store the current column. Used in the SelectionListener to focus the editor component
             currentColumn = event.getColumn();
         });
     }

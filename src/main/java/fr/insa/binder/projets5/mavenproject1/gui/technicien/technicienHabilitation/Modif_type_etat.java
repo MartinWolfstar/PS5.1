@@ -48,12 +48,5 @@ public class Modif_type_etat extends VerticalLayout{
             }
         this.add(new H3("Modifier type etat"));
         this.add(menu_bar);
-        stylisation();
-        }
-        private void stylisation() {
-        
-        id.getStyle()
-                .set("color", "Crimson").set("background-color", "PowderBlue");
-        
-        }    
+        }  
 }

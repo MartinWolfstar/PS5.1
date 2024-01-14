@@ -52,18 +52,8 @@ public class Supp_type_machine extends VerticalLayout{
                Notification.show("Problème BdD : stm2");
             }
         this.add(new H3("Supprimer type_machine"));
-        this.add(menu_bar);
-        stylisation();
+        this.add(menu_bar);   
     }
-    private void stylisation() {
-        
-        id.getStyle()
-                .set("color", "Crimson")
-                .set("background-color", "PowderBlue");
-
-        
-    }
-        
 }
 
 

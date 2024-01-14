@@ -17,13 +17,12 @@ import com.vaadin.flow.router.HighlightConditions;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.router.RouterLink;
+import fr.insa.binder.projets5.mavenproject1.gui.login.Vue_principale_login;
 import fr.insa.binder.projets5.mavenproject1.gui.technicien.TechnicienCommande.Afficher_commande;
-import fr.insa.binder.projets5.mavenproject1.gui.client.clientCommande.CommandeClient;
 import fr.insa.binder.projets5.mavenproject1.gui.technicien.technicienHabilitation.Habilitation;
 import fr.insa.binder.projets5.mavenproject1.gui.technicien.technicienInterface.ParametreTechnicien;
 import fr.insa.binder.projets5.mavenproject1.gui.technicien.technicienProduit.ProduitTechnicien;
 import fr.insa.binder.projets5.mavenproject1.gui.technicien.technicienRealisation.ListeRealisation;
-import fr.insa.binder.projets5.mavenproject1.gui.technicien.technicienType.ListeTypeEtat;
 import fr.insa.binder.projets5.mavenproject1.gui.technicien.technicienType.ListeTypeMachine;
 import fr.insa.binder.projets5.mavenproject1.gui.technicien.technicienType.ListeTypeOperation;
 
@@ -38,94 +37,94 @@ public class BarreGaucheTechnicien extends AppLayout {
     public BarreGaucheTechnicien() {
         creatHeader();
         createDrawer();
+        this.getStyle().setBackground("#FEE59D");
     }
 
     private void creatHeader() {
-        H1 logo = new H1("App PS5 technicien");
+        H1 logo = new H1("MarcoPolo");
+        logo.getStyle().setColor("#030876");
         logo.addClassName("logo");
 
         HorizontalLayout header = new HorizontalLayout(new DrawerToggle(), logo);
+        header.setMinHeight("60px");
         header.addClassName("header");
         header.setWidth("100%");
         header.setDefaultVerticalComponentAlignment(FlexComponent.Alignment.CENTER);
-
+        header.getStyle().setBackground("#ffde75");
         addToNavbar(header);
 
     }
 
     private void createDrawer() {
-        RouterLink listLink = new RouterLink("ListeMachine", ListeMachine.class);
-        listLink.setHighlightCondition(HighlightConditions.sameLocation());
-
-        addToDrawer(new VerticalLayout(
-                listLink
-        ));
+        VerticalLayout drawerLayout = new VerticalLayout();
+        drawerLayout.getStyle().setBackground("#ffde75");
+        drawerLayout.setMinHeight("120vh");
         RouterLink listLink2 = new RouterLink("Plan", technicien_PlanUsine.class);
         listLink2.setHighlightCondition(HighlightConditions.sameLocation());
-
-        addToDrawer(new VerticalLayout(
+        listLink2.getStyle().setColor("#030876");
+        drawerLayout.add(new VerticalLayout(
                 listLink2
+        ));
+        RouterLink listLink9 = new RouterLink("Paramètre", ParametreTechnicien.class);
+        listLink9.setHighlightCondition(HighlightConditions.sameLocation());
+        listLink9.getStyle().setColor("#030876");
+        drawerLayout.add(new VerticalLayout(
+                listLink9
+        ));
+        RouterLink listLink = new RouterLink("ListeMachine", ListeMachine.class);
+        listLink.setHighlightCondition(HighlightConditions.sameLocation());
+        listLink.getStyle().setColor("#030876");
+        drawerLayout.add(new VerticalLayout(
+                listLink
         ));
         RouterLink listLink3 = new RouterLink("Messagerie", technicienMessagerie.class);
         listLink3.setHighlightCondition(HighlightConditions.sameLocation());
-
-        addToDrawer(new VerticalLayout(
+        listLink3.getStyle().setColor("#030876");
+        drawerLayout.add(new VerticalLayout(
                 listLink3
         ));
         RouterLink listLink4 = new RouterLink("Produit", ProduitTechnicien.class);
         listLink4.setHighlightCondition(HighlightConditions.sameLocation());
-
-        addToDrawer(new VerticalLayout(
+        listLink4.getStyle().setColor("#030876");
+        drawerLayout.add(new VerticalLayout(
                 listLink4
         ));
-        RouterLink listLink6 = new RouterLink("TypeOperation", ListeTypeOperation.class);
+        RouterLink listLink10 = new RouterLink("Commande", Afficher_commande.class);
+        listLink10.setHighlightCondition(HighlightConditions.sameLocation());
+        listLink10.getStyle().setColor("#030876");
+        drawerLayout.add(new VerticalLayout(
+                listLink10
+        ));
+        RouterLink listLink11 = new RouterLink("Realisation", ListeRealisation.class);
+        listLink11.setHighlightCondition(HighlightConditions.sameLocation());
+        listLink11.getStyle().setColor("#030876");
+        drawerLayout.add(new VerticalLayout(
+                listLink11
+        ));
+        RouterLink listLink12 = new RouterLink("Habilitation", Habilitation.class);
+        listLink12.setHighlightCondition(HighlightConditions.sameLocation());
+        listLink12.getStyle().setColor("#030876");        
+        drawerLayout.add(new VerticalLayout(
+                listLink12
+        ));
+                RouterLink listLink6 = new RouterLink("TypeOperation", ListeTypeOperation.class);
         listLink6.setHighlightCondition(HighlightConditions.sameLocation());
-
-        addToDrawer(new VerticalLayout(
+        listLink6.getStyle().setColor("#030876");
+        drawerLayout.add(new VerticalLayout(
                 listLink6
         ));
         RouterLink listLink7 = new RouterLink("TypeMachine", ListeTypeMachine.class);
         listLink7.setHighlightCondition(HighlightConditions.sameLocation());
-
-        addToDrawer(new VerticalLayout(
+        listLink7.getStyle().setColor("#030876");
+        drawerLayout.add(new VerticalLayout(
                 listLink7
         ));
-        RouterLink listLink8 = new RouterLink("TypeEtat", ListeTypeEtat.class);
-        listLink8.setHighlightCondition(HighlightConditions.sameLocation());
-
-        addToDrawer(new VerticalLayout(
-                listLink8
+                RouterLink listLink5 = new RouterLink("Log out", Vue_principale_login.class);
+        listLink5.setHighlightCondition(HighlightConditions.sameLocation());
+        listLink5.getStyle().setColor("#030876");
+        drawerLayout.add(new VerticalLayout(
+                listLink5
         ));
-        RouterLink listLink9 = new RouterLink("Paramètre", ParametreTechnicien.class);
-        listLink9.setHighlightCondition(HighlightConditions.sameLocation());
-
-        addToDrawer(new VerticalLayout(
-                listLink9
-        ));
-
-        RouterLink listLink10 = new RouterLink("Commande", Afficher_commande.class);
-        listLink10.setHighlightCondition(HighlightConditions.sameLocation());
-
-        addToDrawer(new VerticalLayout(
-                listLink10
-        ));
-        RouterLink listLinkASup = new RouterLink("client", CommandeClient.class);
-        listLinkASup.setHighlightCondition(HighlightConditions.sameLocation());
-
-        addToDrawer(new VerticalLayout(
-                listLinkASup
-        ));
-        RouterLink listLink11 = new RouterLink("realisation", ListeRealisation.class);
-        listLink11.setHighlightCondition(HighlightConditions.sameLocation());
-        
-        addToDrawer(new VerticalLayout(
-                listLink11
-        ));
-        RouterLink listLink12 = new RouterLink("habilitation", Habilitation.class);
-        listLink12.setHighlightCondition(HighlightConditions.sameLocation());
-        
-        addToDrawer(new VerticalLayout(
-                listLink12
-        ));
+    addToDrawer(drawerLayout);
     }
 }

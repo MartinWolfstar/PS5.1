@@ -8,7 +8,7 @@ import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.combobox.ComboBox;
 import com.vaadin.flow.component.datetimepicker.DateTimePicker;
-import com.vaadin.flow.component.html.H3;
+import com.vaadin.flow.component.html.H6;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
@@ -64,12 +64,7 @@ public class Ajout_etat_technicien extends VerticalLayout {
         
         // Recuperer id_operateur
         id_operateur = (int) VaadinSession.getCurrent().getAttribute("id_operateur");
-        
-        
-        // Ajout du style au bouton
-        this.valid.getStyle()
-                .set("color", "Crimson")
-                .set("background-color", "PowderBlue");
+
         // Récupérer l'état sélectionné
         String etatSelectionne = this.etatComboBox.getValue();
       
@@ -128,17 +123,8 @@ public class Ajout_etat_technicien extends VerticalLayout {
         
         // Ajouter les composants à la mise en page
         this.HL = new HorizontalLayout();
-        this.add(new H3("Ajout etat"));
+        this.add(new H6("Ajout etat"));
         this.HL.add(this.etatComboBox, this.debutDateTimePicker, this.finDateTimePicker);
         this.add(this.HL,this.valid);
-        
-        
-    }
-    private void stylisation() {
-        
-        valid.getStyle()
-                .set("color", "Crimson")
-                .set("background-color", "PowderBlue");
-        
     }
 }

@@ -15,10 +15,6 @@ import java.time.Month;
 import java.util.List;
 import java.util.Optional;
 
-/**
- *
- * @author abinder01
- */
 public class Gestion {
 
     private Connection conn;
@@ -52,9 +48,6 @@ public class Gestion {
                 "m3_abinder01", "m3_abinder01",
                 "c7b7bc39");
     }
-    // Bonjour
-    // Bonjour
-
     public void creeSchema() throws SQLException {
         this.conn.setAutoCommit(false);
         try (Statement st = this.conn.createStatement()) {
@@ -170,6 +163,9 @@ public class Gestion {
                     + "nom_client varchar(50),\n"
                     + "prenom_client varchar(40),\n"
                     + "login_client varchar(50) not null unique,\n"
+                    + "adresse_client varchar(50),\n"
+                    + "telephone_client varchar(50),\n"
+                    + "mail_client varchar(50),\n"
                     + "password_client varchar(40) not null\n"
                     + ")");
             st.executeUpdate(
@@ -199,6 +195,7 @@ public class Gestion {
                     + "id_operation integer not null,\n"
                     + "id_exemplaire integer not null,\n"
                     + "id_machine integer not null, \n"
+                    + "id_operateur integer not null, \n"
                     + "debut TIMESTAMP,\n"
                     + "fin TIMESTAMP\n"
                     + ")\n"
@@ -336,6 +333,10 @@ public class Gestion {
                     + "add constraint fk_operations_effectuees_bof_id_exemplaire \n"
                     + "foreign key (id_exemplaire) references exemplaire_bof(id_exemplaire)");
             st.executeUpdate(
+                    "alter table operations_effectuees_bof \n"
+                    + "add constraint fk_operations_effectuees_bof_id_operateur \n"
+                    + "foreign key (id_operateur) references operateur_bof(id_operateur)");
+            st.executeUpdate(
                     "alter table machine_bof \n"
                     + "add constraint fk_machine_bof_id_type_machine \n"
                     + "foreign key (id_type_machine) references type_machine_bof(id_type_machine)");
@@ -360,28 +361,78 @@ public class Gestion {
 
     public static void initialise(Connection conn) throws SQLException {
         // postes de travail
-        poste_de_travail poste1 = new poste_de_travail("ranger");
+        poste_de_travail poste1 = new poste_de_travail("ranger",30,200,30,200);
         poste1.save_poste_de_travail(conn);
-        poste_de_travail poste2 = new poste_de_travail("poussiereux");
+        poste_de_travail poste2 = new poste_de_travail("poussiereux",300,350,60,90);
         poste2.save_poste_de_travail(conn);
-        poste_de_travail poste3 = new poste_de_travail("brillant");
+        poste_de_travail poste3 = new poste_de_travail("brillant",500,700,70,320);
         poste3.save_poste_de_travail(conn);
         
         // types de machines
-        type_machine type_machine1 = new type_machine("tournage");
+//        type_machine type_machine1 = new type_machine("tournage");
+//        type_machine1.save_type_machine(conn);
+//        type_machine type_machine2 = new type_machine("fraisage");
+//        type_machine2.save_type_machine(conn);
+        type_machine type_machine1 = new type_machine("Impréssionator 3000");
         type_machine1.save_type_machine(conn);
-        type_machine type_machine2 = new type_machine("fraisage");
+
+        type_machine type_machine2 = new type_machine("Reliure-licious");
         type_machine2.save_type_machine(conn);
+
+        type_machine type_machine3 = new type_machine("Assemble-o-matic"); 
+        type_machine3.save_type_machine(conn);
+
+        type_machine type_machine4 = new type_machine("Éditron Deluxe");
+        type_machine4.save_type_machine(conn);
+
+        type_machine type_machine5 = new type_machine("Emballage Extravaganza");
+        type_machine5.save_type_machine(conn);
+
+        type_machine type_machine6 = new type_machine("Distribu-tron 5000"); 
+        type_machine6.save_type_machine(conn);
+
+        type_machine type_machine7 = new type_machine("Promo-blitzinator"); 
+        type_machine7.save_type_machine(conn);
+
+        type_machine type_machine8 = new type_machine("Réviseur Rigolo"); 
+        type_machine8.save_type_machine(conn);
+
         
         // Machines
-        machine m1 = new machine(333, "tour tres puissant", 1, 1);
+//        machine m1 = new machine(333, "tour tres puissant", 1, 1);
+//        m1.saveInDBV1(conn);
+//        machine m2 = new machine(444,"tour tres precis",1,1);
+//        m2.saveInDBV1(conn);
+//        machine m3 = new machine(555,"fraise rapide",2,2);
+//        m3.saveInDBV1(conn);
+//        machine m4 = new machine(666,"fraise petits calibres",3,2);
+//        m4.saveInDBV1(conn);
+        machine m1 = new machine(333, "Tour de Puissance Extrême", 1, 1);
         m1.saveInDBV1(conn);
-        machine m2 = new machine(444,"tour tres precis",1,1);
+        machine m2 = new machine(444, "Tour de Précision Suprême", 1, 1);
         m2.saveInDBV1(conn);
-        machine m3 = new machine(555,"fraise rapide",2,2);
+        machine m3 = new machine(555, "Fraise Rapide Ultra", 2, 2);
         m3.saveInDBV1(conn);
-        machine m4 = new machine(666,"fraise petits calibres",3,2);
+        machine m4 = new machine(666, "Fraise Petits Calibres Magique", 3, 2);
         m4.saveInDBV1(conn);
+        machine m5 = new machine(777, "L'Imprimeur Fantastique", 1, 1);
+        m5.saveInDBV1(conn);
+        machine m6 = new machine(888, "Relieur Magique", 2, 2);
+        m6.saveInDBV1(conn);
+        machine m7 = new machine(999, "Fraise Turbo Drôle", 3, 2);
+        m7.saveInDBV1(conn);
+        machine m8 = new machine(1010, "Assembleur Loufoque", 2, 3);
+        m8.saveInDBV1(conn);
+        machine m9 = new machine(1111, "Éditeur Éclair", 1, 4);
+        m9.saveInDBV1(conn);
+        machine m10 = new machine(1212, "Emballage Enchanté", 2, 5);
+        m10.saveInDBV1(conn);
+        machine m11 = new machine(1313, "Distribu-Buzz", 3, 6);
+        m11.saveInDBV1(conn);
+        machine m12 = new machine(1414, "Promo-Fiesta", 2, 7);
+        m12.saveInDBV1(conn);
+
+        
         
         // Operateurs
         operateur Titi = new operateur("James", "Einstahitiii", "Titi01", "melissa68");
@@ -414,17 +465,27 @@ public class Gestion {
         etat3.save_etat(conn);
         
         // type operation
-        type_operation type_operation1 = new type_operation("dressage");
-        type_operation1.save_type_operation(conn);
-        type_operation type_operation2 = new type_operation("chariotage");
-        type_operation2.save_type_operation(conn);
-        type_operation type_operation3 = new type_operation("chanfreinage");
-        type_operation3.save_type_operation(conn);
-        type_operation type_operation4 = new type_operation("rainurage");
-        type_operation4.save_type_operation(conn);
-        type_operation type_operation5 = new type_operation("tronconnage");
-        type_operation5.save_type_operation(conn);
-        
+        type_operation impression = new type_operation("Impression");
+        type_operation reliure = new type_operation("Reliure");
+        type_operation assemblage = new type_operation("Assemblage");
+        type_operation édition = new type_operation("Édition");
+        type_operation emballage = new type_operation("Emballage");
+        type_operation distribution = new type_operation("Distribution");
+        type_operation promotion = new type_operation("Promotion");
+        type_operation révision = new type_operation("Révision");
+        type_operation traduction = new type_operation("Traduction");
+        type_operation adaptation = new type_operation("Adaptation");
+        impression.save_type_operation(conn);
+        reliure.save_type_operation(conn);
+        assemblage.save_type_operation(conn);
+        édition.save_type_operation(conn);
+        emballage.save_type_operation(conn);
+        distribution.save_type_operation(conn);
+        promotion.save_type_operation(conn);
+        révision.save_type_operation(conn);
+        traduction.save_type_operation(conn);
+        adaptation.save_type_operation(conn);
+
         // clients
         Client client1 = new Client("Binder", "Aurore", "Auroraa", "Aurore");
         Client client2 = new Client("Schmitt", "Theo", "Theo", "Theo");
@@ -432,6 +493,244 @@ public class Gestion {
         client1.saveInDBV(conn);
         client2.saveInDBV(conn);
         client3.saveInDBV(conn);
+        
+        // produit
+        produit p1 = new produit("les cigognes dans leur habitat naturel",  1);
+        produit p2 = new produit("Blanche Neige et les 6 personnes de petites tailles",  2);
+        produit p3 = new produit("La personne au bois dormant",  3);
+        produit p4 = new produit("Comment dresser votre dragon de compagnie invisible", 4);
+        produit p5 = new produit( "Le guide ultime pour comprendre le langage des pingouins", 5);
+        produit p6 = new produit( "Les aventures secrètes du chat ninja dans la nuit", 6);
+        produit p7 = new produit( "L'art subtil de faire la sieste en réunion", 7);
+        produit p8 = new produit( "Les canards en affaires : de la mare au conseil d'administration", 8);
+        produit p9 = new produit( "Yoga pour girafes : atteindre de nouveaux sommets de détente", 9);
+        produit p10 = new produit( "Les lutins et le management : guide pratique pour une entreprise magique", 10);
+        produit p11 = new produit( "Les extraterrestres ont-ils un sens de l'humour ?", 11);
+        produit p12 = new produit( "L'histoire secrète des licornes en politique", 12);
+        produit p13 = new produit( "Le manuel complet de survie face à une invasion de canards en peluche", 13);
+        produit p14 = new produit( "Les conseils du koala pour une vie zen", 14);
+        produit p15 = new produit( "Les vaches qui méditent : une approche bovine de la sérénité", 15);
+        produit p16 = new produit( "Comment dresser un hamster pour le marathon", 16);
+        produit p17 = new produit( "Le guide pratique pour élever des licornes dans un appartement", 17);
+        produit p18 = new produit( "Les secrets du succès selon les chèvres grimpeuses", 18);
+        produit p19 = new produit( "L'art de jongler avec des pommes de terre chaudes", 19);
+        produit p20 = new produit( "Les aventures hilarantes du pingouin philosophe", 20);
+        produit p21 = new produit( "Comment dresser votre dragon de compagnie invisible, deuxième édition", 21);
+        produit p22 = new produit( "Le manuel pratique du ninja retraité", 22);
+        produit p23 = new produit("Les canards en affaires : de la mare au conseil d'administration, version actualisée", 23);
+        produit p24 = new produit( "Yoga pour girafes : atteindre de nouveaux sommets de détente, version illustrée", 24);
+        p1.saveInDBV1(conn);
+        p2.saveInDBV1(conn);
+        p3.saveInDBV1(conn);
+        p4.saveInDBV1(conn);
+        p5.saveInDBV1(conn);
+        p6.saveInDBV1(conn);
+        p7.saveInDBV1(conn);
+        p8.saveInDBV1(conn);
+        p9.saveInDBV1(conn);
+        p10.saveInDBV1(conn);
+        p11.saveInDBV1(conn);
+        p12.saveInDBV1(conn);
+        p13.saveInDBV1(conn);
+        p14.saveInDBV1(conn);
+        p15.saveInDBV1(conn);
+        p16.saveInDBV1(conn);
+        p17.saveInDBV1(conn);
+        p18.saveInDBV1(conn);
+        p19.saveInDBV1(conn);
+        p20.saveInDBV1(conn);
+        p21.saveInDBV1(conn);
+        p22.saveInDBV1(conn);
+        p23.saveInDBV1(conn);
+        p24.saveInDBV1(conn);
+        produit p33 = new produit("Les dragons invisibles et le guide de dressage, édition spéciale", 33);
+        p33.saveInDBV1(conn);
+
+        produit p34 = new produit("Les ninjas retraités et les secrets de la quiétude", 34);
+        p34.saveInDBV1(conn);
+
+        produit p35 = new produit("Canards en affaires : Les dessous de la mare et les intrigues du conseil d'administration", 35);
+        p35.saveInDBV1(conn);
+
+        produit p36 = new produit("Yoga pour les girafes : La voie vers l'éveil et la flexibilité ultime", 36);
+        p36.saveInDBV1(conn);
+
+        produit p37 = new produit("Les licornes et la politique : Les coulisses du pouvoir magique", 37);
+        p37.saveInDBV1(conn);
+
+        produit p38 = new produit("Survivre à une invasion de canards en peluche : Guide pratique, 2e édition", 38);
+        p38.saveInDBV1(conn);
+
+        produit p39 = new produit("Koala Zen : Vivre une vie relaxante au milieu des eucalyptus", 39);
+        p39.saveInDBV1(conn);
+
+        produit p40 = new produit("Vaches qui méditent : Le chemin vers une sérénité bovine", 40);
+        p40.saveInDBV1(conn);
+
+        produit p41 = new produit("Les extraterrestres et l'humour intergalactique", 41);
+        p41.saveInDBV1(conn);
+
+        produit p42 = new produit("Les pingouins philosophes : Des réflexions hilarantes sur la vie", 42);
+        p42.saveInDBV1(conn);
+
+        produit p43 = new produit("Dresser votre dragon invisible : Le guide ultime, édition collector", 43);
+        p43.saveInDBV1(conn);
+
+        produit p44 = new produit("Ninja retraité : Les mémoires d'un guerrier de l'ombre", 44);
+        p44.saveInDBV1(conn);
+
+        produit p45 = new produit("Canards en affaires : De la mare au conseil d'administration, version comique", 45);
+        p45.saveInDBV1(conn);
+
+        produit p46 = new produit("Yoga pour girafes : Les sommets de la détente, version comédie musicale", 46);
+        p46.saveInDBV1(conn);
+
+        produit p47 = new produit("Les lutins en affaires : Comment gérer une entreprise magique et rester malicieux", 47);
+        p47.saveInDBV1(conn);
+
+        produit p48 = new produit("Les secrets des licornes en politique : La magie du compromis", 48);
+        p48.saveInDBV1(conn);
+
+        produit p49 = new produit("La vie avec un hamster marathonien : Astuces pour rester en forme", 49);
+        p49.saveInDBV1(conn);
+
+        produit p50 = new produit("Élever des licornes en appartement : Un guide pratique pour un quotidien enchanté", 50);
+        p50.saveInDBV1(conn);
+
+        produit p51 = new produit("Les chèvres et le succès : Leçon de grimpe et de réussite", 51);
+        p51.saveInDBV1(conn);
+
+        produit p52 = new produit("Jongler avec des pommes de terre chaudes : Le manuel complet", 52);
+        p52.saveInDBV1(conn);
+        
+        produit p53 = new produit("Le génie de l'ingénieur : Guide pratique pour résoudre tous les problèmes", 53);
+        p53.saveInDBV1(conn);
+
+        produit p54 = new produit("Mécatronique Magique : L'art de fusionner la mécanique et l'électronique", 54);
+        p54.saveInDBV1(conn);
+
+        produit p55 = new produit("La communication interespèces : Comment comprendre le langage des animaux", 55);
+        p55.saveInDBV1(conn);
+
+        produit p56 = new produit("Les aventures du programmeur et du pingouin", 56);
+        p56.saveInDBV1(conn);
+
+        produit p57 = new produit("Bière et Code : Le mariage parfait pour les développeurs", 57);
+        p57.saveInDBV1(conn);
+
+        produit p58 = new produit("Électricité en Folie : Les circuits électriques expliqués avec humour", 58);
+        p58.saveInDBV1(conn);
+
+        produit p59 = new produit("La bière artisanale : Guide complet de brassage à domicile", 59);
+        p59.saveInDBV1(conn);
+
+        produit p60 = new produit("Ingénieur et Bière : Les secrets de la fabrication d'une bière parfaite", 60);
+        p60.saveInDBV1(conn);
+
+        produit p61 = new produit("Câblage Créatif : Les projets d'électricité pour les esprits inventifs", 61);
+        p61.saveInDBV1(conn);
+
+        produit p62 = new produit("Mystères Électriques : Découvertes étonnantes dans le monde de l'électricité", 62);
+        p62.saveInDBV1(conn);
+
+        produit p63 = new produit("Ingénieur Gourmet : Les recettes secrètes du programmeur-cuisinier", 63);
+        p63.saveInDBV1(conn);
+
+        produit p64 = new produit("Robotique Amusante : Construire des robots pour divertir vos animaux de compagnie", 64);
+        p64.saveInDBV1(conn);
+
+        produit p65 = new produit("L'Informatique et la Nature : Comment les animaux utilisent les algorithmes naturels", 65);
+        p65.saveInDBV1(conn);
+
+        produit p66 = new produit("Circuits et Bière : La symbiose parfaite entre l'électronique et la boisson", 66);
+        p66.saveInDBV1(conn);
+
+        produit p67 = new produit("Éclairage Créatif : Illuminez votre vie avec des projets électroniques amusants", 67);
+        p67.saveInDBV1(conn);
+
+        produit p68 = new produit("Bières du Monde : Un tour du monde des meilleures brasseries artisanales", 68);
+        p68.saveInDBV1(conn);
+
+        produit p69 = new produit("Ingénieur et Café : Les secrets du café parfait pour stimuler la créativité", 69);
+        p69.saveInDBV1(conn);
+
+        produit p70 = new produit("Mécanique des Animaux : Comment les animaux fonctionnent comme des machines", 70);
+        p70.saveInDBV1(conn);
+
+        produit p71 = new produit("Codage et Bière : Un manuel ludique pour les amateurs de programmation", 71);
+        p71.saveInDBV1(conn);
+
+        produit p72 = new produit("Énergie Sauvage : Les aventures électriques dans la nature", 72);
+        p72.saveInDBV1(conn);
+
+        produit p73 = new produit("Les Chats et les Calculs Quantiques : Une approche féline de la physique", 73);
+        p73.saveInDBV1(conn);
+
+        produit p74 = new produit("Les Canards en Affaires : Comment conquérir le monde avec style", 74);
+        p74.saveInDBV1(conn);
+
+        produit p75 = new produit("Le Codeur Invincible : Aventures épiques dans le royaume du jeu vidéo", 75);
+        p75.saveInDBV1(conn);
+
+        produit p76 = new produit("Les Pingouins du Pixel : Voyage au cœur des mondes virtuels", 76);
+        p76.saveInDBV1(conn);
+
+        produit p77 = new produit("Les Princesses et les Programmes : La magie du code dans le monde de Disney", 77);
+        p77.saveInDBV1(conn);
+
+        produit p78 = new produit("Le Monde Merveilleux de l'Informatique selon Disney", 78);
+        p78.saveInDBV1(conn);
+
+        produit p79 = new produit("Le Robot et la Rose : Une histoire d'amour entre l'acier et la délicatesse", 79);
+        p79.saveInDBV1(conn);
+
+        produit p80 = new produit("Les Cœurs en 8 Bits : L'amour dans l'ère numérique", 80);
+        p80.saveInDBV1(conn);
+
+        produit p81 = new produit("Les Câlins d'Éléphants : Un guide chaleureux pour l'amour inconditionnel", 81);
+        p81.saveInDBV1(conn);
+
+        produit p82 = new produit("Le Jeu de l'Amour : Stratégies romantiques pour conquérir le cœur", 82);
+        p82.saveInDBV1(conn);
+
+        produit p83 = new produit("Les Princesses et les Puzzles de l'Amour : Résoudre l'équation du bonheur", 83);
+        p83.saveInDBV1(conn);
+
+        produit p84 = new produit("Bière et Cupidon : Un mélange parfait pour des soirées romantiques", 84);
+        p84.saveInDBV1(conn);
+
+        produit p85 = new produit("Le Chat et la Chocolaterie : Une histoire d'amour gourmande", 85);
+        p85.saveInDBV1(conn);
+
+        produit p86 = new produit("La Magie des Licornes et l'Art de S'aimer Soi-même", 86);
+        p86.saveInDBV1(conn);
+
+        produit p87 = new produit("Les Canards de l'Amour : Naviguer ensemble sur le lac du bonheur", 87);
+        p87.saveInDBV1(conn);
+
+        produit p88 = new produit("Pixel Passion : Une romance virtuelle dans l'univers du jeu vidéo", 88);
+        p88.saveInDBV1(conn);
+
+        produit p89 = new produit("L'Électricité des Cœurs : Un cours intensif sur les étincelles romantiques", 89);
+        p89.saveInDBV1(conn);
+
+        produit p90 = new produit("Le Monde Magique de l'Amour selon Disney", 90);
+        p90.saveInDBV1(conn);
+        
+        produit p91 = new produit("Methodologie pour avoir 20/20 en Base de donnée", 91);
+        p91.saveInDBV1(conn);
+
+
+
+
+        //operation
+        for (int i = 1; i <= 15; i++) {
+            for (int j = 1; j <= 10; j++) {
+                Operation operation = new Operation(j, i);
+                operation.saveInDBV1(conn);
+            }
+        }
+        
 //        commande commande = new commande("Serviette", "POur moi", 1);
 //        commande commande1 = new commande("Pull", "POur moi", 1);
 //        commande.saveInDBV1(conn);
@@ -467,6 +766,11 @@ public class Gestion {
             }
             try {
                 st.executeUpdate("alter table operations_effectuees_bof drop constraint fk_operations_effectuees_bof_id_exemplaire");
+            } catch (SQLException ex) {
+                System.out.println("erreur4" + ex);
+            }
+            try {
+                st.executeUpdate("alter table operations_effectuees_bof drop constraint fk_operations_effectuees_bof_id_operateur");
             } catch (SQLException ex) {
                 System.out.println("erreur4" + ex);
             }

@@ -37,8 +37,6 @@ public class Ajout_message extends VerticalLayout{
             Notification.show("Problème BdD : x");
         }
         });
-        message.addClassName("text-area");
-        valid.addClassName("send-button");
         valid.addClickShortcut(Key.ENTER);
         this.HL = new HorizontalLayout();
         this.HL.add(this.message);

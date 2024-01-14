@@ -17,11 +17,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Salut
- *
- * @author binde
- */
 public class Ordre_operation extends HorizontalLayout {
 
     private ComboBox combo;
