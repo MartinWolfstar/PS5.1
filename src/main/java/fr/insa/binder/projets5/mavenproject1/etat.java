@@ -69,6 +69,44 @@ public class etat {
         }
         return res;
     }
+    
+    public static List<etat> tousLesEtats_op(Connection con, int id_op) throws SQLException {
+        List<etat> res = new ArrayList<>();
+        try (PreparedStatement pst = con.prepareStatement(
+                "select etat_bof.id_etat,id_type_etat,debut,fin from etat_bof join operateur__etat_bof on operateur__etat_bof.id_etat = etat_bof.id_etat where id_operateur = ?")) {
+
+            pst.setInt(1, id_op);
+            try (ResultSet rs = pst.executeQuery()) {
+                while (rs.next()) {
+                    int id = rs.getInt("id_etat");
+                    int ite = rs.getInt("id_type_etat");
+                    Timestamp d=rs.getTimestamp("debut");
+                    Timestamp f=rs.getTimestamp("fin");
+                    res.add(new etat(id,ite,d,f));
+                }
+            }
+        }
+        return res;
+    }
+    
+    public static List<etat> tousLesEtats_m(Connection con, int id_m) throws SQLException {
+        List<etat> res = new ArrayList<>();
+        try (PreparedStatement pst = con.prepareStatement(
+                "select etat_bof.id_etat,id_type_etat,debut,fin from etat_bof join machine__etat_bof on machine__etat_bof.id_etat = etat_bof.id_etat where id_machine = ?")) {
+
+            pst.setInt(1, id_m);
+            try (ResultSet rs = pst.executeQuery()) {
+                while (rs.next()) {
+                    int id = rs.getInt("id_etat");
+                    int ite = rs.getInt("id_type_etat");
+                    Timestamp d=rs.getTimestamp("debut");
+                    Timestamp f=rs.getTimestamp("fin");
+                    res.add(new etat(id,ite,d,f));
+                }
+            }
+        }
+        return res;
+    }
     public void supEtat(Connection con) throws SQLException {
         try (PreparedStatement pst = con.prepareStatement(
                 " DELETE FROM machine__etat_bof WHERE id_etat=? ")) {
