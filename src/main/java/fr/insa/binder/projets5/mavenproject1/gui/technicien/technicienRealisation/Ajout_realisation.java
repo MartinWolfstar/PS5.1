@@ -6,12 +6,10 @@ package fr.insa.binder.projets5.mavenproject1.gui.technicien.technicienRealisati
 
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
-import com.vaadin.flow.component.html.H3;
+import com.vaadin.flow.component.html.H5;
 import com.vaadin.flow.component.notification.Notification;
-import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.IntegerField;
-import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.server.VaadinSession;
 import fr.insa.binder.projets5.mavenproject1.realisation;
 import java.sql.Connection;
@@ -37,7 +35,7 @@ public class Ajout_realisation extends VerticalLayout{
             }
         });
 
-        this.add(new H3("Ajout realisation"));
+        this.add(new H5("Ajout realisation"));
         this.add(this.duree, this.valid);
     }
 }

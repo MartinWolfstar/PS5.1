@@ -71,7 +71,7 @@ public class BarreGaucheClient extends AppLayout{
         VerticalLayout drawerLayout = new VerticalLayout();
         drawerLayout.getStyle().setBackground("#ffde75");
         drawerLayout.setMinHeight("100vh");
-        RouterLink listLink = new RouterLink("Produit", ProduitClient.class);
+        RouterLink listLink = new RouterLink("Boutique", ProduitClient.class);
         listLink.setHighlightCondition(HighlightConditions.sameLocation());
         listLink.getStyle().setColor("#030876");
         drawerLayout.add(new VerticalLayout(

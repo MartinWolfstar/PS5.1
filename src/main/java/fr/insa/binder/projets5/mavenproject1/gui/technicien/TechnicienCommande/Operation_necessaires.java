@@ -9,6 +9,7 @@ import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.server.VaadinSession;
+import fr.insa.binder.projets5.mavenproject1.Utilitaire.utile;
 import fr.insa.binder.projets5.mavenproject1.exemplaire;
 import static fr.insa.binder.projets5.mavenproject1.exemplaire.tousLesxemplaires_produit;
 import static fr.insa.binder.projets5.mavenproject1.operation_effectuee.Meilleurs_operation_produit;
@@ -43,6 +44,7 @@ public class Operation_necessaires extends VerticalLayout {
         this.add(this.grid);
         addClassName("liste_commande");
         setSizeFull();
+        utile.stylisation(this);
     }
 
 }

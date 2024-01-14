@@ -59,7 +59,7 @@ public class BarreGaucheTechnicien extends AppLayout {
         VerticalLayout drawerLayout = new VerticalLayout();
         drawerLayout.getStyle().setBackground("#ffde75");
         drawerLayout.setMinHeight("120vh");
-        RouterLink listLink2 = new RouterLink("Plan", technicien_PlanUsine.class);
+        RouterLink listLink2 = new RouterLink("Plan de l'usine", technicien_PlanUsine.class);
         listLink2.setHighlightCondition(HighlightConditions.sameLocation());
         listLink2.getStyle().setColor("#030876");
         drawerLayout.add(new VerticalLayout(
@@ -71,7 +71,7 @@ public class BarreGaucheTechnicien extends AppLayout {
         drawerLayout.add(new VerticalLayout(
                 listLink9
         ));
-        RouterLink listLink = new RouterLink("ListeMachine", ListeMachine.class);
+        RouterLink listLink = new RouterLink("Liste des Machines", ListeMachine.class);
         listLink.setHighlightCondition(HighlightConditions.sameLocation());
         listLink.getStyle().setColor("#030876");
         drawerLayout.add(new VerticalLayout(
@@ -95,7 +95,7 @@ public class BarreGaucheTechnicien extends AppLayout {
         drawerLayout.add(new VerticalLayout(
                 listLink10
         ));
-        RouterLink listLink11 = new RouterLink("Realisation", ListeRealisation.class);
+        RouterLink listLink11 = new RouterLink("Réalisation", ListeRealisation.class);
         listLink11.setHighlightCondition(HighlightConditions.sameLocation());
         listLink11.getStyle().setColor("#030876");
         drawerLayout.add(new VerticalLayout(
@@ -107,13 +107,13 @@ public class BarreGaucheTechnicien extends AppLayout {
         drawerLayout.add(new VerticalLayout(
                 listLink12
         ));
-                RouterLink listLink6 = new RouterLink("TypeOperation", ListeTypeOperation.class);
+                RouterLink listLink6 = new RouterLink("Type d'opération", ListeTypeOperation.class);
         listLink6.setHighlightCondition(HighlightConditions.sameLocation());
         listLink6.getStyle().setColor("#030876");
         drawerLayout.add(new VerticalLayout(
                 listLink6
         ));
-        RouterLink listLink7 = new RouterLink("TypeMachine", ListeTypeMachine.class);
+        RouterLink listLink7 = new RouterLink("Type de machine", ListeTypeMachine.class);
         listLink7.setHighlightCondition(HighlightConditions.sameLocation());
         listLink7.getStyle().setColor("#030876");
         drawerLayout.add(new VerticalLayout(

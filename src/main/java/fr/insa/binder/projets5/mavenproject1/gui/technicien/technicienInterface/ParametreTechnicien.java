@@ -77,9 +77,9 @@ public class ParametreTechnicien extends VerticalLayout{
         H1 = new HorizontalLayout();
         H1.add(new Ajout_etat_technicien());
         this.add(H1);
-        H2 = new VerticalLayout();
-        H2.add(new Supp_etat());
-        this.add(H2);
+        //H2 = new VerticalLayout();
+        this.add(new Supp_etat());
+        //this.add(H2);
         try{
             this.grid = new Grid_technicien33(get_etat_d_un_operateur((Connection) VaadinSession.getCurrent().getAttribute("conn"), this.id_operateur));
             this.add(this.grid);

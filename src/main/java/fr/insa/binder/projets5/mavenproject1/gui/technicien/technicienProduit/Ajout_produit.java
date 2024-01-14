@@ -8,7 +8,7 @@ import com.vaadin.flow.component.Key;
 import com.vaadin.flow.component.Shortcuts;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
-import com.vaadin.flow.component.html.H3;
+import com.vaadin.flow.component.html.H5;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
@@ -55,7 +55,7 @@ public class Ajout_produit extends VerticalLayout{
         
         
         this.HL = new HorizontalLayout();
-        this.add(new H3("Ajout produit"));
+        this.add(new H5("Ajout produit"));
         this.HL.add(this.ref, this.des);
         this.add(this.HL, this.valid);
     }

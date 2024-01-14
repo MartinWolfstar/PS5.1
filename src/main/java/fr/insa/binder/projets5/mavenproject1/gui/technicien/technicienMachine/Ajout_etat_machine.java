@@ -8,7 +8,7 @@ import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.combobox.ComboBox;
 import com.vaadin.flow.component.datetimepicker.DateTimePicker;
-import com.vaadin.flow.component.html.H3;
+import com.vaadin.flow.component.html.H5;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
@@ -135,7 +135,7 @@ public class Ajout_etat_machine extends VerticalLayout {
 
         // Ajouter les composants à la mise en page
         this.HL = new HorizontalLayout();
-        this.add(new H3("Ajout etat"));
+        this.add(new H5("Ajout etat"));
         this.HL.add(this.id_MachineComboBox,this.etatComboBox, this.debutDateTimePicker, this.finDateTimePicker);
         this.add(this.HL, this.valid);
     }

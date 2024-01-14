@@ -126,7 +126,7 @@ public class CommandeClient extends VerticalLayout{
         content.add(H3);
         Button closeButton = new Button("Fermer", event -> factureDialog.close());
         H3.add(closeButton);
-        Button TelechargementB = new Button("Telecharger", event -> factureDialog.close());
+        Button TelechargementB = new Button("Télécharger", event -> factureDialog.close());
         H3.add(TelechargementB);
         factureDialog.add(content);
         factureDialog.open();

@@ -27,9 +27,9 @@ public class ListeMachine extends VerticalLayout {
         H1 = new HorizontalLayout();
         H1.add(new Ajout_machine());
         this.add(H1);
-        H2 = new HorizontalLayout();
-        H2.add(new Ajout_etat_machine());
-        this.add(H2);
+//        H2 = new HorizontalLayout();
+//        H2.add(new Ajout_etat_machine());
+//        this.add(H2);
         //H3 = new VerticalLayout();
         //H3.add(new Sup_etat_machine());
         //this.add(H3);

@@ -40,6 +40,7 @@ public class Ajout_machine extends VerticalLayout{
         this.HL = new HorizontalLayout();
         this.add(new H3("Ajout machine"));
         this.HL.add(this.ref, this.des, this.valid);
+        this.HL.setAlignItems(Alignment.END);
         this.add(this.HL);
     }
     public Ajout_machine(int id_pdt){

@@ -8,6 +8,7 @@ import com.vaadin.flow.component.Key;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.html.H1;
 import com.vaadin.flow.component.notification.Notification;
+import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.PasswordField;
 import com.vaadin.flow.component.textfield.TextField;
@@ -17,13 +18,9 @@ import com.vaadin.flow.server.VaadinSession;
 import fr.insa.binder.projets5.mavenproject1.Client;
 import fr.insa.binder.projets5.mavenproject1.gui.client.BarreGaucheClient;
 import static fr.insa.binder.projets5.mavenproject1.Client.getnom_client;
-import fr.insa.binder.projets5.mavenproject1.ImageT;
 import fr.insa.binder.projets5.mavenproject1.Utilitaire.utile;
-import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -40,6 +37,9 @@ public class ParametreClient extends VerticalLayout{
     private TextField telephone;
     private PasswordField mdp;
     private Button sauvegarder;
+    private VerticalLayout V1;
+    private VerticalLayout V2;
+    private HorizontalLayout H1;
     
     public ParametreClient() {
         
@@ -81,7 +81,13 @@ public class ParametreClient extends VerticalLayout{
         setMargin(true);
         //setHorizontalComponentAlignment(FlexComponent.Alignment.END, name, sayHello);
 
-        add(nom_client, nom, prenom, adresse, mail, telephone, mdp, sauvegarder);
+        V1 = new VerticalLayout();
+        V2 = new VerticalLayout();
+        H1 = new HorizontalLayout();
+        V1.add(nom, prenom, adresse);
+        V2.add(mail, telephone, mdp);
+        H1.add(V1,V2);
+        add(nom_client,H1,sauvegarder);
         utile.stylisation(this);
     }
 }

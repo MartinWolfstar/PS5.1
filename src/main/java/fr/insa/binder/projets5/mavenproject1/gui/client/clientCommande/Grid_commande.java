@@ -16,10 +16,13 @@ public class Grid_commande extends Grid<commande>{
     
     public Grid_commande(List<commande> list_commande) {
         this.setItems(list_commande);
-        this.addColumn(commande::getNom_commande).setHeader("Nom");
-        this.addColumn(commande::getDes_commande).setHeader("Description");
-        this.addColumn(commande::getId_commande).setHeader("Id_commande");
+        Grid.Column<commande> Id_commande =this.addColumn(commande::getId_commande).setHeader("N°Commande");
+        Grid.Column<commande> nom =this.addColumn(commande::getNom_commande).setHeader("Nom");
+        Grid.Column<commande> Description =this.addColumn(commande::getDes_commande).setHeader("Description");
         this.setMaxHeight("50vh");
+        nom.setWidth("100px");
+        Description.setWidth("1000px");
+        Id_commande.setWidth("100px");
         
     }
 }

@@ -48,7 +48,7 @@ public class ProduitClient extends VerticalLayout{
     
     public ProduitClient() {
         
-        this.titre = new H3("Liste de toutes les Livres");
+        this.titre = new H3("Liste de tous les Livres");
         this.add(titre);
         H1 = new HorizontalLayout();
         this.valid = new Button ("Acheter");
@@ -71,7 +71,7 @@ public class ProduitClient extends VerticalLayout{
         this.valid.addClickListener(e -> {
             Connection con = (Connection) VaadinSession.getCurrent().getAttribute("conn");
             Integer idClient = (Integer) VaadinSession.getCurrent().getAttribute("id_client");
-            commande nouvelleCommande = new commande("nouvelle commande", "contenu : ", idClient);
+            commande nouvelleCommande = new commande("new"+idClient, "contenu : ", idClient);
             try {
                 nouvelleCommande.saveInDBV1(con);
                 //nouvelleCommande.setId_commande(nouvelleCommande.getTheID(con));
@@ -84,7 +84,7 @@ public class ProduitClient extends VerticalLayout{
                 String produitSelectionne;
                 try {
                     produitSelectionne = produit.giveProduit(con, produitId); 
-                    str += produitSelectionne;
+                    str += produitSelectionne + " ";
                     commande_produit cp = new commande_produit(nouvelleCommande.getId_commande(),produitId);
                     nouvelleCommande.setDes(str,nouvelleCommande.getId_commande(),con);
                     cp.saveInDBV1(con);
@@ -94,7 +94,7 @@ public class ProduitClient extends VerticalLayout{
                     Notification.show("Problème commande_produit : " + ex.getLocalizedMessage());
                 }
             }
-            //UI.getCurrent().getPage().reload(); // à remettre !!!
+            //UI.getCurrent().getPage().reload();
             Notification.show("Vous avez acheté les produits :" + grid.getSelectedIds());
             
         });
