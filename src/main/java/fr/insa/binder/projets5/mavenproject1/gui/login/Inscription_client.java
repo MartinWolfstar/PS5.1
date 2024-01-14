@@ -77,7 +77,7 @@ public  class Inscription_client extends VerticalLayout{
 //            .set("background-size", "cover")
 //            .set("height", "100vh");
         
-        String imageName = "1275600.jpg";
+        String imageName = "fdecran.jpg";
         Connection conn = (Connection) VaadinSession.getCurrent().getAttribute("conn");
         try {
             ImageT image = ImageT.getImageByName(conn, imageName);
@@ -105,14 +105,6 @@ public  class Inscription_client extends VerticalLayout{
             .set("justify-content", "center")
             .set("align-items", "center");  
             
-        nom.getStyle().set("color", "Crimson");     
-        prenom.getStyle().set("color", "Crimson");
-        login.getStyle().set("color", "Crimson");
-        mdp.getStyle().set("color", "Crimson");
-        sauvegarder.getStyle()
-            .set("color", "Crimson")
-            .set("background-color", "PowderBlue");
-        mdp.getStyle().set("color", "Crimson");
     }
 }
 

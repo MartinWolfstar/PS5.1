@@ -18,6 +18,7 @@ import fr.insa.binder.projets5.mavenproject1.Client;
 import fr.insa.binder.projets5.mavenproject1.gui.client.BarreGaucheClient;
 import static fr.insa.binder.projets5.mavenproject1.Client.getnom_client;
 import fr.insa.binder.projets5.mavenproject1.ImageT;
+import fr.insa.binder.projets5.mavenproject1.Utilitaire.utile;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -63,8 +64,7 @@ public class ParametreClient extends VerticalLayout{
         sauvegarder = new Button("Sauvegarder les informations");
         //ALD = new AppLayoutDrawer();
         mdp.setValue("Ex@mplePassw0rd");
-        
-        stylisation();
+
         sauvegarder.addClickListener(e -> {
             try {
                 Client.setNom(nom.getValue(),id_c, conn);
@@ -82,43 +82,6 @@ public class ParametreClient extends VerticalLayout{
         //setHorizontalComponentAlignment(FlexComponent.Alignment.END, name, sayHello);
 
         add(nom_client, nom, prenom, adresse, mail, telephone, mdp, sauvegarder);
-        
-    }
-    
-    private void stylisation() {
-        
-        String imageName = "1275600.jpg";
-        Connection conn = (Connection) VaadinSession.getCurrent().getAttribute("conn");
-        try {
-            ImageT image = ImageT.getImageByName(conn, imageName);
-            if (image != null) {
-                String base64Image = java.util.Base64.getEncoder().encodeToString(image.getImageBytes());
-                this.getStyle()
-                    .set("background", "url(data:image/jpeg;base64," + base64Image + ") no-repeat center center fixed")
-                    .set("background-size", "cover")
-                    .set("height", "200vh");
-            } else {
-                System.err.println("Image not found in the database.");
-            }
-        } catch (SQLException | IOException e) {
-            Notification.show("probleme style : " + e);
-        }
-        
-        nom.getStyle()
-                .set("color", "Crimson");
-        prenom.getStyle()
-                .set("color", "Crimson");
-        adresse.getStyle()
-                .set("color", "Crimson");
-        mail.getStyle()
-                .set("color", "Crimson");
-        telephone.getStyle()
-                .set("color", "Crimson");
-        mdp.getStyle()
-                .set("color", "Crimson");
-        sauvegarder.getStyle()
-                .set("color", "Crimson")
-                .set("background-color", "PowderBlue");
-        
+        utile.stylisation(this);
     }
 }

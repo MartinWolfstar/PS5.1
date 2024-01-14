@@ -22,6 +22,7 @@ import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.server.VaadinSession;
 import fr.insa.binder.projets5.mavenproject1.ImageT;
+import fr.insa.binder.projets5.mavenproject1.Utilitaire.utile;
 import fr.insa.binder.projets5.mavenproject1.commantaire;
 import fr.insa.binder.projets5.mavenproject1.gui.client.BarreGaucheClient;
 import fr.insa.binder.projets5.mavenproject1.produit;
@@ -99,7 +100,7 @@ public class CommentaireClient extends VerticalLayout {
         VL2.add(new H6("Pour voir les commentaires :"),menu_bar);
         HL.add(VL2,VL);
         this.add(HL);
-        stylisation();
+        utile.stylisation(this);
     }
 
     private void ajouterCommentaire(ClickEvent<Button> event) {
@@ -113,24 +114,6 @@ public class CommentaireClient extends VerticalLayout {
             this.grid.setItems(commantaire.tousLescommentairesParProduit(selectedProductId, (Connection) VaadinSession.getCurrent().getAttribute("conn")));
         } catch (SQLException ex) {
             Notification.show("Problème BdD : " + ex);
-        }
-    }
-    private void stylisation() {
-        String imageName = "1275600.jpg";
-        Connection conn = (Connection) VaadinSession.getCurrent().getAttribute("conn");
-        try {
-            ImageT image = ImageT.getImageByName(conn, imageName);
-            if (image != null) {
-                String base64Image = java.util.Base64.getEncoder().encodeToString(image.getImageBytes());
-                this.getStyle()
-                    .set("background", "url(data:image/jpeg;base64," + base64Image + ") no-repeat center center fixed")
-                    .set("background-size", "cover")
-                    .set("height", "200vh");
-            } else {
-                System.err.println("Image not found in the database.");
-            }
-        } catch (SQLException | IOException e) {
-            Notification.show("probleme style : " + e);
         }
     }
 }

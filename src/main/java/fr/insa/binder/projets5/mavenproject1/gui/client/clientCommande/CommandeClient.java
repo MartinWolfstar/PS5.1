@@ -18,6 +18,7 @@ import com.vaadin.flow.router.Route;
 import com.vaadin.flow.server.VaadinSession;
 import fr.insa.binder.projets5.mavenproject1.Client;
 import fr.insa.binder.projets5.mavenproject1.ImageT;
+import fr.insa.binder.projets5.mavenproject1.Utilitaire.utile;
 import fr.insa.binder.projets5.mavenproject1.commande;
 import fr.insa.binder.projets5.mavenproject1.gui.client.BarreGaucheClient;
 import java.io.IOException;
@@ -69,7 +70,7 @@ public class CommandeClient extends VerticalLayout{
         setMargin(true);
         //setHorizontalComponentAlignment(FlexComponent.Alignment.END, name, sayHello);
         add(facture);
-        stylisation();
+        utile.stylisation(this);
     }
     
     private void showFactureDialog() {
@@ -138,34 +139,6 @@ public class CommandeClient extends VerticalLayout{
 
         // Ouvrir la fenêtre modale
         factureDialog.open();
-    }
-    
-    private void stylisation() {
-
-        facture.getStyle()
-                .set("color", "Crimson")
-                .set("background-color", "PowderBlue");
-        
-        this.titre.getStyle()
-            .set("color", "Indigo")
-            .set("border-radius", "10px") 
-            .set("padding", "10px");
-        
-        String imageName = "1275600.jpg";
-        Connection conn = (Connection) VaadinSession.getCurrent().getAttribute("conn");
-        try {
-            ImageT image = ImageT.getImageByName(conn, imageName);
-            if (image != null) {
-                String base64Image = java.util.Base64.getEncoder().encodeToString(image.getImageBytes());
-                this.getStyle()
-                    .set("background", "url(data:image/jpeg;base64," + base64Image + ") no-repeat center center fixed")
-                    .set("background-size", "cover")
-                    .set("height", "200vh");
-            } else {
-                System.err.println("Image not found in the database.");
-            }
-        } catch (SQLException | IOException e) {
-            Notification.show("probleme style : " + e);
-        }
+        utile.stylisation(this);
     }
 }

@@ -4,19 +4,11 @@
  */
 package fr.insa.binder.projets5.mavenproject1.gui.client.clientCommentaire;
 
-import com.vaadin.flow.component.button.Button;
-import com.vaadin.flow.component.combobox.ComboBox;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.notification.Notification;
-import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
-import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.server.VaadinSession;
 import fr.insa.binder.projets5.mavenproject1.Client;
 import fr.insa.binder.projets5.mavenproject1.commantaire;
-import static fr.insa.binder.projets5.mavenproject1.machine.setTypeMachine;
-import fr.insa.binder.projets5.mavenproject1.type_machine;
-import static fr.insa.binder.projets5.mavenproject1.type_machine.getId_type_machine;
-import static fr.insa.binder.projets5.mavenproject1.type_machine.tousLesTypeMachines_String;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;

@@ -30,7 +30,7 @@ public class utile {
 //            .set("background-size", "cover")
 //            .set("height", "1200vh");
 
-        String imageName = "1275600.jpg";
+        String imageName = "fdecran.jpg";
         
         // Connexion à la base de données (assurez-vous que votre connexion est établie correctement)
         Connection conn = (Connection) VaadinSession.getCurrent().getAttribute("conn");
@@ -46,6 +46,7 @@ public class utile {
                 V.getStyle()
                     .set("background", "url(data:image/jpeg;base64," + base64Image + ") no-repeat center center fixed")
                     .set("background-size", "cover")
+                    .setOpacity("50")
                     .set("height", "200vh");
             } else {
                 System.err.println("Image not found in the database.");
@@ -57,7 +58,7 @@ public class utile {
     
     public static void stylisation(ParametreTechnicien V,TextField a1,TextField a3,PasswordField a4, Button b1) {
         
-        String imageName = "1275600.jpg";
+        String imageName = "fdecran.jpg";
         
         // Connexion à la base de données (assurez-vous que votre connexion est établie correctement)
         Connection conn = (Connection) VaadinSession.getCurrent().getAttribute("conn");
@@ -79,22 +80,11 @@ public class utile {
             }
         } catch (SQLException | IOException e) {
             Notification.show("probleme style : " + e);
-        }
-        
-        a1.getStyle()
-                .set("color", "Crimson");
-        a3.getStyle()
-                .set("color", "Crimson");
-        a4.getStyle()
-                .set("color", "Crimson");
-        b1.getStyle()
-                .set("color", "Crimson")
-                .set("background-color", "PowderBlue");
-        
+        }      
     }
     public static void stylisation(technicien_PlanUsine aThis, Button ajoutB, Button modifB, Button suppB) {
         
-        String imageName = "1275600.jpg";
+        String imageName = "fdecran.jpg";
         
         // Connexion à la base de données (assurez-vous que votre connexion est établie correctement)
         Connection conn = (Connection) VaadinSession.getCurrent().getAttribute("conn");
@@ -118,16 +108,6 @@ public class utile {
             Notification.show("probleme style : " + e);
             // Gérer les exceptions appropriées ici
         }
-        ajoutB.getStyle()
-            .set("color", "Crimson")
-            .set("background-color", "PowderBlue");
-        modifB.getStyle()
-            .set("color", "Crimson")
-            .set("background-color", "PowderBlue");
-        suppB.getStyle()
-            .set("color", "Crimson")
-            .set("background-color", "PowderBlue");
-        
     }
     
 }

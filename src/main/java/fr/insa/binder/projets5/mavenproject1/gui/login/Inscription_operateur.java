@@ -88,7 +88,7 @@ public class Inscription_operateur extends VerticalLayout{
 //            .set("background", "url(images/1275600.jpg) no-repeat center center fixed")
 //            .set("background-size", "cover")
 //            .set("height", "100vh");
-        String imageName = "1275600.jpg";
+        String imageName = "fdecran.jpg";
         // Connexion à la base de données (assurez-vous que votre connexion est établie correctement)
         Connection conn = (Connection) VaadinSession.getCurrent().getAttribute("conn");
         try {
@@ -118,14 +118,5 @@ public class Inscription_operateur extends VerticalLayout{
             .set("flex-direction", "column")
             .set("justify-content", "center")
             .set("align-items", "center");  
-            
-        nom.getStyle().set("color", "Crimson");     
-        prenom.getStyle().set("color", "Crimson");
-        login.getStyle().set("color", "Crimson");
-        mdp.getStyle().set("color", "Crimson");
-        sauvegarder.getStyle()
-            .set("color", "Crimson")
-            .set("background-color", "PowderBlue");
-        mdp.getStyle().set("color", "Crimson");
     }
 }
