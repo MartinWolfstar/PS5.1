@@ -493,6 +493,57 @@ public class Gestion {
         client1.saveInDBV(conn);
         client2.saveInDBV(conn);
         client3.saveInDBV(conn);
+
+        Client client4 = new Client("Coder", "Bob", "BobCoder", "CodeMaster456");
+        client4.saveInDBV(conn);
+
+        Client client5 = new Client("Bookworm", "Charlie", "CharlieReader", "ReadsALot789");
+        client5.saveInDBV(conn);
+
+        Client client6 = new Client("Gamer", "David", "DavidGamer", "GameOn101");
+        client6.saveInDBV(conn);
+
+        Client client7 = new Client("Explorer", "Eva", "EvaExplorer", "DiscoveringWorlds");
+        client7.saveInDBV(conn);
+
+        Client client8 = new Client("Artist", "Frank", "FrankArt", "CreativeMind123");
+        client8.saveInDBV(conn);
+
+        Client client9 = new Client("MusicLover", "Grace", "GraceMusic", "Melody123");
+        client9.saveInDBV(conn);
+
+        Client client10 = new Client("AdventureSeeker", "Henry", "HenryAdventures", "Exploring456");
+        client10.saveInDBV(conn);
+
+        Client client11 = new Client("TechGeek", "Ivy", "IvyTech", "TechEnthusiast789");
+        client11.saveInDBV(conn);
+
+        Client client12 = new Client("Dreamer", "Jack", "JackDreams", "DreamBig101");
+        client12.saveInDBV(conn);
+
+        Client client13 = new Client("Foodie", "Katie", "KatieFoodie", "TasteTheWorld123");
+        client13.saveInDBV(conn);
+
+        Client client14 = new Client("Fashionista", "Leo", "LeoStyle", "Trendsetter456");
+        client14.saveInDBV(conn);
+
+        Client client15 = new Client("FitnessFanatic", "Mia", "MiaFit", "HealthyLiving789");
+        client15.saveInDBV(conn);
+
+        Client client16 = new Client("Traveler", "Nate", "NateTravel", "Wanderlust101");
+        client16.saveInDBV(conn);
+
+        Client client17 = new Client("ScienceNerd", "Olivia", "OliviaScience", "LabGenius123");
+        client17.saveInDBV(conn);
+
+        Client client18 = new Client("PetLover", "Peter", "PeterPets", "AnimalFriend456");
+        client18.saveInDBV(conn);
+
+        Client client19 = new Client("FilmBuff", "Quinn", "QuinnCinephile", "MovieMagic789");
+        client19.saveInDBV(conn);
+
+        Client client20 = new Client("Sunshine", "Ray", "RaySunshine", "PositiveVibes101");
+        client20.saveInDBV(conn);
         
         // produit
         produit p1 = new produit("les cigognes dans leur habitat naturel",  1);
@@ -724,17 +775,201 @@ public class Gestion {
 
 
         //operation
-        for (int i = 1; i <= 15; i++) {
+        for (int i = 1; i <= 50; i++) {
             for (int j = 1; j <= 10; j++) {
                 Operation operation = new Operation(j, i);
                 operation.saveInDBV1(conn);
             }
         }
-        
-//        commande commande = new commande("Serviette", "POur moi", 1);
-//        commande commande1 = new commande("Pull", "POur moi", 1);
-//        commande.saveInDBV1(conn);
-//        commande1.saveInDBV1(conn);
+                //operation suivante
+        for (int j = 1; j <= 49; j+=10){
+            for (int i = j; i <= j+8; i++) {
+                Precede prc = new Precede(i, i+1);
+                prc.saveInDBV1(conn);
+            }
+        }
+        //commantaire(int id_produit, String message,int id_client)
+
+        commantaire com1 = new commantaire(1,"super livre", 5);
+        com1.saveInDBV1(conn);
+        commantaire com2 = new commantaire(2, "Captivant !", 4);
+        com2.saveInDBV1(conn);
+
+        commantaire com3 = new commantaire(3, "Intriguant, j'ai adoré !", 5);
+        com3.saveInDBV1(conn);
+
+        commantaire com4 = new commantaire(4, "Une lecture légère et divertissante", 3);
+        com4.saveInDBV1(conn);
+
+        commantaire com5 = new commantaire(5, "À mettre entre toutes les mains", 4);
+        com5.saveInDBV1(conn);
+
+        commantaire com6 = new commantaire(6, "Livre original, je recommande", 5);
+        com6.saveInDBV1(conn);
+
+        commantaire com7 = new commantaire(7, "J'ai ri du début à la fin", 4);
+        com7.saveInDBV1(conn);
+
+        commantaire com8 = new commantaire(8, "Inoubliable, un chef-d'œuvre", 5);
+        com8.saveInDBV1(conn);
+
+        commantaire com9 = new commantaire(9, "Décevant, je m'attendais à mieux", 2);
+        com9.saveInDBV1(conn);
+
+        commantaire com10 = new commantaire(10, "Page-turner absolu !", 5);
+        com10.saveInDBV1(conn);
+
+        commantaire com11 = new commantaire(11, "J'ai trouvé cela ennuyeux", 2);
+        com11.saveInDBV1(conn);
+
+        commantaire com12 = new commantaire(12, "Une lecture qui fait réfléchir", 4);
+        com12.saveInDBV1(conn);
+
+        commantaire com13 = new commantaire(13, "Je n'ai pas compris la hype autour de ce livre", 3);
+        com13.saveInDBV1(conn);
+
+        commantaire com14 = new commantaire(14, "À lire absolument", 5);
+        com14.saveInDBV1(conn);
+
+        commantaire com15 = new commantaire(15, "Pas mal du tout", 4);
+        com15.saveInDBV1(conn);
+
+        commantaire com16 = new commantaire(16, "Ne perdez pas votre temps", 1);
+        com16.saveInDBV1(conn);
+
+        commantaire com17 = new commantaire(17, "J'ai adoré l'intrigue", 5);
+        com17.saveInDBV1(conn);
+
+        commantaire com18 = new commantaire(18, "Un livre qui reste avec vous après la lecture", 5);
+        com18.saveInDBV1(conn);
+
+        commantaire com19 = new commantaire(19, "Pas convaincu", 2);
+        com19.saveInDBV1(conn);
+
+        commantaire com20 = new commantaire(20, "Lecture légère et amusante", 4);
+        com20.saveInDBV1(conn);
+
+        commantaire com21 = new commantaire(21, "Une découverte littéraire exceptionnelle", 5);
+        com21.saveInDBV1(conn);
+
+        commantaire com22 = new commantaire(22, "Attirant dès la première page", 4);
+        com22.saveInDBV1(conn);
+
+        commantaire com23 = new commantaire(23, "Dévoré en une seule séance", 5);
+        com23.saveInDBV1(conn);
+
+        commantaire com24 = new commantaire(24, "Un dénouement inattendu", 4);
+        com24.saveInDBV1(conn);
+
+        commantaire com25 = new commantaire(25, "M'a fait réfléchir sur la vie", 5);
+        com25.saveInDBV1(conn);
+
+        commantaire com26 = new commantaire(26, "Lecture parfaite pour se détendre", 4);
+        com26.saveInDBV1(conn);
+
+        commantaire com27 = new commantaire(27, "Une histoire qui reste en mémoire", 5);
+        com27.saveInDBV1(conn);
+
+        commantaire com28 = new commantaire(28, "Bonne surprise littéraire", 4);
+        com28.saveInDBV1(conn);
+
+        commantaire com29 = new commantaire(29, "À lire absolument avant la fin de l'année", 5);
+        com29.saveInDBV1(conn);
+
+        commantaire com30 = new commantaire(30, "Un chef-d'œuvre contemporain", 4);
+        com30.saveInDBV1(conn);
+
+        commantaire com31 = new commantaire(31, "J'ai ri du début à la fin", 5);
+        com31.saveInDBV1(conn);
+
+        commantaire com32 = new commantaire(32, "Une histoire d'amour touchante", 4);
+        com32.saveInDBV1(conn);
+
+        commantaire com33 = new commantaire(33, "Personnages attachants", 5);
+        com33.saveInDBV1(conn);
+
+        commantaire com34 = new commantaire(34, "À recommander à tous les lecteurs", 4);
+        com34.saveInDBV1(conn);
+
+        commantaire com35 = new commantaire(35, "Une expérience de lecture unique", 5);
+        com35.saveInDBV1(conn);
+
+        commantaire com36 = new commantaire(36, "Suspense du début à la fin", 4);
+        com36.saveInDBV1(conn);
+
+        commantaire com37 = new commantaire(37, "Lecture légère pour tous les âges", 5);
+        com37.saveInDBV1(conn);
+
+        commantaire com38 = new commantaire(38, "Un voyage littéraire inoubliable", 4);
+        com38.saveInDBV1(conn);
+
+        commantaire com39 = new commantaire(39, "M'a fait verser quelques larmes", 5);
+        com39.saveInDBV1(conn);
+
+        commantaire com40 = new commantaire(40, "À relire encore et encore", 4);
+        com40.saveInDBV1(conn);
+
+        commantaire com41 = new commantaire(41, "Une plongée captivante dans l'univers du livre", 5);
+        com41.saveInDBV1(conn);
+
+        commantaire com42 = new commantaire(42, "Histoire intrigante, impossible de le lâcher", 4);
+        com42.saveInDBV1(conn);
+
+        commantaire com43 = new commantaire(43, "Des rebondissements à couper le souffle", 5);
+        com43.saveInDBV1(conn);
+
+        commantaire com44 = new commantaire(44, "Lecture idéale pour une soirée détente", 4);
+        com44.saveInDBV1(conn);
+
+        commantaire com45 = new commantaire(45, "Les personnages sont vraiment bien développés", 5);
+        com45.saveInDBV1(conn);
+
+        commantaire com46 = new commantaire(46, "Un livre qui fait réfléchir sur la vie", 4);
+        com46.saveInDBV1(conn);
+
+        commantaire com47 = new commantaire(47, "Une fin qui m'a laissé sans voix", 5);
+        com47.saveInDBV1(conn);
+
+        commantaire com48 = new commantaire(48, "À recommander à tous les amateurs de lecture", 4);
+        com48.saveInDBV1(conn);
+
+        commantaire com49 = new commantaire(49, "Lecture légère et agréable", 5);
+        com49.saveInDBV1(conn);
+
+        commantaire com50 = new commantaire(50, "Une véritable pépite littéraire", 4);
+        com50.saveInDBV1(conn);
+
+        commantaire com51 = new commantaire(51, "Les descriptions sont incroyablement détaillées", 5);
+        com51.saveInDBV1(conn);
+
+        commantaire com52 = new commantaire(52, "Un livre qui mérite d'être sur toutes les étagères", 4);
+        com52.saveInDBV1(conn);
+
+        commantaire com53 = new commantaire(53, "L'auteur a un talent indéniable pour captiver", 5);
+        com53.saveInDBV1(conn);
+
+        commantaire com54 = new commantaire(54, "Un voyage littéraire à ne pas manquer", 4);
+        com54.saveInDBV1(conn);
+
+        commantaire com55 = new commantaire(55, "Histoire touchante et pleine d'émotions", 5);
+        com55.saveInDBV1(conn);
+
+        commantaire com56 = new commantaire(56, "Une lecture qui laisse une empreinte durable", 4);
+        com56.saveInDBV1(conn);
+
+        commantaire com57 = new commantaire(57, "Des moments de suspense parfaitement orchestrés", 5);
+        com57.saveInDBV1(conn);
+
+        commantaire com58 = new commantaire(58, "Un must-read pour tous les passionnés de littérature", 4);
+        com58.saveInDBV1(conn);
+
+        commantaire com59 = new commantaire(59, "Livre qui m'a fait voir le monde sous un nouvel angle", 5);
+        com59.saveInDBV1(conn);
+
+        commantaire com60 = new commantaire(60, "À lire avec une tasse de café bien chaude", 4);
+        com60.saveInDBV1(conn);
+
+
         
     }
 
