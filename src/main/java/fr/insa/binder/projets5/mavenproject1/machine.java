@@ -5,7 +5,9 @@
 package fr.insa.binder.projets5.mavenproject1;
 
 import com.vaadin.flow.component.notification.Notification;
+import static fr.insa.binder.projets5.mavenproject1.Gestion.connectSurServeurM3;
 import fr.insa.binder.projets5.mavenproject1.Utilitaire.ListUtils;
+import static fr.insa.binder.projets5.mavenproject1.operateur.tousLesOperateur;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -19,6 +21,7 @@ import java.util.List;
  * @author abinder01
  */
 public class machine {
+
     private int id;
     private int ref;
     private String des;
@@ -37,9 +40,8 @@ public class machine {
         this.id_type_machine = id_type_machine;
     }
 
-    
     public machine(int ref, String des, int id_poste_de_travail, int id_type_machine) {
-       this(-1, ref, des, id_poste_de_travail, id_type_machine);
+        this(-1, ref, des, id_poste_de_travail, id_type_machine);
     }
 //    public machine(int id, String des, int ref) {
 //        this.id = id;
@@ -51,23 +53,25 @@ public class machine {
 //        this(-1, des, ref);
 //    }
 //    
+
     public static machine demande() {
         int ref = ConsoleFdB.entreeInt("ref : ");
         String des = ConsoleFdB.entreeString("des : ");
         int id_poste_de_travail = ConsoleFdB.entreeInt("id_poste_de_travail : ");
         int id_type_machine = ConsoleFdB.entreeInt("id_type_machine : ");
-        return new machine(ref, des,id_poste_de_travail,id_type_machine);
+        return new machine(ref, des, id_poste_de_travail, id_type_machine);
     }
-    public static machine demande2(Connection con) throws SQLException{
+
+    public static machine demande2(Connection con) throws SQLException {
         int ref = ConsoleFdB.entreeInt("ref : ");
         String des = ConsoleFdB.entreeString("des : ");
         //int id_poste_de_travail = ConsoleFdB.entreeInt("poste de travail:");
         //int id_type_machine = ConsoleFdB.entreeInt("type de machine:");
-        poste_de_travail choix_poste_de_travail = ListUtils.selectOne("----selectionner un poste de travail", poste_de_travail.tousLesPostes(con) , poste_de_travail::toString );
+        poste_de_travail choix_poste_de_travail = ListUtils.selectOne("----selectionner un poste de travail", poste_de_travail.tousLesPostes(con), poste_de_travail::toString);
         type_machine choix_type_machine = ListUtils.selectOne("---- selectionner un type de machine", type_machine.tousLesTypeMachine(con), type_machine::toString);
-        return new machine(ref, des,choix_poste_de_travail.getId_poste_de_travail(),choix_type_machine.getId_type_machine());
+        return new machine(ref, des, choix_poste_de_travail.getId_poste_de_travail(), choix_type_machine.getId_type_machine());
     }
-    
+
     public void saveInDBV1(Connection con) throws SQLException {
         try (PreparedStatement pst = con.prepareStatement(
                 "insert into machine_bof (ref_machine,des_machine,id_poste_de_travail,id_type_machine) values (?,?,?,?)", PreparedStatement.RETURN_GENERATED_KEYS)) {
@@ -81,8 +85,8 @@ public class machine {
                 this.id = ids.getInt(1);
             }
         }
-    } 
-    
+    }
+
     public void supMachine(Connection con) throws SQLException {
         try (PreparedStatement pst = con.prepareStatement(
                 "delete from machine_bof where id_machine = ?")) {
@@ -90,7 +94,7 @@ public class machine {
             pst.executeUpdate();
         }
     }
-    
+
     public static void supMachine(Connection con, int id) throws SQLException {
         try (PreparedStatement pst = con.prepareStatement(
                 "delete from machine_bof where id_machine = ?")) {
@@ -98,7 +102,7 @@ public class machine {
             pst.executeUpdate();
         }
     }
-    
+
     public static List<machine> tousLesMachines(Connection con) throws SQLException {
         List<machine> res = new ArrayList<>();
         try (PreparedStatement pst = con.prepareStatement(
@@ -116,29 +120,44 @@ public class machine {
         }
         return res;
     }
-    
-public static List<machine> tousLesMachinesByPosteDeTravail(int id_pdt, Connection con) throws SQLException {
-    List<machine> res = new ArrayList<>();
-    try (PreparedStatement pst = con.prepareStatement(
-            "SELECT id_machine, des_machine, ref_machine, id_poste_de_travail, id_type_machine FROM machine_bof WHERE id_poste_de_travail = ?")) {
-        pst.setInt(1, id_pdt);
 
-        try (ResultSet rs = pst.executeQuery()) {
-            while (rs.next()) {
-                int id = rs.getInt("id_machine");
-                String des = rs.getString("des_machine");
-                int ref = rs.getInt("ref_machine");
-                int pt = rs.getInt("id_poste_de_travail");
-                int itm = rs.getInt("id_type_machine");
-                res.add(new machine(id, ref, des, pt, itm));
+    public static List<machine> tousLesMachinesByPosteDeTravail(int id_pdt, Connection con) throws SQLException {
+        List<machine> res = new ArrayList<>();
+        try (PreparedStatement pst = con.prepareStatement(
+                "SELECT id_machine, des_machine, ref_machine, id_poste_de_travail, id_type_machine FROM machine_bof WHERE id_poste_de_travail = ?")) {
+            pst.setInt(1, id_pdt);
+
+            try (ResultSet rs = pst.executeQuery()) {
+                while (rs.next()) {
+                    int id = rs.getInt("id_machine");
+                    String des = rs.getString("des_machine");
+                    int ref = rs.getInt("ref_machine");
+                    int pt = rs.getInt("id_poste_de_travail");
+                    int itm = rs.getInt("id_type_machine");
+                    res.add(new machine(id, ref, des, pt, itm));
+                }
             }
         }
+        return res;
     }
-    return res;
-}
 
+    public static List<Integer> Liste_habilitation (int id_m, Connection con) throws SQLException{
+        List<Integer> res = new ArrayList<>();
+        try (PreparedStatement pst = con.prepareStatement(
+                "select operateur_bof.id_operateur from operateur_bof join operations__poste_de_travail_bof on operations__poste_de_travail_bof.id_operateur = operateur_bof.id_operateur join machine_bof on machine_bof.id_poste_de_travail = operations__poste_de_travail_bof.id_poste_de_travail where id_machine = ?")){
+            pst.setInt(1, id_m);
+
+            try (ResultSet rs = pst.executeQuery()) {
+                while (rs.next()) {
+                    int id = rs.getInt("id_operateur");
+                    res.add(id);
+                }
+            }
+        }
+        return res;
+    }
     
-        public static List<String> tousLesMachines_String(Connection con) throws SQLException {
+    public static List<String> tousLesMachines_String(Connection con) throws SQLException {
         List<String> res = new ArrayList<>();
         try (PreparedStatement pst = con.prepareStatement(
                 "select des_machine from machine_bof")) {
@@ -148,7 +167,7 @@ public static List<machine> tousLesMachinesByPosteDeTravail(int id_pdt, Connecti
                     res.add(des_machine);
                 }
             }
-        }catch (SQLException ex){
+        } catch (SQLException ex) {
             Notification.show("Problème BdD : machine" + ex);
         }
         return res;
@@ -167,11 +186,11 @@ public static List<machine> tousLesMachinesByPosteDeTravail(int id_pdt, Connecti
         try (PreparedStatement pst = con.prepareStatement(
                 "update machine_bof set ref_machine = ? where id_machine = ?")) {
             pst.setInt(1, ref);
-            pst.setInt(2, id);            
+            pst.setInt(2, id);
             pst.executeUpdate();
         }
     }
-    
+
     public void setDes(String des) {
         this.des = des;
     }
@@ -180,11 +199,11 @@ public static List<machine> tousLesMachinesByPosteDeTravail(int id_pdt, Connecti
         try (PreparedStatement pst = con.prepareStatement(
                 "update machine_bof set des_machine = ? where id_machine = ?")) {
             pst.setString(1, des);
-            pst.setInt(2, id);            
+            pst.setInt(2, id);
             pst.executeUpdate();
         }
     }
-    
+
     public static String getDes_machine(int Id, Connection con) throws SQLException {
         String type_ma = "Erreur";
         try (PreparedStatement pst = con.prepareStatement(
@@ -195,13 +214,12 @@ public static List<machine> tousLesMachinesByPosteDeTravail(int id_pdt, Connecti
                     type_ma = rs.getString("des_machine");
                 }
             }
-        }
-        catch(SQLException ex){
+        } catch (SQLException ex) {
             Notification.show("Problème BdD : getDes_machine");
         }
         return type_ma;
     }
-    
+
     public void setId(int id) {
         this.id = id;
     }
@@ -217,8 +235,8 @@ public static List<machine> tousLesMachinesByPosteDeTravail(int id_pdt, Connecti
     public int getId() {
         return id;
     }
-    
-        public static int getId_machine(String des, Connection con) throws SQLException {
+
+    public static int getId_machine(String des, Connection con) throws SQLException {
         int id = 0;
         try (PreparedStatement pst = con.prepareStatement(
                 "select id_machine from machine_bof where des_machine = ?")) {
@@ -239,24 +257,25 @@ public static List<machine> tousLesMachinesByPosteDeTravail(int id_pdt, Connecti
     public int getId_type_machine() {
         return id_type_machine;
     }
-    
-    public static void setPosteDeTravail(int id_poste, int id_machine,Connection con) throws SQLException {
+
+    public static void setPosteDeTravail(int id_poste, int id_machine, Connection con) throws SQLException {
         try (PreparedStatement pst = con.prepareStatement(
                 "update machine_bof set id_poste_de_travail = ? where id_machine = ?")) {
             pst.setInt(1, id_poste);
             pst.setInt(2, id_machine);
             pst.executeUpdate();
-        }catch (SQLException ex){
+        } catch (SQLException ex) {
             Notification.show("Problème : 88 : machine");
         }
     }
-    public static void setTypeMachine(int id_type, int id_machine,Connection con) throws SQLException {
+
+    public static void setTypeMachine(int id_type, int id_machine, Connection con) throws SQLException {
         try (PreparedStatement pst = con.prepareStatement(
                 "update machine_bof set id_type_machine = ? where id_machine = ?")) {
             pst.setInt(1, id_type);
             pst.setInt(2, id_machine);
             pst.executeUpdate();
-        }catch (SQLException ex){
+        } catch (SQLException ex) {
             Notification.show("Problème : 88 : machine");
         }
     }
@@ -268,5 +287,16 @@ public static List<machine> tousLesMachinesByPosteDeTravail(int id_pdt, Connecti
     public void setId_type_machine(int id_type_machine) {
         this.id_type_machine = id_type_machine;
     }
-    
+
+     public static void main(String[] args) throws SQLException {
+        try {
+            Connection con = connectSurServeurM3();
+            List<Integer> liset_c = Liste_habilitation(1, con);
+            System.out.println(liset_c);
+//           rOperateur.saveInDBV(connectSurServeurM3());
+        }
+        catch (SQLException ex) {
+            throw new Error(ex);
+        }
+    }
 }

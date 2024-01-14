@@ -181,6 +181,7 @@ public class operation_effectuee {
                 }
             }
         }
+        System.out.println(op_eff + "Theo");
         return op_eff;
     }
 
@@ -264,15 +265,28 @@ public class operation_effectuee {
 
     // Renvoie normalement la liste des paires de timestamp (debut et fin), qui convienne pour la durée, et a partir d'un certain moment
     public static List<List<Timestamp>> Disponibilité_pour_duree(float duree, List<List<Timestamp>> liste, Timestamp debut, List<List<Timestamp>> deja_occupe) {
-        liste = Verif_dispo(liste, deja_occupe);
+        System.out.println("liste dispo machine :");
+
+        System.out.println(liste);
+        System.out.println("liste occupé machine :");
+
+        System.out.println(deja_occupe);
+        if (deja_occupe != null) {
+            liste = Verif_dispo(liste, deja_occupe);
+        }
+
+        System.out.println(liste);
+
         List<List<Timestamp>> res = new ArrayList<>();
         for (List<Timestamp> liste_tst : liste) {
+            System.out.println("Aurore" + liste_tst);
             Timestamp fin_t = liste_tst.get(1);
             if (((fin_t.getTime() - debut.getTime()) / (1000 * 60) >= duree)) {
                 res.add(liste_tst);
             }
         }
-        System.out.println(res);
+
+        System.out.println("res" + res);
         return res;
     }
 
@@ -431,16 +445,16 @@ public class operation_effectuee {
         List<Timestamp> deja_occupe_f = extraireDeuxiemeColonne(deja_occupe);
         List<List<Timestamp>> newList = new ArrayList<>();
         for (Timestamp time : libre_d) {
-             System.out.println(time);
+            System.out.println(time);
             List<Timestamp> ts = new ArrayList<>();
             int proche_der = superieur(plus_proche_derriere(deja_occupe_d, time), plus_proche_derriere(deja_occupe_f, time), plus_proche_derriere(libre_f, time));
             int proche_dev = inferieur(plus_proche_devant(deja_occupe_d, time), plus_proche_devant(deja_occupe_f, time), plus_proche_devant(libre_f, time));
             System.out.println(proche_der);
-             System.out.println(proche_dev);
+            System.out.println(proche_dev);
             if (plus_proche_derriere(deja_occupe_d, time) == null) {
-                 System.out.println("Coucou, je suis null");
+                System.out.println("Coucou, je suis null");
                 ts.add(time);
-                if (proche_dev == 3) {
+                if ((proche_dev == 3) || (plus_proche_devant(deja_occupe_f, time) == null)) {
                     ts.add(plus_proche_devant(libre_f, time));
                 } else {
                     ts.add(plus_proche_devant(deja_occupe_d, time));
@@ -511,15 +525,15 @@ public class operation_effectuee {
 
     public static Timestamp plus_proche_derriere(List<Timestamp> liste, Timestamp time) {
         if (!liste.isEmpty()) {
-             System.out.println("Coucou");
+            System.out.println("Coucou");
             Collections.sort(liste);
         }
         int i = 0;
-        
-        while ((i < liste.size()) &&(liste.get(i).getTime()) < (time.getTime()) ) {
+
+        while ((i < liste.size()) && (liste.get(i).getTime()) < (time.getTime())) {
             i = i + 1;
         }
-        
+
         if (i != 0) {
             return liste.get(i - 1);
         } else {
@@ -530,7 +544,7 @@ public class operation_effectuee {
     public static Timestamp plus_proche_devant(List<Timestamp> liste, Timestamp time) {
         Collections.sort(liste);
         int i = 0;
-        while ((i < liste.size()) &&(liste.get(i).getTime()) < (time.getTime())) {
+        while ((i < liste.size()) && (liste.get(i).getTime()) < (time.getTime())) {
             i = i + 1;
         }
         if (i < (liste.size())) {
@@ -552,48 +566,48 @@ public class operation_effectuee {
         }
         return false;
     }
-
-    public static void main(String[] args) {
-        // Exemple d'utilisation
-        List<List<Timestamp>> disponibilites = new ArrayList<>();
-        List<List<Timestamp>> occupees = new ArrayList<>();
-
-        List<Timestamp> disponibilites_1 = new ArrayList<>();
-        List<Timestamp> occupees_1 = new ArrayList<>();
-        disponibilites_1.add(Timestamp.valueOf("2024-01-13 08:00:00"));
-        disponibilites_1.add(Timestamp.valueOf("2024-01-13 12:00:00"));
-        occupees_1.add(Timestamp.valueOf("2024-01-13 06:00:00"));
-        occupees_1.add(Timestamp.valueOf("2024-01-13 11:00:00"));
-
-        // Ajouter des plages de disponibilité et d'occupation
-        disponibilites.add(disponibilites_1);
-
-        occupees.add(occupees_1);
-
-        // Appeler la méthode pour obtenir les disponibilités réelles
-        List<List<Timestamp>> disponibilitesReelles = Verif_dispo(disponibilites, occupees);
-
-        // Afficher les résultats
-        for (List<Timestamp> dispo : disponibilitesReelles) {
-            System.out.println("Disponibilité : " + dispo.get(0) + " à " + dispo.get(1));
-        }
-    }
-}
-//    
-//    public static void main(String[] args) throws SQLException {
-//        try {
-//            Connection con = connectSurServeurM3();
-////            List<operation_effectuee> liset_c = Meilleurs_operation_produit(con, get_ex(con, 1));
-////            System.out.println(liset_c + "Salut");
-//            Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-//            System.out.println(timestamp.getTime());
-////            List<Timestamp> liste_tst = Premiere_dispo(timestamp, 50, 5, 1, con);
-////            System.out.println("liste des états :");
-////            System.out.println(liste_tst);
-////           rOperateur.saveInDBV(connectSurServeurM3());
-//        } catch (SQLException ex) {
-//            throw new Error(ex);
+//
+//    public static void main(String[] args) {
+//        // Exemple d'utilisation
+//        List<List<Timestamp>> disponibilites = new ArrayList<>();
+//        List<List<Timestamp>> occupees = new ArrayList<>();
+//
+//        List<Timestamp> disponibilites_1 = new ArrayList<>();
+//        List<Timestamp> occupees_1 = new ArrayList<>();
+//        disponibilites_1.add(Timestamp.valueOf("2024-01-13 08:00:00"));
+//        disponibilites_1.add(Timestamp.valueOf("2024-01-13 12:00:00"));
+//        occupees_1.add(Timestamp.valueOf("2024-01-13 06:00:00"));
+//        occupees_1.add(Timestamp.valueOf("2024-01-13 11:00:00"));
+//
+//        // Ajouter des plages de disponibilité et d'occupation
+//        disponibilites.add(disponibilites_1);
+//
+//        occupees.add(occupees_1);
+//
+//        // Appeler la méthode pour obtenir les disponibilités réelles
+//        List<List<Timestamp>> disponibilitesReelles = Verif_dispo(disponibilites, occupees);
+//
+//        // Afficher les résultats
+//        for (List<Timestamp> dispo : disponibilitesReelles) {
+//            System.out.println("Disponibilité : " + dispo.get(0) + " à " + dispo.get(1));
 //        }
 //    }
-
 //}
+
+    public static void main(String[] args) throws SQLException {
+        try {
+            Connection con = connectSurServeurM3();
+//            List<operation_effectuee> liset_c = Meilleurs_operation_produit(con, get_ex(con, 1));
+//            System.out.println(liset_c + "Salut");
+            Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+            System.out.println(timestamp.getTime());
+            List<Timestamp> liste_tst = Premiere_dispo(timestamp, 50, 1, 1, con, null);
+            System.out.println("liste des états :");
+            System.out.println(liste_tst);
+//           rOperateur.saveInDBV(connectSurServeurM3());
+        } catch (SQLException ex) {
+            throw new Error(ex);
+        }
+    }
+
+}
