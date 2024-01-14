@@ -17,10 +17,6 @@ import fr.insa.binder.projets5.mavenproject1.machine;
 import java.sql.Connection;
 import java.sql.SQLException;
 
-/**
- *
- * @author binde
- */
 public class Ajout_machine extends VerticalLayout{
     private IntegerField ref;
     private TextField des;
