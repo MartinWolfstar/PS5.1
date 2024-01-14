@@ -31,9 +31,7 @@ public class Grid_etat_d_une_machine extends Grid<etat>{
         this.addColumn(etat::getDes_type_etat).setHeader("Des_type_etat");  
         
         this.addColumn(etat::getDebut).setHeader("Debut");
-        this.addColumn(etat::getFin).setHeader("Fin");
-        this.getStyle().setBackground("PowderBlue");
-        
+        this.addColumn(etat::getFin).setHeader("Fin");        
         this.addComponentColumn(etat -> {
             Button button = new Button("Supprimer", clickEvent -> {
                 try {

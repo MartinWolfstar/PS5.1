@@ -14,7 +14,7 @@ import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.server.VaadinSession;
 import fr.insa.binder.projets5.mavenproject1.ImageT;
 import fr.insa.binder.projets5.mavenproject1.operateur;
-import fr.insa.binder.projets5.mavenproject1.gui.technicien.technicienMachine.ListeMachine;
+import fr.insa.binder.projets5.mavenproject1.gui.technicien.technicienPlanUsine.technicien_PlanUsine;
 import static fr.insa.binder.projets5.mavenproject1.operateur.login_o;
 import java.io.IOException;
 import java.sql.Connection;
@@ -55,7 +55,7 @@ public class Inscription_operateur extends VerticalLayout{
                 operateur.save_operateur(con);
                 Optional<Integer> user = login_o(con, this.login.getValue(), this.mdp.getValue());
                 VaadinSession.getCurrent().setAttribute("id_operateur", user.get());
-                UI.getCurrent().navigate(ListeMachine.class);
+                UI.getCurrent().navigate(technicien_PlanUsine.class);
                 } catch (SQLException ex) {
                 Notification.show("Problème interne : " + ex.getLocalizedMessage());
         }

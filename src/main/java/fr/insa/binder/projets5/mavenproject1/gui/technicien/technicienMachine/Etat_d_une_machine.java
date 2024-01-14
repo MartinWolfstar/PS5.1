@@ -48,7 +48,7 @@ public class Etat_d_une_machine extends VerticalLayout {
                 //id_int = Integer.parseInt(id_machine_select.getValue());
                 this.grid.setEtat(get_etat_d_une_machine((Connection) VaadinSession.getCurrent().getAttribute("conn"),Integer.valueOf((String) id_machine_select.getValue())));
             } catch (SQLException ex) {
-                Logger.getLogger(Etat_d_une_machine.class.getName()).log(Level.SEVERE, null, ex);
+                Notification.show("Problème BdD : ajout etat : " + ex);
             }
             
         });
