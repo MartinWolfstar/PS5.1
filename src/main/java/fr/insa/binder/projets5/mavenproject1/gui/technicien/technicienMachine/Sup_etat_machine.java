@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package fr.insa.binder.projets5.mavenproject1.gui.technicien.technicienInterface;
+package fr.insa.binder.projets5.mavenproject1.gui.technicien.technicienMachine;
 
 import com.vaadin.flow.component.ClickEvent;
 import com.vaadin.flow.component.ComponentEventListener;
@@ -15,8 +15,7 @@ import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.server.VaadinSession;
 import fr.insa.binder.projets5.mavenproject1.etat;
-import static fr.insa.binder.projets5.mavenproject1.gui.technicien.technicienInterface.Grid_technicien33.get_etat_d_un_operateur;
-
+import static fr.insa.binder.projets5.mavenproject1.gui.technicien.technicienMachine.Grid_etat_d_une_machine.get_etat_d_une_machine;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
@@ -25,19 +24,18 @@ import java.util.List;
  *
  * @author melan
  */
-public class Supp_etat extends VerticalLayout {
-
-    private MenuBar menu_bar;
+public class Sup_etat_machine extends VerticalLayout{
+    
+private MenuBar menu_bar;
     private MenuItem id;
-    private int id_operateur;
+    private int id_machine;
 
-    public Supp_etat() {
+    public Sup_etat_machine() {
         this.menu_bar = new MenuBar();
         this.id = menu_bar.addItem("Selectionner l'identifiant de l'état à supprimer");
         SubMenu id_sub = id.getSubMenu();
 
-        // Recuperer id_operateur
-        id_operateur = (int) VaadinSession.getCurrent().getAttribute("id_operateur");
+        
 
         ComponentEventListener<ClickEvent<MenuItem>> listener = e
                 -> {
@@ -52,7 +50,7 @@ public class Supp_etat extends VerticalLayout {
         System.out.println("test");
         
         try {
-            List<etat> id_liste = get_etat_d_un_operateur((Connection) VaadinSession.getCurrent().getAttribute("conn"), id_operateur);
+            List<etat> id_liste = etat.tousLesEtats((Connection) VaadinSession.getCurrent().getAttribute("conn"));
             for (etat x : id_liste) {
                 id_sub.addItem(String.valueOf(x.getId_etat()), listener);
             }
@@ -71,4 +69,6 @@ public class Supp_etat extends VerticalLayout {
                 .set("background-color", "PowderBlue");
 
     }
+
 }
+

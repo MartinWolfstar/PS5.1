@@ -4,8 +4,13 @@
  */
 package fr.insa.binder.projets5.mavenproject1.gui.technicien.technicienMachine;
 
+import com.vaadin.flow.component.UI;
+import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.grid.Grid;
+import com.vaadin.flow.component.notification.Notification;
+import com.vaadin.flow.server.VaadinSession;
 import fr.insa.binder.projets5.mavenproject1.etat;
+//import fr.insa.binder.projets5.mavenproject1.Machine__etat;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -28,6 +33,21 @@ public class Grid_etat_d_une_machine extends Grid<etat>{
         this.addColumn(etat::getDebut).setHeader("Debut");
         this.addColumn(etat::getFin).setHeader("Fin");
         this.getStyle().setBackground("PowderBlue");
+        
+        this.addComponentColumn(etat -> {
+            Button button = new Button("Supprimer", clickEvent -> {
+                try {
+                    etat.supEtat((Connection) VaadinSession.getCurrent().getAttribute("conn"));
+                    UI.getCurrent().getPage().reload();
+                    
+                } catch (SQLException ex) {
+                    Notification.show("Problème BdD : grid Machine__etat : " + ex);
+                    // Gérez les erreurs ici
+                }
+            });
+            return button;
+        }).setHeader("");
+        
     }
     public static List<etat> get_etat_d_une_machine(Connection conn,int id_machine)throws SQLException{
         List<etat> out = new ArrayList<>();

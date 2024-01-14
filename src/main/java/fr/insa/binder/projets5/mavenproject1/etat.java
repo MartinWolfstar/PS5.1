@@ -71,7 +71,17 @@ public class etat {
     }
     public void supEtat(Connection con) throws SQLException {
         try (PreparedStatement pst = con.prepareStatement(
-                "delete from etat_bof where id_etat = ?")) {
+                " DELETE FROM machine__etat_bof WHERE id_etat=? ")) {
+            pst.setInt(1, this.id_etat);
+            pst.executeUpdate();
+        }
+        try (PreparedStatement pst = con.prepareStatement(
+                "DELETE FROM operateur__etat_bof WHERE id_etat = ?")) {
+            pst.setInt(1, this.id_etat);
+            pst.executeUpdate();
+        }
+        try (PreparedStatement pst = con.prepareStatement(
+                "DELETE FROM etat_bof WHERE id_etat = ?")) {
             pst.setInt(1, this.id_etat);
             pst.executeUpdate();
         }
