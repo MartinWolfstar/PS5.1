@@ -82,29 +82,32 @@ public class Ajout_etat_technicien extends VerticalLayout {
             }
         
         this.valid.addClickListener(event -> {
-            String selectedEtat = this.etatComboBox.getValue();
-            LocalDateTime debutDateTime = this.debutDateTimePicker.getValue();
-            LocalDateTime finDateTime = this.finDateTimePicker.getValue();
+        String selectedEtat = this.etatComboBox.getValue();
+        LocalDateTime debutDateTime = this.debutDateTimePicker.getValue();
+        LocalDateTime finDateTime = this.finDateTimePicker.getValue();
 
+        // Vérifier si la date de fin est ultérieure à la date de début
+        if (finDateTime.isAfter(debutDateTime)) {
             Timestamp debutTimestamp = Timestamp.valueOf(debutDateTime);
             Timestamp finTimestamp = Timestamp.valueOf(finDateTime);
-            
+
             Connection con = (Connection) VaadinSession.getCurrent().getAttribute("conn");
-            int id_type_etat=-1;
-            try{
-            Statement st = con.createStatement();
-            ResultSet res = st.executeQuery("select id_type_etat from type_etat_bof where des_type_etat='"+ selectedEtat+"'");
-            res.next();
-            id_type_etat = res.getInt("id_type_etat");
+            int id_type_etat = -1;
+
+            try {
+                Statement st = con.createStatement();
+                ResultSet res = st.executeQuery("select id_type_etat from type_etat_bof where des_type_etat='" + selectedEtat + "'");
+                res.next();
+                id_type_etat = res.getInt("id_type_etat");
             } catch (SQLException ex) {
                 Notification.show("Problème BdD : ajout etat : " + ex);
             }
-            
+
             // Faire quelque chose avec l'état et les timestamps, par exemple, mettre à jour la base de données
             System.out.println("État du technicien sélectionné : " + selectedEtat);
             System.out.println("De : " + debutTimestamp + " à : " + finTimestamp);
 
-            
+            // Créer l'objet etat uniquement si la date de fin est ultérieure à la date de début
             this.etat = new etat(id_type_etat, debutTimestamp, finTimestamp);
             try {
                 this.etat.save_etat((Connection) VaadinSession.getCurrent().getAttribute("conn"));
@@ -112,14 +115,18 @@ public class Ajout_etat_technicien extends VerticalLayout {
             } catch (SQLException ex) {
                 Notification.show("Problème BdD : ajout etat : " + ex);
             }
-            op_etat = new Operateur__etat(id_operateur,etat.getId_etat());
+            op_etat = new Operateur__etat(id_operateur, etat.getId_etat());
             try {
                 op_etat.saveInDBV1((Connection) VaadinSession.getCurrent().getAttribute("conn"));
                 UI.getCurrent().getPage().reload();
             } catch (SQLException ex) {
                 Notification.show("Problème BdD : ajout etat : " + ex);
             }
-        });
+        } else {
+            Notification.show("La date de fin doit être ultérieure à la date de début");
+        }
+    });
+
         
         // Ajouter les composants à la mise en page
         this.HL = new HorizontalLayout();

@@ -40,6 +40,7 @@ public class ListeMachine extends VerticalLayout {
         } catch(SQLException ex) {
             this.add(new H3("Problème BdD : liste machine : " + ex));
         }
+        this.add(new Ajout_etat_machine());
         this.add(new Etat_d_une_machine());
         addClassName("liste_machine");
         setSizeFull();

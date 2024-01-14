@@ -91,10 +91,12 @@ public class Ajout_etat_machine extends VerticalLayout {
 
 
         this.valid.addClickListener(event -> {
-            String selectedEtat = this.etatComboBox.getValue();
-            LocalDateTime debutDateTime = this.debutDateTimePicker.getValue();
-            LocalDateTime finDateTime = this.finDateTimePicker.getValue();
+        String selectedEtat = this.etatComboBox.getValue();
+        LocalDateTime debutDateTime = this.debutDateTimePicker.getValue();
+        LocalDateTime finDateTime = this.finDateTimePicker.getValue();
 
+        // Vérifier si la date de fin est ultérieure à la date de début
+        if (finDateTime.isAfter(debutDateTime)) {
             Timestamp debutTimestamp = Timestamp.valueOf(debutDateTime);
             Timestamp finTimestamp = Timestamp.valueOf(finDateTime);
 
@@ -111,12 +113,11 @@ public class Ajout_etat_machine extends VerticalLayout {
 
             int selectedIdMachine = Integer.valueOf(this.id_MachineComboBox.getValue());
 
-
-            
             // Faire quelque chose avec l'état et les timestamps, par exemple, mettre à jour la base de données
-            System.out.println("État du technicien sélectionné : " + selectedEtat);
+            System.out.println("État de la machine sélectionné : " + selectedEtat);
             System.out.println("De : " + debutTimestamp + " à : " + finTimestamp);
 
+            // Créer l'objet etat uniquement si la date de fin est ultérieure à la date de début
             this.etat = new etat(id_type_etat, debutTimestamp, finTimestamp);
             try {
                 this.etat.save_etat((Connection) VaadinSession.getCurrent().getAttribute("conn"));
@@ -131,11 +132,15 @@ public class Ajout_etat_machine extends VerticalLayout {
             } catch (SQLException ex) {
                 Notification.show("Problème BdD : ajout etat : " + ex);
             }
-        });
+        } else {
+            Notification.show("La date de fin doit être ultérieure à la date de début");
+        }
+    });
+
 
         // Ajouter les composants à la mise en page
         this.HL = new HorizontalLayout();
-        this.add(new H5("Ajout etat"));
+        this.add(new H5("Ajout etat machine"));
         this.HL.add(this.id_MachineComboBox,this.etatComboBox, this.debutDateTimePicker, this.finDateTimePicker);
         this.add(this.HL, this.valid);
     }
