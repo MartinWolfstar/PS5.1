@@ -22,6 +22,7 @@ import fr.insa.binder.projets5.mavenproject1.commande;
 import fr.insa.binder.projets5.mavenproject1.commande_produit;
 import fr.insa.binder.projets5.mavenproject1.exemplaire;
 import fr.insa.binder.projets5.mavenproject1.gui.client.BarreGaucheClient;
+import static fr.insa.binder.projets5.mavenproject1.operation_effectuee.Meilleurs_operation_produit;
 import fr.insa.binder.projets5.mavenproject1.produit;
 import static fr.insa.binder.projets5.mavenproject1.produit.giveProduit;
 import java.io.IOException;
@@ -127,6 +128,7 @@ public class ProduitClient extends VerticalLayout{
             
             exemplaire exempl = new exemplaire(giveProduit(con, produitId), produitId, IdCommande);
             exempl.saveInDBV1(con);
+            Meilleurs_operation_produit(con, exempl);
 //            List<operation_effectuee> liste_op_eff = Meilleurs_operation_produit(con, exempl);
 //            for (operation_effectuee op_ef : liste_op_eff){
 //                op_ef.saveInDBV1(con);
