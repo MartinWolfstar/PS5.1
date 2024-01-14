@@ -77,7 +77,7 @@ public class ProduitClient extends VerticalLayout{
             } catch (SQLException ex) {
                 Notification.show("Problème lors de la création de nouvelleCommande : " + ex.getLocalizedMessage());
             }
-            Notification.show(nouvelleCommande.toString());
+            //Notification.show(nouvelleCommande.toString());
             String str = new String("contenu : ");
             for (Integer produitId : grid.getSelectedIds()) {
                 String produitSelectionne;
@@ -103,7 +103,7 @@ public class ProduitClient extends VerticalLayout{
             this.add(H2);
             //this.add(new H3("Cherchez par vous-même"));
             String mot = "%" + this.rech.getValue() + "%";
-            Notification.show("mot :" + mot +"-");
+            //Notification.show("mot :" + mot +"-");
             try{
                 this.grid = new Grid_produit(produit.tousLesProduitsrecherche(mot, (Connection) VaadinSession.getCurrent().getAttribute("conn"))); 
                 this.add(this.grid);
@@ -123,7 +123,7 @@ public class ProduitClient extends VerticalLayout{
             //doit récupérer les opérations requises pour faire le produit
             Connection con = (Connection) VaadinSession.getCurrent().getAttribute("conn");
             this.grid2 = new Grid_operation2(Operation.tousLesOperations_produit(con,produitId));
-            Notification.show("les operation a effectuer : " + Operation.tousLesOperations_produit(con,produitId));
+            //Notification.show("les operation a effectuer : " + Operation.tousLesOperations_produit(con,produitId));
             
             exemplaire exempl = new exemplaire(giveProduit(con, produitId), produitId, IdCommande);
             exempl.saveInDBV1(con);
@@ -132,7 +132,7 @@ public class ProduitClient extends VerticalLayout{
 //                op_ef.saveInDBV1(con);
 //            }
         } catch (SQLException ex) {
-             Notification.show("Problème BdD : aurore");
+             Notification.show("Problème BdD");
         }
     }
 }

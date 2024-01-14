@@ -38,6 +38,7 @@ public class BarreGaucheTechnicien extends AppLayout {
     public BarreGaucheTechnicien() {
         creatHeader();
         createDrawer();
+        this.getStyle().set("color", "#FEE59D").set("background-color", "#030876"); 
     }
 
     private void creatHeader() {

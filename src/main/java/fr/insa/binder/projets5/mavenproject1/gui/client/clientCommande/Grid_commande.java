@@ -19,6 +19,7 @@ public class Grid_commande extends Grid<commande>{
         this.addColumn(commande::getNom_commande).setHeader("Nom");
         this.addColumn(commande::getDes_commande).setHeader("Description");
         this.addColumn(commande::getId_commande).setHeader("Id_commande");
+        this.setMaxHeight("50vh");
         
     }
 }

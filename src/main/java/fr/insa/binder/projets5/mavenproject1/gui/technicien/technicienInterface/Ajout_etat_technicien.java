@@ -64,12 +64,7 @@ public class Ajout_etat_technicien extends VerticalLayout {
         
         // Recuperer id_operateur
         id_operateur = (int) VaadinSession.getCurrent().getAttribute("id_operateur");
-        
-        
-        // Ajout du style au bouton
-        this.valid.getStyle()
-                .set("color", "Crimson")
-                .set("background-color", "PowderBlue");
+
         // Récupérer l'état sélectionné
         String etatSelectionne = this.etatComboBox.getValue();
       

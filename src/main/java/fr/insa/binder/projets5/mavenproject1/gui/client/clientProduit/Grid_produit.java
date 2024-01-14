@@ -92,10 +92,6 @@ public class Grid_produit extends Grid<produit> {
             currentColumn = event.getColumn();
         });
         
-        
-        
-        this.getStyle().setBackground("PowderBlue");
-
         this.addSelectionListener(selection -> {
             Set<produit> selectedItems = selection.getAllSelectedItems();
             selectedIds.clear(); // Effacer la liste existante
@@ -106,6 +102,7 @@ public class Grid_produit extends Grid<produit> {
 
             Notification.show("Number of selected people: " + selectedItems.size());
         });
+        
     }
 
     public List<Integer> getSelectedIds() {

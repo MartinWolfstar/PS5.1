@@ -32,6 +32,9 @@ public class BarreGaucheClient extends AppLayout{
     public BarreGaucheClient(){
         creatHeader();
         createDrawer();
+        this.getStyle()
+            .set("background-color", "#030876")
+            .set("color", "#FEE59D");
     }
 
     private void creatHeader() {
@@ -44,6 +47,7 @@ public class BarreGaucheClient extends AppLayout{
         header.setDefaultVerticalComponentAlignment(FlexComponent.Alignment.CENTER);
         
         addToNavbar(header);
+        
     }
 
     private void createDrawer() {
