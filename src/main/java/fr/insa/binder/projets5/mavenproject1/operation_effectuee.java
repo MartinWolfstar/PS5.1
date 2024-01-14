@@ -282,7 +282,7 @@ public class operation_effectuee {
         }
         Save_bdd(meilleur_liste, con);
         Save_op_bdd(meilleur_liste, con);
-        Save_m_bdd(meilleur_liste, con);
+        //Save_m_bdd(meilleur_liste, con);
         return meilleur_liste;
     }
 

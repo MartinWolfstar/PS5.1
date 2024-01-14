@@ -48,6 +48,7 @@ public class Gestion {
                 "m3_abinder01", "m3_abinder01",
                 "c7b7bc39");
     }
+
     public void creeSchema() throws SQLException {
         this.conn.setAutoCommit(false);
         try (Statement st = this.conn.createStatement()) {
@@ -61,11 +62,11 @@ public class Gestion {
                     + ")\n"
             );
             st.executeUpdate(
-                "CREATE TABLE ImageT (\n" +
-                "    id_image INTEGER NOT NULL PRIMARY KEY AUTO_INCREMENT,\n" +
-                "    nom VARCHAR(255) NOT NULL,\n" +
-                "    image LONGBLOB\n" +
-                ")"
+                    "CREATE TABLE ImageT (\n"
+                    + "    id_image INTEGER NOT NULL PRIMARY KEY AUTO_INCREMENT,\n"
+                    + "    nom VARCHAR(255) NOT NULL,\n"
+                    + "    image LONGBLOB\n"
+                    + ")"
             );
 
             st.executeUpdate(
@@ -361,13 +362,13 @@ public class Gestion {
 
     public static void initialise(Connection conn) throws SQLException {
         // postes de travail
-        poste_de_travail poste1 = new poste_de_travail("ranger",30,200,30,200);
+        poste_de_travail poste1 = new poste_de_travail("ranger", 30, 200, 30, 200);
         poste1.save_poste_de_travail(conn);
-        poste_de_travail poste2 = new poste_de_travail("poussiereux",300,350,60,90);
+        poste_de_travail poste2 = new poste_de_travail("poussiereux", 300, 350, 60, 90);
         poste2.save_poste_de_travail(conn);
-        poste_de_travail poste3 = new poste_de_travail("brillant",500,700,70,320);
+        poste_de_travail poste3 = new poste_de_travail("brillant", 500, 700, 70, 320);
         poste3.save_poste_de_travail(conn);
-        
+
         // types de machines
 //        type_machine type_machine1 = new type_machine("tournage");
 //        type_machine1.save_type_machine(conn);
@@ -379,7 +380,7 @@ public class Gestion {
         type_machine type_machine2 = new type_machine("Reliure-licious");
         type_machine2.save_type_machine(conn);
 
-        type_machine type_machine3 = new type_machine("Assemble-o-matic"); 
+        type_machine type_machine3 = new type_machine("Assemble-o-matic");
         type_machine3.save_type_machine(conn);
 
         type_machine type_machine4 = new type_machine("Éditron Deluxe");
@@ -388,16 +389,15 @@ public class Gestion {
         type_machine type_machine5 = new type_machine("Emballage Extravaganza");
         type_machine5.save_type_machine(conn);
 
-        type_machine type_machine6 = new type_machine("Distribu-tron 5000"); 
+        type_machine type_machine6 = new type_machine("Distribu-tron 5000");
         type_machine6.save_type_machine(conn);
 
-        type_machine type_machine7 = new type_machine("Promo-blitzinator"); 
+        type_machine type_machine7 = new type_machine("Promo-blitzinator");
         type_machine7.save_type_machine(conn);
 
-        type_machine type_machine8 = new type_machine("Réviseur Rigolo"); 
+        type_machine type_machine8 = new type_machine("Réviseur Rigolo");
         type_machine8.save_type_machine(conn);
 
-        
         // Machines
 //        machine m1 = new machine(333, "tour tres puissant", 1, 1);
 //        m1.saveInDBV1(conn);
@@ -432,38 +432,85 @@ public class Gestion {
         machine m12 = new machine(1414, "Promo-Fiesta", 2, 7);
         m12.saveInDBV1(conn);
 
-        
-        
         // Operateurs
         operateur Titi = new operateur("James", "Einstahitiii", "Titi01", "melissa68");
         Titi.save_operateur(conn);
-        operateur Toto = new operateur( "Dodo", "Einstahitiii", "Dodo68", "123468");
+        operateur Toto = new operateur("Dodo", "Einstahitiii", "Dodo68", "123468");
         Toto.save_operateur(conn);
-        
+        operateur Aurore = new operateur("Aurore", "Binder", "LOL", "123468");
+        Aurore.save_operateur(conn);
+        operateur Melanie = new operateur("Melanie", "Dalib", "bof", "123468");
+        Melanie.save_operateur(conn);
+
+        //Habilitation
+        operateur_poste_de_travail opdt1 = new operateur_poste_de_travail(1, 1);
+        operateur_poste_de_travail opdt2 = new operateur_poste_de_travail(2, 2);
+        operateur_poste_de_travail opdt3 = new operateur_poste_de_travail(3, 3);
+        operateur_poste_de_travail opdt4 = new operateur_poste_de_travail(1, 2);
+        opdt1.saveInDBV1(conn);
+        opdt2.saveInDBV1(conn);
+        opdt3.saveInDBV1(conn);
+        opdt4.saveInDBV1(conn);
+
         // type etat
         type_etat type_etat2 = new type_etat("abscent/en panne");
         type_etat2.save_type_etat(conn);
         type_etat type_etat1 = new type_etat("present/fonctionnel");
         type_etat1.save_type_etat(conn);
-        
+
         // etats
-        LocalDateTime dt = LocalDateTime.of(2021, Month.DECEMBER, 3,15, 0, 23);
+        LocalDateTime dt = LocalDateTime.of(2024, Month.JANUARY, 14, 0, 0, 0);
         Timestamp ts = Timestamp.valueOf(dt);
-        LocalDateTime dt2 = LocalDateTime.of(2023, Month.DECEMBER, 3,15, 0, 23);
+        LocalDateTime dt2 = LocalDateTime.of(2024, Month.FEBRUARY, 20, 0, 0, 0);
         Timestamp ts2 = Timestamp.valueOf(dt2);
-        etat etat1 = new etat(1, ts, ts2);
+        etat etat1 = new etat(2, ts, ts2);
         etat1.save_etat(conn);
-        
-        LocalDateTime dt3 = LocalDateTime.of(2023,Month.OCTOBER,1,8,0,0);
-        Timestamp ts3 = Timestamp.valueOf(dt3);
-        LocalDateTime dt4 = LocalDateTime.of(2023,Month.NOVEMBER,16,18,30,00);
-        Timestamp ts4 = Timestamp.valueOf(dt4);
-        etat etat2 = new etat(2,ts3,ts4);
-        etat2.save_etat(conn);
-        
-        etat etat3 = new etat(1,Timestamp.valueOf(LocalDateTime.of(2021,Month.NOVEMBER,16,18,30,00)),Timestamp.valueOf(LocalDateTime.of(2023,Month.JANUARY,8,18,30,00)));
-        etat3.save_etat(conn);
-        
+
+        Machine__etat m_e1 = new Machine__etat(1, 1);
+        Machine__etat m_e2 = new Machine__etat(2, 1);
+        Machine__etat m_e3 = new Machine__etat(3, 1);
+        Machine__etat m_e4 = new Machine__etat(4, 1);
+        Machine__etat m_e5 = new Machine__etat(5, 1);
+        Machine__etat m_e6 = new Machine__etat(6, 1);
+        Machine__etat m_e7 = new Machine__etat(7, 1);
+        Machine__etat m_e8 = new Machine__etat(8, 1);
+        Machine__etat m_e9 = new Machine__etat(9, 1);
+        Machine__etat m_e10 = new Machine__etat(10, 1);
+        Machine__etat m_e11 = new Machine__etat(11, 1);
+        Machine__etat m_e12 = new Machine__etat(12, 1);
+
+        m_e1.saveInDBV1(conn);
+        m_e2.saveInDBV1(conn);
+        m_e3.saveInDBV1(conn);
+        m_e4.saveInDBV1(conn);
+        m_e5.saveInDBV1(conn);
+        m_e6.saveInDBV1(conn);
+        m_e7.saveInDBV1(conn);
+        m_e8.saveInDBV1(conn);
+        m_e9.saveInDBV1(conn);
+        m_e10.saveInDBV1(conn);
+        m_e11.saveInDBV1(conn);
+        m_e12.saveInDBV1(conn);
+
+        Operateur__etat o_e = new Operateur__etat(1, 1);
+        Operateur__etat o_e1 = new Operateur__etat(2, 1);
+        Operateur__etat o_e2 = new Operateur__etat(3, 1);
+        Operateur__etat o_e3 = new Operateur__etat(4, 1);
+
+        o_e.saveInDBV1(conn);
+        o_e1.saveInDBV1(conn);
+        o_e2.saveInDBV1(conn);
+        o_e3.saveInDBV1(conn);
+
+//        LocalDateTime dt3 = LocalDateTime.of(2023, Month.OCTOBER, 1, 8, 0, 0);
+//        Timestamp ts3 = Timestamp.valueOf(dt3);
+//        LocalDateTime dt4 = LocalDateTime.of(2023, Month.NOVEMBER, 16, 18, 30, 00);
+//        Timestamp ts4 = Timestamp.valueOf(dt4);
+//        etat etat2 = new etat(2, ts3, ts4);
+//        etat2.save_etat(conn);
+//
+//        etat etat3 = new etat(1, Timestamp.valueOf(LocalDateTime.of(2021, Month.NOVEMBER, 16, 18, 30, 00)), Timestamp.valueOf(LocalDateTime.of(2023, Month.JANUARY, 8, 18, 30, 00)));
+//        etat3.save_etat(conn);
         // type operation
         type_operation impression = new type_operation("Impression");
         type_operation reliure = new type_operation("Reliure");
@@ -485,6 +532,30 @@ public class Gestion {
         révision.save_type_operation(conn);
         traduction.save_type_operation(conn);
         adaptation.save_type_operation(conn);
+
+        //Realisation
+        realisation real1 = new realisation(80, 1, 1);
+        realisation real11 = new realisation(75, 5, 3);
+        realisation real2 = new realisation(42, 7, 10);
+        realisation real3 = new realisation(89, 10, 6);
+        realisation real4 = new realisation(18, 8, 4);
+        realisation real5 = new realisation(63, 1, 9);
+        realisation real6 = new realisation(56, 2, 8);
+        realisation real7 = new realisation(34, 6, 2);
+        realisation real8 = new realisation(91, 9, 7);
+        realisation real9 = new realisation(72, 3, 1);
+        realisation real10 = new realisation(50, 4, 5);
+
+        real1.save_realisation(conn);
+        real2.save_realisation(conn);
+        real3.save_realisation(conn);
+        real4.save_realisation(conn);
+        real5.save_realisation(conn);
+        real6.save_realisation(conn);
+        real7.save_realisation(conn);
+        real8.save_realisation(conn);
+        real9.save_realisation(conn);
+        real10.save_realisation(conn);
 
         // clients
         Client client1 = new Client("Binder", "Aurore", "Auroraa", "Aurore");
@@ -544,32 +615,32 @@ public class Gestion {
 
         Client client20 = new Client("Sunshine", "Ray", "RaySunshine", "PositiveVibes101");
         client20.saveInDBV(conn);
-        
+
         // produit
-        produit p1 = new produit("les cigognes dans leur habitat naturel",  1);
-        produit p2 = new produit("Blanche Neige et les 6 personnes de petites tailles",  2);
-        produit p3 = new produit("La personne au bois dormant",  3);
+        produit p1 = new produit("les cigognes dans leur habitat naturel", 1);
+        produit p2 = new produit("Blanche Neige et les 6 personnes de petites tailles", 2);
+        produit p3 = new produit("La personne au bois dormant", 3);
         produit p4 = new produit("Comment dresser votre dragon de compagnie invisible", 4);
-        produit p5 = new produit( "Le guide ultime pour comprendre le langage des pingouins", 5);
-        produit p6 = new produit( "Les aventures secrètes du chat ninja dans la nuit", 6);
-        produit p7 = new produit( "L'art subtil de faire la sieste en réunion", 7);
-        produit p8 = new produit( "Les canards en affaires : de la mare au conseil d'administration", 8);
-        produit p9 = new produit( "Yoga pour girafes : atteindre de nouveaux sommets de détente", 9);
-        produit p10 = new produit( "Les lutins et le management : guide pratique pour une entreprise magique", 10);
-        produit p11 = new produit( "Les extraterrestres ont-ils un sens de l'humour ?", 11);
-        produit p12 = new produit( "L'histoire secrète des licornes en politique", 12);
-        produit p13 = new produit( "Le manuel complet de survie face à une invasion de canards en peluche", 13);
-        produit p14 = new produit( "Les conseils du koala pour une vie zen", 14);
-        produit p15 = new produit( "Les vaches qui méditent : une approche bovine de la sérénité", 15);
-        produit p16 = new produit( "Comment dresser un hamster pour le marathon", 16);
-        produit p17 = new produit( "Le guide pratique pour élever des licornes dans un appartement", 17);
-        produit p18 = new produit( "Les secrets du succès selon les chèvres grimpeuses", 18);
-        produit p19 = new produit( "L'art de jongler avec des pommes de terre chaudes", 19);
-        produit p20 = new produit( "Les aventures hilarantes du pingouin philosophe", 20);
-        produit p21 = new produit( "Comment dresser votre dragon de compagnie invisible, deuxième édition", 21);
-        produit p22 = new produit( "Le manuel pratique du ninja retraité", 22);
+        produit p5 = new produit("Le guide ultime pour comprendre le langage des pingouins", 5);
+        produit p6 = new produit("Les aventures secrètes du chat ninja dans la nuit", 6);
+        produit p7 = new produit("L'art subtil de faire la sieste en réunion", 7);
+        produit p8 = new produit("Les canards en affaires : de la mare au conseil d'administration", 8);
+        produit p9 = new produit("Yoga pour girafes : atteindre de nouveaux sommets de détente", 9);
+        produit p10 = new produit("Les lutins et le management : guide pratique pour une entreprise magique", 10);
+        produit p11 = new produit("Les extraterrestres ont-ils un sens de l'humour ?", 11);
+        produit p12 = new produit("L'histoire secrète des licornes en politique", 12);
+        produit p13 = new produit("Le manuel complet de survie face à une invasion de canards en peluche", 13);
+        produit p14 = new produit("Les conseils du koala pour une vie zen", 14);
+        produit p15 = new produit("Les vaches qui méditent : une approche bovine de la sérénité", 15);
+        produit p16 = new produit("Comment dresser un hamster pour le marathon", 16);
+        produit p17 = new produit("Le guide pratique pour élever des licornes dans un appartement", 17);
+        produit p18 = new produit("Les secrets du succès selon les chèvres grimpeuses", 18);
+        produit p19 = new produit("L'art de jongler avec des pommes de terre chaudes", 19);
+        produit p20 = new produit("Les aventures hilarantes du pingouin philosophe", 20);
+        produit p21 = new produit("Comment dresser votre dragon de compagnie invisible, deuxième édition", 21);
+        produit p22 = new produit("Le manuel pratique du ninja retraité", 22);
         produit p23 = new produit("Les canards en affaires : de la mare au conseil d'administration, version actualisée", 23);
-        produit p24 = new produit( "Yoga pour girafes : atteindre de nouveaux sommets de détente, version illustrée", 24);
+        produit p24 = new produit("Yoga pour girafes : atteindre de nouveaux sommets de détente, version illustrée", 24);
         p1.saveInDBV1(conn);
         p2.saveInDBV1(conn);
         p3.saveInDBV1(conn);
@@ -653,7 +724,7 @@ public class Gestion {
 
         produit p52 = new produit("Jongler avec des pommes de terre chaudes : Le manuel complet", 52);
         p52.saveInDBV1(conn);
-        
+
         produit p53 = new produit("Le génie de l'ingénieur : Guide pratique pour résoudre tous les problèmes", 53);
         p53.saveInDBV1(conn);
 
@@ -767,12 +838,9 @@ public class Gestion {
 
         produit p90 = new produit("Le Monde Magique de l'Amour selon Disney", 90);
         p90.saveInDBV1(conn);
-        
+
         produit p91 = new produit("Methodologie pour avoir 20/20 en Base de donnée", 91);
         p91.saveInDBV1(conn);
-
-
-
 
         //operation
         for (int i = 1; i <= 50; i++) {
@@ -781,16 +849,16 @@ public class Gestion {
                 operation.saveInDBV1(conn);
             }
         }
-                //operation suivante
-        for (int j = 1; j <= 49; j+=10){
-            for (int i = j; i <= j+8; i++) {
-                Precede prc = new Precede(i, i+1);
+        //operation suivante
+        for (int j = 1; j <= 49; j += 10) {
+            for (int i = j; i <= j + 8; i++) {
+                Precede prc = new Precede(i, i + 1);
                 prc.saveInDBV1(conn);
             }
         }
         //commantaire(int id_produit, String message,int id_client)
 
-        commantaire com1 = new commantaire(1,"super livre", 5);
+        commantaire com1 = new commantaire(1, "super livre", 5);
         com1.saveInDBV1(conn);
         commantaire com2 = new commantaire(2, "Captivant !", 4);
         com2.saveInDBV1(conn);
@@ -969,8 +1037,6 @@ public class Gestion {
         commantaire com60 = new commantaire(60, "À lire avec une tasse de café bien chaude", 4);
         com60.saveInDBV1(conn);
 
-
-        
     }
 
     public void deleteSchema() throws SQLException {
@@ -1403,8 +1469,7 @@ public class Gestion {
                     nouveau.saveInDBV1(this.conn);
                     /*} else if (rep == j++) {
                     this.afficheUtilisateurAvecPattern();*/
-                }
-                else if (rep == j++) {
+                } else if (rep == j++) {
                     menuMachine();
                 }
             } catch (SQLException ex) {
@@ -1412,6 +1477,7 @@ public class Gestion {
             }
         }
     }
+
     public void menuMachine() {
         int rep = -1;
         while (rep != 0) {
@@ -1431,10 +1497,9 @@ public class Gestion {
                 } else if (rep == j++) {
                     machine nouvelle = machine.demande2(conn);
                     nouvelle.saveInDBV1(conn);
-                }
-                else if (rep == j++) {
-                    Optional<machine> choix = ListUtils.selectOneOrCancel("---- selectionnez une machine à supprimer",machine.tousLesMachines(conn), machine::toString);
-                    if (choix.isPresent()){
+                } else if (rep == j++) {
+                    Optional<machine> choix = ListUtils.selectOneOrCancel("---- selectionnez une machine à supprimer", machine.tousLesMachines(conn), machine::toString);
+                    if (choix.isPresent()) {
                         choix.get().supMachine(conn);
                     }
                 }
