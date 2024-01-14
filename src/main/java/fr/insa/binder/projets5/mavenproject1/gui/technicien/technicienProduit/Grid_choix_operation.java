@@ -135,8 +135,6 @@ public class Grid_choix_operation extends Grid<Operation> {
 
             Notification.show("Number of selected people: " + selectedItems.size());
         });
-
-        this.getStyle().setBackground("PowderBlue");
     }
 
     public List<Integer> getSelectedIds() {
