@@ -13,12 +13,10 @@ import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.server.VaadinSession;
 import fr.insa.binder.projets5.mavenproject1.ImageT;
 import fr.insa.binder.projets5.mavenproject1.gui.client.clientProduit.ProduitClient;
-import fr.insa.binder.projets5.mavenproject1.gui.technicien.technicienMachine.ListeMachine;
+import fr.insa.binder.projets5.mavenproject1.gui.technicien.technicienPlanUsine.technicien_PlanUsine;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.vaadin.pekkam.Canvas;
 import org.vaadin.pekkam.CanvasRenderingContext2D;
 
@@ -75,7 +73,7 @@ public class premiere_page extends VerticalLayout {
         });
         this.administrateur_dev.addClickListener(e -> {
             VaadinSession.getCurrent().setAttribute("id_operateur", 1);
-            UI.getCurrent().navigate(ListeMachine.class);
+            UI.getCurrent().navigate(technicien_PlanUsine.class);
         });
         this.client_dev.addClickListener(e -> {
             VaadinSession.getCurrent().setAttribute("id_client", 1);

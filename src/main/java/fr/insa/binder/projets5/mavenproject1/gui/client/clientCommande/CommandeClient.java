@@ -45,8 +45,8 @@ public class CommandeClient extends VerticalLayout{
         
         this.titre = new H3("Liste de toutes les commandes");
         this.add(titre);
-        H1 = new HorizontalLayout();
-        
+//        H1 = new HorizontalLayout();
+//        
         try {
             int idc = (Integer) VaadinSession.getCurrent().getAttribute("id_client");
             this.grid = new Grid_commande(commande.tousLesCommandes(idc, (Connection) VaadinSession.getCurrent().getAttribute("conn"))); 
@@ -54,8 +54,8 @@ public class CommandeClient extends VerticalLayout{
         } catch(SQLException ex) {
             this.add(new H3("Problème BdD : (faut se connecter)"));
         }
-        H1.add(new Supp_commande());
-        this.add(H1);
+//        H1.add(new Supp_commande());
+//        this.add(H1);
         
         
         addClassName("liste_commande");

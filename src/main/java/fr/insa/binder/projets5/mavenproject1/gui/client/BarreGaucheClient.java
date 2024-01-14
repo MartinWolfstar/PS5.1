@@ -77,7 +77,7 @@ public class BarreGaucheClient extends AppLayout{
         drawerLayout.add(new VerticalLayout(
                 listLink
         ));
-        RouterLink listLink2 = new RouterLink("Commande", CommandeClient.class);
+        RouterLink listLink2 = new RouterLink("Mes Commandes", CommandeClient.class);
         listLink2.setHighlightCondition(HighlightConditions.sameLocation());
         listLink2.getStyle().setColor("#030876");
         drawerLayout.add(new VerticalLayout(
