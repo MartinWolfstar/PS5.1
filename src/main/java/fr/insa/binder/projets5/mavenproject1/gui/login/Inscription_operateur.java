@@ -102,7 +102,7 @@ public class Inscription_operateur extends VerticalLayout{
                 this.getStyle()
                     .set("background", "url(data:image/jpeg;base64," + base64Image + ") no-repeat center center fixed")
                     .set("background-size", "cover")
-                    .set("height", "100vh");
+                    .set("height", "100%");
             } else {
                 System.err.println("Image not found in the database.");
             }

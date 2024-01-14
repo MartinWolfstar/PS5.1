@@ -50,6 +50,10 @@ public class Vue_principale_login extends VerticalLayout {
         } catch (SQLException ex) {
 //            this.setMainContent(new BdDNonAccessible(this));
         }
+        this.getStyle().setBackground("#030876");
+        this.getStyle().set("height", "100%");
+        this.getStyle().set("width", "100%");
+        mainContent.getStyle().setBackground("#FEE59D");
 
     }
 
