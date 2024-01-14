@@ -12,6 +12,7 @@ import com.vaadin.flow.server.VaadinSession;
 import fr.insa.binder.projets5.mavenproject1.exemplaire;
 import static fr.insa.binder.projets5.mavenproject1.exemplaire.tousLesxemplaires_produit;
 import static fr.insa.binder.projets5.mavenproject1.operation_effectuee.Meilleurs_operation_produit;
+import static fr.insa.binder.projets5.mavenproject1.operation_effectuee.tous_les_operation_effectuees_ex;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -32,7 +33,10 @@ public class Operation_necessaires extends VerticalLayout {
         exemplaire exem = (exemplaire) VaadinSession.getCurrent().getAttribute("exemplaire");
         this.add(new H3(String.valueOf(exem.getDes_exemplaire())));
         try {
-            this.grid = new Grid_op(Meilleurs_operation_produit(con, tousLesxemplaires_produit(con, exem.getId_produit()).get(0)));
+            this.grid = new Grid_op(tous_les_operation_effectuees_ex(con, exem.getId_exemplaire()));
+            if (tous_les_operation_effectuees_ex(con, exem.getId_exemplaire()).isEmpty()){
+                Notification.show("Impossible de fabriquer ce produit pour cause de manque de personnel ou de machine");
+            }
         } catch (SQLException ex) {
             Notification.show("Problème BdD : a");
         }

@@ -26,7 +26,7 @@ public class Grid_commande extends Grid<commande> {
         this.addColumn(commande::getId_client).setHeader("Id_client");
         
         this.addComponentColumn(commande -> {
-            Button button = new Button("Operations necessaires", clickEvent -> {
+            Button button = new Button("Produits", clickEvent -> {
                 VaadinSession.getCurrent().setAttribute("commande", commande.getId_commande());
                 UI.getCurrent().navigate(Afficher_produit_commande.class);
             });
