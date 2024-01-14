@@ -134,7 +134,7 @@ public class ProduitClient extends VerticalLayout{
 //                op_ef.saveInDBV1(con);
 //            }
         } catch (SQLException ex) {
-             Notification.show("Problème BdD");
+             Notification.show("Problème BdD :" + ex.getMessage());
         }
     }
 }
