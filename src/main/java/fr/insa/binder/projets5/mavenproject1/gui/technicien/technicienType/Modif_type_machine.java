@@ -26,7 +26,7 @@ public class Modif_type_machine extends VerticalLayout{
     
     public Modif_type_machine(){
         this.menu_bar = new MenuBar();
-        this.id = menu_bar.addItem("Selectionner l'identifiant du type de machine à modifier");
+        this.id = menu_bar.addItem("Sélectionner l'identifiant du type de machine à modifier");
         SubMenu id_sub = id.getSubMenu();
         
 

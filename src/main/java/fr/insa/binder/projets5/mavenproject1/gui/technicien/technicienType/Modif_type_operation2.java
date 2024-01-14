@@ -37,7 +37,7 @@ public class Modif_type_operation2 extends VerticalLayout{
         });
         
         this.HL = new HorizontalLayout();
-        this.add(new H3("Ajout type_operation"));
+        this.add(new H3("Ajout type opération"));
         this.HL.add(this.des);
         this.add(this.HL, this.valid);
    

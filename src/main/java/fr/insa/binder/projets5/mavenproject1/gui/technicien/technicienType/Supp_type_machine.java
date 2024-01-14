@@ -27,7 +27,7 @@ public class Supp_type_machine extends VerticalLayout{
     public Supp_type_machine(){
 
         this.menu_bar = new MenuBar();
-        this.id = menu_bar.addItem("Selectionner l'identifiant de la type_machine à supprimer");
+        this.id = menu_bar.addItem("Sélectionner l'identifiant de la type machine à supprimer");
         SubMenu id_sub = id.getSubMenu();
         
 
@@ -39,7 +39,7 @@ public class Supp_type_machine extends VerticalLayout{
                 Notification.show("Problème BdD : stm1");
             }
             UI.getCurrent().getPage().reload();
-            Notification.show("aaaah");
+            //Notification.show("aaaah");
         };
         
         try {
@@ -51,7 +51,7 @@ public class Supp_type_machine extends VerticalLayout{
         catch(SQLException ex) {
                Notification.show("Problème BdD : stm2");
             }
-        this.add(new H3("Supprimer type_machine"));
+        this.add(new H3("Supprimer type machine"));
         this.add(menu_bar);   
     }
 }

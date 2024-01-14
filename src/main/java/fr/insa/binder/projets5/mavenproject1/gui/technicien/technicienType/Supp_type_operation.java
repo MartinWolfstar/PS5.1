@@ -27,7 +27,7 @@ public class Supp_type_operation extends VerticalLayout{
     public Supp_type_operation(){
 
         this.menu_bar = new MenuBar();
-        this.id = menu_bar.addItem("Selectionner l'identifiant du type d'operation à supprimer");
+        this.id = menu_bar.addItem("Sélectionner l'identifiant du type d'operation à supprimer");
         SubMenu id_sub = id.getSubMenu();
         
 

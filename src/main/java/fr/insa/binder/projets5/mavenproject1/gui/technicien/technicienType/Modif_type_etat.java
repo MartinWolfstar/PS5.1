@@ -26,7 +26,7 @@ public class Modif_type_etat extends VerticalLayout{
     
     public Modif_type_etat(){
         this.menu_bar = new MenuBar();
-        this.id = menu_bar.addItem("Selectionner l'identifiant de l'etat à modifier");
+        this.id = menu_bar.addItem("Sélectionner l'identifiant de l'état à modifier");
         SubMenu id_sub = id.getSubMenu();
         
 
@@ -45,7 +45,7 @@ public class Modif_type_etat extends VerticalLayout{
         catch(SQLException ex) {
                Notification.show("Problème BdD : mtm");
             }
-        this.add(new H3("Modifier type etat"));
+        this.add(new H3("Modifier type état"));
         this.add(menu_bar);
         }
   

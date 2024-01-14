@@ -25,7 +25,7 @@ public class Ajout_type_etat extends VerticalLayout{
     
     public Ajout_type_etat(){
         this.des = new TextField("Description produit");
-        this.valid = new Button ("Ajouter type_etat");
+        this.valid = new Button ("Ajouter type état");
         this.valid.addClickListener(e -> {
             this.mach = new type_etat(this.des.getValue());
             try {
@@ -37,7 +37,7 @@ public class Ajout_type_etat extends VerticalLayout{
         });
         
         this.HL = new HorizontalLayout();
-        this.add(new H3("Ajout type_etat"));
+        this.add(new H3("Ajout type état"));
         this.HL.add(this.des);
         this.add(this.HL, this.valid);
     }

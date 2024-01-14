@@ -50,12 +50,17 @@ public class ParametreTechnicien extends VerticalLayout{
         prenom = new TextField("votre prénom :");
         mdp = new PasswordField("changer votre mot de passe :");
         sauvegarder = new Button("Sauvegarder les informations");
-        mdp.setValue("Ex@mplePassw0rd");
+        nom.setValue(nom.getValue());
+        prenom.setValue(prenom.getValue());
+        mdp.setValue(mdp.getValue());
+        //mdp.setValue("Ex@mplePassw0rd");
         H4 = new HorizontalLayout();
         H4.add(nom, prenom, mdp);
         
         Connection conn = (Connection) VaadinSession.getCurrent().getAttribute("conn");
         int id_o = (Integer) VaadinSession.getCurrent().getAttribute("id_operateur");
+        
+
         
         sauvegarder.addClickListener(e -> {
             try {

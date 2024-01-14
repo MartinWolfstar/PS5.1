@@ -37,7 +37,7 @@ public class Modif_type_etat2 extends VerticalLayout{
         });
         
         this.HL = new HorizontalLayout();
-        this.add(new H3("Ajout type_etat"));
+        this.add(new H3("Ajout type état"));
         this.HL.add(this.des);
         this.add(this.HL, this.valid);
     }

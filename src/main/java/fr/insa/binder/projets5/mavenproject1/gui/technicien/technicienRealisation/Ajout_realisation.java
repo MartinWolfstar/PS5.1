@@ -23,7 +23,7 @@ public class Ajout_realisation extends VerticalLayout{
     
     public Ajout_realisation(){
         this.duree = new IntegerField("ajouter une durée");
-        this.valid = new Button ("Créer realisation");
+        this.valid = new Button ("Créer réalisation");
         
         this.valid.addClickListener(e -> {
             this.real = new realisation(this.duree.getValue(),1 ,1 );
@@ -31,11 +31,11 @@ public class Ajout_realisation extends VerticalLayout{
                 real.save_realisation((Connection) VaadinSession.getCurrent().getAttribute("conn"));
                 UI.getCurrent().getPage().reload();
             } catch(SQLException ex) {
-            Notification.show("Problème BdD : ajout realisation");
+            Notification.show("Problème BdD : ajout réalisation");
             }
         });
 
-        this.add(new H5("Ajout realisation"));
+        this.add(new H5("Ajout réalisation"));
         this.add(this.duree, this.valid);
     }
 }

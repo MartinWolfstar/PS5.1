@@ -26,7 +26,7 @@ public class Modif_type_operation extends VerticalLayout{
     
     public Modif_type_operation(){
         this.menu_bar = new MenuBar();
-        this.id = menu_bar.addItem("Selectionner l'identifiant de l'operation à modifier");
+        this.id = menu_bar.addItem("Sélectionner l'identifiant de l'opération à modifier");
         SubMenu id_sub = id.getSubMenu();
         
 
@@ -45,7 +45,7 @@ public class Modif_type_operation extends VerticalLayout{
         catch(SQLException ex) {
                Notification.show("Problème BdD : mtm");
             }
-        this.add(new H3("Modifier type operation"));
+        this.add(new H3("Modifier type opération"));
         this.add(menu_bar);
  
     }    

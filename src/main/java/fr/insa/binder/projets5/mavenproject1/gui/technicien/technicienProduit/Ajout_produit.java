@@ -28,7 +28,7 @@ public class Ajout_produit extends VerticalLayout{
 
     
     public Ajout_produit(){
-        this.ref = new IntegerField("Reference produit");
+        this.ref = new IntegerField("Référence produit");
         this.des = new TextField("Description produit");
         this.valid = new Button ("Ajouter produit");
         this.valid.addClickListener(e -> {

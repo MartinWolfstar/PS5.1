@@ -46,7 +46,7 @@ public class Grid_realisation extends Grid<realisation>{
         this.addColumn(realisation::getId_realisation).setHeader("Id_realisation");
         
         //duree
-        this.addColumn(realisation::getDuree).setHeader("Duree");
+        this.addColumn(realisation::getDuree).setHeader("Durée");
         
         //type operation
         //Grid.Column<realisation> id = this.addColumn(realisation::getId_type_operation).setHeader("Id_type_operation1");
@@ -91,7 +91,7 @@ public class Grid_realisation extends Grid<realisation>{
 
             });
             return combo;
-        }).setHeader("Type operation");
+        }).setHeader("Type opération");
         
         //Grid.Column<realisation> id_machine = this.addColumn(realisation::getId_machine).setHeader("Id_machine1");
 
@@ -144,7 +144,7 @@ public class Grid_realisation extends Grid<realisation>{
                     UI.getCurrent().getPage().reload();
                     this.setItems(realisation.tousLesRealisation((Connection) VaadinSession.getCurrent().getAttribute("conn")));
                 } catch (SQLException ex) {
-                    Notification.show("Problème BdD : grid realisation : " + ex);
+                    Notification.show("Problème BdD : grid réalisation : " + ex);
                     // Gérez les erreurs ici
                 }
             });

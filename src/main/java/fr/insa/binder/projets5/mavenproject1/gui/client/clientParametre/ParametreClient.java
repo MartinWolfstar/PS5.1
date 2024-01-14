@@ -53,7 +53,6 @@ public class ParametreClient extends VerticalLayout{
         
         Connection conn = (Connection) VaadinSession.getCurrent().getAttribute("conn");
         int id_c = (Integer) VaadinSession.getCurrent().getAttribute("id_client");
-        
         H1 nom_client = new H1(nom_prenom);
         nom = new TextField("votre nom :");
         prenom = new TextField("votre prénom :");
@@ -63,7 +62,12 @@ public class ParametreClient extends VerticalLayout{
         mdp = new PasswordField("changer votre mot de passe :");
         sauvegarder = new Button("Sauvegarder les informations");
         //ALD = new AppLayoutDrawer();
-        mdp.setValue("Ex@mplePassw0rd");
+        nom.setValue(nom.getValue());
+        prenom.setValue(prenom.getValue());
+        adresse.setValue(adresse.getValue());
+        mail.setValue(mail.getValue());
+        telephone.setValue(telephone.getValue());
+        mdp.setValue(mdp.getValue());
 
         sauvegarder.addClickListener(e -> {
             try {

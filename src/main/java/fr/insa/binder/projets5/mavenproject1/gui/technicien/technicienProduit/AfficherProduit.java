@@ -68,7 +68,7 @@ public class AfficherProduit extends Grid<produit> {
         }).setHeader("");
 
         this.addComponentColumn(produit -> {
-            Button button = new Button("Operations necessaires", clickEvent -> {
+            Button button = new Button("Opérations nécessaires", clickEvent -> {
                 VaadinSession.getCurrent().setAttribute("produit", produit);
                 UI.getCurrent().navigate(Choix_operation_produit.class);
             });

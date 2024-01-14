@@ -123,7 +123,7 @@ public class Ajout_etat_technicien extends VerticalLayout {
         
         // Ajouter les composants à la mise en page
         this.HL = new HorizontalLayout();
-        this.add(new H6("Ajout etat"));
+        this.add(new H6("Ajout état"));
         this.HL.add(this.etatComboBox, this.debutDateTimePicker, this.finDateTimePicker);
         this.add(this.HL,this.valid);
     }

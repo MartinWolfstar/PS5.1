@@ -38,7 +38,7 @@ public class Modif_type_machine2 extends VerticalLayout{
         });
         
         this.HL = new HorizontalLayout();
-        this.add(new H3("Ajout type_machine"));
+        this.add(new H3("Ajout type machine"));
         this.HL.add(this.des);
         this.add(this.HL, this.valid);
   

@@ -23,7 +23,7 @@ public class Ajout_operation extends VerticalLayout{
         private Button valid;
 
         public Ajout_operation(Grid_choix_operation grid){
-            this.valid = new Button("Ajouter une operation");
+            this.valid = new Button("Ajouter une opération");
             this.valid.addClickListener(e -> {
                 produit p = (produit) VaadinSession.getCurrent().getAttribute("produit");
             Operation op = new Operation(1, p.getId());

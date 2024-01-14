@@ -25,7 +25,7 @@ public class Ajout_machine extends VerticalLayout{
     private machine mach;
 
     public Ajout_machine(){
-        this.ref = new IntegerField("Reference produit");
+        this.ref = new IntegerField("Référence produit");
         this.des = new TextField("Description produit");
         this.valid = new Button ("Ajouter machine");
         this.valid.addClickListener(e -> {
@@ -44,7 +44,7 @@ public class Ajout_machine extends VerticalLayout{
         this.add(this.HL);
     }
     public Ajout_machine(int id_pdt){
-        this.ref = new IntegerField("Reference produit");
+        this.ref = new IntegerField("Référence produit");
         this.des = new TextField("Description produit");
         this.valid = new Button ("Ajouter machine");
         this.valid.addClickListener(e -> {

@@ -185,7 +185,7 @@ public class technicien_PlanUsine extends VerticalLayout {
             
             List<Integer> id_pdt_l = poste_de_travail.getAll(me.getOffsetX(), me.getOffsetY(), (Connection) VaadinSession.getCurrent().getAttribute("conn"));
             int id_pdt = id_pdt_l.get(0);
-            Notification.show("essai de modifier le pdt " + id_pdt);
+            //Notification.show("essai de modifier le pdt " + id_pdt);
             showDialogModif(id_pdt);
             this.x= -1;
             this.y = -1;   
@@ -223,7 +223,7 @@ public class technicien_PlanUsine extends VerticalLayout {
                 // Open a sub-dialog for adding a machine
                 openAddMachineDialog(id_pdt);
             });
-            Button addOperateurButton = new Button("ajouter son habilitation");
+            Button addOperateurButton = new Button("Ajouter son habilitation");
             addOperateurButton.addClickListener(event -> {
                 //openAddOperateurDialog(id_pdt);
                 Ajout_Habilitation ajout_habi = new Ajout_Habilitation(id_pdt);
@@ -244,7 +244,7 @@ public class technicien_PlanUsine extends VerticalLayout {
             Grid<operateur> gridOperateurs = new Grid<>(operateur.class);
             gridOperateurs.setItems(operateurs);
 
-            gridOperateurs.setColumns("id_operateur", "nom_operateur", "prenom_operateur");
+            gridOperateurs.setColumns("id de l'opérateur", "nom de l'opérateur", "prenom de l'opérateur");
             gridOperateurs.setMaxHeight("200px");
             enterDialog.add(gridOperateurs);
         } catch (SQLException ex) {
@@ -280,7 +280,7 @@ public class technicien_PlanUsine extends VerticalLayout {
     private void Supprimer_poste_de_travail(MouseEvent me){
         //Notification.show("s");
         if (poste_de_travail.IsIn(me.getOffsetX(),me.getOffsetY(),(Connection) VaadinSession.getCurrent().getAttribute("conn"))&&(this.action == "supprimer")){
-            Notification.show("essai de supprimer le pdt ");
+            //Notification.show("essai de supprimer le pdt ");
             poste_de_travail.sup(me.getOffsetX(),me.getOffsetY(),(Connection) VaadinSession.getCurrent().getAttribute("conn"));
             this.x= -1;
             this.y = -1;   

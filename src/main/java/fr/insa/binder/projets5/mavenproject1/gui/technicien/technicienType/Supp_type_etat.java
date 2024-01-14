@@ -27,7 +27,7 @@ public class Supp_type_etat extends VerticalLayout{
     public Supp_type_etat(){
 
         this.menu_bar = new MenuBar();
-        this.id = menu_bar.addItem("Selectionner l'identifiant du type d'etat à supprimer");
+        this.id = menu_bar.addItem("Sélectionner l'identifiant du type d'état à supprimer");
         SubMenu id_sub = id.getSubMenu();
         
 
@@ -49,7 +49,7 @@ public class Supp_type_etat extends VerticalLayout{
         catch(SQLException ex) {
                Notification.show("Problème BdD : sto2");
             }
-        this.add(new H3("Supprimer type etat"));
+        this.add(new H3("Supprimer type état"));
         this.add(menu_bar);
  
     }

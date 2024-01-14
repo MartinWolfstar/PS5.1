@@ -28,7 +28,7 @@ public class ListeRealisation extends VerticalLayout {
     private Button raz;
    
     public ListeRealisation() {
-        this.add(new H3("Liste de toutes les realisations"));
+        this.add(new H3("Liste de toutes les réalisations"));
         H1 = new HorizontalLayout();
         H1.add(new Ajout_realisation());
         this.raz = new Button();
@@ -37,7 +37,7 @@ public class ListeRealisation extends VerticalLayout {
             this.grid = new Grid_realisation(realisation.tousLesRealisation((Connection) VaadinSession.getCurrent().getAttribute("conn"))); 
             this.add(this.grid);
         } catch(SQLException ex) {
-            this.add(new H3("Problème liste realisation : " + ex));
+            this.add(new H3("Problème liste réalisation : " + ex));
             //Notification.show("Problème BdD : liste realisation :"+ ex);
         }
         this.raz.addClickListener((event) -> {
@@ -55,7 +55,7 @@ public class ListeRealisation extends VerticalLayout {
         raz.getStyle().setOpacity("0");
         this.add(raz);
         
-        addClassName("liste_realisation");
+        addClassName("liste_réalisation");
         setSizeFull();
         utile.stylisation(this);
     }

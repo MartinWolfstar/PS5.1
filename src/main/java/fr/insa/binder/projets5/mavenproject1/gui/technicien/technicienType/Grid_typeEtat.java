@@ -12,7 +12,7 @@ public class Grid_typeEtat extends Grid<type_etat>{
     
     public Grid_typeEtat(List<type_etat> list_etat) {
         this.setItems(list_etat);
-        this.addColumn(type_etat::getId_type_etat).setHeader("getId_type_etat");
-        this.addColumn(type_etat::getDes_type_etat).setHeader("getDes_type_etat");  
+        this.addColumn(type_etat::getId_type_etat).setHeader("Id type état");
+        this.addColumn(type_etat::getDes_type_etat).setHeader("Description type etat");  
     }
 }

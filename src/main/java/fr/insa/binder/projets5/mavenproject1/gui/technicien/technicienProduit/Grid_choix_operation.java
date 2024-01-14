@@ -87,7 +87,7 @@ public class Grid_choix_operation extends Grid<Operation> {
 
             });
             return combo;
-        }).setHeader("Type operation");
+        }).setHeader("Type opération");
 
         this.addColumn(Operation -> {
             String text = "";
@@ -97,7 +97,7 @@ public class Grid_choix_operation extends Grid<Operation> {
                 Notification.show("Problème BdD : m2");
             }
             return text;
-        }).setHeader("Operation(s) suivantes");
+        }).setHeader("Opération(s) suivantes");
 
         this.addComponentColumn(Operation -> {
             Button button = new Button("Supprimer", clickEvent -> {
