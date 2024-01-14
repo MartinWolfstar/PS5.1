@@ -41,7 +41,7 @@ public class BarreGaucheTechnicien extends AppLayout {
     }
 
     private void creatHeader() {
-        H1 logo = new H1("App PS5 technicien");
+        H1 logo = new H1("MarcoPolo");
         logo.getStyle().setColor("#030876");
         logo.addClassName("logo");
 
@@ -58,7 +58,7 @@ public class BarreGaucheTechnicien extends AppLayout {
     private void createDrawer() {
         VerticalLayout drawerLayout = new VerticalLayout();
         drawerLayout.getStyle().setBackground("#ffde75");
-        drawerLayout.setMinHeight("110vh");
+        drawerLayout.setMinHeight("120vh");
         RouterLink listLink2 = new RouterLink("Plan", technicien_PlanUsine.class);
         listLink2.setHighlightCondition(HighlightConditions.sameLocation());
         listLink2.getStyle().setColor("#030876");
