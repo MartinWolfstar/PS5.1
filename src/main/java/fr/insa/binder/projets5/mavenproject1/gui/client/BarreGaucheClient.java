@@ -35,7 +35,7 @@ public class BarreGaucheClient extends AppLayout{
     }
 
     private void creatHeader() {
-        H1 logo = new H1("App PS5 client");
+        H1 logo = new H1("MarcoPolo");
         logo.addClassName("logo");
         
         HorizontalLayout header = new HorizontalLayout(new DrawerToggle(), logo);
