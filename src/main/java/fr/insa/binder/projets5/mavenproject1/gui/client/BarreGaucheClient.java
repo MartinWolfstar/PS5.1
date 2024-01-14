@@ -19,6 +19,7 @@ import com.vaadin.flow.router.HighlightConditions;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.router.RouterLink;
+import fr.insa.binder.projets5.mavenproject1.gui.login.Vue_principale_login;
 
 /**
  * 
@@ -83,7 +84,7 @@ public class BarreGaucheClient extends AppLayout{
                 listLink2
         ));
         
-        RouterLink listLink3 = new RouterLink("Parametre", ParametreClient.class);
+        RouterLink listLink3 = new RouterLink("Données Personelles", ParametreClient.class);
         listLink3.setHighlightCondition(HighlightConditions.sameLocation());
         listLink3.getStyle().setColor("#030876");
         drawerLayout.add(new VerticalLayout(
@@ -95,6 +96,12 @@ public class BarreGaucheClient extends AppLayout{
         listLink4.getStyle().setColor("#030876");
         drawerLayout.add(new VerticalLayout(
                 listLink4
+        ));
+        RouterLink listLink5 = new RouterLink("Log out", Vue_principale_login.class);
+        listLink5.setHighlightCondition(HighlightConditions.sameLocation());
+        listLink5.getStyle().setColor("#030876");
+        drawerLayout.add(new VerticalLayout(
+                listLink5
         ));
         addToDrawer(drawerLayout);
     }

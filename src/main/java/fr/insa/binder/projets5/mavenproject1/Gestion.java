@@ -361,7 +361,7 @@ public class Gestion {
 
     public static void initialise(Connection conn) throws SQLException {
         // postes de travail
-        poste_de_travail poste1 = new poste_de_travail("ranger",10,200,10,200);
+        poste_de_travail poste1 = new poste_de_travail("ranger",30,200,30,200);
         poste1.save_poste_de_travail(conn);
         poste_de_travail poste2 = new poste_de_travail("poussiereux",300,350,60,90);
         poste2.save_poste_de_travail(conn);
@@ -369,20 +369,70 @@ public class Gestion {
         poste3.save_poste_de_travail(conn);
         
         // types de machines
-        type_machine type_machine1 = new type_machine("tournage");
+//        type_machine type_machine1 = new type_machine("tournage");
+//        type_machine1.save_type_machine(conn);
+//        type_machine type_machine2 = new type_machine("fraisage");
+//        type_machine2.save_type_machine(conn);
+        type_machine type_machine1 = new type_machine("Impréssionator 3000");
         type_machine1.save_type_machine(conn);
-        type_machine type_machine2 = new type_machine("fraisage");
+
+        type_machine type_machine2 = new type_machine("Reliure-licious");
         type_machine2.save_type_machine(conn);
+
+        type_machine type_machine3 = new type_machine("Assemble-o-matic"); 
+        type_machine3.save_type_machine(conn);
+
+        type_machine type_machine4 = new type_machine("Éditron Deluxe");
+        type_machine4.save_type_machine(conn);
+
+        type_machine type_machine5 = new type_machine("Emballage Extravaganza");
+        type_machine5.save_type_machine(conn);
+
+        type_machine type_machine6 = new type_machine("Distribu-tron 5000"); 
+        type_machine6.save_type_machine(conn);
+
+        type_machine type_machine7 = new type_machine("Promo-blitzinator"); 
+        type_machine7.save_type_machine(conn);
+
+        type_machine type_machine8 = new type_machine("Réviseur Rigolo"); 
+        type_machine8.save_type_machine(conn);
+
         
         // Machines
-        machine m1 = new machine(333, "tour tres puissant", 1, 1);
+//        machine m1 = new machine(333, "tour tres puissant", 1, 1);
+//        m1.saveInDBV1(conn);
+//        machine m2 = new machine(444,"tour tres precis",1,1);
+//        m2.saveInDBV1(conn);
+//        machine m3 = new machine(555,"fraise rapide",2,2);
+//        m3.saveInDBV1(conn);
+//        machine m4 = new machine(666,"fraise petits calibres",3,2);
+//        m4.saveInDBV1(conn);
+        machine m1 = new machine(333, "Tour de Puissance Extrême", 1, 1);
         m1.saveInDBV1(conn);
-        machine m2 = new machine(444,"tour tres precis",1,1);
+        machine m2 = new machine(444, "Tour de Précision Suprême", 1, 1);
         m2.saveInDBV1(conn);
-        machine m3 = new machine(555,"fraise rapide",2,2);
+        machine m3 = new machine(555, "Fraise Rapide Ultra", 2, 2);
         m3.saveInDBV1(conn);
-        machine m4 = new machine(666,"fraise petits calibres",3,2);
+        machine m4 = new machine(666, "Fraise Petits Calibres Magique", 3, 2);
         m4.saveInDBV1(conn);
+        machine m5 = new machine(777, "L'Imprimeur Fantastique", 1, 1);
+        m5.saveInDBV1(conn);
+        machine m6 = new machine(888, "Relieur Magique", 2, 2);
+        m6.saveInDBV1(conn);
+        machine m7 = new machine(999, "Fraise Turbo Drôle", 3, 2);
+        m7.saveInDBV1(conn);
+        machine m8 = new machine(1010, "Assembleur Loufoque", 2, 3);
+        m8.saveInDBV1(conn);
+        machine m9 = new machine(1111, "Éditeur Éclair", 1, 4);
+        m9.saveInDBV1(conn);
+        machine m10 = new machine(1212, "Emballage Enchanté", 2, 5);
+        m10.saveInDBV1(conn);
+        machine m11 = new machine(1313, "Distribu-Buzz", 3, 6);
+        m11.saveInDBV1(conn);
+        machine m12 = new machine(1414, "Promo-Fiesta", 2, 7);
+        m12.saveInDBV1(conn);
+
+        
         
         // Operateurs
         operateur Titi = new operateur("James", "Einstahitiii", "Titi01", "melissa68");
@@ -415,17 +465,37 @@ public class Gestion {
         etat3.save_etat(conn);
         
         // type operation
-        type_operation type_operation1 = new type_operation("dressage");
-        type_operation1.save_type_operation(conn);
-        type_operation type_operation2 = new type_operation("chariotage");
-        type_operation2.save_type_operation(conn);
-        type_operation type_operation3 = new type_operation("chanfreinage");
-        type_operation3.save_type_operation(conn);
-        type_operation type_operation4 = new type_operation("rainurage");
-        type_operation4.save_type_operation(conn);
-        type_operation type_operation5 = new type_operation("tronconnage");
-        type_operation5.save_type_operation(conn);
-        
+//        type_operation type_operation1 = new type_operation("dressage");
+//        type_operation1.save_type_operation(conn);
+//        type_operation type_operation2 = new type_operation("chariotage");
+//        type_operation2.save_type_operation(conn);
+//        type_operation type_operation3 = new type_operation("chanfreinage");
+//        type_operation3.save_type_operation(conn);
+//        type_operation type_operation4 = new type_operation("rainurage");
+//        type_operation4.save_type_operation(conn);
+//        type_operation type_operation5 = new type_operation("tronconnage");
+//        type_operation5.save_type_operation(conn);
+        type_operation impression = new type_operation("Impression");
+        type_operation reliure = new type_operation("Reliure");
+        type_operation assemblage = new type_operation("Assemblage");
+        type_operation édition = new type_operation("Édition");
+        type_operation emballage = new type_operation("Emballage");
+        type_operation distribution = new type_operation("Distribution");
+        type_operation promotion = new type_operation("Promotion");
+        type_operation révision = new type_operation("Révision");
+        type_operation traduction = new type_operation("Traduction");
+        type_operation adaptation = new type_operation("Adaptation");
+        impression.save_type_operation(conn);
+        reliure.save_type_operation(conn);
+        assemblage.save_type_operation(conn);
+        édition.save_type_operation(conn);
+        emballage.save_type_operation(conn);
+        distribution.save_type_operation(conn);
+        promotion.save_type_operation(conn);
+        révision.save_type_operation(conn);
+        traduction.save_type_operation(conn);
+        adaptation.save_type_operation(conn);
+
         // clients
         Client client1 = new Client("Binder", "Aurore", "Auroraa", "Aurore");
         Client client2 = new Client("Schmitt", "Theo", "Theo", "Theo");
@@ -433,6 +503,65 @@ public class Gestion {
         client1.saveInDBV(conn);
         client2.saveInDBV(conn);
         client3.saveInDBV(conn);
+        
+        // produit
+        produit p1 = new produit("les cigognes dans leur habitat naturel",  1);
+        produit p2 = new produit("Blanche Neige et les 6 personnes de petites tailles",  2);
+        produit p3 = new produit("La personne au bois dormant",  3);
+        produit p4 = new produit("Comment dresser votre dragon de compagnie invisible", 4);
+        produit p5 = new produit( "Le guide ultime pour comprendre le langage des pingouins", 5);
+        produit p6 = new produit( "Les aventures secrètes du chat ninja dans la nuit", 6);
+        produit p7 = new produit( "L'art subtil de faire la sieste en réunion", 7);
+        produit p8 = new produit( "Les canards en affaires : de la mare au conseil d'administration", 8);
+        produit p9 = new produit( "Yoga pour girafes : atteindre de nouveaux sommets de détente", 9);
+        produit p10 = new produit( "Les lutins et le management : guide pratique pour une entreprise magique", 10);
+        produit p11 = new produit( "Les extraterrestres ont-ils un sens de l'humour ?", 11);
+        produit p12 = new produit( "L'histoire secrète des licornes en politique", 12);
+        produit p13 = new produit( "Le manuel complet de survie face à une invasion de canards en peluche", 13);
+        produit p14 = new produit( "Les conseils du koala pour une vie zen", 14);
+        produit p15 = new produit( "Les vaches qui méditent : une approche bovine de la sérénité", 15);
+        produit p16 = new produit( "Comment dresser un hamster pour le marathon", 16);
+        produit p17 = new produit( "Le guide pratique pour élever des licornes dans un appartement", 17);
+        produit p18 = new produit( "Les secrets du succès selon les chèvres grimpeuses", 18);
+        produit p19 = new produit( "L'art de jongler avec des pommes de terre chaudes", 19);
+        produit p20 = new produit( "Les aventures hilarantes du pingouin philosophe", 20);
+        produit p21 = new produit( "Comment dresser votre dragon de compagnie invisible, deuxième édition", 21);
+        produit p22 = new produit( "Le manuel pratique du ninja retraité", 22);
+        produit p23 = new produit("Les canards en affaires : de la mare au conseil d'administration, version actualisée", 23);
+        produit p24 = new produit( "Yoga pour girafes : atteindre de nouveaux sommets de détente, version illustrée", 24);
+        p1.saveInDBV1(conn);
+        p2.saveInDBV1(conn);
+        p3.saveInDBV1(conn);
+        p4.saveInDBV1(conn);
+        p5.saveInDBV1(conn);
+        p6.saveInDBV1(conn);
+        p7.saveInDBV1(conn);
+        p8.saveInDBV1(conn);
+        p9.saveInDBV1(conn);
+        p10.saveInDBV1(conn);
+        p11.saveInDBV1(conn);
+        p12.saveInDBV1(conn);
+        p13.saveInDBV1(conn);
+        p14.saveInDBV1(conn);
+        p15.saveInDBV1(conn);
+        p16.saveInDBV1(conn);
+        p17.saveInDBV1(conn);
+        p18.saveInDBV1(conn);
+        p19.saveInDBV1(conn);
+        p20.saveInDBV1(conn);
+        p21.saveInDBV1(conn);
+        p22.saveInDBV1(conn);
+        p23.saveInDBV1(conn);
+        p24.saveInDBV1(conn);
+
+        //operation
+        for (int i = 1; i <= 15; i++) {
+            for (int j = 1; j <= 10; j++) {
+                Operation operation = new Operation(j, i);
+                operation.saveInDBV1(conn);
+            }
+        }
+        
 //        commande commande = new commande("Serviette", "POur moi", 1);
 //        commande commande1 = new commande("Pull", "POur moi", 1);
 //        commande.saveInDBV1(conn);

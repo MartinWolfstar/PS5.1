@@ -17,6 +17,7 @@ import com.vaadin.flow.router.HighlightConditions;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.router.RouterLink;
+import fr.insa.binder.projets5.mavenproject1.gui.login.Vue_principale_login;
 import fr.insa.binder.projets5.mavenproject1.gui.technicien.TechnicienCommande.Afficher_commande;
 import fr.insa.binder.projets5.mavenproject1.gui.technicien.technicienHabilitation.Habilitation;
 import fr.insa.binder.projets5.mavenproject1.gui.technicien.technicienInterface.ParametreTechnicien;
@@ -94,13 +95,13 @@ public class BarreGaucheTechnicien extends AppLayout {
         drawerLayout.add(new VerticalLayout(
                 listLink10
         ));
-        RouterLink listLink11 = new RouterLink("realisation", ListeRealisation.class);
+        RouterLink listLink11 = new RouterLink("Realisation", ListeRealisation.class);
         listLink11.setHighlightCondition(HighlightConditions.sameLocation());
         listLink11.getStyle().setColor("#030876");
         drawerLayout.add(new VerticalLayout(
                 listLink11
         ));
-        RouterLink listLink12 = new RouterLink("habilitation", Habilitation.class);
+        RouterLink listLink12 = new RouterLink("Habilitation", Habilitation.class);
         listLink12.setHighlightCondition(HighlightConditions.sameLocation());
         listLink12.getStyle().setColor("#030876");        
         drawerLayout.add(new VerticalLayout(
@@ -117,6 +118,12 @@ public class BarreGaucheTechnicien extends AppLayout {
         listLink7.getStyle().setColor("#030876");
         drawerLayout.add(new VerticalLayout(
                 listLink7
+        ));
+                RouterLink listLink5 = new RouterLink("Log out", Vue_principale_login.class);
+        listLink5.setHighlightCondition(HighlightConditions.sameLocation());
+        listLink5.getStyle().setColor("#030876");
+        drawerLayout.add(new VerticalLayout(
+                listLink5
         ));
     addToDrawer(drawerLayout);
     }
