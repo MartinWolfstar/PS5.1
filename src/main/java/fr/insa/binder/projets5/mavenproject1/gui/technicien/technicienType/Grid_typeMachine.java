@@ -14,6 +14,5 @@ public class Grid_typeMachine extends Grid<type_machine>{
         this.setItems(list_machine);
         this.addColumn(type_machine::getId_type_machine).setHeader("getId_type_machine");
         this.addColumn(type_machine::getDes_type_machine).setHeader("getDes_type_machine");  
-//        this.getStyle().setBackground("PowderBlue");
     }
 }

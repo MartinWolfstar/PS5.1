@@ -27,7 +27,6 @@ public class Grid_etat_d_une_machine extends Grid<etat>{
         
         this.addColumn(etat::getDebut).setHeader("Debut");
         this.addColumn(etat::getFin).setHeader("Fin");
-        this.getStyle().setBackground("PowderBlue");
     }
     public static List<etat> get_etat_d_une_machine(Connection conn,int id_machine)throws SQLException{
         List<etat> out = new ArrayList<>();

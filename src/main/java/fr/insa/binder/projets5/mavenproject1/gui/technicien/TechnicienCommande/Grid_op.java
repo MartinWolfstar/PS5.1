@@ -26,7 +26,6 @@ public class Grid_op extends Grid<operation_effectuee> {
         this.addColumn(operation_effectuee::getId_exemplaire).setHeader("Exemplaire");
         this.addColumn(operation_effectuee::getId_machine).setHeader("Machine");
 //        this.addColumn(commande::getId_client).setHeader("Id_client");
-//        this.getStyle().setBackground("PowderBlue");
 //        
 //        this.addColumn(Operation -> {
 //            String text = "";

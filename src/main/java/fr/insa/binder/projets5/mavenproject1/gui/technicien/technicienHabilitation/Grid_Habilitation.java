@@ -33,8 +33,5 @@ public class Grid_Habilitation extends Grid<operateur_poste_de_travail>{
             });
             return button;
         }).setHeader("");
-        
-        
-        this.getStyle().setBackground("PowderBlue");
     }
 }

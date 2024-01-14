@@ -17,10 +17,6 @@ import fr.insa.binder.projets5.mavenproject1.realisation;
 import java.sql.Connection;
 import java.sql.SQLException;
 
-/**
- *
- * @author binde
- */
 public class Ajout_realisation extends VerticalLayout{
     private IntegerField duree;
     private Button valid;

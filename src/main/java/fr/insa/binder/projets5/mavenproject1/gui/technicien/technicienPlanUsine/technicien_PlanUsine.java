@@ -54,14 +54,12 @@ public class technicien_PlanUsine extends VerticalLayout {
     private String action;
     
     public technicien_PlanUsine() {
-        // Title
         add(new H3("Plan de l'usine"));
         x = -1;
         y = -1;
 
-        // Drawing area (Canvas)
         canvas = new Canvas(1000, 850);
-        canvas.getStyle().set("border", "10px solid gray"); // Bordure de 10px en gris
+        canvas.getStyle().set("border", "5px solid gray");
         canvas.getStyle().set("background-color", "white"); 
         ctx = canvas.getContext();
         rebout();
@@ -113,30 +111,25 @@ public class technicien_PlanUsine extends VerticalLayout {
 
             // Display the name of the workstation at x1
             ctx.setFillStyle("#000000");
-            ctx.fillText(refPoste, x1, y1 - 5); // Adjust the -5 based on your preference for the vertical position
+            ctx.fillText(refPoste, x1, y1 - 5); 
 
-            // Check if there are machines for this workstation
             try {
                 Connection connection = (Connection) VaadinSession.getCurrent().getAttribute("conn");
                 int posteId = poste_de_travail.getId_poste_de_travail(refPoste, connection);
                 List<machine> machines = machine.tousLesMachinesByPosteDeTravail(posteId, connection);
 
-                // Draw a blue rectangle if there are machines
                 if (!machines.isEmpty()) {
-                    ctx.setFillStyle("#0000FF"); // Blue color
+                    ctx.setFillStyle("#0000FF");
                     ctx.beginPath();
-                    ctx.fillRect(x2, y1, 5, 5); // Adjust the position and size based on your preference
+                    ctx.fillRect(x2, y1, 5, 5);
                     ctx.fill();
                 }
 
-                // Check if there are operators for this workstation
                 List<operateur> operateurs = operateur.tousLesOperateursByPosteDeTravail(posteId, connection);
-
-                // Draw a red rectangle if there are operators
                 if (!operateurs.isEmpty()) {
-                    ctx.setFillStyle("#FF0000"); // Red color
+                    ctx.setFillStyle("#FF0000");
                     ctx.beginPath();
-                    ctx.fillRect(x2 , y1 +5, 5, 5); // Adjust the position and size based on your preference
+                    ctx.fillRect(x2 , y1 +5, 5, 5);
                     ctx.fill();
                 }
             } catch (NumberFormatException | SQLException ex) {
@@ -146,10 +139,6 @@ public class technicien_PlanUsine extends VerticalLayout {
     }
 
 
-
-
-
-    
     private void logEvent(String eventType, MouseEvent me) {
 //        drawHouse();
         //ctx.setStrokeStyle("#000000"); // Black color
@@ -168,7 +157,6 @@ public class technicien_PlanUsine extends VerticalLayout {
             this.x = me.getOffsetX();
             this.y = me.getOffsetY();
         }else if (poste_de_travail.IsIn(me.getOffsetX(),me.getOffsetY(),(Connection) VaadinSession.getCurrent().getAttribute("conn"))&&("ajout".equals(this.action))){
-            //verifier qu'aucune coordonée ne se trouve dans un poste de travail existant
             Notification.show("impossible de creer le pdt ");
             this.x= -1;
             this.y = -1;
@@ -195,16 +183,12 @@ public class technicien_PlanUsine extends VerticalLayout {
     private void Modifier_poste_de_travail(MouseEvent me){
         if (poste_de_travail.IsIn(me.getOffsetX(),me.getOffsetY(),(Connection) VaadinSession.getCurrent().getAttribute("conn"))&&("modifier".equals(this.action))){
             
-            
             List<Integer> id_pdt_l = poste_de_travail.getAll(me.getOffsetX(), me.getOffsetY(), (Connection) VaadinSession.getCurrent().getAttribute("conn"));
             int id_pdt = id_pdt_l.get(0);
             Notification.show("essai de modifier le pdt " + id_pdt);
             showDialogModif(id_pdt);
-            
-            
             this.x= -1;
             this.y = -1;   
-            //UI.getCurrent().getPage().reload();
         }
     }
     
@@ -260,26 +244,16 @@ public class technicien_PlanUsine extends VerticalLayout {
             Grid<operateur> gridOperateurs = new Grid<>(operateur.class);
             gridOperateurs.setItems(operateurs);
 
-            // Adjust the columns based on your operateur class properties
             gridOperateurs.setColumns("id_operateur", "nom_operateur", "prenom_operateur");
-
-            // Set a fixed or maximum height for the Grid
             gridOperateurs.setMaxHeight("200px");
-
             enterDialog.add(gridOperateurs);
         } catch (SQLException ex) {
             Notification.show("Essai de modif échoué pour les opérateurs : " + ex.getMessage());
         }
-
-        // Close button
         Button closeButton = new Button("Fermer", event -> enterDialog.close());
         enterDialog.add(closeButton);
-
-        // Open the modal window
         enterDialog.open();
     }
-
-    // Method to open a sub-dialog for adding a machine
     private void openAddMachineDialog(int id_pdt) {
         Dialog addMachineDialog = new Dialog();
         addMachineDialog.setCloseOnOutsideClick(true);
@@ -291,7 +265,6 @@ public class technicien_PlanUsine extends VerticalLayout {
         addMachineDialog.add(ajoutMachineLayout);
         addMachineDialog.open();
     }
-    // Method to open a sub-dialog for adding a machine
     private void openAddOperateurDialog(int id_pdt) {
         Dialog addMachineDialog = new Dialog();
         addMachineDialog.setCloseOnOutsideClick(true);
@@ -303,8 +276,6 @@ public class technicien_PlanUsine extends VerticalLayout {
         addMachineDialog.add(ajoutMachineLayout);
         addMachineDialog.open();
     }
-
-
 
     private void Supprimer_poste_de_travail(MouseEvent me){
         //Notification.show("s");
@@ -318,10 +289,9 @@ public class technicien_PlanUsine extends VerticalLayout {
     }
     
     private void showDialogAjout(MouseEvent me) {
-        // Créer une fenêtre modale
         Dialog enterDialog = new Dialog();
         enterDialog.setCloseOnOutsideClick(true);
-        enterDialog.setWidth("700px"); // Ajustez la largeur selon vos besoins
+        enterDialog.setWidth("700px"); 
         enterDialog.setModal(true);
 
         VerticalLayout V1 = new VerticalLayout();
@@ -334,7 +304,6 @@ public class technicien_PlanUsine extends VerticalLayout {
             try {
                 pdt.save_poste_de_travail((Connection) VaadinSession.getCurrent().getAttribute("conn"));
                 Notification.show("nouveau pdt : " + pdt);
-                //UI.getCurrent().getPage().reload();
             } catch(SQLException ex) {
                 Notification.show("Problème BdD : ajout pdt : " + ex);
             }
@@ -344,22 +313,17 @@ public class technicien_PlanUsine extends VerticalLayout {
         });
         okButton.addClickShortcut(Key.ENTER);
         V1.add(rech,okButton);
-        // Close button
         Button closeButton = new Button("Fermer", event -> enterDialog.close());
         enterDialog.add(closeButton);
 
-        // Ouvrir la fenêtre modale
         enterDialog.open();
-        
     }
     
     private void drawGrid(String couleur, int espacement) {
-        int gridSize = espacement; // Adjust the grid size as needed
+        int gridSize = espacement; 
 
-        // Set the stroke style for the grid lines
-        ctx.setStrokeStyle(couleur); // Black color
+        ctx.setStrokeStyle(couleur); 
 
-        // Draw vertical grid lines
         for (int x = 0; x <= 1000; x += gridSize) {
             ctx.beginPath();
             ctx.moveTo(x, 0);
@@ -367,7 +331,6 @@ public class technicien_PlanUsine extends VerticalLayout {
             ctx.stroke();
         }
 
-        // Draw horizontal grid lines
         for (int y = 0; y <= 1000; y += gridSize) {
             ctx.beginPath();
             ctx.moveTo(0, y);
@@ -396,6 +359,5 @@ public class technicien_PlanUsine extends VerticalLayout {
 //        ctx.restore();
 //    }
 
-    //Salut !
     
 }

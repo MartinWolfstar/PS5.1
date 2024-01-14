@@ -19,10 +19,6 @@ import static fr.insa.binder.projets5.mavenproject1.gui.technicien.technicienMac
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/**
- *
- * @author melan
- */
 public class Etat_d_une_machine extends VerticalLayout {
     private Grid_etat_d_une_machine grid;
     private ComboBox id_machine_select;
@@ -49,7 +45,6 @@ public class Etat_d_une_machine extends VerticalLayout {
             id_machine_select.getValue().getClass();
             System.out.println(id_machine_select.getValue().getClass());
             try {
-                System.out.println("Coucou");
                 //id_int = Integer.parseInt(id_machine_select.getValue());
                 this.grid.setEtat(get_etat_d_une_machine((Connection) VaadinSession.getCurrent().getAttribute("conn"),Integer.valueOf((String) id_machine_select.getValue())));
             } catch (SQLException ex) {
@@ -58,12 +53,5 @@ public class Etat_d_une_machine extends VerticalLayout {
             
         });
         this.add(id_machine_select,soumettre,grid);
-    }
-    private void stylisation() {
-        
-        soumettre.getStyle()
-                .set("color", "Crimson")
-                .set("background-color", "PowderBlue");
-        
     }
 }

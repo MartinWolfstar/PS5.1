@@ -50,16 +50,7 @@ public class Supp_type_operation extends VerticalLayout{
                Notification.show("Problème BdD : sto2");
             }
         this.add(new H3("Supprimer type Operation"));
-        this.add(menu_bar);
-        stylisation();
-    }
-    private void stylisation() {
-        
-        id.getStyle()
-                .set("color", "Crimson")
-                .set("background-color", "PowderBlue");
-
-        
+        this.add(menu_bar); 
     }      
 }
 

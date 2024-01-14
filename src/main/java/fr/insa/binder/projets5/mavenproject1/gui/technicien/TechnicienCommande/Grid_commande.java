@@ -24,7 +24,6 @@ public class Grid_commande extends Grid<commande> {
         this.addColumn(commande::getNom_commande).setHeader("Nom");
         this.addColumn(commande::getDes_commande).setHeader("Description");
         this.addColumn(commande::getId_client).setHeader("Id_client");
-        this.getStyle().setBackground("PowderBlue");
         
         this.addComponentColumn(commande -> {
             Button button = new Button("Operations necessaires", clickEvent -> {

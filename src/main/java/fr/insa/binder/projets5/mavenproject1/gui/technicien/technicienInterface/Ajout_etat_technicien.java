@@ -131,14 +131,5 @@ public class Ajout_etat_technicien extends VerticalLayout {
         this.add(new H6("Ajout etat"));
         this.HL.add(this.etatComboBox, this.debutDateTimePicker, this.finDateTimePicker);
         this.add(this.HL,this.valid);
-        
-        
-    }
-    private void stylisation() {
-        
-        valid.getStyle()
-                .set("color", "Crimson")
-                .set("background-color", "PowderBlue");
-        
     }
 }

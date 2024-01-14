@@ -150,8 +150,6 @@ public class Grid_realisation extends Grid<realisation>{
             });
             return button;
         }).setHeader("");
-        
-        this.getStyle().setBackground("PowderBlue");
         this.setMinHeight("100vh");
     }
 }
