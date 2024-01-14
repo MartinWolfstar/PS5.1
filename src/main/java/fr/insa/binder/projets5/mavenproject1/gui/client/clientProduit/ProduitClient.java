@@ -48,7 +48,7 @@ public class ProduitClient extends VerticalLayout{
     
     public ProduitClient() {
         
-        this.titre = new H3("Liste de toutes les Produits");
+        this.titre = new H3("Liste de toutes les Livres");
         this.add(titre);
         H1 = new HorizontalLayout();
         this.valid = new Button ("Acheter");

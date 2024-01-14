@@ -59,15 +59,6 @@ private MenuBar menu_bar;
         }
         this.add(new H3("Supprimer un état"));
         this.add(menu_bar);
-        stylisation();
-    }
-
-    private void stylisation() {
-
-        id.getStyle()
-                .set("color", "Crimson")
-                .set("background-color", "PowderBlue");
-
     }
 
 }

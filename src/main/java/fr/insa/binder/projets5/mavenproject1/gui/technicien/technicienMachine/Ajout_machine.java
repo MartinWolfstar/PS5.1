@@ -61,7 +61,7 @@ public class Ajout_machine extends VerticalLayout{
         });    
         this.HL = new HorizontalLayout();
         this.add(new H3("Ajout machine"));
-        this.HL.add(this.ref, this.des, this.valid);
-        this.add(this.HL);
+        this.HL.add(this.ref, this.des);
+        this.add(this.HL, this.valid);
     }
 }
