@@ -168,7 +168,7 @@ public class operation_effectuee {
     }
 
     public static void Save_m_bdd(List<operation_effectuee> liste, Connection con) throws SQLException {
-        
+
         List<List<Timestamp>> time_out = new ArrayList<>();
         List<Integer> id_m = new ArrayList<>();
         for (operation_effectuee op : liste) {
@@ -181,32 +181,31 @@ public class operation_effectuee {
         HashSet<Integer> ensembleSansDoublons = new HashSet<>(id_m);
         List<Integer> listeSansDoublons = new ArrayList<>(ensembleSansDoublons);
         System.out.println("Operateur travaillant " + listeSansDoublons);
-        for(int i : listeSansDoublons){
+        for (int i : listeSansDoublons) {
             List<List<Timestamp>> nouvelle_dispo = new ArrayList<>();
             List<List<Timestamp>> time_in = Disponiblité_machine(i, con);
             System.out.println("Ancienne dispo " + time_in);
             System.out.println("Nouvelle non dispo " + time_out);
             nouvelle_dispo = Verif_dispo(time_in, time_out);
             System.out.println("Nouvelle dispo " + nouvelle_dispo);
-            List<etat>  etat = tousLesEtats_m(con, i);
+            List<etat> etat = tousLesEtats_m(con, i);
             System.out.println(etat);
-            for (etat e : etat)  {
+            for (etat e : etat) {
                 e.supEtat(con);
                 System.out.println("Supp_etat");
             }
-            for (List<Timestamp> liste_time_in : nouvelle_dispo){
-                 etat etat_present = new etat(2, liste_time_in.get(0), liste_time_in.get(1));
-                 etat_present.save_etat(con);
-                 Machine__etat op_etat = new Machine__etat(i,etat_present.getId_etat());
-                 op_etat.saveInDBV1(con);
+            for (List<Timestamp> liste_time_in : nouvelle_dispo) {
+                etat etat_present = new etat(2, liste_time_in.get(0), liste_time_in.get(1));
+                etat_present.save_etat(con);
+                Machine__etat op_etat = new Machine__etat(i, etat_present.getId_etat());
+                op_etat.saveInDBV1(con);
             }
         }
-        
-        
+
     }
-    
+
     public static void Save_op_bdd(List<operation_effectuee> liste, Connection con) throws SQLException {
-        
+
         List<List<Timestamp>> time_out = new ArrayList<>();
         List<Integer> id_op = new ArrayList<>();
         for (operation_effectuee op : liste) {
@@ -219,28 +218,27 @@ public class operation_effectuee {
         HashSet<Integer> ensembleSansDoublons = new HashSet<>(id_op);
         List<Integer> listeSansDoublons = new ArrayList<>(ensembleSansDoublons);
         System.out.println("Operateur travaillant " + listeSansDoublons);
-        for(int i : listeSansDoublons){
+        for (int i : listeSansDoublons) {
             List<List<Timestamp>> nouvelle_dispo = new ArrayList<>();
             List<List<Timestamp>> time_in = Disponiblité_operateur(i, con);
             System.out.println("Ancienne dispo " + time_in);
             System.out.println("Nouvelle non dispo " + time_out);
             nouvelle_dispo = Verif_dispo(time_in, time_out);
             System.out.println("Nouvelle dispo " + nouvelle_dispo);
-            List<etat>  etat = tousLesEtats_op(con, i);
+            List<etat> etat = tousLesEtats_op(con, i);
             System.out.println(etat);
-            for (etat e : etat)  {
+            for (etat e : etat) {
                 e.supEtat(con);
                 System.out.println("Supp_etat");
             }
-            for (List<Timestamp> liste_time_in : nouvelle_dispo){
-                 etat etat_present = new etat(2, liste_time_in.get(0), liste_time_in.get(1));
-                 etat_present.save_etat(con);
-                 Operateur__etat op_etat = new Operateur__etat(i,etat_present.getId_etat());
-                 op_etat.saveInDBV1(con);
+            for (List<Timestamp> liste_time_in : nouvelle_dispo) {
+                etat etat_present = new etat(2, liste_time_in.get(0), liste_time_in.get(1));
+                etat_present.save_etat(con);
+                Operateur__etat op_etat = new Operateur__etat(i, etat_present.getId_etat());
+                op_etat.saveInDBV1(con);
             }
         }
-        
-        
+
     }
 
     public static List<operation_effectuee> Meilleurs_operation_produit(Connection con, exemplaire exempl) throws SQLException {
@@ -248,7 +246,7 @@ public class operation_effectuee {
         List<List<Operation>> liste = tousLesOrdreOperations_produit(con, exempl.getId_produit());
         List<operation_effectuee> meilleur_liste = new ArrayList<>();
         Operation operation = liste.get(0).get(0);
-        float min = 1000000000;
+        long min = 1000000000;
 //        float min = getDuree(operation.getId_typeOperation(), con).getDuree();
         System.out.print(min);
         for (List<Operation> liste_op : liste) {
@@ -258,30 +256,35 @@ public class operation_effectuee {
             Timestamp time_bis = time;
             System.out.println("TIME :" + time);
             for (Operation op : liste_op) {
-                operation_effectuee eff = meilleure_operation_eff(op, con, time);
+                System.out.println(time_bis);
+                operation_effectuee eff = meilleure_operation_eff(op, con, time_bis);
                 System.out.println(operation_eff);
                 if (eff.getId_operation() == -1) {
                     System.out.println("Impossible a produire !");
                     operation_eff.clear();
+                    duree = 1000000000;
                     break;
                 }
                 operation_effectuee eff_2 = new operation_effectuee(eff);
                 long temps = eff.Temps_timestamp();
+                System.out.println(time_bis);
                 time_bis.setTime(time_bis.getTime() + eff.Temps_timestamp_1());
                 long temps_2 = eff.Temps_timestamp_1();
-                duree = duree + temps_2;
+                duree = duree + temps;
                 eff_2.setId_exemplaire(exempl.getId_exemplaire());
+                System.out.println(eff_2);
                 operation_eff.add(eff_2);
                 System.out.println(duree);
             }
-            if ((duree < min) && (!operation_eff.isEmpty())) {
+            if (((duree / 100000) < min) && (!operation_eff.isEmpty())) {
                 min = duree;
                 System.out.print("Nouveau min" + min);
                 meilleur_liste = operation_eff;
             }
         }
+        System.out.println(meilleur_liste);
         Save_bdd(meilleur_liste, con);
-        Save_op_bdd(meilleur_liste, con);
+        //Save_op_bdd(meilleur_liste, con);
         //Save_m_bdd(meilleur_liste, con);
         return meilleur_liste;
     }
@@ -294,6 +297,7 @@ public class operation_effectuee {
         long min = 1705179261046L * 2;
         for (realisation re : real) {
             List<Integer> id_op = Liste_habilitation(re.getId_machine(), con);
+            System.out.println("AURORE" + re.getDuree());
             for (Integer id : id_op) {
                 List<Timestamp> debut_fin = Premiere_dispo(time, re.getDuree(), re.getId_machine(), id, con);
                 if (debut_fin.isEmpty()) {
@@ -302,7 +306,6 @@ public class operation_effectuee {
                     op_eff.setId_machine(re.getId_machine());
                     op_eff.setId_operateur(id);
                     op_eff.setId_operation(op.getId_operation());
-
                     op_eff.setDebut(debut_fin.get(0));
                     op_eff.setFin(debut_fin.get(1));
                 }
@@ -479,7 +482,7 @@ public class operation_effectuee {
     @Override
     public String toString() {
 
-        return "operation_effectuee" + "id_operation=" + getId_operation() + ", id_exemplaire=" + getId_exemplaire() + ", id_machine=" + getId_machine() + "debut" + getDebut() + "Fin" + getFin();
+        return "operation_effectuee" + "id_operation=" + getId_operation() + ", id_exemplaire=" + getId_exemplaire() + ", id_machine=" + getId_machine() + "id_op" + getId_operateur() + "debut" + getDebut() + "Fin" + getFin();
     }
 
 //     public static void set_id_operation(int id_operation, Connection con) throws SQLException {
