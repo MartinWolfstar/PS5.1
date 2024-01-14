@@ -7,6 +7,8 @@ package fr.insa.binder.projets5.mavenproject1;
 import static fr.insa.binder.projets5.mavenproject1.Gestion.connectSurServeurM3;
 import static fr.insa.binder.projets5.mavenproject1.Operation.Machine_operation;
 import static fr.insa.binder.projets5.mavenproject1.Precede.tousLesOrdreOperations_produit;
+import static fr.insa.binder.projets5.mavenproject1.etat.tousLesEtats_m;
+import static fr.insa.binder.projets5.mavenproject1.etat.tousLesEtats_op;
 import static fr.insa.binder.projets5.mavenproject1.exemplaire.get_ex;
 import static fr.insa.binder.projets5.mavenproject1.machine.Liste_habilitation;
 import static fr.insa.binder.projets5.mavenproject1.operateur.tousLesOperateur;
@@ -19,6 +21,7 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashSet;
 import java.util.List;
 
 /**
@@ -122,8 +125,8 @@ public class operation_effectuee {
         }
         return res;
     }
-    
-        public static List<operation_effectuee> tous_les_operation_effectuees_ex(Connection con, int id_ex) throws SQLException {
+
+    public static List<operation_effectuee> tous_les_operation_effectuees_ex(Connection con, int id_ex) throws SQLException {
         List<operation_effectuee> res = new ArrayList<>();
         try (PreparedStatement pst = con.prepareStatement(
                 "select id_operation, id_machine, id_exemplaire, id_operateur, debut, fin from operations_effectuees_bof where id_exemplaire = ?")) {
@@ -158,12 +161,88 @@ public class operation_effectuee {
         return min;
     }
 
-    public static void Save_bdd (List<operation_effectuee> liste, Connection con) throws SQLException {
-        for (operation_effectuee op : liste){
+    public static void Save_bdd(List<operation_effectuee> liste, Connection con) throws SQLException {
+        for (operation_effectuee op : liste) {
             op.saveInDBV1(con);
         }
     }
+
+    public static void Save_m_bdd(List<operation_effectuee> liste, Connection con) throws SQLException {
+        
+        List<List<Timestamp>> time_out = new ArrayList<>();
+        List<Integer> id_m = new ArrayList<>();
+        for (operation_effectuee op : liste) {
+            List<Timestamp> temps = new ArrayList<>();
+            temps.add(op.getDebut());
+            temps.add(op.getFin());
+            time_out.add(temps);
+            id_m.add(op.getId_machine());
+        }
+        HashSet<Integer> ensembleSansDoublons = new HashSet<>(id_m);
+        List<Integer> listeSansDoublons = new ArrayList<>(ensembleSansDoublons);
+        System.out.println("Operateur travaillant " + listeSansDoublons);
+        for(int i : listeSansDoublons){
+            List<List<Timestamp>> nouvelle_dispo = new ArrayList<>();
+            List<List<Timestamp>> time_in = Disponiblité_machine(i, con);
+            System.out.println("Ancienne dispo " + time_in);
+            System.out.println("Nouvelle non dispo " + time_out);
+            nouvelle_dispo = Verif_dispo(time_in, time_out);
+            System.out.println("Nouvelle dispo " + nouvelle_dispo);
+            List<etat>  etat = tousLesEtats_m(con, i);
+            System.out.println(etat);
+            for (etat e : etat)  {
+                e.supEtat(con);
+                System.out.println("Supp_etat");
+            }
+            for (List<Timestamp> liste_time_in : nouvelle_dispo){
+                 etat etat_present = new etat(2, liste_time_in.get(0), liste_time_in.get(1));
+                 etat_present.save_etat(con);
+                 Machine__etat op_etat = new Machine__etat(i,etat_present.getId_etat());
+                 op_etat.saveInDBV1(con);
+            }
+        }
+        
+        
+    }
     
+    public static void Save_op_bdd(List<operation_effectuee> liste, Connection con) throws SQLException {
+        
+        List<List<Timestamp>> time_out = new ArrayList<>();
+        List<Integer> id_op = new ArrayList<>();
+        for (operation_effectuee op : liste) {
+            List<Timestamp> temps = new ArrayList<>();
+            temps.add(op.getDebut());
+            temps.add(op.getFin());
+            time_out.add(temps);
+            id_op.add(op.getId_operateur());
+        }
+        HashSet<Integer> ensembleSansDoublons = new HashSet<>(id_op);
+        List<Integer> listeSansDoublons = new ArrayList<>(ensembleSansDoublons);
+        System.out.println("Operateur travaillant " + listeSansDoublons);
+        for(int i : listeSansDoublons){
+            List<List<Timestamp>> nouvelle_dispo = new ArrayList<>();
+            List<List<Timestamp>> time_in = Disponiblité_operateur(i, con);
+            System.out.println("Ancienne dispo " + time_in);
+            System.out.println("Nouvelle non dispo " + time_out);
+            nouvelle_dispo = Verif_dispo(time_in, time_out);
+            System.out.println("Nouvelle dispo " + nouvelle_dispo);
+            List<etat>  etat = tousLesEtats_op(con, i);
+            System.out.println(etat);
+            for (etat e : etat)  {
+                e.supEtat(con);
+                System.out.println("Supp_etat");
+            }
+            for (List<Timestamp> liste_time_in : nouvelle_dispo){
+                 etat etat_present = new etat(2, liste_time_in.get(0), liste_time_in.get(1));
+                 etat_present.save_etat(con);
+                 Operateur__etat op_etat = new Operateur__etat(i,etat_present.getId_etat());
+                 op_etat.saveInDBV1(con);
+            }
+        }
+        
+        
+    }
+
     public static List<operation_effectuee> Meilleurs_operation_produit(Connection con, exemplaire exempl) throws SQLException {
 //        Timestamp time = new Timestamp(System.currentTimeMillis());
         List<List<Operation>> liste = tousLesOrdreOperations_produit(con, exempl.getId_produit());
@@ -188,8 +267,8 @@ public class operation_effectuee {
                 }
                 operation_effectuee eff_2 = new operation_effectuee(eff);
                 long temps = eff.Temps_timestamp();
-                time_bis.setTime(time_bis.getTime() + temps);
-                long temps_2 =eff.Temps_timestamp_1();
+                time_bis.setTime(time_bis.getTime() + eff.Temps_timestamp_1());
+                long temps_2 = eff.Temps_timestamp_1();
                 duree = duree + temps_2;
                 eff_2.setId_exemplaire(exempl.getId_exemplaire());
                 operation_eff.add(eff_2);
@@ -202,6 +281,8 @@ public class operation_effectuee {
             }
         }
         Save_bdd(meilleur_liste, con);
+        Save_op_bdd(meilleur_liste, con);
+        //Save_m_bdd(meilleur_liste, con);
         return meilleur_liste;
     }
 
@@ -234,7 +315,7 @@ public class operation_effectuee {
     public long Temps_timestamp() {
         return this.fin.getTime() - this.debut.getTime();
     }
-    
+
     public long Temps_timestamp_1() {
         return this.fin.getTime() - System.currentTimeMillis();
     }
