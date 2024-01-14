@@ -47,13 +47,15 @@ public class CommentaireClient extends VerticalLayout {
     private Button boutonAjoutCommentaire;
     private HorizontalLayout HL;
     private VerticalLayout VL;
-    private VerticalLayout VL2;
+    private HorizontalLayout VL2;
+    private VerticalLayout VL3;
 
     public CommentaireClient() {
         this.menu_bar = new MenuBar();
         this.HL = new HorizontalLayout();
         this.VL = new VerticalLayout();
-        this.VL2 = new VerticalLayout();
+        this.VL3 = new VerticalLayout();
+        this.VL2 = new HorizontalLayout();
         this.id = menu_bar.addItem("Sélectionner l'identifiant du produit");
         SubMenu id_sub = id.getSubMenu();
 
@@ -62,8 +64,9 @@ public class CommentaireClient extends VerticalLayout {
                 String selectedProduct = e.getSource().getText();
                 int selectedProductId = produit.getIdProduitParDescription(selectedProduct, (Connection) VaadinSession.getCurrent().getAttribute("conn"));
                 this.grid = new Grid_commentaire(commantaire.tousLescommentairesParProduit(selectedProductId, (Connection) VaadinSession.getCurrent().getAttribute("conn")));
-                this.add(new H6("Commentaires pour le produit : " + selectedProduct));
-                this.add(this.grid);
+                this.VL3.removeAll();
+                this.VL3.add(new H6("Commentaires pour le produit : " + selectedProduct));
+                this.VL3.add(this.grid);
             } catch (SQLException ex) {
                 Notification.show("Problème BdD : " + ex.getMessage());
             }
@@ -99,7 +102,7 @@ public class CommentaireClient extends VerticalLayout {
         VL.add(new H6("Pour rajouter un commentaire :"),comboBoxProduits,nouveauCommentaire,boutonAjoutCommentaire);
         VL2.add(new H6("Pour voir les commentaires :"),menu_bar);
         HL.add(VL2,VL);
-        this.add(HL);
+        this.add(HL,VL3);
         utile.stylisation(this);
     }
 
